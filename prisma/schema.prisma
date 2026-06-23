@@ -1,0 +1,232 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ExplanationMode {
+  BEGINNER
+  PARENT
+  ATHLETE
+  SCIENTIFIC
+}
+
+enum EvidenceLevel {
+  STRONG
+  MODERATE
+  LIMITED
+  INSUFFICIENT
+}
+
+enum ScanMethod {
+  IMAGE
+  PASTE
+  BARCODE
+  CAMERA
+}
+
+enum ConcernLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ScoreGrade {
+  A_PLUS
+  A
+  B
+  C
+  D
+  F
+}
+
+model User {
+  id            String          @id @default(cuid())
+  email         String          @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  role          Role            @default(USER)
+  preferredMode ExplanationMode @default(BEGINNER)
+  allergens     String[]        @default([])
+  avoidList     String[]        @default([])
+  dietaryNotes  String?
+  onboarded     Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  scans         Scan[]
+  bookmarks     Bookmark[]
+  searchHistory SearchHistory[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model IngredientCategory {
+  id          String       @id @default(cuid())
+  name        String
+  slug        String       @unique
+  description String       @db.Text
+  icon        String
+  color       String       @default("#10b981")
+  ingredients Ingredient[]
+}
+
+model Ingredient {
+  id               String              @id @default(cuid())
+  slug             String              @unique
+  name             String
+  aliases          String[]
+  eNumber          String?
+  categoryId       String
+  category         IngredientCategory  @relation(fields: [categoryId], references: [id])
+  purpose          String              @db.Text
+  purposeShort     String
+  benefits         String              @db.Text
+  concerns         String              @db.Text
+  sciConsensus     String              @db.Text
+  evidenceLevel    EvidenceLevel       @default(MODERATE)
+  fdaStatus        String              @default("Generally Recognized as Safe (GRAS)")
+  efsaStatus       String              @default("Approved")
+  fssaiStatus      String              @default("Permitted")
+  whoStatus        String              @default("Acceptable")
+  safetyScore      Int                 @default(70)
+  commonProducts   String[]
+  adiValue         String?
+  isNatural        Boolean             @default(false)
+  isVegan          Boolean             @default(true)
+  isOrganic        Boolean             @default(false)
+  references       ResearchReference[]
+  scanIngredients  ScanIngredient[]
+  bookmarks        Bookmark[]
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  @@index([name])
+  @@index([categoryId])
+}
+
+model ResearchReference {
+  id           String     @id @default(cuid())
+  ingredientId String
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  title        String
+  authors      String
+  journal      String
+  year         Int
+  doi          String?
+  url          String?
+  findings     String     @db.Text
+  createdAt    DateTime   @default(now())
+}
+
+model Scan {
+  id             String           @id @default(cuid())
+  userId         String?
+  user           User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  method         ScanMethod
+  rawText        String?          @db.Text
+  imageUrl       String?
+  barcode        String?
+  productName    String?
+  brand          String?
+  overallScore   Int              @default(0)
+  grade          ScoreGrade       @default(B)
+  scoreBreakdown Json
+  ingredients    ScanIngredient[]
+  createdAt      DateTime         @default(now())
+
+  @@index([userId])
+}
+
+model ScanIngredient {
+  id            String       @id @default(cuid())
+  scanId        String
+  scan          Scan         @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  ingredientId  String?
+  ingredient    Ingredient?  @relation(fields: [ingredientId], references: [id], onDelete: SetNull)
+  rawName       String
+  normalizedName String?
+  position      Int
+  aiExplanation String       @db.Text
+  concernLevel  ConcernLevel @default(LOW)
+  isRecognized  Boolean      @default(false)
+}
+
+model Bookmark {
+  id           String      @id @default(cuid())
+  userId       String
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ingredientId String?
+  ingredient   Ingredient? @relation(fields: [ingredientId], references: [id], onDelete: SetNull)
+  scanId       String?
+  createdAt    DateTime    @default(now())
+
+  @@unique([userId, ingredientId])
+}
+
+model SearchHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  query     String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Article {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String   @db.Text
+  category    String
+  readTime    Int
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: "Inter", system-ui, sans-serif;
+  --font-geist-mono: "Geist Mono", monospace;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-white text-navy-900 antialiased;
+    font-family: var(--font-inter);
+  }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/70 border border-white/20;
+  }
+  .glass-dark {
+    @apply backdrop-blur-md bg-navy-900/80 border border-white/10;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-green-900 via-emerald to-green-600 bg-clip-text text-transparent;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-green-900 text-white rounded-xl font-semibold text-sm
+           hover:bg-green-800 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-white text-green-900 rounded-xl font-semibold text-sm
+           border-2 border-green-900/20 hover:border-green-900 transition-all duration-200 active:scale-95;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-navy-800 rounded-lg font-medium text-sm
+           hover:bg-gray-100 transition-all duration-200;
+  }
+  .section-padding {
+    @apply px-4 md:px-8 lg:px-16 xl:px-24;
+  }
+  .score-a-plus { @apply text-green-600 bg-green-50 border-green-200; }
+  .score-a      { @apply text-green-700 bg-green-50 border-green-200; }
+  .score-b      { @apply text-lime-700 bg-lime-50 border-lime-200; }
+  .score-c      { @apply text-amber-700 bg-amber-50 border-amber-200; }
+  .score-d      { @apply text-orange-700 bg-orange-50 border-orange-200; }
+  .score-f      { @apply text-red-700 bg-red-50 border-red-200; }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
