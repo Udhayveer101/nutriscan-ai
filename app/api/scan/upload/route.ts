@@ -28,11 +28,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Image must be under 10MB" }, { status: 400 });
     }
 
-    const { text, ingredientText, confidence } = await extractTextFromImageFile(file);
+    const { text, ingredientText, confidence, ocrProvider } = await extractTextFromImageFile(file);
 
-    return NextResponse.json({ rawText: text, ingredientText, confidence });
+    return NextResponse.json({ rawText: text, ingredientText, confidence, ocrProvider });
   } catch (error) {
+    const msg = (error as Error).message;
     console.error("OCR upload error:", error);
+
+    if (msg === "OCR_BOTH_FAILED") {
+      return NextResponse.json(
+        { error: "Both OCR providers failed. Please paste the ingredients manually." },
+        { status: 503 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Failed to process image. Please try again." },
       { status: 500 }

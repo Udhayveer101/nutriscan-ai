@@ -1,25 +1,23 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-export async function extractTextFromImage(
+// ── Gemini OCR ────────────────────────────────────────────────────────────────
+
+async function ocrWithGemini(
   imageBase64: string,
-  mimeType = "image/jpeg"
-): Promise<{ text: string; confidence: number }> {
+  mimeType: string
+): Promise<string> {
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-  // HEIC → treat as jpeg for the API
   const safeMime = (
     mimeType.includes("heic") || mimeType.includes("heif") ? "image/jpeg" : mimeType
   ) as "image/jpeg" | "image/png" | "image/webp" | "image/gif";
 
   const result = await model.generateContent([
-    {
-      inlineData: {
-        mimeType: safeMime,
-        data: imageBase64,
-      },
-    },
+    { inlineData: { mimeType: safeMime, data: imageBase64 } },
     {
       text: `You are reading a food product label. Extract ALL text visible on the label exactly as it appears.
 
@@ -37,10 +35,59 @@ Output the raw transcribed text only. No explanations.`,
     },
   ]);
 
-  const text = result.response.text().trim();
-  const confidence = text.length > 200 ? 0.95 : text.length > 80 ? 0.80 : text.length > 20 ? 0.55 : 0.2;
+  return result.response.text().trim();
+}
 
-  return { text, confidence };
+// ── Groq Vision OCR (fallback) ────────────────────────────────────────────────
+
+async function ocrWithGroq(
+  imageBase64: string,
+  mimeType: string
+): Promise<string> {
+  const safeMime = (
+    mimeType.includes("heic") || mimeType.includes("heif") ? "image/jpeg" : mimeType
+  );
+
+  const completion = await groq.chat.completions.create({
+    model: "meta-llama/llama-4-scout-17b-16e-instruct",
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "image_url",
+            image_url: { url: `data:${safeMime};base64,${imageBase64}` },
+          },
+          {
+            type: "text",
+            text: `You are reading a food product label. Extract ALL text visible on the label exactly as it appears.
+
+Focus especially on:
+- The INGREDIENTS list (may start with "Ingredients:", "INGREDIENTS:", "Ingrédients:" etc.)
+- Any text in parentheses (sub-ingredients)
+- "Contains less than X% of:" sections
+- E-numbers like E211, E322, etc.
+- Percentage values next to ingredients
+
+Do NOT summarize — transcribe verbatim, preserving parentheses, commas and structure exactly as seen.
+
+Output the raw transcribed text only. No explanations.`,
+          },
+        ],
+      },
+    ],
+    max_tokens: 1024,
+  });
+
+  return completion.choices[0]?.message?.content?.trim() ?? "";
+}
+
+// ── Shared helpers ─────────────────────────────────────────────────────────────
+
+function isQuotaError(err: unknown): boolean {
+  const msg = String((err as { message?: string })?.message ?? "").toLowerCase();
+  const status = (err as { status?: number })?.status;
+  return status === 429 || msg.includes("quota") || msg.includes("rate limit") || msg.includes("resource_exhausted");
 }
 
 export function findIngredientSection(rawText: string): string {
@@ -72,10 +119,13 @@ export function findIngredientSection(rawText: string): string {
   return rawText;
 }
 
+// ── Public API ─────────────────────────────────────────────────────────────────
+
 export async function extractTextFromImageFile(file: File): Promise<{
   text: string;
   ingredientText: string;
   confidence: number;
+  ocrProvider: "gemini" | "groq";
 }> {
   const arrayBuffer = await file.arrayBuffer();
   const base64 = Buffer.from(arrayBuffer).toString("base64");
@@ -88,8 +138,43 @@ export async function extractTextFromImageFile(file: File): Promise<{
      name.endsWith(".png")  ? "image/png"  :
      "image/jpeg");
 
-  const { text, confidence } = await extractTextFromImage(base64, mimeType);
-  const ingredientText = findIngredientSection(text);
+  let text = "";
+  let ocrProvider: "gemini" | "groq" = "gemini";
 
-  return { text, ingredientText, confidence };
+  // Try Gemini first
+  try {
+    text = await ocrWithGemini(base64, mimeType);
+  } catch (geminiErr) {
+    const isQuota = isQuotaError(geminiErr);
+    console.warn(
+      isQuota
+        ? "Gemini quota exceeded — falling back to Groq vision"
+        : "Gemini OCR failed — falling back to Groq vision",
+      geminiErr
+    );
+
+    // Fallback to Groq vision
+    try {
+      text = await ocrWithGroq(base64, mimeType);
+      ocrProvider = "groq";
+    } catch (groqErr) {
+      console.error("Both Gemini and Groq OCR failed", groqErr);
+      throw new Error("OCR_BOTH_FAILED");
+    }
+  }
+
+  if (!text || text.length < 10) {
+    // Gemini returned but empty — try Groq as fallback
+    try {
+      text = await ocrWithGroq(base64, mimeType);
+      ocrProvider = "groq";
+    } catch {
+      // Both attempted — return whatever we have
+    }
+  }
+
+  const ingredientText = findIngredientSection(text);
+  const confidence = text.length > 200 ? 0.95 : text.length > 80 ? 0.80 : text.length > 20 ? 0.55 : 0.2;
+
+  return { text, ingredientText, confidence, ocrProvider };
 }
