@@ -2,19 +2,18 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, Camera, FileText, Barcode, Loader2, AlertCircle } from "lucide-react";
+import { Upload, FileText, Barcode, Loader2, AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { UploadTab } from "./UploadTab";
 import { PasteTab } from "./PasteTab";
 import { BarcodeTab } from "./BarcodeTab";
 import { ModeSelector } from "./ModeSelector";
 
-export type ScanTab = "upload" | "camera" | "paste" | "barcode";
+export type ScanTab = "upload" | "paste" | "barcode";
 export type AnalysisMode = "BEGINNER" | "PARENT" | "ATHLETE" | "SCIENTIFIC";
 
 const TABS: { id: ScanTab; label: string; icon: typeof Upload; short: string }[] = [
   { id: "upload",  label: "Upload Photo", icon: Upload,   short: "Photo" },
-  { id: "camera",  label: "Camera",       icon: Camera,   short: "Camera" },
   { id: "paste",   label: "Paste Text",   icon: FileText, short: "Text" },
   { id: "barcode", label: "Barcode",      icon: Barcode,  short: "Barcode" },
 ];
@@ -100,23 +99,7 @@ export function ScannerInterface() {
               {activeTab === "upload" && (
                 <UploadTab onAnalyze={handleAnalyze} isLoading={isAnalyzing} />
               )}
-              {activeTab === "camera" && (
-                <div className="text-center py-14">
-                  <div className="w-20 h-20 rounded-[22px] bg-gray-100 flex items-center justify-center mx-auto mb-5">
-                    <Camera className="w-9 h-9 text-gray-400" strokeWidth={1.5} />
-                  </div>
-                  <p className="font-semibold text-gray-900 text-[17px]">Camera Scan</p>
-                  <p className="text-[14px] text-gray-500 mt-1.5 max-w-xs mx-auto leading-relaxed">
-                    Point your camera at any ingredient list. Works best with good lighting.
-                  </p>
-                  <button
-                    onClick={() => setActiveTab("upload")}
-                    className="mt-5 btn-secondary text-[14px] mx-auto"
-                  >
-                    Upload a photo instead
-                  </button>
-                </div>
-              )}
+
               {activeTab === "paste" && (
                 <PasteTab onAnalyze={handleAnalyze} isLoading={isAnalyzing} />
               )}
