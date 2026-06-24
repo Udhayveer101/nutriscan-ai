@@ -2,78 +2,180 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Apple system font stack — uses SF Pro on iOS/macOS automatically */
 :root {
-  --font-inter: "Inter", system-ui, sans-serif;
-  --font-geist-mono: "Geist Mono", monospace;
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", monospace;
+
+  /* iOS-inspired colour tokens */
+  --ios-bg: #f2f2f7;
+  --ios-surface: #ffffff;
+  --ios-surface2: #f2f2f7;
+  --ios-surface3: #e5e5ea;
+  --ios-separator: rgba(60, 60, 67, 0.12);
+  --ios-label: #000000;
+  --ios-label2: rgba(60, 60, 67, 0.6);
+  --ios-label3: rgba(60, 60, 67, 0.3);
+  --ios-green: #34c759;
+  --ios-blue: #007aff;
+  --ios-red: #ff3b30;
+  --ios-orange: #ff9500;
+  --ios-yellow: #ffcc00;
+  --ios-tint: #1a5c2a;
 }
 
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
   html {
     @apply scroll-smooth;
+    /* Prevent font scaling in landscape on iOS */
+    -webkit-text-size-adjust: 100%;
   }
+
   body {
-    @apply bg-white text-navy-900 antialiased;
-    font-family: var(--font-inter);
+    background-color: var(--ios-bg);
+    color: var(--ios-label);
+    font-family: var(--font-system);
+    @apply antialiased;
+    /* Safe area padding for iPhone notch/home bar */
+    padding-bottom: env(safe-area-inset-bottom);
   }
+
+  /* Remove 300ms tap delay on touch devices */
+  a, button { touch-action: manipulation; }
 }
 
 @layer components {
-  .glass {
-    @apply backdrop-blur-md bg-white/70 border border-white/20;
+  /* ── iOS-style glass nav ────────────────────────────────── */
+  .ios-glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 0.5px solid var(--ios-separator);
   }
-  .glass-dark {
-    @apply backdrop-blur-md bg-navy-900/80 border border-white/10;
+
+  /* ── Cards ──────────────────────────────────────────────── */
+  .ios-card {
+    @apply bg-white rounded-2xl;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06), 0 0.5px 0 rgba(0,0,0,0.04);
+  }
+  .ios-card-inset {
+    background: var(--ios-surface2);
+    @apply rounded-2xl;
+  }
+
+  /* ── List rows (iOS settings style) ────────────────────── */
+  .ios-row {
+    @apply flex items-center gap-3 px-4 py-3.5 bg-white;
+    border-bottom: 0.5px solid var(--ios-separator);
+  }
+  .ios-row:last-child { border-bottom: none; }
+  .ios-row-group { @apply overflow-hidden rounded-2xl; }
+
+  /* ── Buttons ────────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5
+           rounded-2xl font-semibold text-[15px] text-white
+           transition-all duration-150 active:scale-[0.97] select-none;
+    background: var(--ios-tint);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .btn-primary:hover { filter: brightness(1.05); }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5
+           rounded-2xl font-semibold text-[15px]
+           transition-all duration-150 active:scale-[0.97] select-none;
+    background: rgba(26, 92, 42, 0.1);
+    color: var(--ios-tint);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2.5 rounded-xl
+           font-medium text-sm transition-all duration-150 active:scale-[0.97];
+    color: var(--ios-tint);
+  }
+  .btn-ghost:hover { background: rgba(26, 92, 42, 0.06); }
+
+  /* ── Segmented control (iOS style) ─────────────────────── */
+  .ios-segment-bar {
+    @apply flex p-1 rounded-xl;
+    background: var(--ios-surface3);
+  }
+  .ios-segment {
+    @apply flex-1 flex items-center justify-center gap-1.5 py-2 px-3
+           rounded-[10px] text-[13px] font-semibold transition-all duration-200
+           cursor-pointer select-none;
+    color: var(--ios-label2);
+  }
+  .ios-segment.active {
+    @apply bg-white;
+    color: var(--ios-label);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12), 0 0.5px 0 rgba(0,0,0,0.06);
+  }
+
+  /* ── Bottom tab bar ─────────────────────────────────────── */
+  .ios-tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 8px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 0.5px solid var(--ios-separator);
+  }
+
+  .ios-tab-item {
+    @apply flex flex-col items-center gap-0.5 py-1 flex-1 cursor-pointer
+           transition-all duration-100 active:scale-90;
+    min-height: 44px;
+  }
+
+  /* ── Score chips ────────────────────────────────────────── */
+  .score-a-plus { @apply text-green-700 bg-green-50; }
+  .score-a      { @apply text-green-700 bg-green-50; }
+  .score-b      { @apply text-lime-700 bg-lime-50; }
+  .score-c      { @apply text-amber-700 bg-amber-50; }
+  .score-d      { @apply text-orange-700 bg-orange-50; }
+  .score-f      { @apply text-red-700 bg-red-50; }
+
+  /* ── Section header (iOS grouped style) ─────────────────── */
+  .ios-section-title {
+    @apply text-[13px] font-semibold uppercase tracking-wide px-4 pb-1;
+    color: var(--ios-label2);
+  }
+
+  /* Misc helpers */
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
   .gradient-text {
-    @apply bg-gradient-to-r from-green-900 via-emerald to-green-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-green-800 to-green-600 bg-clip-text text-transparent;
   }
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+    @apply transition-all duration-200 hover:shadow-md active:scale-[0.99];
   }
-  .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-green-900 text-white rounded-xl font-semibold text-sm
-           hover:bg-green-800 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
-  }
-  .btn-secondary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-white text-green-900 rounded-xl font-semibold text-sm
-           border-2 border-green-900/20 hover:border-green-900 transition-all duration-200 active:scale-95;
-  }
-  .btn-ghost {
-    @apply inline-flex items-center gap-2 px-4 py-2 text-navy-800 rounded-lg font-medium text-sm
-           hover:bg-gray-100 transition-all duration-200;
-  }
-  .section-padding {
-    @apply px-4 md:px-8 lg:px-16 xl:px-24;
-  }
-  .score-a-plus { @apply text-green-600 bg-green-50 border-green-200; }
-  .score-a      { @apply text-green-700 bg-green-50 border-green-200; }
-  .score-b      { @apply text-lime-700 bg-lime-50 border-lime-200; }
-  .score-c      { @apply text-amber-700 bg-amber-50 border-amber-200; }
-  .score-d      { @apply text-orange-700 bg-orange-50 border-orange-200; }
-  .score-f      { @apply text-red-700 bg-red-50 border-red-200; }
+  .section-padding { @apply px-4 md:px-8 lg:px-16; }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  .animate-delay-100 { animation-delay: 100ms; }
-  .animate-delay-200 { animation-delay: 200ms; }
-  .animate-delay-300 { animation-delay: 300ms; }
-  .animate-delay-400 { animation-delay: 400ms; }
+  .text-balance { text-wrap: balance; }
+  .safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+  .pb-tab-bar { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+/* Refined scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+::-webkit-scrollbar-thumb { background: #c7c7cc; border-radius: 4px; }
 
 /* Focus ring */
-*:focus-visible {
-  outline: 2px solid #10b981;
-  outline-offset: 2px;
-}
+*:focus-visible { outline: 2px solid var(--ios-tint); outline-offset: 2px; border-radius: 4px; }

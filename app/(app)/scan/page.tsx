@@ -8,15 +8,12 @@ export const metadata: Metadata = {
 
 export default function ScanPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50/50 via-white to-blue-50/20 pt-24 pb-16">
-      <div className="max-w-4xl mx-auto px-4 md:px-8">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-navy-900 mb-4">
-            Scan Your Food
-          </h1>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            Upload an image, use camera, paste an ingredient list, or scan a barcode.
-            Get instant AI-powered analysis.
+    <div className="min-h-screen pb-tab-bar md:pb-16 pt-14 md:pt-20" style={{ background: "var(--ios-bg)" }}>
+      <div className="max-w-2xl mx-auto px-4">
+        <div className="pt-6 pb-5">
+          <h1 className="text-[28px] font-bold tracking-tight text-gray-900">Scan Food</h1>
+          <p className="text-[15px] mt-1" style={{ color: "var(--ios-label2)" }}>
+            Upload a photo, paste ingredients, or scan a barcode for instant AI analysis.
           </p>
         </div>
         <ScannerInterface />

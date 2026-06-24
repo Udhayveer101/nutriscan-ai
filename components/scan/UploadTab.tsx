@@ -111,11 +111,11 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
           onClick={() => inputRef.current?.click()}
-          className={`relative border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all duration-200 ${
-            isDragging
-              ? "border-green-500 bg-green-50 scale-[1.01]"
-              : "border-gray-200 hover:border-green-400 hover:bg-green-50/50"
-          }`}
+          className="relative rounded-3xl p-10 text-center cursor-pointer transition-all duration-150 active:scale-[0.99] select-none"
+          style={{
+            background: isDragging ? "rgba(26,92,42,0.06)" : "var(--ios-surface2)",
+            border: `2px dashed ${isDragging ? "rgba(26,92,42,0.4)" : "rgba(60,60,67,0.15)"}`,
+          }}
         >
           <input
             ref={inputRef}
@@ -124,63 +124,59 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
             className="hidden"
             onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); }}
           />
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-green-50 border border-green-100 flex items-center justify-center">
-              <Upload className="w-7 h-7 text-green-700" />
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-16 h-16 rounded-[22px] flex items-center justify-center" style={{ background: "rgba(26,92,42,0.1)" }}>
+              <Upload className="w-7 h-7" style={{ color: "var(--ios-tint)" }} />
             </div>
             <div>
-              <p className="font-semibold text-gray-800 mb-1">
-                Drop your image here, or{" "}
-                <span className="text-green-700">browse</span>
+              <p className="font-semibold text-[16px] text-gray-900">
+                Tap to upload a photo
               </p>
-              <p className="text-sm text-gray-500">
-                PNG, JPG, WEBP, HEIC up to 10MB · Works with product labels, packaging photos
+              <p className="text-[13px] mt-1 leading-relaxed" style={{ color: "var(--ios-label2)" }}>
+                PNG, JPG, WEBP, HEIC · Works with ingredient labels & packaging
               </p>
             </div>
           </div>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {/* Preview */}
-          <div className="relative rounded-2xl overflow-hidden border border-gray-100 bg-gray-50">
+          <div className="relative rounded-2xl overflow-hidden" style={{ background: "var(--ios-surface2)" }}>
             {preview ? (
               <Image
                 src={preview}
                 alt="Uploaded food label"
                 width={600}
                 height={300}
-                className="w-full object-contain max-h-64"
+                className="w-full object-contain max-h-56"
               />
             ) : (
               <div className="flex flex-col items-center justify-center gap-2 py-10 px-4">
-                <ImageIcon className="w-10 h-10 text-gray-400" />
-                <p className="text-sm font-medium text-gray-700">{file?.name}</p>
-                <p className="text-xs text-gray-400">HEIC preview not supported in browser — extracting text…</p>
+                <ImageIcon className="w-10 h-10" style={{ color: "var(--ios-label3)" }} />
+                <p className="text-[14px] font-medium text-gray-700">{file?.name}</p>
+                <p className="text-[12px]" style={{ color: "var(--ios-label2)" }}>HEIC — extracting text…</p>
               </div>
             )}
             <button
               onClick={clearFile}
-              className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white shadow border border-gray-100 flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors"
+              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/40 backdrop-blur flex items-center justify-center"
             >
-              <X className="w-4 h-4 text-gray-600" />
+              <X className="w-4 h-4 text-white" />
             </button>
           </div>
 
           {/* OCR status */}
           {isExtracting && (
-            <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-xl text-sm text-blue-700">
-              <div className="w-4 h-4 border-2 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
-              Extracting ingredients via OCR...
+            <div className="flex items-center gap-2.5 p-3.5 rounded-2xl text-[13px]" style={{ background: "rgba(0,122,255,0.08)", color: "#0066cc" }}>
+              <div className="w-3.5 h-3.5 border-2 border-blue-300 border-t-blue-600 rounded-full animate-spin flex-shrink-0" />
+              Reading ingredient list…
             </div>
           )}
 
           {extractedText && (
-            <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
-              <div className="flex items-center gap-2 mb-2">
-                <ImageIcon className="w-4 h-4 text-green-700" />
-                <span className="text-sm font-semibold text-green-800">Extracted ingredients:</span>
-              </div>
-              <p className="text-xs text-green-700 leading-relaxed line-clamp-3">
+            <div className="p-4 rounded-2xl" style={{ background: "rgba(52,199,89,0.08)", border: "1px solid rgba(52,199,89,0.2)" }}>
+              <p className="text-[12px] font-semibold mb-1.5" style={{ color: "var(--ios-tint)" }}>Extracted ingredients:</p>
+              <p className="text-[12px] leading-relaxed line-clamp-3" style={{ color: "#1a5c2a" }}>
                 {extractedText}
               </p>
             </div>
@@ -191,7 +187,7 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
             disabled={!extractedText || isLoading || isExtracting}
             className="w-full btn-primary py-4 justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Analyze Ingredients
+            Analyse Ingredients
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

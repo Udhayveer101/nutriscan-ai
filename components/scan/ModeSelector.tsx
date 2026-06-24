@@ -2,11 +2,11 @@
 
 import { AnalysisMode } from "./ScannerInterface";
 
-const MODES: { id: AnalysisMode; label: string; emoji: string; desc: string }[] = [
-  { id: "BEGINNER", label: "Simple", emoji: "👤", desc: "Plain language" },
-  { id: "PARENT", label: "Parent", emoji: "👨‍👩‍👧", desc: "Family focus" },
-  { id: "ATHLETE", label: "Athlete", emoji: "🏃", desc: "Performance" },
-  { id: "SCIENTIFIC", label: "Scientific", emoji: "🔬", desc: "Technical" },
+const MODES: { id: AnalysisMode; emoji: string; label: string; desc: string }[] = [
+  { id: "BEGINNER",   emoji: "👤", label: "Simple",     desc: "Plain language" },
+  { id: "PARENT",     emoji: "👨‍👩‍👧", label: "Parent",     desc: "Kid safety" },
+  { id: "ATHLETE",    emoji: "🏃", label: "Athlete",    desc: "Performance" },
+  { id: "SCIENTIFIC", emoji: "🔬", label: "Scientific", desc: "Detailed" },
 ];
 
 interface Props {
@@ -16,28 +16,36 @@ interface Props {
 
 export function ModeSelector({ mode, onChange }: Props) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
-      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-        Explanation Mode
+    <div className="ios-card p-4">
+      <p className="text-[12px] font-semibold uppercase tracking-wide mb-3" style={{ color: "var(--ios-label2)" }}>
+        Analysis Mode
       </p>
       <div className="grid grid-cols-4 gap-2">
-        {MODES.map((m) => (
-          <button
-            key={m.id}
-            onClick={() => onChange(m.id)}
-            className={`flex flex-col items-center gap-1 py-3 px-2 rounded-xl border-2 transition-all duration-200 ${
-              mode === m.id
-                ? "border-green-900 bg-green-50"
-                : "border-transparent bg-gray-50 hover:border-gray-200"
-            }`}
-          >
-            <span className="text-xl">{m.emoji}</span>
-            <span className={`text-xs font-bold ${mode === m.id ? "text-green-900" : "text-gray-700"}`}>
-              {m.label}
-            </span>
-            <span className="text-[10px] text-gray-400 hidden sm:block">{m.desc}</span>
-          </button>
-        ))}
+        {MODES.map((m) => {
+          const active = mode === m.id;
+          return (
+            <button
+              key={m.id}
+              onClick={() => onChange(m.id)}
+              className="flex flex-col items-center gap-1 py-3 px-1 rounded-2xl transition-all duration-150 active:scale-95 select-none"
+              style={{
+                background: active ? "rgba(26,92,42,0.08)" : "var(--ios-surface2)",
+                border: active ? "1.5px solid rgba(26,92,42,0.25)" : "1.5px solid transparent",
+              }}
+            >
+              <span className="text-xl leading-none">{m.emoji}</span>
+              <span
+                className="text-[12px] font-semibold mt-0.5"
+                style={{ color: active ? "var(--ios-tint)" : "var(--ios-label)" }}
+              >
+                {m.label}
+              </span>
+              <span className="text-[10px] hidden sm:block" style={{ color: "var(--ios-label2)" }}>
+                {m.desc}
+              </span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
