@@ -3,6 +3,19 @@ import Groq from "groq-sdk";
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const MODEL = "llama-3.3-70b-versatile";
 
+async function withRetry<T>(fn: () => Promise<T>, retries = 2, delayMs = 500): Promise<T> {
+  let lastErr: unknown;
+  for (let i = 0; i <= retries; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      if (i < retries) await new Promise((r) => setTimeout(r, delayMs * (i + 1)));
+    }
+  }
+  throw lastErr;
+}
+
 const HONESTY_INSTRUCTION = `Be honest and direct. Do not sugarcoat health risks. If an ingredient has well-documented health concerns backed by credible sources (WHO, FDA, peer-reviewed studies), state them clearly. Do not use vague reassuring language like "generally considered safe" for ingredients with known risks. Reference specific studies or regulatory positions where relevant.`;
 
 export type ExplanationMode = "BEGINNER" | "PARENT" | "ATHLETE" | "SCIENTIFIC";
@@ -40,7 +53,7 @@ export interface IngredientExplanationRequest {
 export async function generateIngredientExplanation(
   req: IngredientExplanationRequest
 ): Promise<string> {
-  const completion = await groq.chat.completions.create({
+  const completion = await withRetry(() => groq.chat.completions.create({
     model: MODEL,
     messages: [
       { role: "system", content: MODE_SYSTEM_PROMPTS[req.mode] },
@@ -59,13 +72,13 @@ Provide:
 Keep your response to 150-200 words. Be honest and direct — do not sugarcoat known risks.`,
       },
     ],
-  });
+  }));
 
   return completion.choices[0]?.message?.content ?? "Analysis unavailable.";
 }
 
 export async function extractIngredientsFromText(text: string): Promise<string[]> {
-  const completion = await groq.chat.completions.create({
+  const completion = await withRetry(() => groq.chat.completions.create({
     model: MODEL,
     response_format: { type: "json_object" },
     messages: [
@@ -107,7 +120,7 @@ ${text}
 Response format: {"ingredients": ["Ingredient One", "Ingredient Two", ...]}`,
       },
     ],
-  });
+  }));
 
   const responseText = completion.choices[0]?.message?.content ?? "{}";
 
@@ -126,7 +139,7 @@ export async function generateProductSummary(
   scoreBreakdown: Record<string, number | string>,
   mode: ExplanationMode
 ): Promise<string> {
-  const completion = await groq.chat.completions.create({
+  const completion = await withRetry(() => groq.chat.completions.create({
     model: MODEL,
     messages: [
       { role: "system", content: MODE_SYSTEM_PROMPTS[mode] },
@@ -142,7 +155,7 @@ Do not soften the verdict for unhealthy products. Consumers deserve accurate inf
 If the score is below 50, this is an unhealthy product and your summary should reflect that.`,
       },
     ],
-  });
+  }));
 
   return completion.choices[0]?.message?.content ?? "";
 }

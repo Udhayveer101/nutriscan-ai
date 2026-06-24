@@ -20,15 +20,18 @@ export interface ProductData {
 
 export async function lookupBarcode(barcode: string): Promise<ProductData | null> {
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+
     const res = await fetch(
       `https://world.openfoodfacts.org/api/v2/product/${barcode}.json`,
       {
-        headers: {
-          "User-Agent": "NutriScanAI/1.0 (contact@nutriscan.ai)",
-        },
-        next: { revalidate: 3600 }, // cache for 1 hour
+        headers: { "User-Agent": "NutriScanAI/1.0 (contact@nutriscan.ai)" },
+        next: { revalidate: 86400 },
+        signal: controller.signal,
       }
     );
+    clearTimeout(timeout);
 
     if (!res.ok) return null;
 
@@ -51,7 +54,8 @@ export async function lookupBarcode(barcode: string): Promise<ProductData | null
         proteins_100g: product.nutriments?.proteins_100g,
       },
     };
-  } catch {
+  } catch (err) {
+    console.error("[barcode] lookup failed for", barcode, err);
     return null;
   }
 }

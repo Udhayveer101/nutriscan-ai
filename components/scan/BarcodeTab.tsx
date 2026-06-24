@@ -15,7 +15,7 @@ export function BarcodeTab({ onAnalyze, isLoading }: Props) {
   const [notFound, setNotFound] = useState(false);
 
   const handleLookup = async () => {
-    if (!barcode.trim()) return;
+    if (!barcode.trim() || isLooking) return;
     setIsLooking(true);
     setNotFound(false);
     setLookupResult(null);
@@ -24,7 +24,13 @@ export function BarcodeTab({ onAnalyze, isLoading }: Props) {
       const res = await fetch(`/api/scan/barcode?code=${encodeURIComponent(barcode.trim())}`);
       if (!res.ok) { setNotFound(true); return; }
       const data = await res.json();
-      setLookupResult(data);
+      if (data && data.name) {
+        setLookupResult(data);
+      } else {
+        setNotFound(true);
+      }
+    } catch {
+      setNotFound(true);
     } finally {
       setIsLooking(false);
     }

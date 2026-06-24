@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, DragEvent } from "react";
+import { useState, useRef, useCallback, useEffect, DragEvent } from "react";
 import { Upload, X, ImageIcon, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
@@ -16,30 +16,73 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
   const [isExtracting, setIsExtracting] = useState(false);
   const [extractedText, setExtractedText] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
+  const previewUrlRef = useRef<string | null>(null);
+
+  // Revoke blob URL on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
+      abortRef.current?.abort();
+    };
+  }, []);
 
   const isValidImage = (f: File) =>
     f.type.startsWith("image/") ||
     f.name.toLowerCase().endsWith(".heic") ||
     f.name.toLowerCase().endsWith(".heif");
 
+  const clearFile = useCallback(() => {
+    abortRef.current?.abort();
+    if (previewUrlRef.current) {
+      URL.revokeObjectURL(previewUrlRef.current);
+      previewUrlRef.current = null;
+    }
+    setFile(null);
+    setPreview(null);
+    setExtractedText(null);
+    setIsExtracting(false);
+    if (inputRef.current) inputRef.current.value = "";
+  }, []);
+
   const handleFile = useCallback(async (f: File) => {
     if (!isValidImage(f)) return;
-    setFile(f);
-    // HEIC files can't be previewed natively in browsers — show placeholder
-    const isHeic = f.name.toLowerCase().endsWith(".heic") || f.name.toLowerCase().endsWith(".heif");
-    setPreview(isHeic ? null : URL.createObjectURL(f));
-    setExtractedText(null);
 
-    // OCR extraction
+    // Cancel any in-flight OCR request
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    // Revoke previous preview URL before creating a new one
+    if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
+
+    setFile(f);
+    const isHeic = f.name.toLowerCase().endsWith(".heic") || f.name.toLowerCase().endsWith(".heif");
+    if (!isHeic) {
+      const url = URL.createObjectURL(f);
+      previewUrlRef.current = url;
+      setPreview(url);
+    } else {
+      previewUrlRef.current = null;
+      setPreview(null);
+    }
+    setExtractedText(null);
     setIsExtracting(true);
+
     try {
       const fd = new FormData();
       fd.append("image", f);
-      const res = await fetch("/api/scan/upload", { method: "POST", body: fd });
+      const res = await fetch("/api/scan/upload", {
+        method: "POST",
+        body: fd,
+        signal: controller.signal,
+      });
       const data = await res.json();
       if (data.ingredientText) setExtractedText(data.ingredientText);
-    } catch {
-      // OCR failed, user can proceed anyway
+    } catch (err) {
+      if ((err as Error).name !== "AbortError") {
+        // OCR failed silently — user can still proceed with manual text
+      }
     } finally {
       setIsExtracting(false);
     }
@@ -116,14 +159,14 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
               </div>
             )}
             <button
-              onClick={() => { setFile(null); setPreview(null); setExtractedText(null); }}
+              onClick={clearFile}
               className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white shadow border border-gray-100 flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors"
             >
               <X className="w-4 h-4 text-gray-600" />
             </button>
           </div>
 
-          {/* Extracted text preview */}
+          {/* OCR status */}
           {isExtracting && (
             <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-xl text-sm text-blue-700">
               <div className="w-4 h-4 border-2 border-blue-300 border-t-blue-600 rounded-full animate-spin" />

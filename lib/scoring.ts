@@ -47,10 +47,9 @@ export interface ScoreBreakdown {
   gradeLabel: string;
   processing: number;
   additiveDensity: number;
-  nutritionalValue: number;
+  ingredientQuality: number;
   sugarContent: number;
   sodiumContent: number;
-  ingredientQuality: number;
 }
 
 export interface IngredientInput {
@@ -197,10 +196,9 @@ export function calculateHealthScore(
     gradeLabel: gradeToLabel(scoreToGrade(overall)),
     processing: Math.round(processingScore),
     additiveDensity: Math.round(additiveDensityScore),
-    nutritionalValue: Math.round(avgQuality),
+    ingredientQuality: Math.round(avgQuality),
     sugarContent: Math.round(sugarScore),
     sodiumContent: Math.round(sodiumScore),
-    ingredientQuality: Math.round(avgQuality),
   };
 }
 
@@ -227,9 +225,8 @@ function defaultScore(): ScoreBreakdown {
     gradeLabel: "C",
     processing: 50,
     additiveDensity: 60,
-    nutritionalValue: 50,
+    ingredientQuality: 50,
     sugarContent: 60,
     sodiumContent: 60,
-    ingredientQuality: 50,
   };
 }

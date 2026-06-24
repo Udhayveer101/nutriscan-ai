@@ -33,24 +33,39 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No ingredients could be extracted from the provided text" }, { status: 422 });
     }
 
-    // 2. Look up each ingredient in DB
-    const dbIngredients = await Promise.all(
-      extractedNames.map(async (name) => {
-        const found = await prisma.ingredient.findFirst({
-          where: {
-            OR: [
-              { name: { equals: name, mode: "insensitive" } },
-              { aliases: { has: name } },
-              { eNumber: { equals: name, mode: "insensitive" } },
-            ],
-          },
-          include: { category: true },
-        });
-        return { rawName: name, ingredient: found };
-      })
-    );
+    // 2. Single DB query for all ingredients + user prefs in parallel
+    const [allFound, userPrefs] = await Promise.all([
+      prisma.ingredient.findMany({
+        where: {
+          OR: extractedNames.flatMap((name) => [
+            { name: { equals: name, mode: "insensitive" as const } },
+            { eNumber: { equals: name, mode: "insensitive" as const } },
+          ]),
+        },
+        include: { category: true },
+      }),
+      session?.user?.id
+        ? prisma.user.findUnique({
+            where: { id: session.user.id },
+            select: { allergens: true, avoidList: true },
+          })
+        : Promise.resolve(null),
+    ]);
 
-    // 3. Generate AI explanations for each ingredient
+    // Match each name to a DB record (in-memory, no extra queries)
+    const dbIngredients = extractedNames.map((name) => {
+      const lower = name.toLowerCase();
+      const ingredient =
+        allFound.find(
+          (r) =>
+            r.name.toLowerCase() === lower ||
+            r.eNumber?.toLowerCase() === lower ||
+            r.aliases.some((a) => a.toLowerCase() === lower)
+        ) ?? null;
+      return { rawName: name, ingredient };
+    });
+
+    // 3. Generate AI explanations for all ingredients in parallel
     const ingredientExplanations = await Promise.all(
       dbIngredients.slice(0, 15).map(async ({ rawName, ingredient }, i) => {
         const explanation = await generateIngredientExplanation({
@@ -82,7 +97,6 @@ export async function POST(req: NextRequest) {
     );
 
     // 4. Calculate health scores
-    // Detect ultra-processed products by high additive count or known junk food ingredients
     const highConcernCount = ingredientExplanations.filter((i) => i.concernLevel === "HIGH").length;
     const isUltraProcessed = highConcernCount >= 2 || ingredientExplanations.length > 10;
 
@@ -99,23 +113,13 @@ export async function POST(req: NextRequest) {
       isUltraProcessed
     );
 
-    // 5. Detect allergens + cross-reference user preferences
+    // 5. Detect allergens + apply user prefs (prefs already fetched in step 2)
     const allIngredientNames = ingredientExplanations.map((i) => i.normalizedName ?? i.rawName);
     const allergens = detectAllergens(allIngredientNames);
 
-    // Load user's personal allergens and avoid list
-    let userAllergens: string[] = [];
-    let userAvoidList: string[] = [];
-    if (session?.user?.id) {
-      const user = await prisma.user.findUnique({
-        where: { id: session.user.id },
-        select: { allergens: true, avoidList: true },
-      });
-      userAllergens = user?.allergens ?? [];
-      userAvoidList = user?.avoidList ?? [];
-    }
+    const userAllergens = userPrefs?.allergens ?? [];
+    const userAvoidList = userPrefs?.avoidList ?? [];
 
-    // Flag personal allergen/avoid matches on each ingredient
     const personalFlags = ingredientExplanations.map((ing) => {
       const name = (ing.normalizedName ?? ing.rawName).toLowerCase();
       const triggersUserAllergen = userAllergens.some((a) =>
@@ -125,38 +129,38 @@ export async function POST(req: NextRequest) {
       return { ...ing, triggersUserAllergen, triggersUserAvoid };
     });
 
-    // 6. Generate product summary
-    const productSummary = await generateProductSummary(
-      "Scanned Product",
-      extractedNames,
-      { ...scoreBreakdown, gradeLabel: scoreBreakdown.gradeLabel },
-      mode as ExplanationMode
-    );
-
-    // 7. Save scan to database
-    const scan = await prisma.scan.create({
-      data: {
-        userId: session?.user?.id ?? null,
-        method: method as "IMAGE" | "PASTE" | "BARCODE" | "CAMERA",
-        rawText,
-        barcode: barcode ?? null,
-        overallScore: scoreBreakdown.overall,
-        grade: scoreBreakdown.grade,
-        scoreBreakdown: scoreBreakdown as unknown as Prisma.InputJsonValue,
-        ingredients: {
-          create: ingredientExplanations.map((ie) => ({
-            ingredientId: ie.ingredientId,
-            rawName: ie.rawName,
-            normalizedName: ie.normalizedName,
-            position: ie.position,
-            aiExplanation: ie.aiExplanation,
-            concernLevel: ie.concernLevel as "LOW" | "MEDIUM" | "HIGH" | "CRITICAL",
-            isRecognized: ie.isRecognized,
-          })),
+    // 6. Product summary + DB save in parallel
+    const [productSummary, scan] = await Promise.all([
+      generateProductSummary(
+        "Scanned Product",
+        extractedNames,
+        { ...scoreBreakdown, gradeLabel: scoreBreakdown.gradeLabel },
+        mode as ExplanationMode
+      ),
+      prisma.scan.create({
+        data: {
+          userId: session?.user?.id ?? null,
+          method: method as "IMAGE" | "PASTE" | "BARCODE" | "CAMERA",
+          rawText,
+          barcode: barcode ?? null,
+          overallScore: scoreBreakdown.overall,
+          grade: scoreBreakdown.grade,
+          scoreBreakdown: scoreBreakdown as unknown as Prisma.InputJsonValue,
+          ingredients: {
+            create: ingredientExplanations.map((ie) => ({
+              ingredientId: ie.ingredientId,
+              rawName: ie.rawName,
+              normalizedName: ie.normalizedName,
+              position: ie.position,
+              aiExplanation: ie.aiExplanation,
+              concernLevel: ie.concernLevel as "LOW" | "MEDIUM" | "HIGH" | "CRITICAL",
+              isRecognized: ie.isRecognized,
+            })),
+          },
         },
-      },
-      include: { ingredients: { include: { ingredient: { include: { category: true } } } } },
-    });
+        select: { id: true },
+      }),
+    ]);
 
     return NextResponse.json({
       scanId: scan.id,

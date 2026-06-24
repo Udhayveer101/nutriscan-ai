@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ["localhost:3000", "*.vercel.app"],
+      allowedOrigins: ["localhost:3000", "nutriscan-ai-taupe.vercel.app"],
     },
   },
 };
