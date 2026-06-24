@@ -1,18 +1,18 @@
 "use client";
 
+import { Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { Leaf } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-export default function SignUpPage() {
+function SignUpContent() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-blue-50 px-4">
       <div className="w-full max-w-sm">
-        {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2">
             <div className="w-10 h-10 bg-gradient-to-br from-green-900 to-emerald rounded-xl flex items-center justify-center">
@@ -23,7 +23,6 @@ export default function SignUpPage() {
           <p className="text-gray-500 text-sm mt-1">Create an account to save your scans and analysis history</p>
         </div>
 
-        {/* Card */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8 space-y-4">
           <button
             onClick={() => signIn("google", { callbackUrl })}
@@ -54,5 +53,13 @@ export default function SignUpPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense>
+      <SignUpContent />
+    </Suspense>
   );
 }
