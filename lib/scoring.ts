@@ -58,6 +58,7 @@ export interface IngredientInput {
   concernLevel?: "LOW" | "MEDIUM" | "HIGH";
   isNatural?: boolean;
   category?: string;
+  position?: number; // 0 = first/most abundant ingredient on label
 }
 
 const CATEGORY_WEIGHTS: Record<string, number> = {
@@ -126,6 +127,12 @@ const CONCERN_PENALTIES: Record<string, number> = {
   CRITICAL: -40,
 };
 
+// Exponential decay: ingredients listed first are present in higher amounts.
+// Position 0 = dominant ingredient (~full weight), position 10 = trace (~22% weight).
+function positionWeight(position: number): number {
+  return Math.exp(-0.15 * position);
+}
+
 export function calculateHealthScore(
   ingredients: IngredientInput[],
   sugarPercentage = 0,
@@ -136,42 +143,55 @@ export function calculateHealthScore(
 
   const total = ingredients.length;
 
-  // 1. Ingredient quality
-  const qualityScores = ingredients.map((ing) => {
+  // 1. Ingredient quality — weight quality scores by position (first ingredient = most abundant)
+  let weightedQualitySum = 0;
+  let weightTotal = 0;
+  ingredients.forEach((ing, idx) => {
+    const pos = ing.position ?? idx;
+    const w = positionWeight(pos);
     const base = ing.safetyScore ?? 50;
     const concern = ing.concernLevel ?? inferConcernLevel(ing.name ?? "");
-    if (concern === "CRITICAL") return Math.min(base, 10);
-    if (concern === "HIGH") return Math.min(base, 35);
-    if (concern === "MEDIUM") return Math.min(base, 60);
-    return base;
+    const capped = concern === "CRITICAL" ? Math.min(base, 10)
+      : concern === "HIGH" ? Math.min(base, 35)
+      : concern === "MEDIUM" ? Math.min(base, 60)
+      : base;
+    weightedQualitySum += capped * w;
+    weightTotal += w;
   });
-  const avgQuality = qualityScores.reduce((a, b) => a + b, 0) / total;
+  const avgQuality = weightTotal > 0 ? weightedQualitySum / weightTotal : 50;
 
-  // 2. Additive density — count ALL artificial/processed additives
-  const problematicCount = ingredients.filter((i) => {
-    const concern = i.concernLevel ?? inferConcernLevel(i.name ?? "");
-    return concern === "HIGH" || concern === "MEDIUM" ||
-      (!i.isNatural && ["coloring", "preservative", "sweetener", "flavor enhancer", "emulsifier"].includes(i.category ?? ""));
-  }).length;
-  const additiveDensityScore = Math.max(0, 100 - problematicCount * 10);
+  // 2. Additive density — weight by position (a trace preservative at the end = less bad)
+  let weightedProblematic = 0;
+  ingredients.forEach((ing, idx) => {
+    const pos = ing.position ?? idx;
+    const concern = ing.concernLevel ?? inferConcernLevel(ing.name ?? "");
+    const isAdditive = !ing.isNatural && ["coloring", "preservative", "sweetener", "flavor enhancer", "emulsifier"].includes(ing.category ?? "");
+    if (concern === "HIGH" || concern === "MEDIUM" || isAdditive) {
+      weightedProblematic += positionWeight(pos);
+    }
+  });
+  const additiveDensityScore = Math.max(0, 100 - weightedProblematic * 12);
 
-  // 3. Processing level — ultra-processed gets a hard penalty
-  const ultraProcessedPenalty = isUltraProcessed ? -35 : 0;
-  const highConcernCount = ingredients.filter(
-    (i) => (i.concernLevel ?? inferConcernLevel(i.name ?? "")) === "HIGH"
-  ).length;
+  // 3. Processing level — only flag ultra-processed based on actual harmful additives, never on ingredient count
+  const ultraProcessedPenalty = isUltraProcessed ? -25 : 0;
+  const highConcernWeighted = ingredients.reduce((acc, ing, idx) => {
+    const pos = ing.position ?? idx;
+    const concern = ing.concernLevel ?? inferConcernLevel(ing.name ?? "");
+    return acc + (concern === "HIGH" ? positionWeight(pos) : 0);
+  }, 0);
   const categoryPenaltyTotal = ingredients.reduce((acc, ing) => {
     return acc + (CATEGORY_WEIGHTS[ing.category?.toLowerCase() ?? ""] ?? 0);
   }, 0);
   const processingScore = Math.min(
     100,
-    Math.max(0, 65 + categoryPenaltyTotal / total * 2 + ultraProcessedPenalty - highConcernCount * 8)
+    Math.max(0, 70 + categoryPenaltyTotal / total * 1.5 + ultraProcessedPenalty - highConcernWeighted * 10)
   );
 
-  // 4. Concern penalties
-  const concernPenalty = ingredients.reduce((acc, ing) => {
+  // 4. Position-weighted concern penalties
+  const concernPenalty = ingredients.reduce((acc, ing, idx) => {
+    const pos = ing.position ?? idx;
     const level = ing.concernLevel ?? inferConcernLevel(ing.name ?? "");
-    return acc + (CONCERN_PENALTIES[level] ?? 0);
+    return acc + (CONCERN_PENALTIES[level] ?? 0) * positionWeight(pos);
   }, 0);
 
   // 5. Sugar
@@ -186,7 +206,7 @@ export function calculateHealthScore(
     processingScore * 0.20 +
     sugarScore * 0.10 +
     sodiumScore * 0.10 +
-    (concernPenalty / total) * 0.05;
+    (concernPenalty / Math.max(1, weightTotal)) * 0.05;
 
   const overall = Math.min(100, Math.max(0, Math.round(raw)));
 

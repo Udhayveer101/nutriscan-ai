@@ -98,7 +98,9 @@ export async function POST(req: NextRequest) {
 
     // 4. Calculate health scores
     const highConcernCount = ingredientExplanations.filter((i) => i.concernLevel === "HIGH").length;
-    const isUltraProcessed = highConcernCount >= 2 || ingredientExplanations.length > 10;
+    const criticalCount = ingredientExplanations.filter((i) => i.concernLevel === "CRITICAL").length;
+    // Ultra-processed only when genuinely harmful — never just because ingredient list is long
+    const isUltraProcessed = highConcernCount >= 3 || criticalCount >= 1;
 
     const scoreBreakdown = calculateHealthScore(
       ingredientExplanations.map((i) => ({
@@ -107,6 +109,7 @@ export async function POST(req: NextRequest) {
         concernLevel: i.concernLevel as "LOW" | "MEDIUM" | "HIGH",
         isNatural: i.isNatural,
         category: i.category,
+        position: i.position,
       })),
       0,
       0,
