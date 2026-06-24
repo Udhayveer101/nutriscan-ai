@@ -1,0 +1,12 @@
+<svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>NutriScan AI</title>
+  <!-- Mini icon -->
+  <rect width="36" height="36" rx="9" fill="#1a5c2a"/>
+  <path d="M18 29 C9 29 7 20 9 12 C11 5 18 4 22 6 C27 9 30 16 28 23 C27 27 23 29 18 29 Z" fill="white" opacity="0.95"/>
+  <path d="M18 28 C15 22 12 15 13 8" fill="none" stroke="#1a5c2a" stroke-width="2" stroke-linecap="round"/>
+  <line x1="6" y1="18" x2="30" y2="18" stroke="#34d058" stroke-width="1.5" opacity="0.95" stroke-linecap="round"/>
+  <!-- Wordmark -->
+  <text x="46" y="26" font-family="-apple-system, BlinkMacSystemFont, SF Pro Display, system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.7">
+    <tspan fill="#111111">Nutri</tspan><tspan fill="#1a5c2a">Scan</tspan><tspan fill="#111111" font-size="14" font-weight="400"> AI</tspan>
+  </text>
+</svg>

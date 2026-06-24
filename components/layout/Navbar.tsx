@@ -1,5 +1,7 @@
 "use client";
 
+"use client";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -40,11 +42,9 @@ export function Navbar() {
         <nav className="max-w-7xl mx-auto px-4 md:px-8 h-14 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-green-800 to-green-600 rounded-[10px] flex items-center justify-center shadow-sm">
-              <Leaf className="w-4 h-4 text-white" strokeWidth={2.5} />
-            </div>
+            <Image src="/logo.svg" alt="NutriScan AI" width={32} height={32} className="rounded-[8px]" />
             <span className="font-bold text-[17px] tracking-tight text-gray-900">
-              NutriScan <span className="text-green-700 font-semibold text-sm">AI</span>
+              Nutri<span className="text-green-700">Scan</span> <span className="text-green-700 font-semibold text-sm">AI</span>
             </span>
           </Link>
 

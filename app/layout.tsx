@@ -16,6 +16,10 @@ export const metadata: Metadata = {
     default: "NutriScan AI — Know What's Really In Your Food",
     template: "%s | NutriScan AI",
   },
+  icons: {
+    icon: "/logo.svg",
+    apple: "/logo.svg",
+  },
   description:
     "Scan food ingredient lists and instantly understand preservatives, additives, sweeteners, and other food components through AI-powered analysis.",
   keywords: [

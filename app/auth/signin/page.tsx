@@ -1,8 +1,8 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { Leaf } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SignInPage() {
   return (
@@ -14,9 +14,7 @@ export default function SignInPage() {
         {/* App icon + title */}
         <div className="text-center mb-10">
           <Link href="/" className="inline-block mb-4">
-            <div className="w-20 h-20 bg-gradient-to-br from-green-800 to-green-600 rounded-[22px] flex items-center justify-center mx-auto shadow-lg">
-              <Leaf className="w-10 h-10 text-white" strokeWidth={2} />
-            </div>
+            <Image src="/logo.svg" alt="NutriScan AI" width={80} height={80} className="rounded-[22px] shadow-lg mx-auto" />
           </Link>
           <h1 className="text-[28px] font-bold tracking-tight text-gray-900">NutriScan AI</h1>
           <p className="text-[15px] mt-1.5 leading-relaxed" style={{ color: "var(--ios-label2)" }}>
