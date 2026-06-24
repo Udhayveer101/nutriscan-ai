@@ -67,7 +67,7 @@ export function ResultsView({ scan }: { scan: Scan }) {
   const gaugeData = [
     { label: "Processing Level", value: breakdown.processing as number, description: "How processed is this product" },
     { label: "Additive Score", value: breakdown.additiveDensity as number, description: "Density of artificial additives" },
-    { label: "Nutritional Value", value: breakdown.nutritionalValue as number, description: "Overall nutritional quality" },
+    { label: "Nutritional Value", value: (breakdown.ingredientQuality ?? breakdown.nutritionalValue) as number, description: "Overall nutritional quality" },
     { label: "Sugar Content", value: breakdown.sugarContent as number, description: "Sugar level evaluation" },
     { label: "Sodium Content", value: breakdown.sodiumContent as number, description: "Sodium level evaluation" },
   ];
