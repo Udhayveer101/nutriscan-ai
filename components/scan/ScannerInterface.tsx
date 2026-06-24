@@ -28,8 +28,13 @@ export function ScannerInterface() {
 
   const handleAnalyze = useCallback(
     async (data: { method: string; text?: string; barcode?: string }) => {
-      setIsAnalyzing(true);
+      // Flush state synchronously before starting the network request so the
+      // loading UI appears on the very next paint, not after the fetch begins.
       setError(null);
+      setIsAnalyzing(true);
+
+      // Yield to the browser for one frame so React can paint the loading state
+      await new Promise<void>((r) => requestAnimationFrame(() => r()));
 
       try {
         const res = await fetch("/api/analysis", {
@@ -144,6 +149,7 @@ export function ScannerInterface() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                transition={{ duration: 0.1 }}
                 className="mt-6 flex flex-col items-center gap-4 py-10"
               >
                 <div className="relative">

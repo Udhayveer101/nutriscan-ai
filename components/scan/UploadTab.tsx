@@ -98,8 +98,11 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
     [handleFile]
   );
 
+  const [submitted, setSubmitted] = useState(false);
+
   const handleSubmit = () => {
-    if (!extractedText) return;
+    if (!extractedText || submitted) return;
+    setSubmitted(true);
     onAnalyze({ method: "IMAGE", text: extractedText });
   };
 
@@ -184,11 +187,14 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
 
           <button
             onClick={handleSubmit}
-            disabled={!extractedText || isLoading || isExtracting}
+            disabled={!extractedText || isLoading || isExtracting || submitted}
             className="w-full btn-primary py-4 justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Analyse Ingredients
-            <ArrowRight className="w-4 h-4" />
+            {submitted || isLoading ? (
+              <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Analysing…</>
+            ) : (
+              <>Analyse Ingredients <ArrowRight className="w-4 h-4" /></>
+            )}
           </button>
         </div>
       )}

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { extractIngredientsFromText, generateIngredientExplanation, generateProductSummary, type ExplanationMode } from "@/lib/gemini";
-import { calculateHealthScore, inferConcernLevel, detectAllergens } from "@/lib/scoring";
+import { calculateHealthScore, inferConcernLevel, adjustConcernForConcentration, detectAllergens } from "@/lib/scoring";
 import { scanUploadSchema } from "@/lib/validators";
 import { auth } from "@/lib/auth";
 
@@ -82,11 +82,14 @@ export async function POST(req: NextRequest) {
           aiExplanation: explanation,
           concernLevel: (() => {
             const inferred = inferConcernLevel(rawName);
-            if (inferred === "CRITICAL") return "CRITICAL";
-            if (ingredient?.safetyScore !== undefined) {
-              return ingredient.safetyScore >= 70 ? "LOW" : ingredient.safetyScore >= 50 ? "MEDIUM" : "HIGH";
-            }
-            return inferred;
+            // Resolve base concern: CRITICAL never overridden; DB safety score used if available
+            const base: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL" =
+              inferred === "CRITICAL" ? "CRITICAL"
+              : ingredient?.safetyScore !== undefined
+                ? ingredient.safetyScore >= 70 ? "LOW" : ingredient.safetyScore >= 50 ? "MEDIUM" : "HIGH"
+                : inferred;
+            // Adjust for concentration: ingredients at position 0 = most abundant; position 8+ = trace
+            return adjustConcernForConcentration(ingredient?.name ?? rawName, base, i);
           })(),
           isRecognized: !!ingredient,
           category: ingredient?.category?.name,

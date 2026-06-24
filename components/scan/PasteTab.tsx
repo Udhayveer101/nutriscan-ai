@@ -14,6 +14,13 @@ Red 40 (E129), Phosphoric Acid (E338)`;
 
 export function PasteTab({ onAnalyze, isLoading }: Props) {
   const [text, setText] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = () => {
+    if (text.trim().length < 10 || submitted) return;
+    setSubmitted(true);
+    onAnalyze({ method: "PASTE", text });
+  };
 
   return (
     <div className="space-y-4">
@@ -45,12 +52,15 @@ export function PasteTab({ onAnalyze, isLoading }: Props) {
       </button>
 
       <button
-        onClick={() => onAnalyze({ method: "PASTE", text })}
-        disabled={text.trim().length < 10 || isLoading}
+        onClick={handleSubmit}
+        disabled={text.trim().length < 10 || isLoading || submitted}
         className="w-full btn-primary py-4 justify-center disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Analyze Ingredients
-        <ArrowRight className="w-4 h-4" />
+        {submitted || isLoading ? (
+          <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Analysing…</>
+        ) : (
+          <>Analyse Ingredients <ArrowRight className="w-4 h-4" /></>
+        )}
       </button>
     </div>
   );
