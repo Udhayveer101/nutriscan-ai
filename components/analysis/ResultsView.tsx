@@ -1,10 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, Share2, Bookmark, CheckCircle2, AlertCircle, Info, ExternalLink, Skull, ShieldAlert } from "lucide-react";
 import { ScoreGauge } from "./ScoreGauge";
-import { gradeToLabel } from "@/lib/scoring";
+import { Reveal } from "@/components/ui/Reveal";
+import { GradeBadge } from "@/components/ui/GradeBadge";
+import type { Grade } from "@/lib/grade";
 
 interface ScanIngredient {
   id: string;
@@ -44,25 +45,15 @@ interface Scan {
   createdAt: Date;
 }
 
-const CONCERN_CONFIG = {
-  LOW: { icon: CheckCircle2, color: "text-green-700 bg-green-50 border-green-200", label: "Low concern", badge: "bg-green-100 text-green-800" },
-  MEDIUM: { icon: Info, color: "text-amber-700 bg-amber-50 border-amber-200", label: "Moderate concern", badge: "bg-amber-100 text-amber-800" },
-  HIGH: { icon: AlertCircle, color: "text-red-700 bg-red-50 border-red-200", label: "High concern", badge: "bg-red-100 text-red-800" },
-  CRITICAL: { icon: Skull, color: "text-white bg-gray-950 border-gray-800", label: "AVOID — serious health risk", badge: "bg-gray-900 text-white" },
-};
-
-const GRADE_COLORS: Record<string, string> = {
-  A_PLUS: "text-green-600 bg-green-50 border-green-300",
-  A: "text-green-700 bg-green-50 border-green-300",
-  B: "text-lime-700 bg-lime-50 border-lime-300",
-  C: "text-amber-700 bg-amber-50 border-amber-300",
-  D: "text-orange-700 bg-orange-50 border-orange-300",
-  F: "text-red-700 bg-red-50 border-red-300",
+const CONCERN_CONFIG: Record<string, { icon: typeof CheckCircle2; label: string; text: string; bg: string; border: string }> = {
+  LOW: { icon: CheckCircle2, label: "Low concern", text: "#15803d", bg: "#dcfce7", border: "#a7e3ba" },
+  MEDIUM: { icon: Info, label: "Moderate concern", text: "#b45309", bg: "#fef3c7", border: "#fcd88a" },
+  HIGH: { icon: AlertCircle, label: "High concern", text: "#dc2626", bg: "#fee2e2", border: "#f7b4b4" },
+  CRITICAL: { icon: Skull, label: "AVOID — serious risk", text: "#fff", bg: "#1c1917", border: "#1c1917" },
 };
 
 export function ResultsView({ scan }: { scan: Scan }) {
   const breakdown = scan.scoreBreakdown;
-  const gradeLabel = gradeToLabel(scan.grade as Parameters<typeof gradeToLabel>[0]);
 
   const gaugeData = [
     { label: "Processing Level", value: breakdown.processing as number, description: "How processed is this product" },
@@ -73,207 +64,165 @@ export function ResultsView({ scan }: { scan: Scan }) {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Back navigation */}
       <Link
         href="/scan"
-        className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+        className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
+        style={{ color: "var(--muted-2)" }}
       >
         <ArrowLeft className="w-4 h-4" />
         Scan another product
       </Link>
 
-      {/* Hero score card */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-navy-900 to-green-950 rounded-3xl p-8 text-white relative overflow-hidden"
-      >
+      {/* Hero verdict card */}
+      <Reveal className="glass rounded-3xl p-7 md:p-8">
         <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "24px 24px",
-          }}
-        />
-        <div className="relative flex flex-col md:flex-row items-start md:items-center gap-6 justify-between">
-          <div className="flex-1">
-            <p className="text-green-300 text-sm font-medium mb-1">Product Analysis</p>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white mb-2">
+          className="inline-flex items-center gap-2 font-mono-label font-semibold text-[11px] tracking-[.1em] px-3 py-1.5 rounded-full"
+          style={{ color: "var(--brand-800)", background: "rgba(22,101,52,.09)", border: "1px solid rgba(22,101,52,.16)" }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--brand-600)" }} /> ANALYSIS COMPLETE
+        </div>
+
+        <div className="flex flex-col md:flex-row md:items-center gap-6 justify-between mt-4">
+          <div className="flex-1 min-w-0">
+            <h1 className="font-heading text-2xl md:text-[32px] font-extrabold leading-tight" style={{ color: "var(--ink)" }}>
               {scan.productName ?? "Scanned Product"}
             </h1>
-            {scan.brand && <p className="text-gray-400 text-sm">{scan.brand}</p>}
-            <div className="flex items-center gap-3 mt-4">
-              <span className="text-sm text-gray-400">
-                {scan.ingredients.length} ingredients analyzed
-              </span>
-              <span className="w-1 h-1 rounded-full bg-gray-600" />
-              <span className="text-sm text-gray-400">
-                {scan.ingredients.filter((i) => i.isRecognized).length} in our database
-              </span>
+            {scan.brand && <p className="text-sm mt-1" style={{ color: "var(--muted)" }}>{scan.brand}</p>}
+            <div className="flex items-center gap-2.5 mt-3 text-sm" style={{ color: "var(--muted-2)" }}>
+              <span>{scan.ingredients.length} ingredients analyzed</span>
+              <span className="w-1 h-1 rounded-full" style={{ background: "var(--muted-4)" }} />
+              <span>{scan.ingredients.filter((i) => i.isRecognized).length} in our database</span>
             </div>
           </div>
 
-          {/* Grade */}
           <div className="text-center flex-shrink-0">
-            <div className={`inline-flex items-center justify-center w-24 h-24 rounded-2xl border-4 ${GRADE_COLORS[scan.grade]} bg-white`}>
-              <span className="text-5xl font-black">{gradeLabel}</span>
-            </div>
-            <p className="text-gray-400 text-sm mt-2">{scan.overallScore}/100</p>
+            <GradeBadge grade={scan.grade as Grade} size="lg" className="mx-auto" />
+            <p className="text-sm mt-2 font-mono-label" style={{ color: "var(--muted-2)" }}>{scan.overallScore}/100</p>
           </div>
         </div>
 
-        {/* Action buttons */}
-        <div className="relative flex gap-3 mt-6">
-          <button className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors">
-            <Bookmark className="w-4 h-4" />
-            Save
+        <div className="flex gap-2.5 mt-6">
+          <button className="glass flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13.5px] font-semibold transition-transform hover:-translate-y-0.5" style={{ color: "var(--ink-3)" }}>
+            <Bookmark className="w-4 h-4" /> Save
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors">
-            <Share2 className="w-4 h-4" />
-            Share
+          <button className="glass flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13.5px] font-semibold transition-transform hover:-translate-y-0.5" style={{ color: "var(--ink-3)" }}>
+            <Share2 className="w-4 h-4" /> Share
           </button>
         </div>
-      </motion.div>
 
-      {/* Score gauges */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6"
-      >
-        <h2 className="font-bold text-gray-900 mb-6">Score Breakdown</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="h-px my-6" style={{ background: "var(--separator)" }} />
+
+        {/* Score breakdown */}
+        <h2 className="font-heading font-bold text-lg mb-5" style={{ color: "var(--ink)" }}>Score Breakdown</h2>
+        <div
+          className="inline-block w-full font-mono-label text-[10.5px]"
+          style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.75rem" }}
+        >
           {gaugeData.map((g, i) => (
-            <ScoreGauge
-              key={g.label}
-              label={g.label}
-              value={g.value}
-              description={g.description}
-              delay={i * 0.1}
-            />
+            <ScoreGauge key={g.label} label={g.label} value={g.value} description={g.description} delay={i * 0.08} />
           ))}
         </div>
-      </motion.div>
+      </Reveal>
 
       {/* Allergen Warning */}
       {scan.allergens && scan.allergens.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="bg-purple-50 border-2 border-purple-300 rounded-3xl p-6"
-        >
+        <Reveal delay={0.05} className="rounded-3xl p-6" style={{ background: "#fef2f2", border: "2px solid #fecaca" }}>
           <div className="flex items-center gap-3 mb-4">
-            <ShieldAlert className="w-5 h-5 text-purple-600 flex-shrink-0" />
-            <h2 className="font-bold text-purple-900">Allergen Alert</h2>
-            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-200 text-purple-800">
+            <ShieldAlert className="w-5 h-5 flex-shrink-0" style={{ color: "#dc2626" }} />
+            <h2 className="font-heading font-bold" style={{ color: "#991b1b" }}>Allergen Alert</h2>
+            <span className="font-mono-label text-[10.5px] font-bold px-2.5 py-1 rounded-full" style={{ background: "#fecaca", color: "#991b1b" }}>
               {scan.allergens.length} detected
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
             {scan.allergens.map((a) => (
-              <div
-                key={a.allergen}
-                className="flex items-center gap-2 px-3 py-2 bg-white border border-purple-200 rounded-xl shadow-sm"
-              >
-                <span className="text-sm font-bold text-purple-800">{a.allergen}</span>
-                <span className="text-xs text-purple-400">via {a.matchedIngredient}</span>
+              <div key={a.allergen} className="flex items-center gap-2 px-3 py-2 bg-white border rounded-xl" style={{ borderColor: "#fecaca" }}>
+                <span className="text-sm font-bold" style={{ color: "#991b1b" }}>{a.allergen}</span>
+                <span className="text-xs" style={{ color: "#dc9d9d" }}>via {a.matchedIngredient}</span>
               </div>
             ))}
           </div>
-          <p className="mt-4 text-xs text-purple-700">
+          <p className="mt-4 text-xs" style={{ color: "#b91c1c" }}>
             If you have allergies or intolerances to any of the above, do not consume this product.
           </p>
-        </motion.div>
+        </Reveal>
       )}
 
       {/* Ingredients */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6"
-      >
-        <h2 className="font-bold text-gray-900 mb-6">
+      <Reveal delay={0.1} className="glass rounded-3xl p-6 md:p-7">
+        <h2 className="font-heading font-bold text-lg mb-5" style={{ color: "var(--ink)" }}>
           Ingredient Breakdown
-          <span className="ml-2 text-sm font-normal text-gray-400">
+          <span className="ml-2 text-sm font-normal font-sans" style={{ color: "var(--muted-3)" }}>
             ({scan.ingredients.length} found)
           </span>
         </h2>
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {scan.ingredients.map((ing, i) => {
-            const concern = CONCERN_CONFIG[ing.concernLevel as keyof typeof CONCERN_CONFIG] ?? CONCERN_CONFIG.LOW;
+            const concern = CONCERN_CONFIG[ing.concernLevel] ?? CONCERN_CONFIG.LOW;
             const Icon = concern.icon;
 
             return (
-              <motion.div
-                key={ing.id}
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + i * 0.05 }}
-                className={`flex gap-4 p-4 rounded-2xl border ${concern.color}`}
-              >
-                <Icon className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <div>
-                      <span className="font-semibold text-sm">
-                        {ing.ingredient?.name ?? ing.normalizedName ?? ing.rawName}
-                      </span>
-                      {ing.ingredient?.eNumber && (
-                        <span className="ml-2 text-xs font-mono opacity-60">
-                          {ing.ingredient.eNumber}
+              <Reveal key={ing.id} delay={0.03 * i} y={12} className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,.6)", border: "1px solid rgba(20,70,45,.08)" }}>
+                <div className="flex gap-3">
+                  <Icon className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: concern.text === "#fff" ? "#1c1917" : concern.text }} />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2 mb-1 flex-wrap">
+                      <div>
+                        <span className="font-heading font-bold text-[14.5px]" style={{ color: "var(--ink-2)" }}>
+                          {ing.ingredient?.name ?? ing.normalizedName ?? ing.rawName}
                         </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${concern.badge}`}>
-                        {concern.label}
-                      </span>
-                      {ing.ingredient?.category && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/10 border border-current opacity-60">
-                          {ing.ingredient.category.name}
+                        {ing.ingredient?.eNumber && (
+                          <span className="ml-2 font-mono-label text-[10.5px]" style={{ color: "var(--muted-3)" }}>
+                            {ing.ingredient.eNumber}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-1.5 flex-shrink-0">
+                        <span className="font-mono-label text-[9.5px] font-bold px-2 py-0.5 rounded-full" style={{ background: concern.bg, color: concern.text, border: `1px solid ${concern.border}` }}>
+                          {concern.label.toUpperCase()}
                         </span>
-                      )}
-                      {ing.ingredient && (
-                        <Link
-                          href={`/ingredients/${ing.ingredient.slug}`}
-                          className="opacity-50 hover:opacity-100 transition-opacity"
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </Link>
-                      )}
+                        {ing.ingredient?.category && (
+                          <span className="font-mono-label text-[9.5px] font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(20,70,45,.06)", color: "var(--muted-2)" }}>
+                            {ing.ingredient.category.name}
+                          </span>
+                        )}
+                        {ing.ingredient && (
+                          <Link href={`/ingredients/${ing.ingredient.slug}`} className="opacity-50 hover:opacity-100 transition-opacity">
+                            <ExternalLink className="w-3.5 h-3.5" style={{ color: "var(--muted-2)" }} />
+                          </Link>
+                        )}
+                      </div>
                     </div>
+                    {ing.concernLevel === "CRITICAL" && (
+                      <div className="mb-2 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wide" style={{ background: "#1c1917", color: "#fff" }}>
+                        ⚠ Banned in multiple countries · Linked to cancer or serious illness at normal consumption
+                      </div>
+                    )}
+                    {ing.triggersUserAllergen && (
+                      <div className="mb-2 flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide text-white" style={{ background: "#dc2626" }}>
+                        ⬡ YOUR ALLERGEN — Do not consume
+                      </div>
+                    )}
+                    {ing.triggersUserAvoid && !ing.triggersUserAllergen && (
+                      <div className="mb-2 flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide text-white" style={{ background: "var(--brand-800)" }}>
+                        ◈ On your avoid list
+                      </div>
+                    )}
+                    <p className="text-[13px] leading-relaxed" style={{ color: "var(--muted)" }}>{ing.aiExplanation}</p>
                   </div>
-                  {ing.concernLevel === "CRITICAL" && (
-                    <div className="mb-2 px-3 py-1.5 bg-white/10 rounded-lg border border-white/20 text-xs font-bold uppercase tracking-wide">
-                      ⚠ Banned in multiple countries · Linked to cancer or serious illness at normal consumption
-                    </div>
-                  )}
-                  {ing.triggersUserAllergen && (
-                    <div className="mb-2 flex items-center gap-2 px-3 py-1.5 bg-purple-600 text-white rounded-lg text-xs font-bold tracking-wide">
-                      ⬡ YOUR ALLERGEN — Do not consume
-                    </div>
-                  )}
-                  {ing.triggersUserAvoid && !ing.triggersUserAllergen && (
-                    <div className="mb-2 flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-bold tracking-wide">
-                      ◈ On your avoid list
-                    </div>
-                  )}
-                  <p className="text-xs leading-relaxed opacity-80">{ing.aiExplanation}</p>
                 </div>
-              </motion.div>
+              </Reveal>
             );
           })}
         </div>
-      </motion.div>
+      </Reveal>
 
       {/* Legal disclaimer */}
-      <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
-        <p className="text-xs text-gray-500 leading-relaxed">
-          <strong>Educational Information Only:</strong> This analysis is for informational purposes
+      <div className="p-4 rounded-2xl" style={{ background: "rgba(20,70,45,.05)" }}>
+        <p className="text-xs leading-relaxed" style={{ color: "var(--muted-2)" }}>
+          <strong style={{ color: "var(--ink-3)" }}>Educational Information Only:</strong> This analysis is for informational purposes
           and should not be used as a substitute for professional dietary or medical advice. Ingredient
           safety can vary based on individual health conditions, allergies, and consumption amounts.
           Always consult a healthcare professional for personalized guidance.

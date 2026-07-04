@@ -13,19 +13,21 @@ export default async function IngredientsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-white pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <div
+      className="min-h-screen pb-tab-bar md:pb-16"
+      style={{ background: "radial-gradient(120% 45% at 50% -8%, #e9f5ec 0%, #f6f5f1 46%, #f6f5f1 100%)" }}
+    >
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-28 md:pt-32 pb-8">
         {/* Header */}
-        <div className="text-center mb-12">
-          <span className="inline-block px-4 py-1.5 bg-green-50 text-green-800 text-sm font-semibold rounded-full border border-green-200 mb-4">
-            Ingredient Database
-          </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-navy-900 mb-4">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center font-mono-label font-semibold text-[11px] tracking-[.14em] px-3 py-1.5 rounded-full" style={{ color: "var(--brand-800)", background: "rgba(22,101,52,.09)", border: "1px solid rgba(22,101,52,.16)" }}>
+            INGREDIENT DATABASE
+          </div>
+          <h1 className="font-heading font-extrabold text-[36px] md:text-[58px] leading-[.98] tracking-[-.03em] mt-4" style={{ color: "var(--ink)" }}>
             Decode any ingredient
           </h1>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            Search our comprehensive database of 2,000+ food additives, preservatives,
-            sweeteners, colorings, and more — all with evidence-based explanations.
+          <p className="mt-4 max-w-[560px] mx-auto text-[17px] leading-relaxed" style={{ color: "var(--muted)" }}>
+            Search 2,000+ additives, preservatives, sweeteners and colorings — each with an evidence-based grade and a plain-language verdict.
           </p>
         </div>
 

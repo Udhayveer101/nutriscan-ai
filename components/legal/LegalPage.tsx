@@ -13,46 +13,43 @@ interface Props {
   subtitle: string;
   lastUpdated: string;
   sections: Section[];
-  accentColor?: string;
 }
 
-export function LegalPage({ badge, title, subtitle, lastUpdated, sections, accentColor = "green" }: Props) {
+export function LegalPage({ badge, title, subtitle, lastUpdated, sections }: Props) {
   const tocItems = sections.filter((s) => s.title);
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-16">
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
       {/* Hero */}
-      <div className={`bg-gradient-to-br from-navy-900 to-${accentColor}-950 text-white py-16 px-4`}>
+      <div className="text-white py-16 md:py-20 px-4 pt-32 md:pt-40" style={{ background: "linear-gradient(165deg,#0b1f16 0%,#123024 55%,#0e5231 130%)" }}>
         <div className="max-w-4xl mx-auto">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-8"
-          >
+          <Link href="/" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-8">
             <ArrowLeft className="w-4 h-4" />
             Back to home
           </Link>
-          <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-${accentColor}-300 border border-white/10 mb-4`}>
-            {badge}
+          <div className="inline-block px-3 py-1 rounded-full font-mono-label text-xs font-bold mb-4" style={{ background: "rgba(255,255,255,.1)", color: "#86efac", border: "1px solid rgba(255,255,255,.1)" }}>
+            {badge.toUpperCase()}
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">{title}</h1>
+          <h1 className="font-heading text-4xl md:text-5xl font-extrabold mb-4 tracking-[-.02em]">{title}</h1>
           <p className="text-white/60 text-base">{subtitle}</p>
           <p className="text-white/40 text-sm mt-2">Last updated: {lastUpdated}</p>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid lg:grid-cols-4 gap-8">
 
           {/* Table of contents */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Contents</p>
+            <div className="glass sticky top-28 rounded-2xl p-5">
+              <p className="font-mono-label text-xs font-bold tracking-wider mb-4" style={{ color: "var(--muted-3)" }}>CONTENTS</p>
               <nav className="space-y-1">
                 {tocItems.map((s, i) => (
                   <a
                     key={i}
                     href={`#section-${i}`}
-                    className="block text-sm text-gray-500 hover:text-green-800 hover:font-medium transition-all py-1 pl-2 border-l-2 border-transparent hover:border-green-600"
+                    className="block text-sm font-medium transition-all py-1 pl-2 border-l-2 hover:text-[color:var(--brand-800)] hover:border-[color:var(--brand-600)]"
+                    style={{ color: "var(--muted-2)", borderColor: "transparent" }}
                   >
                     {s.title}
                   </a>
@@ -62,18 +59,17 @@ export function LegalPage({ badge, title, subtitle, lastUpdated, sections, accen
           </div>
 
           {/* Main content */}
-          <div className="lg:col-span-3 space-y-5">
+          <div className="lg:col-span-3 space-y-4">
             {sections.map((section, i) => (
               <div
                 key={i}
                 id={`section-${i}`}
-                className={`bg-white rounded-2xl border border-gray-100 shadow-sm p-7 ${
-                  section.type === "highlight" ? "border-l-4 border-l-green-500" : ""
-                }`}
+                className="glass rounded-2xl p-7"
+                style={section.type === "highlight" ? { borderLeft: "4px solid var(--brand-600)" } : undefined}
               >
                 {section.title && (
-                  <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-lg bg-green-50 text-green-700 text-xs font-black flex items-center justify-center flex-shrink-0">
+                  <h2 className="text-lg font-heading font-bold mb-4 flex items-center gap-2" style={{ color: "var(--ink-2)" }}>
+                    <span className="w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center flex-shrink-0" style={{ background: "#dcfce7", color: "#15803d" }}>
                       {i + 1}
                     </span>
                     {section.title}
@@ -83,20 +79,20 @@ export function LegalPage({ badge, title, subtitle, lastUpdated, sections, accen
                 {Array.isArray(section.content) ? (
                   <ul className="space-y-2">
                     {section.content.map((item, j) => (
-                      <li key={j} className="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0 mt-2" />
+                      <li key={j} className="flex items-start gap-3 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-2" style={{ background: "var(--brand-500)" }} />
                         {item}
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-sm text-gray-600 leading-relaxed">{section.content}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{section.content}</p>
                 )}
               </div>
             ))}
 
             {/* Footer note */}
-            <div className="p-5 bg-amber-50 border border-amber-200 rounded-2xl text-sm text-amber-800">
+            <div className="p-5 rounded-2xl text-sm" style={{ background: "#fffbeb", border: "1px solid #fde68a", color: "#92400e" }}>
               If you have any questions about this document, contact us at{" "}
               <a href="mailto:legal@nutriscan.ai" className="font-semibold underline">
                 legal@nutriscan.ai

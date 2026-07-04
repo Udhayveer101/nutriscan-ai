@@ -38,7 +38,10 @@ export default async function IngredientPage({ params }: Props) {
   if (!ingredient) notFound();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-green-50/20 pt-24 pb-16">
+    <div
+      className="min-h-screen pt-28 pb-16"
+      style={{ background: "radial-gradient(110% 40% at 50% -8%, #e9f5ec 0%, #f6f5f1 46%, #f6f5f1 100%)" }}
+    >
       <div className="max-w-4xl mx-auto px-4 md:px-8">
         <IngredientDetail ingredient={ingredient as Parameters<typeof IngredientDetail>[0]["ingredient"]} />
       </div>

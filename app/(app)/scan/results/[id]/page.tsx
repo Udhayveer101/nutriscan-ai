@@ -62,7 +62,10 @@ export default async function ResultsPage({ params }: Props) {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-green-50/30 pt-24 pb-16">
+    <div
+      className="min-h-screen pt-28 pb-16"
+      style={{ background: "radial-gradient(110% 40% at 50% -8%, #e9f5ec 0%, #f6f5f1 46%, #f6f5f1 100%)" }}
+    >
       <div className="max-w-5xl mx-auto px-4 md:px-8">
         <ResultsView scan={{ ...(scan as Parameters<typeof ResultsView>[0]["scan"]), ingredients, allergens }} />
       </div>

@@ -1,147 +1,141 @@
 "use client";
 
-"use client";
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Scan, Leaf, LayoutDashboard, BookOpen, ChevronRight } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { Scan, Leaf, LayoutDashboard, BookOpen, ChevronDown, LogOut, RefreshCw, SlidersHorizontal } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 
+const NAV_LINKS = [
+  { href: "/scan", label: "Scan" },
+  { href: "/ingredients", label: "Ingredients" },
+  { href: "/learn", label: "Learn" },
+];
+
 const TABS = [
-  { href: "/scan",        label: "Scan",       icon: Scan },
+  { href: "/scan", label: "Scan", icon: Scan },
   { href: "/ingredients", label: "Ingredients", icon: Leaf },
-  { href: "/learn",       label: "Learn",       icon: BookOpen },
-  { href: "/dashboard",   label: "Profile",     icon: LayoutDashboard },
+  { href: "/learn", label: "Learn", icon: BookOpen },
+  { href: "/dashboard", label: "Profile", icon: LayoutDashboard },
 ];
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { data: session } = useSession();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    function onClick(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenuOpen(false);
+    }
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
-  const isActive = (href: string) =>
-    pathname === href || (href !== "/" && pathname.startsWith(href));
+  const isActive = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(href));
 
   return (
     <>
-      {/* ── Top navigation bar ───────────────────────────────── */}
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "ios-glass" : "bg-transparent"
-        }`}
-        style={{ paddingTop: "env(safe-area-inset-top)" }}
-      >
-        <nav className="max-w-7xl mx-auto px-4 md:px-8 h-14 flex items-center justify-between">
+      {/* ── Top nav ──────────────────────────────────────────── */}
+      <div className="fixed top-0 left-0 right-0 z-50 px-4 md:px-[26px] pt-4" style={{ paddingTop: "max(16px, env(safe-area-inset-top))" }}>
+        <nav className="glass max-w-[1180px] mx-auto flex items-center justify-between rounded-2xl px-3 md:px-[18px] py-3">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.svg" alt="NutriScan AI" width={32} height={32} className="rounded-[8px]" />
-            <span className="font-bold text-[17px] tracking-tight text-gray-900">
-              Nutri<span className="text-green-700">Scan</span> <span className="text-green-700 font-semibold text-sm">AI</span>
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <div className="w-8 h-8 rounded-[10px] flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(150deg,#22c55e,#116534)", boxShadow: "0 4px 12px rgba(22,163,74,.4)" }}>
+              <div className="w-3.5 h-3.5 bg-white" style={{ borderRadius: "0 60% 0 60%", transform: "rotate(45deg)" }} />
+            </div>
+            <span className="font-heading font-extrabold text-[18px] tracking-tight whitespace-nowrap" style={{ color: "var(--ink-2)" }}>
+              NutriScan<span style={{ color: "var(--brand-600)" }}> AI</span>
             </span>
           </Link>
 
-          {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-1">
-            {TABS.slice(0, 3).map(({ href, label }) => (
+          {/* Center links */}
+          <div className="hidden md:flex items-center gap-1.5 font-semibold text-[14px]">
+            {NAV_LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className={`px-4 py-2 rounded-xl text-[14px] font-medium transition-all duration-150 ${
-                  isActive(href)
-                    ? "bg-green-50 text-green-800"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100/80"
-                }`}
+                className="px-3.5 py-2 rounded-[9px] transition-colors"
+                style={isActive(href)
+                  ? { background: "rgba(22,101,52,.1)", color: "var(--brand-800)" }
+                  : { color: "var(--ink-3)" }}
               >
                 {label}
               </Link>
             ))}
           </div>
 
-          {/* Desktop auth */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Right side */}
+          <div className="flex items-center gap-3 font-semibold text-[14px]">
             {session ? (
-              <div className="flex items-center gap-2">
-                <Link href="/dashboard" className="text-[14px] font-medium text-gray-600 hover:text-gray-900 transition-colors px-3 py-2">
-                  Dashboard
-                </Link>
-                <Link href="/dashboard" className="relative">
+              <div className="relative" ref={menuRef}>
+                <button
+                  onClick={() => setMenuOpen((v) => !v)}
+                  className="flex items-center gap-2 pl-1 pr-1 md:pr-2 py-1 rounded-full transition-colors hover:bg-black/[.03]"
+                >
                   {session.user?.image ? (
-                    <Image
-                      src={session.user.image}
-                      alt={session.user.name ?? "User"}
-                      width={34}
-                      height={34}
-                      className="rounded-full ring-2 ring-green-700/20 hover:ring-green-700/50 transition-all"
-                    />
+                    <Image src={session.user.image} alt={session.user.name ?? "You"} width={34} height={34} className="rounded-full" />
                   ) : (
-                    <div className="w-9 h-9 rounded-full bg-green-700 text-white text-sm font-bold flex items-center justify-center">
+                    <div className="w-[34px] h-[34px] rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ background: "var(--brand-800)" }}>
                       {session.user?.name?.[0] ?? "U"}
                     </div>
                   )}
-                </Link>
+                  <ChevronDown className="hidden md:block w-3.5 h-3.5 transition-transform" style={{ color: "var(--muted-2)", transform: menuOpen ? "rotate(180deg)" : "none" }} />
+                </button>
+
+                {menuOpen && (
+                  <div className="glass absolute right-0 top-[calc(100%+10px)] w-60 rounded-2xl p-1.5 z-50">
+                    <div className="px-3 py-2.5 mb-1 border-b" style={{ borderColor: "var(--separator)" }}>
+                      <p className="font-heading font-bold text-[14px] truncate" style={{ color: "var(--ink)" }}>{session.user?.name ?? "Your account"}</p>
+                      <p className="text-[12px] truncate" style={{ color: "var(--muted-3)" }}>{session.user?.email}</p>
+                    </div>
+                    <Link href="/dashboard" onClick={() => setMenuOpen(false)} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] font-medium transition-colors hover:bg-black/[.04]" style={{ color: "var(--ink-3)" }}>
+                      <LayoutDashboard className="w-4 h-4" /> Dashboard
+                    </Link>
+                    <Link href="/onboarding?edit=1" onClick={() => setMenuOpen(false)} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] font-medium transition-colors hover:bg-black/[.04]" style={{ color: "var(--ink-3)" }}>
+                      <SlidersHorizontal className="w-4 h-4" /> Edit preferences
+                    </Link>
+                    <button
+                      onClick={() => signOut({ callbackUrl: "/auth/signin" })}
+                      className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] font-medium transition-colors hover:bg-black/[.04] text-left"
+                      style={{ color: "var(--ink-3)" }}
+                    >
+                      <RefreshCw className="w-4 h-4" /> Switch account
+                    </button>
+                    <div className="my-1 border-t" style={{ borderColor: "var(--separator)" }} />
+                    <button
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] font-semibold transition-colors hover:bg-red-50 text-left text-red-600"
+                    >
+                      <LogOut className="w-4 h-4" /> Sign out
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Link href="/auth/signin" className="text-[14px] font-medium text-gray-600 hover:text-gray-900 px-3 py-2 rounded-xl hover:bg-gray-100/80 transition-all">
+                <Link href="/auth/signin" className="hidden sm:inline-block px-3.5 py-2 rounded-[9px] transition-colors" style={{ color: "var(--ink-3)" }}>
                   Sign in
                 </Link>
-                <Link href="/scan" className="btn-primary py-2 px-4 text-[14px]">
+                <Link href="/scan" className="btn-primary py-2 px-4 text-[13.5px]">
                   Get Started
-                  <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             )}
           </div>
-
-          {/* Mobile: show sign in button if not logged in */}
-          {!session && (
-            <Link href="/auth/signin" className="md:hidden btn-primary py-2 px-4 text-[13px]">
-              Sign in
-            </Link>
-          )}
-          {session && (
-            <Link href="/dashboard" className="md:hidden relative">
-              {session.user?.image ? (
-                <Image
-                  src={session.user.image}
-                  alt={session.user.name ?? "User"}
-                  width={32}
-                  height={32}
-                  className="rounded-full ring-2 ring-green-700/20"
-                />
-              ) : (
-                <div className="w-8 h-8 rounded-full bg-green-700 text-white text-sm font-bold flex items-center justify-center">
-                  {session.user?.name?.[0] ?? "U"}
-                </div>
-              )}
-            </Link>
-          )}
         </nav>
-      </header>
+      </div>
 
-      {/* ── iOS-style bottom tab bar (mobile only) ────────────── */}
-      <div className="ios-tab-bar md:hidden">
+      {/* ── Mobile bottom tab bar ──────────────────────────────── */}
+      <div className="tab-bar md:hidden">
         {TABS.map(({ href, label, icon: Icon }) => {
           const active = isActive(href);
           return (
-            <Link key={href} href={href} className="ios-tab-item">
-              <Icon
-                className="w-[26px] h-[26px] transition-colors duration-150"
-                strokeWidth={active ? 2.2 : 1.6}
-                style={{ color: active ? "var(--ios-tint)" : "#8e8e93" }}
-              />
-              <span
-                className="text-[10px] font-medium mt-0.5 transition-colors duration-150"
-                style={{ color: active ? "var(--ios-tint)" : "#8e8e93" }}
-              >
+            <Link key={href} href={href} className="tab-item">
+              <Icon className="w-[24px] h-[24px] transition-colors duration-150" strokeWidth={active ? 2.2 : 1.6} style={{ color: active ? "var(--brand-600)" : "#8e9c93" }} />
+              <span className="text-[10px] font-medium mt-0.5 transition-colors duration-150" style={{ color: active ? "var(--brand-600)" : "#8e9c93" }}>
                 {label}
               </span>
             </Link>

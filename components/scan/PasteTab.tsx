@@ -25,7 +25,7 @@ export function PasteTab({ onAnalyze, isLoading }: Props) {
   return (
     <div className="space-y-4">
       <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-2">
+        <label className="block text-sm font-semibold mb-2" style={{ color: "var(--ink-3)" }}>
           Paste ingredient list
         </label>
         <textarea
@@ -33,19 +33,19 @@ export function PasteTab({ onAnalyze, isLoading }: Props) {
           onChange={(e) => setText(e.target.value)}
           placeholder={`Example:\n${EXAMPLE}`}
           rows={6}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-700 placeholder:text-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3.5 rounded-2xl text-sm resize-none focus:outline-none transition-all"
+          style={{ background: "rgba(255,255,255,.6)", border: "1px solid rgba(20,70,45,.12)", color: "var(--ink-2)" }}
         />
-        <div className="flex items-center justify-between mt-1.5">
-          <p className="text-xs text-gray-400">
-            Copy from packaging, websites, or apps
-          </p>
-          <span className="text-xs text-gray-400">{text.length} chars</span>
+        <div className="flex items-center justify-between mt-1.5 text-xs" style={{ color: "var(--muted-3)" }}>
+          <p>Copy from packaging, websites, or apps</p>
+          <span>{text.length} chars</span>
         </div>
       </div>
 
       <button
         onClick={() => setText(EXAMPLE)}
-        className="flex items-center gap-2 text-xs text-green-700 font-medium hover:underline"
+        className="flex items-center gap-2 text-xs font-semibold hover:underline"
+        style={{ color: "var(--brand-700)" }}
       >
         <ClipboardPaste className="w-3.5 h-3.5" />
         Use example ingredients

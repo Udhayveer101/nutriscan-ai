@@ -1,101 +1,57 @@
-"use client";
+import { Reveal } from "@/components/ui/Reveal";
+import { EvidenceBar } from "@/components/ui/EvidenceBar";
 
-import { motion } from "framer-motion";
-import { Star } from "lucide-react";
-
-const testimonials = [
-  {
-    text: "Finally I understand what's actually in my son's juice. NutriScan made me a more informed parent.",
-    author: "Priya M.",
-    role: "Parent of 2",
-    rating: 5,
-  },
-  {
-    text: "As a competitive runner I need to know exactly what I'm putting in my body. This tool is incredible.",
-    author: "James T.",
-    role: "Marathon Runner",
-    rating: 5,
-  },
-  {
-    text: "I use it at the grocery store every single time. I've completely changed what I buy because of this.",
-    author: "Sarah K.",
-    role: "Health-conscious shopper",
-    rating: 5,
-  },
-  {
-    text: "The scientific mode is exactly what I needed as a nutritionist. Evidence sources are top notch.",
-    author: "Dr. A. Patel",
-    role: "Nutritionist, RD",
-    rating: 5,
-  },
-];
-
-const stats = [
-  { value: "2M+", label: "Scans performed" },
-  { value: "2,000+", label: "Ingredients catalogued" },
-  { value: "98%", label: "User satisfaction" },
-  { value: "150+", label: "Research references" },
+const BREAKDOWN = [
+  { label: "EVIDENCE STRENGTH", value: "STRONG", w: 86, from: "#4ade80", to: "#16a34a" },
+  { label: "REGULATORY STATUS", value: "APPROVED", w: 92, from: "#4ade80", to: "#16a34a" },
+  { label: "PROCESSING IMPACT", value: "MODERATE", w: 54, from: "#fcd34d", to: "#f59e0b", valueColor: "#fcd34d" },
+  { label: "ADDITIVE CONCERN", value: "ELEVATED", w: 38, from: "#fca5a5", to: "#ef4444", valueColor: "#fca5a5" },
 ];
 
 export function SocialProof() {
   return (
-    <section className="py-24 bg-gradient-to-br from-navy-900 to-green-950">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="text-center"
-            >
-              <div className="text-4xl md:text-5xl font-black text-white mb-2">
-                {stat.value}
-              </div>
-              <div className="text-sm text-green-300">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Testimonials */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">
-            Trusted by health-conscious consumers
+    <div style={{ background: "linear-gradient(160deg,#0d2016,#123024)", color: "#eafaef" }} className="py-16 md:py-[70px]">
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 grid lg:grid-cols-[.95fr_1.05fr] gap-10 lg:gap-12 items-center">
+        <Reveal>
+          <div className="inline-flex items-center gap-2 font-mono-label font-semibold text-[11px] tracking-[.14em] px-3 py-1.5 rounded-full" style={{ color: "#86efac", border: "1px solid rgba(134,239,172,.3)" }}>
+            HOW WE SCORE
+          </div>
+          <h2 className="font-heading font-extrabold text-[32px] md:text-[44px] leading-[1.02] tracking-[-.03em] text-white mt-4">
+            Graded on evidence,<br />not on vibes.
           </h2>
-        </motion.div>
+          <p className="mt-5 max-w-[420px] text-[16px] leading-relaxed" style={{ color: "#a9c9b5" }}>
+            Every ingredient runs through a transparent scorecard. We weigh regulatory status, study strength and processing impact — then show you exactly how the grade was reached.
+          </p>
+          <div className="flex flex-wrap gap-2.5 mt-6 font-mono-label text-[12px] font-semibold">
+            {["FDA", "EFSA", "WHO", "150+ STUDIES"].map((chip) => (
+              <span key={chip} className="px-3.5 py-2 rounded-[9px]" style={{ background: "rgba(134,239,172,.12)", border: "1px solid rgba(134,239,172,.25)", color: "#bbf7d0" }}>
+                {chip}
+              </span>
+            ))}
+          </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.author}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-white/10 backdrop-blur border border-white/10 rounded-2xl p-6"
-            >
-              <div className="flex gap-0.5 mb-4">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                ))}
+        <Reveal delay={0.1} className="glass-dark rounded-[20px] p-7" style={{ boxShadow: "0 24px 60px -20px rgba(0,0,0,.5)" }}>
+          <div className="flex items-center justify-between mb-6">
+            <div className="font-heading font-bold text-[17px] text-white">Sample scorecard</div>
+            <div className="flex items-center gap-2">
+              <span className="font-mono-label text-[11px]" style={{ color: "#a9c9b5" }}>GRADE</span>
+              <span className="w-[34px] h-[34px] rounded-[10px] flex items-center justify-center font-heading font-bold text-[16px]" style={{ background: "#fef3c7", color: "#b45309" }}>C</span>
+            </div>
+          </div>
+          <div className="flex flex-col gap-5">
+            {BREAKDOWN.map((row) => (
+              <div key={row.label}>
+                <div className="flex justify-between font-mono-label text-[11px] mb-1.5" style={{ color: "#c5ddcd" }}>
+                  <span>{row.label}</span>
+                  <span style={{ color: row.valueColor ?? "#86efac" }}>{row.value}</span>
+                </div>
+                <EvidenceBar value={row.w} from={row.from} to={row.to} trackColor="rgba(255,255,255,.12)" />
               </div>
-              <p className="text-gray-200 text-sm leading-relaxed mb-4">&ldquo;{t.text}&rdquo;</p>
-              <div>
-                <p className="text-white font-semibold text-sm">{t.author}</p>
-                <p className="text-green-300 text-xs">{t.role}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
-    </section>
+    </div>
   );
 }

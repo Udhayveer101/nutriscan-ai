@@ -39,10 +39,10 @@ export function BarcodeTab({ onAnalyze, isLoading }: Props) {
   return (
     <div className="space-y-5">
       <div className="text-center py-6">
-        <div className="w-20 h-20 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center mx-auto mb-4">
-          <Barcode className="w-10 h-10 text-gray-400" />
+        <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(20,70,45,.05)", border: "1px solid rgba(20,70,45,.08)" }}>
+          <Barcode className="w-10 h-10" style={{ color: "var(--muted-4)" }} />
         </div>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm" style={{ color: "var(--muted)" }}>
           Enter a product barcode (EAN-13, UPC-A, or EAN-8) to look up its ingredients
           via the Open Food Facts database.
         </p>
@@ -56,7 +56,8 @@ export function BarcodeTab({ onAnalyze, isLoading }: Props) {
           onKeyDown={(e) => e.key === "Enter" && handleLookup()}
           placeholder="e.g. 8901030868825"
           maxLength={14}
-          className="flex-1 px-4 py-3 rounded-xl border border-gray-200 text-sm font-mono text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          className="flex-1 px-4 py-3.5 rounded-2xl text-sm font-mono focus:outline-none"
+          style={{ background: "rgba(255,255,255,.6)", border: "1px solid rgba(20,70,45,.12)", color: "var(--ink-2)" }}
         />
         <button
           onClick={handleLookup}
@@ -72,19 +73,19 @@ export function BarcodeTab({ onAnalyze, isLoading }: Props) {
       </div>
 
       {notFound && (
-        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-700">
+        <div className="p-4 rounded-2xl text-sm" style={{ background: "rgba(245,158,11,.08)", border: "1px solid rgba(245,158,11,.25)", color: "#92620a" }}>
           Product not found. Try a different barcode or use the paste method to enter ingredients manually.
         </div>
       )}
 
       {lookupResult && (
-        <div className="p-4 bg-green-50 border border-green-200 rounded-xl space-y-3">
+        <div className="p-4 rounded-2xl space-y-3" style={{ background: "rgba(22,163,74,.06)", border: "1px solid rgba(22,163,74,.2)" }}>
           <div>
-            <p className="font-bold text-gray-900">{lookupResult.name}</p>
-            <p className="text-sm text-gray-500">{lookupResult.brand}</p>
+            <p className="font-heading font-bold" style={{ color: "var(--ink-2)" }}>{lookupResult.name}</p>
+            <p className="text-sm" style={{ color: "var(--muted)" }}>{lookupResult.brand}</p>
           </div>
           {lookupResult.ingredientsText && (
-            <p className="text-xs text-gray-600 leading-relaxed line-clamp-3">
+            <p className="text-xs leading-relaxed line-clamp-3" style={{ color: "var(--muted)" }}>
               {lookupResult.ingredientsText}
             </p>
           )}

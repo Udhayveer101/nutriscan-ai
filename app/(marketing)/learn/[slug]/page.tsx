@@ -375,15 +375,6 @@ const ARTICLES: Record<string, Article> = {
   },
 };
 
-const CATEGORY_COLORS: Record<string, string> = {
-  Methodology: "bg-blue-100 text-blue-800",
-  Additives: "bg-purple-100 text-purple-800",
-  Sweeteners: "bg-pink-100 text-pink-800",
-  Nutrition: "bg-green-100 text-green-800",
-  "Consumer Guide": "bg-orange-100 text-orange-800",
-  Science: "bg-cyan-100 text-cyan-800",
-};
-
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -400,12 +391,10 @@ export default async function ArticlePage({ params }: Props) {
   const article = ARTICLES[slug];
   if (!article) notFound();
 
-  const badgeColor = CATEGORY_COLORS[article.category] ?? "bg-gray-100 text-gray-700";
-
   return (
-    <div className="min-h-screen bg-gray-50 pt-16">
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
       {/* Hero */}
-      <div className="bg-gradient-to-br from-navy-900 to-green-950 text-white py-16 px-4">
+      <div className="text-white py-16 md:py-20 px-4 pt-32 md:pt-40" style={{ background: "linear-gradient(165deg,#0b1f16 0%,#123024 55%,#0e5231 130%)" }}>
         <div className="max-w-3xl mx-auto">
           <Link
             href="/learn"
@@ -418,8 +407,8 @@ export default async function ArticlePage({ params }: Props) {
           <div className="flex items-center gap-3 mb-6">
             <span className="text-4xl">{article.emoji}</span>
             <div className="flex items-center gap-2">
-              <span className={`text-xs font-bold px-3 py-1 rounded-full ${badgeColor}`}>
-                {article.category}
+              <span className="font-mono-label text-xs font-bold px-3 py-1 rounded-full" style={{ color: "#86efac", border: "1px solid rgba(134,239,172,.3)" }}>
+                {article.category.toUpperCase()}
               </span>
               <span className="flex items-center gap-1.5 text-xs text-white/50">
                 <Clock className="w-3.5 h-3.5" />
@@ -428,7 +417,7 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+          <h1 className="font-heading font-extrabold text-4xl md:text-5xl leading-tight mb-4 tracking-[-.02em]">
             {article.title}
           </h1>
           <p className="text-lg text-white/70 leading-relaxed">{article.tagline}</p>
@@ -436,47 +425,47 @@ export default async function ArticlePage({ params }: Props) {
       </div>
 
       {/* Content */}
-      <div className="max-w-3xl mx-auto px-4 py-12 space-y-5">
+      <div className="max-w-3xl mx-auto px-4 py-12 space-y-4">
         {article.sections.map((section, i) => {
           if (section.type === "intro") {
             return (
-              <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-7">
+              <div key={i} className="glass rounded-2xl p-7">
                 <div className="flex items-center gap-2 mb-3">
-                  <BookOpen className="w-4 h-4 text-green-700" />
-                  <span className="text-xs font-bold text-green-700 uppercase tracking-wider">Overview</span>
+                  <BookOpen className="w-4 h-4" style={{ color: "var(--brand-700)" }} />
+                  <span className="font-mono-label text-xs font-bold tracking-wider" style={{ color: "var(--brand-700)" }}>OVERVIEW</span>
                 </div>
-                <p className="text-gray-700 leading-relaxed text-base">{section.content}</p>
+                <p className="leading-relaxed text-base" style={{ color: "var(--ink-3)" }}>{section.content}</p>
               </div>
             );
           }
 
           if (section.type === "highlight") {
             return (
-              <div key={i} className="bg-green-50 border border-green-200 border-l-4 border-l-green-600 rounded-2xl p-7">
+              <div key={i} className="rounded-2xl p-7" style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderLeft: "4px solid var(--brand-600)" }}>
                 {section.title && (
-                  <h3 className="font-bold text-green-900 mb-3 text-base">✅ {section.title}</h3>
+                  <h3 className="font-heading font-bold mb-3 text-base" style={{ color: "#14532d" }}>✅ {section.title}</h3>
                 )}
-                <p className="text-green-800 leading-relaxed text-sm">{section.content}</p>
+                <p className="leading-relaxed text-sm" style={{ color: "#15803d" }}>{section.content}</p>
               </div>
             );
           }
 
           if (section.type === "warning") {
             return (
-              <div key={i} className="bg-amber-50 border border-amber-200 border-l-4 border-l-amber-500 rounded-2xl p-7">
+              <div key={i} className="rounded-2xl p-7" style={{ background: "#fffbeb", border: "1px solid #fde68a", borderLeft: "4px solid #f59e0b" }}>
                 {section.title && (
-                  <h3 className="font-bold text-amber-900 mb-3 text-base">⚠️ {section.title}</h3>
+                  <h3 className="font-heading font-bold mb-3 text-base" style={{ color: "#78350f" }}>⚠️ {section.title}</h3>
                 )}
-                <p className="text-amber-800 leading-relaxed text-sm">{section.content}</p>
+                <p className="leading-relaxed text-sm" style={{ color: "#92400e" }}>{section.content}</p>
               </div>
             );
           }
 
           if (section.type === "list") {
             return (
-              <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-7">
+              <div key={i} className="glass rounded-2xl p-7">
                 {section.title && (
-                  <h2 className="font-bold text-gray-900 mb-5 text-lg">{section.title}</h2>
+                  <h2 className="font-heading font-bold mb-5 text-lg" style={{ color: "var(--ink-2)" }}>{section.title}</h2>
                 )}
                 <ul className="space-y-3">
                   {section.items?.map((item, j) => {
@@ -484,13 +473,13 @@ export default async function ArticlePage({ params }: Props) {
                     const hasLabel = item.includes(" — ");
                     return (
                       <li key={j} className="flex items-start gap-3">
-                        <span className="w-5 h-5 rounded-full bg-green-100 text-green-700 text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "#dcfce7", color: "#15803d" }}>
                           {j + 1}
                         </span>
-                        <span className="text-sm text-gray-600 leading-relaxed">
+                        <span className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
                           {hasLabel ? (
                             <>
-                              <strong className="text-gray-900">{bold}</strong>
+                              <strong style={{ color: "var(--ink-2)" }}>{bold}</strong>
                               {" — "}
                               {rest.join(" — ")}
                             </>
@@ -508,19 +497,19 @@ export default async function ArticlePage({ params }: Props) {
 
           if (section.type === "table" && section.rows) {
             return (
-              <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div key={i} className="glass rounded-2xl overflow-hidden">
                 {section.title && (
-                  <div className="px-7 py-5 border-b border-gray-100">
-                    <h2 className="font-bold text-gray-900 text-lg">{section.title}</h2>
+                  <div className="px-7 py-5" style={{ borderBottom: "1px solid var(--separator)" }}>
+                    <h2 className="font-heading font-bold text-lg" style={{ color: "var(--ink-2)" }}>{section.title}</h2>
                   </div>
                 )}
-                <div className="divide-y divide-gray-50">
+                <div>
                   {section.rows.map((row, j) => (
-                    <div key={j} className="flex items-center gap-4 px-7 py-4 hover:bg-gray-50 transition-colors">
-                      <span className="w-14 flex-shrink-0 font-black text-green-900 text-sm">{row.label}</span>
-                      <span className="flex-1 text-sm font-medium text-gray-800">{row.value}</span>
+                    <div key={j} className="flex items-center gap-4 px-7 py-4 transition-colors hover:bg-black/[.02]" style={{ borderTop: j > 0 ? "1px solid var(--separator)" : "none" }}>
+                      <span className="w-14 flex-shrink-0 font-heading font-black text-sm" style={{ color: "var(--brand-900)" }}>{row.label}</span>
+                      <span className="flex-1 text-sm font-medium" style={{ color: "var(--ink-3)" }}>{row.value}</span>
                       {row.note && (
-                        <span className="text-xs text-gray-400 flex-shrink-0 hidden sm:block">{row.note}</span>
+                        <span className="text-xs flex-shrink-0 hidden sm:block" style={{ color: "var(--muted-3)" }}>{row.note}</span>
                       )}
                     </div>
                   ))}
@@ -531,14 +520,14 @@ export default async function ArticlePage({ params }: Props) {
 
           if (section.type === "section" || section.type === "subsection") {
             return (
-              <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-7">
+              <div key={i} className="glass rounded-2xl p-7">
                 {section.title && (
-                  <h2 className="font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
-                    <span className="w-1 h-5 rounded-full bg-green-600 flex-shrink-0" />
+                  <h2 className="font-heading font-bold mb-3 text-lg flex items-center gap-2" style={{ color: "var(--ink-2)" }}>
+                    <span className="w-1 h-5 rounded-full flex-shrink-0" style={{ background: "var(--brand-600)" }} />
                     {section.title}
                   </h2>
                 )}
-                <p className="text-sm text-gray-600 leading-relaxed">{section.content}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{section.content}</p>
               </div>
             );
           }
@@ -547,8 +536,8 @@ export default async function ArticlePage({ params }: Props) {
         })}
 
         {/* Disclaimer */}
-        <div className="p-5 bg-gray-100 rounded-2xl text-xs text-gray-500 leading-relaxed">
-          <strong>Educational content only.</strong> This article is for general informational purposes and does not
+        <div className="p-5 rounded-2xl text-xs leading-relaxed" style={{ background: "rgba(20,70,45,.05)", color: "var(--muted-2)" }}>
+          <strong style={{ color: "var(--ink-3)" }}>Educational content only.</strong> This article is for general informational purposes and does not
           constitute medical or dietary advice. Consult a qualified healthcare professional for personalised guidance.
         </div>
 
@@ -556,7 +545,8 @@ export default async function ArticlePage({ params }: Props) {
         <div className="flex items-center justify-between pt-4">
           <Link
             href="/learn"
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
+            style={{ color: "var(--muted-2)" }}
           >
             <ArrowLeft className="w-4 h-4" />
             All articles

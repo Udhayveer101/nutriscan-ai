@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, FileText, Barcode, Loader2, AlertCircle } from "lucide-react";
+import { Upload, FileText, Barcode, AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { UploadTab } from "./UploadTab";
 import { PasteTab } from "./PasteTab";
@@ -60,110 +60,93 @@ export function ScannerInterface() {
   );
 
   return (
-    <div className="space-y-4">
-      {/* Mode selector */}
+    <div className="glass rounded-[22px] p-5 md:p-[26px]">
       <ModeSelector mode={mode} onChange={setMode} />
 
-      {/* iOS segmented control */}
-      <div className="ios-card p-3">
-        <div className="ios-segment-bar">
-          {TABS.map((tab) => {
-            const Icon = tab.icon;
-            const active = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`ios-segment ${active ? "active" : ""}`}
-              >
-                <Icon className="w-3.5 h-3.5 flex-shrink-0" />
-                <span className="hidden sm:inline">{tab.label}</span>
-                <span className="sm:hidden">{tab.short}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Tab content card */}
-      <div className="ios-card overflow-hidden">
-        <div className="p-5 md:p-7">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, x: 8 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -8 }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
+      {/* Input method */}
+      <div className="font-mono-label font-bold text-[11px] tracking-[.14em] mt-6 mb-3.5" style={{ color: "var(--muted-2)" }}>INPUT METHOD</div>
+      <div className="flex gap-1.5 p-[5px] rounded-[13px] mb-5" style={{ background: "rgba(20,70,45,.06)" }}>
+        {TABS.map((tab) => {
+          const Icon = tab.icon;
+          const active = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-[9px] font-semibold text-[13.5px] transition-all"
+              style={active
+                ? { background: "#fff", boxShadow: "0 4px 12px -4px rgba(20,50,30,.2)", color: "#0f4a2a" }
+                : { color: "var(--muted)" }}
             >
-              {activeTab === "upload" && (
-                <UploadTab onAnalyze={handleAnalyze} isLoading={isAnalyzing} />
-              )}
-
-              {activeTab === "paste" && (
-                <PasteTab onAnalyze={handleAnalyze} isLoading={isAnalyzing} />
-              )}
-              {activeTab === "barcode" && (
-                <BarcodeTab onAnalyze={handleAnalyze} isLoading={isAnalyzing} />
-              )}
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Error */}
-          <AnimatePresence>
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="mt-4 flex items-start gap-3 p-4 rounded-2xl text-[14px]"
-                style={{ background: "rgba(255,59,48,0.08)", color: "#c0392b" }}
-              >
-                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                {error}
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Loading overlay */}
-          <AnimatePresence>
-            {isAnalyzing && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.1 }}
-                className="mt-6 flex flex-col items-center gap-4 py-10"
-              >
-                <div className="relative">
-                  <div className="w-[60px] h-[60px] rounded-full border-[3px] border-gray-100 border-t-green-700 animate-spin" />
-                  <div className="absolute inset-0 flex items-center justify-center text-xl">🌿</div>
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-gray-900 text-[16px]">Analysing ingredients…</p>
-                  <p className="text-[13px] mt-1" style={{ color: "var(--ios-label2)" }}>
-                    AI is reviewing your product
-                  </p>
-                </div>
-                <div className="flex items-center gap-2 flex-wrap justify-center">
-                  {["Extracting", "Database", "AI review", "Scoring"].map((step, i) => (
-                    <span
-                      key={step}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-gray-100 text-gray-500"
-                    >
-                      <Loader2 className="w-3 h-3 animate-spin" style={{ animationDelay: `${i * 150}ms` }} />
-                      {step}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+              <Icon className="w-[15px] h-[15px] flex-shrink-0" />
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden">{tab.short}</span>
+            </button>
+          );
+        })}
       </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, x: 8 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -8 }}
+          transition={{ duration: 0.15, ease: "easeOut" }}
+        >
+          {activeTab === "upload" && <UploadTab onAnalyze={handleAnalyze} isLoading={isAnalyzing} />}
+          {activeTab === "paste" && <PasteTab onAnalyze={handleAnalyze} isLoading={isAnalyzing} />}
+          {activeTab === "barcode" && <BarcodeTab onAnalyze={handleAnalyze} isLoading={isAnalyzing} />}
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Error */}
+      <AnimatePresence>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="mt-4 flex items-start gap-3 p-4 rounded-2xl text-[14px]"
+            style={{ background: "rgba(220,38,38,.08)", color: "#c0392b" }}
+          >
+            <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+            {error}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Loading overlay */}
+      <AnimatePresence>
+        {isAnalyzing && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+            className="mt-6 flex flex-col items-center gap-4 py-10"
+          >
+            <div className="relative">
+              <div className="w-[60px] h-[60px] rounded-full border-[3px] animate-spin" style={{ borderColor: "rgba(20,70,45,.1)", borderTopColor: "var(--brand-700)" }} />
+              <div className="absolute inset-0 flex items-center justify-center text-xl">🌿</div>
+            </div>
+            <div className="text-center">
+              <p className="font-heading font-bold text-[16px]" style={{ color: "var(--ink-2)" }}>Analysing ingredients…</p>
+              <p className="text-[13px] mt-1" style={{ color: "var(--muted-2)" }}>AI is reviewing your product</p>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap justify-center">
+              {["Extracting", "Database", "AI review", "Scoring"].map((step) => (
+                <span key={step} className="font-mono-label px-2.5 py-1 rounded-full text-[10.5px] font-medium" style={{ background: "rgba(20,70,45,.06)", color: "var(--muted-2)" }}>
+                  {step}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Disclaimer */}
-      <p className="text-center text-[11px] leading-relaxed max-w-sm mx-auto px-4" style={{ color: "var(--ios-label3)" }}>
+      <p className="text-center text-[11px] leading-relaxed max-w-sm mx-auto mt-5" style={{ color: "var(--muted-4)" }}>
         NutriScan AI is for educational purposes only. Not a substitute for professional dietary advice.
       </p>
     </div>

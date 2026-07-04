@@ -1,150 +1,98 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Clock, Lightbulb } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Educational Hub",
   description: "Learn about food additives, preservatives, ultra-processed foods, and how to read food labels.",
 };
 
+const CATEGORY_COLORS: Record<string, { text: string; bg: string }> = {
+  Methodology: { text: "#1e40af", bg: "#dbeafe" },
+  Additives: { text: "#6d28d9", bg: "#ede9fe" },
+  Sweeteners: { text: "#be185d", bg: "#fce7f3" },
+  Nutrition: { text: "#15803d", bg: "#dcfce7" },
+  "Consumer Guide": { text: "#b45309", bg: "#fef3c7" },
+  Science: { text: "#0e7490", bg: "#cffafe" },
+};
+
 const ARTICLES = [
-  {
-    slug: "how-we-score",
-    title: "How NutriScan AI Scores Ingredients",
-    excerpt: "A transparent breakdown of our A+ to F grading methodology — what factors we weigh and why.",
-    category: "Methodology",
-    readTime: 5,
-    emoji: "📊",
-  },
-  {
-    slug: "our-methodology",
-    title: "Our Methodology",
-    excerpt: "Deep dive into NutriScan AI's scientific approach, algorithm, evidence levels, and regulatory alignment.",
-    category: "Methodology",
-    readTime: 8,
-    emoji: "🔍",
-  },
-  {
-    slug: "preservatives-explained",
-    title: "Preservatives: What They Are and Why They're Used",
-    excerpt: "From sodium benzoate to potassium sorbate — a complete guide to the most common food preservatives.",
-    category: "Additives",
-    readTime: 7,
-    emoji: "🧪",
-  },
-  {
-    slug: "artificial-sweeteners",
-    title: "The Truth About Artificial Sweeteners",
-    excerpt: "Aspartame, sucralose, acesulfame-K — what does the science actually say about sugar substitutes?",
-    category: "Sweeteners",
-    readTime: 8,
-    emoji: "🍬",
-  },
-  {
-    slug: "ultra-processed-foods",
-    title: "What Are Ultra-Processed Foods?",
-    excerpt: "Understanding the NOVA classification system and why processing level matters for health.",
-    category: "Nutrition",
-    readTime: 6,
-    emoji: "🏭",
-  },
-  {
-    slug: "reading-food-labels",
-    title: "How to Read Food Labels Like an Expert",
-    excerpt: "Ingredient lists, nutrition facts, serving sizes — everything you need to decode any food package.",
-    category: "Consumer Guide",
-    readTime: 10,
-    emoji: "📋",
-  },
-  {
-    slug: "evidence-levels",
-    title: "Understanding Evidence Levels in Nutrition Science",
-    excerpt: "Strong vs. moderate vs. limited evidence — how to think critically about nutrition research.",
-    category: "Science",
-    readTime: 6,
-    emoji: "🔬",
-  },
+  { slug: "how-we-score", title: "How NutriScan AI scores ingredients", excerpt: "A transparent breakdown of our A+ to F grading — what factors we weigh, and why.", category: "Methodology", readTime: 5 },
+  { slug: "our-methodology", title: "Our Methodology", excerpt: "The scientific approach, evidence levels, and regulatory alignment behind every score.", category: "Methodology", readTime: 8 },
+  { slug: "preservatives-explained", title: "Preservatives: what they are & why they're used", excerpt: "From sodium benzoate to potassium sorbate — a complete guide to the most common preservatives.", category: "Additives", readTime: 7 },
+  { slug: "artificial-sweeteners", title: "The truth about artificial sweeteners", excerpt: "Aspartame, sucralose, acesulfame-K — what does the science actually say about sugar substitutes?", category: "Sweeteners", readTime: 8 },
+  { slug: "ultra-processed-foods", title: "What are ultra-processed foods?", excerpt: "Understanding the NOVA classification system and why processing level matters for health.", category: "Nutrition", readTime: 6 },
+  { slug: "reading-food-labels", title: "How to read food labels like an expert", excerpt: "Ingredient lists, nutrition facts, serving sizes — everything you need to decode any package.", category: "Consumer Guide", readTime: 10 },
+  { slug: "evidence-levels", title: "Understanding evidence levels in nutrition", excerpt: "Strong vs. moderate vs. limited evidence — how to think critically about nutrition research.", category: "Science", readTime: 6 },
 ];
 
 export default function LearnPage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-navy-900 via-navy-800 to-green-950 text-white py-20 px-4 md:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-emerald-400/20 flex items-center justify-center">
-              <Lightbulb className="w-6 h-6 text-emerald-400" />
-            </div>
-            <div>
-              <div className="text-sm font-semibold text-emerald-400 uppercase tracking-wider">Educational Hub</div>
-              <h1 className="text-4xl md:text-5xl font-extrabold">Understand Food Science</h1>
-            </div>
+    <div style={{ background: "var(--bg)" }} className="min-h-screen">
+      {/* Dark hero */}
+      <div className="relative overflow-hidden" style={{ background: "linear-gradient(165deg,#0b1f16 0%,#123024 55%,#0e5231 130%)" }}>
+        <div className="absolute w-[420px] h-[420px] rounded-full pointer-events-none animate-drift" style={{ background: "radial-gradient(circle, rgba(74,222,128,.28), transparent 68%)", top: -120, right: -40 }} />
+        <div className="absolute w-[360px] h-[360px] rounded-full pointer-events-none animate-drift-rev" style={{ background: "radial-gradient(circle, rgba(45,212,191,.2), transparent 68%)", bottom: -160, left: "8%" }} />
+
+        <div className="relative z-[5] max-w-[1180px] mx-auto px-5 md:px-10 pt-32 md:pt-40 pb-[88px]">
+          <div className="inline-flex items-center gap-2 font-mono-label font-semibold text-[11px] tracking-[.14em] px-3 py-1.5 rounded-full" style={{ color: "#86efac", border: "1px solid rgba(134,239,172,.3)" }}>
+            EDUCATIONAL HUB
           </div>
-          <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">
-            Evidence-based articles to help you make sense of food labels, additives, and nutrition claims. Learn how to read labels like an expert and understand the science behind ingredient safety.
+          <h1 className="font-heading font-extrabold text-[38px] md:text-[64px] leading-[.98] tracking-[-.03em] text-white mt-5 max-w-[820px]">
+            Understand food science <span style={{ color: "#4ade80" }}>without the noise.</span>
+          </h1>
+          <p className="mt-5 max-w-[620px] text-[17px] md:text-[18px] leading-relaxed" style={{ color: "#a9c9b5" }}>
+            Evidence-based reads on labels, additives and nutrition claims. Learn to read a label like an expert — and understand the science behind every grade we give.
           </p>
         </div>
       </div>
 
-      {/* Content Section */}
-      <div className="max-w-6xl mx-auto px-4 md:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {ARTICLES.map((article) => {
-            // Category colors
-            const categoryColors: Record<string, { bg: string; border: string; badge: string }> = {
-              Methodology: { bg: "bg-blue-50 hover:bg-blue-100", border: "border-blue-200 hover:border-blue-300", badge: "bg-blue-100 text-blue-700" },
-              Additives: { bg: "bg-purple-50 hover:bg-purple-100", border: "border-purple-200 hover:border-purple-300", badge: "bg-purple-100 text-purple-700" },
-              Sweeteners: { bg: "bg-pink-50 hover:bg-pink-100", border: "border-pink-200 hover:border-pink-300", badge: "bg-pink-100 text-pink-700" },
-              Nutrition: { bg: "bg-green-50 hover:bg-green-100", border: "border-green-200 hover:border-green-300", badge: "bg-green-100 text-green-700" },
-              "Consumer Guide": { bg: "bg-orange-50 hover:bg-orange-100", border: "border-orange-200 hover:border-orange-300", badge: "bg-orange-100 text-orange-700" },
-              Science: { bg: "bg-cyan-50 hover:bg-cyan-100", border: "border-cyan-200 hover:border-cyan-300", badge: "bg-cyan-100 text-cyan-700" },
-            };
-
-            const colors = categoryColors[article.category] || { bg: "bg-gray-50 hover:bg-gray-100", border: "border-gray-200 hover:border-gray-300", badge: "bg-gray-100 text-gray-700" };
-
+      {/* Article grid — overlaps hero */}
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 -mt-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {ARTICLES.map((article, i) => {
+            const colors = CATEGORY_COLORS[article.category] ?? { text: "var(--muted-2)", bg: "rgba(20,70,45,.06)" };
             return (
-              <Link
-                key={article.slug}
-                href={`/learn/${article.slug}`}
-                className={`group block rounded-2xl p-7 border ${colors.border} ${colors.bg} transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
-              >
-                <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">{article.emoji}</div>
-                <div className="flex items-center gap-2 mb-4">
-                  <span className={`text-xs font-bold ${colors.badge} px-2.5 py-1 rounded-full`}>
-                    {article.category}
-                  </span>
-                  <span className="flex items-center gap-1 text-xs text-gray-600">
-                    <Clock className="w-3.5 h-3.5" />
-                    {article.readTime} min
-                  </span>
-                </div>
-                <h2 className="font-bold text-lg text-navy-900 mb-3 group-hover:text-green-700 transition-colors leading-tight">
-                  {article.title}
-                </h2>
-                <p className="text-sm text-gray-600 leading-relaxed mb-5">{article.excerpt}</p>
-                <div className="flex items-center gap-1.5 text-green-700 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                  Read article
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </Link>
+              <Reveal key={article.slug} delay={i * 0.04}>
+                <Link href={`/learn/${article.slug}`} className="glass block rounded-[18px] overflow-hidden transition-transform hover:-translate-y-1 h-full">
+                  <div className="ph h-[110px]">ARTICLE COVER IMAGE</div>
+                  <div className="p-5">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono-label text-[10px] font-semibold px-2.5 py-1 rounded-[6px]" style={{ color: colors.text, background: colors.bg }}>
+                        {article.category.toUpperCase()}
+                      </span>
+                      <span className="flex items-center gap-1 font-mono-label text-[11px]" style={{ color: "var(--muted-4)" }}>
+                        <Clock className="w-3 h-3" /> {article.readTime} MIN
+                      </span>
+                    </div>
+                    <h2 className="font-heading font-bold text-[18px] leading-tight mt-3" style={{ color: "var(--ink-2)" }}>{article.title}</h2>
+                    <p className="text-[13px] leading-relaxed mt-2" style={{ color: "var(--muted)" }}>{article.excerpt}</p>
+                    <div className="flex items-center gap-1.5 text-[12.5px] font-semibold mt-3.5" style={{ color: "var(--brand-800)" }}>
+                      Read article <ArrowRight className="w-3.5 h-3.5" />
+                    </div>
+                  </div>
+                </Link>
+              </Reveal>
             );
           })}
         </div>
 
-        {/* CTA Section */}
-        <div className="mt-20 p-8 rounded-2xl bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200">
-          <div className="max-w-2xl">
-            <h3 className="text-2xl font-bold text-navy-900 mb-3">Want to Learn More?</h3>
-            <p className="text-gray-700 mb-6 leading-relaxed">
-              Our educational hub is constantly growing. Check back often for new articles on food science, ingredient safety, and nutrition research.
-            </p>
-            <Link href="/ingredients" className="inline-flex items-center gap-2 px-6 py-3 bg-green-900 text-white rounded-xl font-semibold hover:bg-green-800 transition-colors">
-              Explore Ingredient Database
-              <ArrowRight className="w-4 h-4" />
+        {/* Want to go deeper */}
+        <Reveal delay={0.2} className="mt-6 mb-16 relative rounded-[22px] overflow-hidden p-8 md:p-11" style={{ background: "linear-gradient(150deg,#1a7a3e,#0d4c26)", boxShadow: "0 26px 60px -24px rgba(15,82,40,.6)" }}>
+          <div className="absolute w-[280px] h-[280px] rounded-full pointer-events-none animate-drift" style={{ background: "radial-gradient(circle, rgba(74,222,128,.3), transparent 70%)", top: -120, right: -40 }} />
+          <div className="relative flex items-center justify-between gap-8 flex-wrap">
+            <div>
+              <h2 className="font-heading font-extrabold text-[26px] md:text-[30px] text-white">Want to go deeper?</h2>
+              <p className="mt-3 max-w-[460px] text-[15px] leading-relaxed" style={{ color: "#c8e6d2" }}>
+                Our hub grows every week with new reads on ingredient safety, nutrition science and label literacy.
+              </p>
+            </div>
+            <Link href="/ingredients" className="inline-flex items-center gap-2 px-6 py-4 rounded-[13px] font-semibold text-[15px] bg-white whitespace-nowrap transition-transform hover:-translate-y-0.5" style={{ color: "#0e3a1f", boxShadow: "0 12px 28px -8px rgba(0,0,0,.4)" }}>
+              Explore the database <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-        </div>
+        </Reveal>
       </div>
     </div>
   );

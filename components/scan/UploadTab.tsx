@@ -133,11 +133,8 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
           onClick={() => inputRef.current?.click()}
-          className="relative rounded-3xl p-10 text-center cursor-pointer transition-all duration-150 active:scale-[0.99] select-none"
-          style={{
-            background: isDragging ? "rgba(26,92,42,0.06)" : "var(--ios-surface2)",
-            border: `2px dashed ${isDragging ? "rgba(26,92,42,0.4)" : "rgba(60,60,67,0.15)"}`,
-          }}
+          className="relative rounded-[18px] overflow-hidden cursor-pointer transition-colors"
+          style={{ background: "linear-gradient(160deg,#f4faf6,#eef6f0)", border: `1px solid ${isDragging ? "rgba(22,163,74,.4)" : "rgba(20,70,45,.08)"}` }}
         >
           <input
             ref={inputRef}
@@ -146,22 +143,24 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
             className="hidden"
             onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); }}
           />
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-16 h-16 rounded-[22px] flex items-center justify-center" style={{ background: "rgba(26,92,42,0.1)" }}>
-              <Upload className="w-7 h-7" style={{ color: "var(--ios-tint)" }} />
+          <div className="relative m-3.5 rounded-[14px] flex flex-col items-center justify-center gap-1" style={{ height: 280, border: "1.5px dashed rgba(22,101,52,.28)" }}>
+            {/* corner brackets */}
+            <span className="absolute left-4 top-4 w-6 h-6 rounded-tl animate-cpulse" style={{ borderLeft: "2.5px solid var(--brand-600)", borderTop: "2.5px solid var(--brand-600)" }} />
+            <span className="absolute right-4 top-4 w-6 h-6 rounded-tr animate-cpulse" style={{ borderRight: "2.5px solid var(--brand-600)", borderTop: "2.5px solid var(--brand-600)", animationDelay: ".2s" }} />
+            <span className="absolute left-4 bottom-4 w-6 h-6 rounded-bl animate-cpulse" style={{ borderLeft: "2.5px solid var(--brand-600)", borderBottom: "2.5px solid var(--brand-600)", animationDelay: ".4s" }} />
+            <span className="absolute right-4 bottom-4 w-6 h-6 rounded-br animate-cpulse" style={{ borderRight: "2.5px solid var(--brand-600)", borderBottom: "2.5px solid var(--brand-600)", animationDelay: ".6s" }} />
+
+            <div className="w-[66px] h-[66px] rounded-[20px] flex items-center justify-center animate-floaty" style={{ background: "linear-gradient(150deg,#dcfce7,#a7f3c0)", color: "#0f7a3a", boxShadow: "0 10px 24px -8px rgba(22,163,74,.5)" }}>
+              <Upload className="w-7 h-7" />
             </div>
-            <div>
-              <p className="font-semibold text-[16px] text-gray-900">Tap to upload a photo</p>
-              <p className="text-[13px] mt-1 leading-relaxed" style={{ color: "var(--ios-label2)" }}>
-                PNG, JPG, WEBP, HEIC · Works with ingredient labels & packaging
-              </p>
-            </div>
+            <p className="font-heading font-bold text-[18px] mt-2.5" style={{ color: "var(--ink-2)" }}>Drag a label here, or tap to upload</p>
+            <p className="font-mono-label text-[10.5px] tracking-[.04em] mt-1" style={{ color: "var(--muted-2)" }}>PNG · JPG · WEBP · HEIC</p>
           </div>
         </div>
       ) : (
         <div className="space-y-3">
           {/* Image preview */}
-          <div className="relative rounded-2xl overflow-hidden" style={{ background: "var(--ios-surface2)" }}>
+          <div className="relative rounded-2xl overflow-hidden" style={{ background: "rgba(20,70,45,.05)" }}>
             {preview ? (
               <Image
                 src={preview}
@@ -172,8 +171,8 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
               />
             ) : (
               <div className="flex flex-col items-center justify-center gap-2 py-10 px-4">
-                <ImageIcon className="w-10 h-10" style={{ color: "var(--ios-label3)" }} />
-                <p className="text-[14px] font-medium text-gray-700">{file?.name}</p>
+                <ImageIcon className="w-10 h-10" style={{ color: "var(--muted-4)" }} />
+                <p className="text-[14px] font-medium" style={{ color: "var(--ink-3)" }}>{file?.name}</p>
               </div>
             )}
             <button
@@ -186,21 +185,20 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
 
           {/* OCR status */}
           {isExtracting && (
-            <div className="flex items-center gap-2.5 p-3.5 rounded-2xl text-[13px]"
-              style={{ background: "rgba(0,122,255,0.08)", color: "#0066cc" }}>
-              <div className="w-3.5 h-3.5 border-2 border-blue-300 border-t-blue-600 rounded-full animate-spin flex-shrink-0" />
+            <div className="flex items-center gap-2.5 p-3.5 rounded-2xl text-[13px]" style={{ background: "rgba(13,148,136,.08)", color: "#0f766e" }}>
+              <div className="w-3.5 h-3.5 border-2 rounded-full animate-spin flex-shrink-0" style={{ borderColor: "rgba(13,148,136,.3)", borderTopColor: "#0f766e" }} />
               Reading ingredient list from image…
             </div>
           )}
 
           {/* OCR success */}
           {extractedText && !isExtracting && (
-            <div className="p-4 rounded-2xl" style={{ background: "rgba(52,199,89,0.08)", border: "1px solid rgba(52,199,89,0.2)" }}>
+            <div className="p-4 rounded-2xl" style={{ background: "rgba(22,163,74,.08)", border: "1px solid rgba(22,163,74,.2)" }}>
               <div className="flex items-center gap-1.5 mb-1.5">
-                <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--ios-tint)" }} />
-                <p className="text-[12px] font-semibold" style={{ color: "var(--ios-tint)" }}>Ingredients extracted</p>
+                <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--brand-700)" }} />
+                <p className="text-[12px] font-semibold" style={{ color: "var(--brand-700)" }}>Ingredients extracted</p>
               </div>
-              <p className="text-[12px] leading-relaxed line-clamp-3" style={{ color: "#1a5c2a" }}>
+              <p className="text-[12px] leading-relaxed line-clamp-3" style={{ color: "var(--ink-3)" }}>
                 {extractedText}
               </p>
             </div>
@@ -208,20 +206,20 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
 
           {/* OCR failed — show warning but still allow analysis */}
           {ocrFailed && !isExtracting && (
-            <div className="p-4 rounded-2xl" style={{ background: "rgba(255,149,0,0.08)", border: "1px solid rgba(255,149,0,0.25)" }}>
+            <div className="p-4 rounded-2xl" style={{ background: "rgba(245,158,11,.08)", border: "1px solid rgba(245,158,11,.25)" }}>
               <div className="flex items-start gap-2.5">
-                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#cc7700" }} />
+                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#b45309" }} />
                 <div className="flex-1">
-                  <p className="text-[13px] font-semibold" style={{ color: "#cc7700" }}>
+                  <p className="text-[13px] font-semibold" style={{ color: "#b45309" }}>
                     Could not read text from image
                   </p>
-                  <p className="text-[12px] mt-0.5 leading-relaxed" style={{ color: "#996600" }}>
+                  <p className="text-[12px] mt-0.5 leading-relaxed" style={{ color: "#92620a" }}>
                     The image may be blurry, low-res, or at an angle. Try a clearer photo — or use Paste Text to enter ingredients manually.
                   </p>
                   <button
                     onClick={() => currentFileRef.current && runOcr(currentFileRef.current)}
                     className="flex items-center gap-1.5 mt-2 text-[12px] font-semibold"
-                    style={{ color: "#cc7700" }}
+                    style={{ color: "#b45309" }}
                   >
                     <RefreshCw className="w-3 h-3" />
                     Retry OCR
@@ -249,8 +247,8 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
 
           {/* If OCR failed, offer paste text fallback */}
           {ocrFailed && !extractedText && (
-            <p className="text-center text-[12px]" style={{ color: "var(--ios-label2)" }}>
-              Can't read the image? Switch to <strong>Paste Text</strong> tab above to enter ingredients manually.
+            <p className="text-center text-[12px]" style={{ color: "var(--muted-2)" }}>
+              Can&apos;t read the image? Switch to <strong>Paste Text</strong> tab above to enter ingredients manually.
             </p>
           )}
         </div>

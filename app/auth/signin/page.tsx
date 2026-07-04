@@ -7,8 +7,8 @@ import Image from "next/image";
 export default function SignInPage() {
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center px-4 pb-8"
-      style={{ background: "var(--ios-bg)" }}
+      className="min-h-screen flex flex-col items-center justify-center px-4 pb-8 pt-24"
+      style={{ background: "radial-gradient(120% 50% at 50% -10%, #e9f5ec 0%, #f6f5f1 45%, #f6f5f1 100%)" }}
     >
       <div className="w-full max-w-sm">
         {/* App icon + title */}
@@ -16,18 +16,18 @@ export default function SignInPage() {
           <Link href="/" className="inline-block mb-4">
             <Image src="/logo.svg" alt="NutriScan AI" width={80} height={80} className="rounded-[22px] shadow-lg mx-auto" />
           </Link>
-          <h1 className="text-[28px] font-bold tracking-tight text-gray-900">NutriScan AI</h1>
-          <p className="text-[15px] mt-1.5 leading-relaxed" style={{ color: "var(--ios-label2)" }}>
+          <h1 className="font-heading text-[28px] font-extrabold tracking-tight" style={{ color: "var(--ink)" }}>NutriScan AI</h1>
+          <p className="text-[15px] mt-1.5 leading-relaxed" style={{ color: "var(--muted-2)" }}>
             Sign in to save your scan history and track your nutrition goals.
           </p>
         </div>
 
         {/* Sign-in card */}
-        <div className="ios-card p-6 space-y-4">
+        <div className="glass rounded-3xl p-6 space-y-4">
           <button
             onClick={() => signIn("google", { callbackUrl: "/scan" })}
             className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-2xl font-semibold text-[15px] bg-white border transition-all duration-150 active:scale-[0.97] select-none"
-            style={{ borderColor: "var(--ios-separator)", color: "var(--ios-label)", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}
+            style={{ borderColor: "var(--separator)", color: "var(--ink-2)", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}
           >
             <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -38,17 +38,17 @@ export default function SignInPage() {
             Continue with Google
           </button>
 
-          <p className="text-center text-[11px] leading-relaxed" style={{ color: "var(--ios-label3)" }}>
+          <p className="text-center text-[11px] leading-relaxed" style={{ color: "var(--muted-4)" }}>
             By continuing, you agree to our{" "}
-            <Link href="/terms" className="underline" style={{ color: "var(--ios-tint)" }}>Terms</Link>
+            <Link href="/terms" className="underline" style={{ color: "var(--brand-700)" }}>Terms</Link>
             {" "}and{" "}
-            <Link href="/privacy" className="underline" style={{ color: "var(--ios-tint)" }}>Privacy Policy</Link>
+            <Link href="/privacy" className="underline" style={{ color: "var(--brand-700)" }}>Privacy Policy</Link>
           </p>
         </div>
 
-        <p className="text-center text-[14px] mt-6" style={{ color: "var(--ios-label2)" }}>
+        <p className="text-center text-[14px] mt-6" style={{ color: "var(--muted-2)" }}>
           No account needed?{" "}
-          <Link href="/scan" className="font-semibold" style={{ color: "var(--ios-tint)" }}>
+          <Link href="/scan" className="font-semibold" style={{ color: "var(--brand-700)" }}>
             Scan as guest
           </Link>
         </p>

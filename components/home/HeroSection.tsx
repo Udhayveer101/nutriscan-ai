@@ -1,143 +1,76 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Scan, Shield, Zap, ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
 import { ScannerMockup } from "./ScannerMockup";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-blue-50/30" />
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, #0f5132 1px, transparent 0)`,
-          backgroundSize: "32px 32px",
-        }}
-      />
+    <div style={{ background: "radial-gradient(130% 60% at 88% -6%, #e9f5ec 0%, #f6f5f1 42%, #f6f5f1 100%)" }} className="overflow-hidden">
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10">
+        <div className="grid lg:grid-cols-[1.12fr_.88fr] gap-9 pt-32 md:pt-40 pb-10 items-center">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}>
+            <div
+              className="inline-flex items-center gap-2 font-mono-label font-semibold text-[11px] tracking-[.14em] px-3 py-1.5 rounded-full"
+              style={{ color: "var(--brand-800)", background: "rgba(22,101,52,.09)", border: "1px solid rgba(22,101,52,.16)" }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--brand-600)", boxShadow: "0 0 0 4px rgba(22,163,74,.18)" }} />
+              EVIDENCE-BASED FOOD INTELLIGENCE
+            </div>
 
-      {/* Glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-green-900/5 rounded-full blur-3xl" />
+            <h1 className="font-heading font-extrabold text-[42px] sm:text-[54px] lg:text-[64px] leading-[.98] tracking-[-.03em] mt-5" style={{ color: "var(--ink)" }}>
+              Know what&apos;s<br />
+              <span className="relative inline-block">
+                really inside
+                <span className="absolute left-[-4px] right-[-4px] bottom-[6px] h-[16px] -z-10 rounded-[3px] opacity-50" style={{ background: "linear-gradient(90deg,#4ade80,#16a34a)" }} />
+              </span>
+              <br />your food.
+            </h1>
 
-      <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 grid lg:grid-cols-2 gap-16 items-center">
-        {/* Left — Copy */}
-        <div>
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full text-green-800 text-sm font-medium mb-8"
-          >
-            <Zap className="w-3.5 h-3.5 text-emerald" />
-            AI-Powered Ingredient Analysis
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse" />
+            <p className="mt-6 max-w-[440px] text-[17px] leading-relaxed" style={{ color: "var(--muted)" }}>
+              Point your camera at any ingredient list. We decode every preservative, additive and sweetener — and tell you, in plain language, what the science actually says.
+            </p>
+
+            <div className="flex flex-wrap gap-3 mt-7">
+              <Link href="/scan" className="btn-primary">
+                Scan a product <span className="text-[17px]">→</span>
+              </Link>
+              <Link href="/ingredients" className="glass btn-secondary">
+                Browse the database
+              </Link>
+            </div>
+
+            <div className="mt-9 max-w-[430px] flex flex-col gap-3.5">
+              {[
+                { label: "EVIDENCE STRENGTH", value: "STRONG", w: 88 },
+                { label: "REGULATORY COVERAGE", value: "FDA · EFSA · WHO", w: 94 },
+              ].map((row) => (
+                <div key={row.label}>
+                  <div className="flex justify-between font-mono-label text-[10.5px] tracking-[.05em] mb-1.5" style={{ color: "var(--muted-2)" }}>
+                    <span>{row.label}</span>
+                    <span style={{ color: "var(--teal-600)" }}>{row.value}</span>
+                  </div>
+                  <div className="h-[6px] rounded-full overflow-hidden" style={{ background: "rgba(13,80,60,.1)" }}>
+                    <motion.div
+                      className="h-full rounded-full"
+                      style={{ background: "linear-gradient(90deg,#34d399,#0d9488)" }}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${row.w}%` }}
+                      transition={{ duration: 1.3, delay: 0.6, ease: [0.2, 0.7, 0.2, 1] }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-navy-900 mb-6"
-          >
-            Know What&apos;s{" "}
-            <span className="relative">
-              <span className="gradient-text">Really Inside</span>
-              <svg
-                className="absolute -bottom-2 left-0 w-full"
-                viewBox="0 0 300 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 9C50 3 100 1 150 3C200 5 250 7 299 4"
-                  stroke="#10b981"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>{" "}
-            Your Food
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-gray-600 leading-relaxed mb-10 max-w-lg"
-          >
-            Scan any ingredient list and instantly understand preservatives,
-            additives, sweeteners, and other food components through
-            evidence-based AI analysis.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap gap-4 mb-12"
-          >
-            <Link href="/scan" className="btn-primary px-8 py-4 text-base shadow-lg shadow-green-900/20">
-              <Scan className="w-5 h-5" />
-              Scan a Product
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link href="/ingredients" className="btn-secondary px-8 py-4 text-base">
-              Browse Ingredients
-            </Link>
-          </motion.div>
-
-          {/* Trust signals */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex flex-wrap items-center gap-6"
-          >
-            {[
-              { icon: Shield, text: "Evidence-based analysis" },
-              { icon: Zap, text: "Results in seconds" },
-              { icon: Scan, text: "2000+ ingredients" },
-            ].map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-2 text-sm text-gray-500">
-                <Icon className="w-4 h-4 text-emerald" />
-                {text}
-              </div>
-            ))}
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15, ease: [0.2, 0.7, 0.2, 1] }}>
+            <ScannerMockup />
           </motion.div>
         </div>
 
-        {/* Right — Scanner Mockup */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative"
-        >
-          <ScannerMockup />
-        </motion.div>
+        {/* HOW IT WORKS strip lives directly under the hero, matching the mockup layout */}
       </div>
-
-      {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400"
-      >
-        <span className="text-xs">Scroll to explore</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-        >
-          <ChevronDown className="w-4 h-4" />
-        </motion.div>
-      </motion.div>
-    </section>
+    </div>
   );
 }

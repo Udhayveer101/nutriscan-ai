@@ -23,15 +23,15 @@ function ErrorContent() {
   const info = ERROR_MESSAGES[error] ?? ERROR_MESSAGES.Default;
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "var(--ios-bg)" }}>
+    <div className="min-h-screen flex items-center justify-center px-4 pt-16" style={{ background: "radial-gradient(120% 50% at 50% -10%, #e9f5ec 0%, #f6f5f1 45%, #f6f5f1 100%)" }}>
       <div className="w-full max-w-sm">
-        <div className="ios-card p-6 space-y-4 text-center">
+        <div className="glass rounded-3xl p-6 space-y-4 text-center">
           <div className="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center mx-auto">
             <span className="text-2xl">⚠️</span>
           </div>
           <div>
-            <h1 className="font-bold text-[18px] text-gray-900">{info.title}</h1>
-            <p className="text-[14px] mt-2 leading-relaxed" style={{ color: "var(--ios-label2)" }}>
+            <h1 className="font-heading font-bold text-[18px]" style={{ color: "var(--ink)" }}>{info.title}</h1>
+            <p className="text-[14px] mt-2 leading-relaxed" style={{ color: "var(--muted-2)" }}>
               {info.desc}
             </p>
           </div>

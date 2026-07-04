@@ -1,13 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Providers } from "@/components/Providers";
 
-const inter = Inter({
+const heading = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const body = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const monoLabel = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mono-label",
   display: "swap",
 });
 
@@ -65,7 +80,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f2f2f7",
+  themeColor: "#f6f5f1",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -77,7 +92,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${heading.variable} ${body.variable} ${monoLabel.variable}`}>
       <body className="min-h-screen flex flex-col">
         <Providers>
           <Navbar />

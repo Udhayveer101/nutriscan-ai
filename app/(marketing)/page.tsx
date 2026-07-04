@@ -14,10 +14,10 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <FeaturesGrid />
       <HowItWorks />
-      <IngredientPreview />
+      <FeaturesGrid />
       <SocialProof />
+      <IngredientPreview />
       <CTASection />
     </>
   );

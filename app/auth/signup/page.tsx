@@ -11,22 +11,23 @@ function SignUpContent() {
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-blue-50 px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 pt-16" style={{ background: "radial-gradient(120% 50% at 50% -10%, #e9f5ec 0%, #f6f5f1 45%, #f6f5f1 100%)" }}>
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-green-900 to-emerald rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(150deg,#22c55e,#116534)" }}>
               <Leaf className="w-5 h-5 text-white" strokeWidth={2.5} />
             </div>
           </Link>
-          <h1 className="text-2xl font-extrabold text-navy-900 mt-4">Get started</h1>
-          <p className="text-gray-500 text-sm mt-1">Create an account to save your scans and analysis history</p>
+          <h1 className="font-heading text-2xl font-extrabold mt-4" style={{ color: "var(--ink)" }}>Get started</h1>
+          <p className="text-sm mt-1" style={{ color: "var(--muted-2)" }}>Create an account to save your scans and analysis history</p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8 space-y-4">
+        <div className="glass rounded-3xl p-8 space-y-4">
           <button
             onClick={() => signIn("google", { callbackUrl })}
-            className="w-full flex items-center justify-center gap-3 px-6 py-3.5 border-2 border-gray-200 rounded-xl font-semibold text-sm text-gray-700 hover:border-green-400 hover:bg-green-50 transition-all duration-200"
+            className="w-full flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl font-semibold text-sm bg-white transition-all duration-200 hover:-translate-y-0.5"
+            style={{ border: "2px solid rgba(20,70,45,.12)", color: "var(--ink-3)" }}
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -37,17 +38,17 @@ function SignUpContent() {
             Sign up with Google
           </button>
 
-          <div className="text-center text-xs text-gray-400 pt-2">
+          <div className="text-center text-xs pt-2" style={{ color: "var(--muted-4)" }}>
             By signing up, you agree to our{" "}
-            <Link href="/terms" className="text-green-700 hover:underline">Terms</Link>
+            <Link href="/terms" className="hover:underline" style={{ color: "var(--brand-700)" }}>Terms</Link>
             {" "}and{" "}
-            <Link href="/privacy" className="text-green-700 hover:underline">Privacy Policy</Link>
+            <Link href="/privacy" className="hover:underline" style={{ color: "var(--brand-700)" }}>Privacy Policy</Link>
           </div>
         </div>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm mt-6" style={{ color: "var(--muted-2)" }}>
           Already have an account?{" "}
-          <Link href="/auth/signin" className="text-green-700 font-medium hover:underline">
+          <Link href="/auth/signin" className="font-medium hover:underline" style={{ color: "var(--brand-700)" }}>
             Sign in
           </Link>
         </p>
