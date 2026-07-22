@@ -1,3 +1,20 @@
+// Ingredient evaluation engine — redesigned from first principles.
+//
+// Methodology (see vault Methodology.md):
+//   1. NOVA processing classification sets the SCORE CEILING (a bag of chips cannot
+//      score like an apple, no matter the position weighting). This is the fix for
+//      the old "start at 65 and subtract" model that let ultra-processed foods rank high.
+//   2. Composition quality — position-weighted (label order ≈ descending weight),
+//      graded against the cited additive knowledge base (lib/additives.ts).
+//   3. Additive burden — count × severity of flagged additives.
+//   4. Hard caps — any CRITICAL (banned/carcinogenic) additive caps the grade; NOVA-4
+//      ultra-processed foods are capped below "healthy".
+//   5. Interactions — documented combination risks subtract (lib/interactions.ts).
+//   6. Explainability — every ingredient gets a reason + evidence confidence.
+
+import { lookupAdditive, isWholeFood, type ConcernLevel, type Evidence } from "./additives";
+import { detectInteractions, type InteractionHit } from "./interactions";
+
 export type ScoreGrade = "A_PLUS" | "A" | "B" | "C" | "D" | "F";
 
 export interface AllergenMatch {
@@ -5,7 +22,7 @@ export interface AllergenMatch {
   matchedIngredient: string;
 }
 
-// The 14 major allergens (EU) + common US top-9 allergens
+// ── Allergens (unchanged domain data) ────────────────────────────────────────
 const ALLERGEN_MAP: Record<string, string[]> = {
   "Gluten / Wheat":   ["wheat", "flour", "gluten", "semolina", "spelt", "kamut", "barley", "rye", "oat", "triticale", "enriched flour", "wheat starch", "wheat germ", "malt"],
   "Milk / Dairy":     ["milk", "lactose", "whey", "casein", "butter", "cream", "cheese", "yogurt", "lactalbumin", "lactoglobulin", "dairy"],
@@ -26,7 +43,6 @@ const ALLERGEN_MAP: Record<string, string[]> = {
 export function detectAllergens(ingredientNames: string[]): AllergenMatch[] {
   const found: AllergenMatch[] = [];
   const seen = new Set<string>();
-
   for (const name of ingredientNames) {
     const lower = name.toLowerCase();
     for (const [allergen, keywords] of Object.entries(ALLERGEN_MAP)) {
@@ -37,10 +53,126 @@ export function detectAllergens(ingredientNames: string[]): AllergenMatch[] {
       }
     }
   }
-
   return found;
 }
 
+// ── Concern resolution (now KB-backed) ───────────────────────────────────────
+const CONCERN_RANK: Record<ConcernLevel, number> = { LOW: 0, MEDIUM: 1, HIGH: 2, CRITICAL: 3 };
+const RANK_CONCERN: ConcernLevel[] = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
+
+// Sugar/salt/oil are "amounts", not additives — handled here for dominance sensitivity.
+const BULK_RULES: { keywords: string[]; dominant: ConcernLevel; moderate: ConcernLevel; trace: ConcernLevel; note: string }[] = [
+  { keywords: ["salt", "sodium chloride", "sea salt"], dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
+    note: "Salt — WHO recommends <5g/day; dominant salt is a cardiovascular risk." },
+  { keywords: ["sugar", "sucrose", "glucose", "dextrose", "fructose", "corn syrup", "cane sugar", "invert sugar"], dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
+    note: "Added sugar — WHO recommends <10% of energy; dominant sugar is a metabolic risk." },
+  { keywords: ["sunflower oil", "soybean oil", "corn oil", "cottonseed oil", "vegetable oil", "canola"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
+    note: "Refined seed oil — high omega-6; excess intake is pro-inflammatory." },
+  { keywords: ["enriched flour", "refined flour", "bleached flour", "white flour", "all-purpose flour"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
+    note: "Refined flour — high glycaemic index, stripped of fibre and micronutrients." },
+];
+
+export interface IngredientAssessment {
+  name: string;
+  position: number;
+  concern: ConcernLevel;
+  evidence: Evidence;
+  category?: string;
+  reason: string;         // plain-language "why this concern"
+  ref?: string;           // authority behind the concern
+  isAdditive: boolean;
+  isWhole: boolean;
+}
+
+function bracket(position: number): "dominant" | "moderate" | "trace" {
+  return position <= 2 ? "dominant" : position <= 6 ? "moderate" : "trace";
+}
+
+// Assess one ingredient against KB + bulk rules. This is the single source of concern.
+export function assessIngredient(name: string, position: number): IngredientAssessment {
+  const b = bracket(position);
+  const additive = lookupAdditive(name);
+  if (additive) {
+    return {
+      name, position, concern: additive[b], evidence: additive.evidence,
+      category: additive.category, reason: additive.note, ref: additive.ref,
+      isAdditive: !["antioxidant"].includes(additive.category) || CONCERN_RANK[additive[b]] > 0,
+      isWhole: false,
+    };
+  }
+  for (const rule of BULK_RULES) {
+    if (rule.keywords.some((k) => name.toLowerCase().includes(k))) {
+      return {
+        name, position, concern: rule[b], evidence: "STRONG",
+        reason: rule.note, isAdditive: false, isWhole: false,
+      };
+    }
+  }
+  if (isWholeFood(name)) {
+    return { name, position, concern: "LOW", evidence: "STRONG",
+      reason: "Whole/minimally processed food — a positive contributor.", isAdditive: false, isWhole: true };
+  }
+  // Unknown ingredient — a chemical-sounding name is a mild ultra-processing signal.
+  const chemical = /\b(e\d{3}|acid|ate$|ide$|ose$|yl |ester|extract|hydro|mono|di\w)/i.test(name);
+  return {
+    name, position, concern: chemical ? "MEDIUM" : "LOW", evidence: "INSUFFICIENT",
+    reason: chemical
+      ? "Unrecognised additive-like ingredient; not in the knowledge base — treated as mild processing signal (low confidence)."
+      : "Unrecognised ingredient with no documented concern.",
+    isAdditive: chemical, isWhole: false,
+  };
+}
+
+// Back-compat: old callers used inferConcernLevel(name) with no position.
+export function inferConcernLevel(name: string): ConcernLevel {
+  return assessIngredient(name, 0).concern;
+}
+
+// Back-compat shim retained for any external caller.
+export function adjustConcernForConcentration(name: string, _base: ConcernLevel, position: number): ConcernLevel {
+  const a = assessIngredient(name, position);
+  // Never downgrade a CRITICAL from the KB.
+  return a.concern === "CRITICAL" ? "CRITICAL" : a.concern;
+}
+
+// ── NOVA processing classification ───────────────────────────────────────────
+export type NovaGroup = 1 | 2 | 3 | 4;
+
+const REFINED_OIL = /vegetable oil|sunflower oil|soybean oil|corn oil|cottonseed oil|palm oil|canola/i;
+const ADDED_SUGAR = /sugar|sucrose|corn syrup|high fructose|dextrose|glucose syrup|invert sugar|maltodextrin/i;
+const ADDED_SALT = /^salt$|sodium chloride|sea salt/i;
+// Cosmetic/ultra markers — deliberately excludes bare "natural flavor" (that alone is NOVA 3).
+const ULTRA_MARKER = /artificial flavou?r|dye|colou?r|red \d|yellow \d|blue \d|sweetener|emulsifier|hydrogenated/i;
+
+export function classifyNova(assessments: IngredientAssessment[]): { group: NovaGroup; reason: string } {
+  const additiveCount = assessments.filter((a) => a.isAdditive).length;
+  const ultraMarker = assessments.some((a) =>
+    ["coloring", "sweetener", "flavor enhancer", "emulsifier"].includes(a.category ?? "") || ULTRA_MARKER.test(a.name));
+  // Added sugar in the top 3 ingredients = hallmark of an ultra-processed food.
+  const sugarDominant = assessments.some((a) => a.position <= 2 && ADDED_SUGAR.test(a.name));
+  const refinedOil = assessments.some((a) => REFINED_OIL.test(a.name));
+  const addedSaltOrSugar = assessments.some((a) => ADDED_SALT.test(a.name) || ADDED_SUGAR.test(a.name));
+  const wholeCount = assessments.filter((a) => a.isWhole).length;
+
+  if (additiveCount >= 2 || ultraMarker || sugarDominant) {
+    return { group: 4, reason: `Ultra-processed (NOVA 4): ${additiveCount} additive(s)${ultraMarker ? ", cosmetic/ultra markers" : ""}${sugarDominant ? ", added sugar among main ingredients" : ""}.` };
+  }
+  if (additiveCount === 1 || refinedOil || addedSaltOrSugar) {
+    const why = additiveCount === 1 ? "a preservative/additive" : refinedOil ? "refined oil" : "added salt/sugar";
+    return { group: 3, reason: `Processed (NOVA 3): contains ${why} alongside foods.` };
+  }
+  if (wholeCount >= assessments.length - 1 && assessments.length > 0) {
+    return { group: 1, reason: "Unprocessed / minimally processed (NOVA 1)." };
+  }
+  return { group: 2, reason: "Processed culinary ingredients (NOVA 2)." };
+}
+
+// NOVA sets the ceiling — the single most important anti-inflation lever.
+// Calibrated so ultra-processed foods (NOVA 4) cannot exceed a D, and processed
+// snacks (NOVA 3) cannot exceed a C, regardless of how "clean" the short list looks.
+const NOVA_CEILING: Record<NovaGroup, number> = { 1: 100, 2: 85, 3: 60, 4: 40 };
+
+// ── Public breakdown (API-compatible; new fields are additive) ───────────────
 export interface ScoreBreakdown {
   overall: number;
   grade: ScoreGrade;
@@ -50,295 +182,154 @@ export interface ScoreBreakdown {
   ingredientQuality: number;
   sugarContent: number;
   sodiumContent: number;
+  // ── new explainability fields ──
+  novaGroup?: NovaGroup;
+  confidence?: "high" | "moderate" | "low";
+  reasons?: string[];
+  interactions?: InteractionHit[];
+  ingredientReasons?: { name: string; concern: ConcernLevel; reason: string; ref?: string; evidence: Evidence }[];
+}
+
+const CONCERN_PENALTY: Record<ConcernLevel, number> = { LOW: 0, MEDIUM: 12, HIGH: 28, CRITICAL: 55 };
+
+function positionWeight(position: number): number {
+  return Math.exp(-0.15 * position); // pos0 ≈ 1.0, pos10 ≈ 0.22
 }
 
 export interface IngredientInput {
   name: string;
   safetyScore?: number;
-  concernLevel?: "LOW" | "MEDIUM" | "HIGH";
+  concernLevel?: ConcernLevel;
   isNatural?: boolean;
   category?: string;
-  position?: number; // 0 = first/most abundant ingredient on label
+  position?: number;
 }
-
-const CATEGORY_WEIGHTS: Record<string, number> = {
-  preservative: -15,
-  coloring: -18,
-  "artificial coloring": -20,
-  sweetener: -12,
-  "artificial sweetener": -16,
-  emulsifier: -8,
-  stabilizer: -8,
-  "flavor enhancer": -12,
-  "artificial flavor": -14,
-  antioxidant: +3,
-  vitamin: +10,
-  mineral: +8,
-  natural: +2,
-  thickener: -5,
-  "acidity regulator": -6,
-  oil: -5,
-  fat: -8,
-  starch: -4,
-  flour: +2,
-};
-
-// CRITICAL: Ingredients banned in multiple countries or with strong direct links to cancer/serious illness at normal doses
-const CRITICAL_CONCERN_KEYWORDS = [
-  "partially hydrogenated", "hydrogenated vegetable", "hydrogenated fat", // trans fats — banned in US, EU, many countries
-  "sodium nitrite", "sodium nitrate", "potassium nitrite", "potassium nitrate", // WHO Group 1 carcinogen in processed meats
-  "potassium bromate", // banned in EU, UK, Canada, India — carcinogenic
-  "brominated vegetable oil", "bvo", // banned in EU, Japan, India
-  "red 3", "erythrosine", // banned in cosmetics due to cancer risk, still in some foods
-  "titanium dioxide", "e171", // banned as food additive in EU — DNA damage
-  "propyl gallate", // linked to cancer in animal studies, banned in several countries
-  "4-methylimidazole", // caramel colouring byproduct, carcinogenic
-];
-
-// Known high-concern ingredients (lowercase match)
-const HIGH_CONCERN_KEYWORDS = [
-  "palm oil", "trans fat",
-  "high fructose corn syrup", "hfcs", "monosodium glutamate", "msg",
-  "bha", "bht", "tbhq",
-  "red 40", "yellow 5", "yellow 6", "blue 1", "blue 2",
-  "aspartame", "saccharin", "acesulfame", "sodium benzoate",
-  "carrageenan", "hydrogenated",
-];
-
-const MEDIUM_CONCERN_KEYWORDS = [
-  "corn syrup", "maltodextrin", "dextrose", "modified starch",
-  "soybean oil", "canola oil", "vegetable oil", "sunflower oil",
-  "artificial flavor", "natural flavor", "yeast extract",
-  "sodium", "salt", "sugar", "enriched flour",
-];
-
-export function inferConcernLevel(name: string): "LOW" | "MEDIUM" | "HIGH" | "CRITICAL" {
-  const lower = name.toLowerCase();
-  if (CRITICAL_CONCERN_KEYWORDS.some((k) => lower.includes(k))) return "CRITICAL";
-  if (HIGH_CONCERN_KEYWORDS.some((k) => lower.includes(k))) return "HIGH";
-  if (MEDIUM_CONCERN_KEYWORDS.some((k) => lower.includes(k))) return "MEDIUM";
-  return "LOW";
-}
-
-type ConcernLevel = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
 
 /**
- * Concentration-sensitive concern adjustment based on FDA/EFSA/WHO regulatory data.
- * Food labels list ingredients in descending weight order, so position 0 = dominant ingredient.
- * Only applied to specific ingredients where regulatory ADI/threshold data exists.
- * Source: FDA CFR 21, EFSA opinions, WHO Joint Expert Committee on Food Additives (JECFA).
+ * Core evaluator. Accepts either raw label names (preferred) or the legacy
+ * IngredientInput shape. Produces a fully explainable, reproducible score.
  */
-interface ConcentrationRule {
-  // Keywords that identify this ingredient
-  keywords: string[];
-  // Concern levels indexed by position bracket: [0-2 dominant, 3-6 moderate, 7+ trace]
-  // null = use base concern unchanged
-  dominant: ConcernLevel | null;   // positions 0-2
-  moderate: ConcernLevel | null;   // positions 3-6
-  trace: ConcernLevel | null;      // positions 7+
-  // Only apply if the base concern is at or above this minimum (prevents upgrading safe things)
-  minBaseConcern?: ConcernLevel;
-}
-
-const CONCENTRATION_RULES: ConcentrationRule[] = [
-  // ── Sodium/Salt — WHO: <5g/day; dominant salt is a real cardiovascular risk ──────────
-  { keywords: ["salt", "sodium chloride", "sea salt", "himalayan", "pink salt", "rock salt"],
-    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── Sugars — WHO: <10% energy (~50g); dominant sugar is metabolic risk ───────────────
-  { keywords: ["sugar", "sucrose", "glucose", "dextrose", "fructose", "corn syrup", "high fructose"],
-    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── Oils high in omega-6 — EFSA: omega-6 excess inflammatory at high intake ─────────
-  { keywords: ["sunflower oil", "soybean oil", "corn oil", "cottonseed oil"],
-    dominant: "MEDIUM", moderate: "LOW", trace: "LOW" },
-
-  // ── Palm oil — high in saturated fat; at dominant amounts a significant concern ──────
-  { keywords: ["palm oil", "palm kernel"],
-    dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM" },
-
-  // ── Maltodextrin — GI 110 (higher than sugar); FDA GRAS but at high amount concerns ─
-  { keywords: ["maltodextrin"],
-    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── Modified starch — FDA GRAS; at high amounts very refined, low nutritional value ──
-  { keywords: ["modified starch", "modified food starch", "modified corn starch"],
-    dominant: "MEDIUM", moderate: "LOW", trace: "LOW" },
-
-  // ── Sodium benzoate — EFSA ADI: 5mg/kg bw/day. Trace = fine, dominant = concern ─────
-  { keywords: ["sodium benzoate", "e211"],
-    dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM" },
-
-  // ── Potassium sorbate — EFSA ADI: 25mg/kg bw/day. Safe at trace, caution dominant ───
-  { keywords: ["potassium sorbate", "e202"],
-    dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── Carrageenan — no ADI; EFSA 2018: possible GI effects at high intake ──────────────
-  { keywords: ["carrageenan", "e407"],
-    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── BHA/BHT/TBHQ — JECFA ADI: 0-0.3mg/kg. Antioxidants used at trace levels ─────────
-  { keywords: ["bha", "butylated hydroxyanisole", "e320"],
-    dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM" },
-  { keywords: ["bht", "butylated hydroxytoluene", "e321"],
-    dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM" },
-  { keywords: ["tbhq", "tertiary butylhydroquinone", "e319"],
-    dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM" },
-
-  // ── MSG — FDA GRAS; sensitive individuals report symptoms at >3g; trace = fine ────────
-  { keywords: ["monosodium glutamate", "msg", "e621"],
-    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── Aspartame — EFSA/FDA ADI: 40–50mg/kg bw/day. Used in very small amounts ─────────
-  // Concern stays HIGH regardless (it's still HIGH even at trace due to ongoing research)
-  { keywords: ["aspartame", "e951"],
-    dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM" },
-
-  // ── Acesulfame-K — EFSA ADI: 9mg/kg bw/day. At high amounts in drink = concern ──────
-  { keywords: ["acesulfame", "acesulfame potassium", "ace-k", "e950"],
-    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── Artificial colours — EFSA hyperactivity warning; used at trace amounts normally ──
-  { keywords: ["red 40", "allura red", "e129", "yellow 5", "tartrazine", "e102",
-               "yellow 6", "sunset yellow", "e110", "blue 1", "brilliant blue", "e133",
-               "blue 2", "indigotine", "e132", "red 3", "erythrosine", "e127"],
-    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── Phosphoric acid — FDA GRAS; EFSA: high intake linked to bone density loss ────────
-  { keywords: ["phosphoric acid", "e338"],
-    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── Caramel colour (Class IV, E150d) — 4-MEI contaminant; EFSA TDI: 0-0.18mg/kg ─────
-  { keywords: ["caramel color", "caramel colour", "e150d", "e150"],
-    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW" },
-
-  // ── Enriched/refined flour — dominant use = high GI, low nutrition ──────────────────
-  { keywords: ["enriched flour", "refined flour", "bleached flour", "all-purpose flour"],
-    dominant: "MEDIUM", moderate: "LOW", trace: "LOW" },
-];
-
-export function adjustConcernForConcentration(
-  name: string,
-  baseConcern: ConcernLevel,
-  position: number
-): ConcernLevel {
-  // CRITICAL is never downgraded — bans exist regardless of amount
-  if (baseConcern === "CRITICAL") return "CRITICAL";
-
-  const lower = name.toLowerCase();
-  const bracket = position <= 2 ? "dominant" : position <= 6 ? "moderate" : "trace";
-
-  for (const rule of CONCENTRATION_RULES) {
-    if (rule.keywords.some((k) => lower.includes(k))) {
-      const adjusted = rule[bracket];
-      if (adjusted !== null) return adjusted;
-      break;
-    }
-  }
-
-  return baseConcern;
-}
-
-const CONCERN_PENALTIES: Record<string, number> = {
-  LOW: 0,
-  MEDIUM: -12,
-  HIGH: -25,
-  CRITICAL: -40,
-};
-
-// Exponential decay: ingredients listed first are present in higher amounts.
-// Position 0 = dominant ingredient (~full weight), position 10 = trace (~22% weight).
-function positionWeight(position: number): number {
-  return Math.exp(-0.15 * position);
-}
-
-export function calculateHealthScore(
+export function evaluateProduct(
   ingredients: IngredientInput[],
-  sugarPercentage = 0,
-  sodiumMg = 0,
-  isUltraProcessed = false
+  opts: { sugarPercentage?: number; sodiumMg?: number } = {}
 ): ScoreBreakdown {
   if (!ingredients.length) return defaultScore();
 
-  const total = ingredients.length;
+  const assessments = ingredients.map((ing, idx) =>
+    assessIngredient(ing.name ?? "", ing.position ?? idx));
 
-  // 1. Ingredient quality — weight quality scores by position (first ingredient = most abundant)
-  let weightedQualitySum = 0;
-  let weightTotal = 0;
-  ingredients.forEach((ing, idx) => {
-    const pos = ing.position ?? idx;
-    const w = positionWeight(pos);
-    const base = ing.safetyScore ?? 50;
-    const concern = ing.concernLevel ?? inferConcernLevel(ing.name ?? "");
-    const capped = concern === "CRITICAL" ? Math.min(base, 10)
-      : concern === "HIGH" ? Math.min(base, 35)
-      : concern === "MEDIUM" ? Math.min(base, 60)
-      : base;
-    weightedQualitySum += capped * w;
+  const nova = classifyNova(assessments);
+  const ceiling = NOVA_CEILING[nova.group];
+
+  // Composition quality: position-weighted concern → quality 0-100.
+  let weightedPenalty = 0, weightTotal = 0;
+  for (const a of assessments) {
+    const w = positionWeight(a.position);
+    weightedPenalty += CONCERN_PENALTY[a.concern] * w;
     weightTotal += w;
-  });
-  const avgQuality = weightTotal > 0 ? weightedQualitySum / weightTotal : 50;
+  }
+  const avgPenalty = weightTotal > 0 ? weightedPenalty / weightTotal : 0;
+  const ingredientQuality = clamp(100 - avgPenalty);
 
-  // 2. Additive density — weight by position (a trace preservative at the end = less bad)
-  let weightedProblematic = 0;
-  ingredients.forEach((ing, idx) => {
-    const pos = ing.position ?? idx;
-    const concern = ing.concernLevel ?? inferConcernLevel(ing.name ?? "");
-    const isAdditive = !ing.isNatural && ["coloring", "preservative", "sweetener", "flavor enhancer", "emulsifier"].includes(ing.category ?? "");
-    if (concern === "HIGH" || concern === "MEDIUM" || isAdditive) {
-      weightedProblematic += positionWeight(pos);
-    }
-  });
-  const additiveDensityScore = Math.max(0, 100 - weightedProblematic * 12);
-
-  // 3. Processing level — only flag ultra-processed based on actual harmful additives, never on ingredient count
-  const ultraProcessedPenalty = isUltraProcessed ? -25 : 0;
-  const highConcernWeighted = ingredients.reduce((acc, ing, idx) => {
-    const pos = ing.position ?? idx;
-    const concern = ing.concernLevel ?? inferConcernLevel(ing.name ?? "");
-    return acc + (concern === "HIGH" ? positionWeight(pos) : 0);
+  // Additive burden: each flagged additive costs, scaled by severity & position.
+  const additiveBurden = assessments.reduce((acc, a) => {
+    if (!a.isAdditive) return acc;
+    return acc + CONCERN_PENALTY[a.concern] * 0.4 * positionWeight(a.position);
   }, 0);
-  const categoryPenaltyTotal = ingredients.reduce((acc, ing) => {
-    return acc + (CATEGORY_WEIGHTS[ing.category?.toLowerCase() ?? ""] ?? 0);
-  }, 0);
-  const processingScore = Math.min(
-    100,
-    Math.max(0, 70 + categoryPenaltyTotal / total * 1.5 + ultraProcessedPenalty - highConcernWeighted * 10)
-  );
+  const additiveDensity = clamp(100 - additiveBurden);
 
-  // 4. Position-weighted concern penalties
-  const concernPenalty = ingredients.reduce((acc, ing, idx) => {
-    const pos = ing.position ?? idx;
-    const level = ing.concernLevel ?? inferConcernLevel(ing.name ?? "");
-    return acc + (CONCERN_PENALTIES[level] ?? 0) * positionWeight(pos);
-  }, 0);
+  // Processing score derived from NOVA (transparent, not ad-hoc).
+  const processing = clamp({ 1: 95, 2: 82, 3: 62, 4: 38 }[nova.group]);
 
-  // 5. Sugar
-  const sugarScore = Math.max(0, 100 - sugarPercentage * 4);
+  // Sugar / sodium — only credited when nutrition data is actually supplied.
+  // Otherwise their weight is redistributed to the composition terms, so a product
+  // never receives a free +20 for data we don't have (a key anti-inflation fix).
+  const hasNutrition = (opts.sugarPercentage ?? 0) > 0 || (opts.sodiumMg ?? 0) > 0;
+  const sugarContent = clamp(100 - (opts.sugarPercentage ?? 0) * 4);
+  const sodiumContent = clamp(100 - Math.floor((opts.sodiumMg ?? 0) / 8));
 
-  // 6. Sodium
-  const sodiumScore = Math.max(0, 100 - Math.floor(sodiumMg / 8));
+  let raw: number;
+  if (hasNutrition) {
+    raw = ingredientQuality * 0.34 + additiveDensity * 0.24 + processing * 0.22 +
+          sugarContent * 0.10 + sodiumContent * 0.10;
+  } else {
+    // Renormalise the three composition terms to sum to 1.0 (0.34+0.24+0.22 = 0.80).
+    raw = (ingredientQuality * 0.34 + additiveDensity * 0.24 + processing * 0.22) / 0.80;
+  }
 
-  const raw =
-    avgQuality * 0.30 +
-    additiveDensityScore * 0.25 +
-    processingScore * 0.20 +
-    sugarScore * 0.10 +
-    sodiumScore * 0.10 +
-    (concernPenalty / Math.max(1, weightTotal)) * 0.05;
+  const reasons: string[] = [nova.reason];
 
-  const overall = Math.min(100, Math.max(0, Math.round(raw)));
+  // Apply NOVA ceiling — the anti-inflation guarantee.
+  if (raw > ceiling) {
+    reasons.push(`Score capped at ${ceiling} by processing level (NOVA ${nova.group}).`);
+    raw = ceiling;
+  }
+
+  // Post-ceiling separation: HIGH-concern additives keep biting even after the NOVA
+  // cap, so a dye/BHT-laden product ranks below a cleaner ultra-processed one.
+  // HIGH-concern additives, plus cosmetic additives (dyes/sweeteners/flavour enhancers)
+  // at MEDIUM+ — cosmetics have no nutritional justification, so presence counts.
+  const isCosmetic = (c?: string) => ["coloring", "sweetener", "flavor enhancer"].includes(c ?? "");
+  const highAdditives = assessments.filter((a) =>
+    a.isAdditive && (a.concern === "HIGH" ||
+      (isCosmetic(a.category) && CONCERN_RANK[a.concern] >= CONCERN_RANK.MEDIUM)));
+  if (highAdditives.length) {
+    raw -= highAdditives.length * 5;
+    reasons.push(`−${highAdditives.length * 5}: ${highAdditives.length} high-concern additive(s) (${highAdditives.map((a) => a.name).join(", ")}).`);
+  }
+
+  // Hard caps for CRITICAL additives (banned/carcinogenic) — override everything.
+  const critical = assessments.filter((a) => a.concern === "CRITICAL");
+  if (critical.length) {
+    const cap = 25;
+    if (raw > cap) reasons.push(`Score capped at ${cap}: contains a banned/high-risk ingredient (${critical.map((c) => c.name).join(", ")}).`);
+    raw = Math.min(raw, cap);
+  }
+
+  // Interactions — documented combination risks.
+  const interactions = detectInteractions(assessments.map((a) => a.name));
+  for (const hit of interactions) {
+    raw -= hit.penalty;
+    reasons.push(`−${hit.penalty}: ${hit.title}.`);
+  }
+
+  const overall = Math.round(clamp(raw));
+
+  // Confidence from the evidence behind the worst concerns.
+  const worst = assessments.reduce((m, a) => Math.max(m, CONCERN_RANK[a.concern]), 0);
+  const drivers = assessments.filter((a) => CONCERN_RANK[a.concern] === worst && worst > 0);
+  const strong = drivers.every((d) => d.evidence === "STRONG" || d.evidence === "MODERATE");
+  const anyInsufficient = drivers.some((d) => d.evidence === "INSUFFICIENT");
+  const confidence: "high" | "moderate" | "low" =
+    worst === 0 ? "high" : anyInsufficient ? "low" : strong ? "high" : "moderate";
 
   return {
     overall,
     grade: scoreToGrade(overall),
     gradeLabel: gradeToLabel(scoreToGrade(overall)),
-    processing: Math.round(processingScore),
-    additiveDensity: Math.round(additiveDensityScore),
-    ingredientQuality: Math.round(avgQuality),
-    sugarContent: Math.round(sugarScore),
-    sodiumContent: Math.round(sodiumScore),
+    processing: Math.round(processing),
+    additiveDensity: Math.round(additiveDensity),
+    ingredientQuality: Math.round(ingredientQuality),
+    sugarContent: Math.round(sugarContent),
+    sodiumContent: Math.round(sodiumContent),
+    novaGroup: nova.group,
+    confidence,
+    reasons,
+    interactions,
+    ingredientReasons: assessments.map((a) => ({
+      name: a.name, concern: a.concern, reason: a.reason, ref: a.ref, evidence: a.evidence,
+    })),
   };
+}
+
+// Back-compat wrapper: old signature routes into the new engine.
+export function calculateHealthScore(
+  ingredients: IngredientInput[],
+  sugarPercentage = 0,
+  sodiumMg = 0,
+  _isUltraProcessed = false
+): ScoreBreakdown {
+  return evaluateProduct(ingredients, { sugarPercentage, sodiumMg });
 }
 
 export function scoreToGrade(score: number): ScoreGrade {
@@ -351,21 +342,21 @@ export function scoreToGrade(score: number): ScoreGrade {
 }
 
 export function gradeToLabel(grade: ScoreGrade): string {
-  const labels: Record<ScoreGrade, string> = {
-    A_PLUS: "A+", A: "A", B: "B", C: "C", D: "D", F: "F",
-  };
-  return labels[grade];
+  return ({ A_PLUS: "A+", A: "A", B: "B", C: "C", D: "D", F: "F" } as Record<ScoreGrade, string>)[grade];
 }
+
+function clamp(n: number): number { return Math.min(100, Math.max(0, n)); }
 
 function defaultScore(): ScoreBreakdown {
   return {
-    overall: 50,
-    grade: "C",
-    gradeLabel: "C",
-    processing: 50,
-    additiveDensity: 60,
-    ingredientQuality: 50,
-    sugarContent: 60,
-    sodiumContent: 60,
+    overall: 50, grade: "C", gradeLabel: "C",
+    processing: 50, additiveDensity: 60, ingredientQuality: 50,
+    sugarContent: 60, sodiumContent: 60,
+    novaGroup: 2, confidence: "low", reasons: ["No ingredients provided."],
+    interactions: [], ingredientReasons: [],
   };
 }
+
+// re-export for callers
+export type { ConcernLevel } from "./additives";
+export { RANK_CONCERN };

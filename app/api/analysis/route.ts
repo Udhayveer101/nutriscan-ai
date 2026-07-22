@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { extractIngredientsFromText, generateIngredientExplanation, generateProductSummary, type ExplanationMode } from "@/lib/gemini";
-import { calculateHealthScore, inferConcernLevel, adjustConcernForConcentration, detectAllergens } from "@/lib/scoring";
+import { evaluateProduct, inferConcernLevel, adjustConcernForConcentration, detectAllergens } from "@/lib/scoring";
 import { scanUploadSchema } from "@/lib/validators";
 import { auth } from "@/lib/auth";
 
@@ -99,24 +99,11 @@ export async function POST(req: NextRequest) {
       })
     );
 
-    // 4. Calculate health scores
-    const highConcernCount = ingredientExplanations.filter((i) => i.concernLevel === "HIGH").length;
-    const criticalCount = ingredientExplanations.filter((i) => i.concernLevel === "CRITICAL").length;
-    // Ultra-processed only when genuinely harmful — never just because ingredient list is long
-    const isUltraProcessed = highConcernCount >= 3 || criticalCount >= 1;
-
-    const scoreBreakdown = calculateHealthScore(
-      ingredientExplanations.map((i) => ({
-        name: i.normalizedName,
-        safetyScore: i.safetyScore,
-        concernLevel: i.concernLevel as "LOW" | "MEDIUM" | "HIGH",
-        isNatural: i.isNatural,
-        category: i.category,
-        position: i.position,
-      })),
-      0,
-      0,
-      isUltraProcessed
+    // 4. Calculate health scores — NOVA-anchored, explainable engine.
+    // Score off the full extracted label (all names + order), not just the first 15
+    // explained rows, so processing/interaction detection sees everything.
+    const scoreBreakdown = evaluateProduct(
+      extractedNames.map((name, position) => ({ name, position }))
     );
 
     // 5. Detect allergens + apply user prefs (prefs already fetched in step 2)
@@ -140,7 +127,7 @@ export async function POST(req: NextRequest) {
       generateProductSummary(
         "Scanned Product",
         extractedNames,
-        { ...scoreBreakdown, gradeLabel: scoreBreakdown.gradeLabel },
+        { overall: scoreBreakdown.overall, gradeLabel: scoreBreakdown.gradeLabel, grade: scoreBreakdown.grade },
         mode as ExplanationMode
       ),
       prisma.scan.create({
