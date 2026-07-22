@@ -3,10 +3,20 @@ import { MetadataRoute } from "next";
 
 const BASE_URL = "https://nutriscan.ai";
 
+// Render on request (revalidated hourly), not at build — the sitemap must never be a
+// build-time DB dependency, and a DB blip must degrade to the static pages, not 500.
+export const dynamic = "force-dynamic";
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const ingredients = await prisma.ingredient.findMany({
-    select: { slug: true, updatedAt: true },
-  });
+  let ingredients: { slug: string; updatedAt: Date }[] = [];
+  try {
+    ingredients = await prisma.ingredient.findMany({
+      select: { slug: true, updatedAt: true },
+    });
+  } catch (err) {
+    console.error("[sitemap] ingredient query failed, serving static pages only:", err);
+  }
 
   const ingredientUrls = ingredients.map((ing) => ({
     url: `${BASE_URL}/ingredients/${ing.slug}`,

@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-29 profiled additives. Generated 2026-07-22.
+63 profiled additives. Generated 2026-07-22.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -31,3 +31,37 @@
 - [[Citric Acid]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Tocopherols (Vitamin E)]] — antioxidant, STRONG evidence, dominant=LOW
 - [[Lecithin]] — emulsifier, STRONG evidence, dominant=LOW
+- [[Sulphites (SO₂, metabisulphites)]] — preservative, STRONG evidence, dominant=HIGH
+- [[Propyl Gallate]] — antioxidant, LIMITED evidence, dominant=HIGH
+- [[Saccharin]] — sweetener, LIMITED evidence, dominant=MEDIUM
+- [[Steviol Glycosides (Stevia)]] — sweetener, STRONG evidence, dominant=LOW
+- [[Erythritol]] — sweetener, LIMITED evidence, dominant=MEDIUM
+- [[Xylitol]] — sweetener, LIMITED evidence, dominant=MEDIUM
+- [[Sorbitol]] — sweetener, STRONG evidence, dominant=MEDIUM
+- [[Mono- and Diglycerides]] — emulsifier, LIMITED evidence, dominant=MEDIUM
+- [[Propylene Glycol]] — emulsifier, MODERATE evidence, dominant=MEDIUM
+- [[Carmine - Cochineal (E120)]] — coloring, MODERATE evidence, dominant=MEDIUM
+- [[Disodium EDTA]] — antioxidant, LIMITED evidence, dominant=MEDIUM
+- [[Sodium-Potassium Phosphates]] — acidity regulator, MODERATE evidence, dominant=MEDIUM
+- [[Aluminium-containing Additives]] — acidity regulator, MODERATE evidence, dominant=HIGH
+- [[Natamycin]] — preservative, MODERATE evidence, dominant=MEDIUM
+- [[Guar Gum]] — thickener, STRONG evidence, dominant=LOW
+- [[Xanthan Gum]] — thickener, STRONG evidence, dominant=LOW
+- [[Pectin]] — thickener, STRONG evidence, dominant=LOW
+- [[Locust Bean Gum]] — thickener, STRONG evidence, dominant=LOW
+- [[Calcium Propionate]] — preservative, LIMITED evidence, dominant=MEDIUM
+- [[Sodium Erythorbate]] — antioxidant, MODERATE evidence, dominant=LOW
+- [[Nisin]] — preservative, MODERATE evidence, dominant=LOW
+- [[Glycerol (Glycerin)]] — emulsifier, STRONG evidence, dominant=LOW
+- [[Carnauba Wax]] — thickener, MODERATE evidence, dominant=LOW
+- [[Shellac]] — thickener, LIMITED evidence, dominant=LOW
+- [[Sodium Stearoyl Lactylate]] — emulsifier, LIMITED evidence, dominant=MEDIUM
+- [[Lactic Acid]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Malic Acid]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Sodium Citrate]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Calcium Carbonate]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Beta-Carotene (E160a)]] — coloring, STRONG evidence, dominant=LOW
+- [[Annatto (E160b)]] — coloring, MODERATE evidence, dominant=LOW
+- [[Potassium Chloride]] — acidity regulator, MODERATE evidence, dominant=MEDIUM
+- [[Gellan Gum]] — thickener, MODERATE evidence, dominant=LOW
+- [[Inulin - Chicory Fibre]] — thickener, STRONG evidence, dominant=LOW

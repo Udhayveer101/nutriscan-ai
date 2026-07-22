@@ -16,6 +16,12 @@ export const ingredientSearchSchema = z.object({
   order: z.enum(["asc", "desc"]).default("asc"),
 });
 
+export const userPreferencesSchema = z.object({
+  allergens: z.array(z.string().max(60)).max(30).default([]),
+  avoidList: z.array(z.string().max(60)).max(50).default([]),
+  preferredMode: z.enum(["BEGINNER", "PARENT", "ATHLETE", "SCIENTIFIC"]).default("BEGINNER"),
+});
+
 export const ingredientAdminSchema = z.object({
   name: z.string().min(1).max(200),
   slug: z.string().min(1).max(200).regex(/^[a-z0-9-]+$/),
@@ -38,6 +44,7 @@ export const ingredientAdminSchema = z.object({
   isVegan: z.boolean().default(true),
 });
 
+export type UserPreferencesInput = z.infer<typeof userPreferencesSchema>;
 export type ScanUploadInput = z.infer<typeof scanUploadSchema>;
 export type IngredientSearchInput = z.infer<typeof ingredientSearchSchema>;
 export type IngredientAdminInput = z.infer<typeof ingredientAdminSchema>;

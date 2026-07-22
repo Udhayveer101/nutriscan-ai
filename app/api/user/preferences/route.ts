@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { userPreferencesSchema } from "@/lib/validators";
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -8,16 +9,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { allergens, avoidList, preferredMode } = await req.json();
+  const parsed = userPreferencesSchema.safeParse(await req.json().catch(() => null));
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Invalid preferences", details: parsed.error.flatten() }, { status: 400 });
+  }
+  const { allergens, avoidList, preferredMode } = parsed.data;
 
   await prisma.user.update({
     where: { id: session.user.id },
-    data: {
-      allergens: allergens ?? [],
-      avoidList: avoidList ?? [],
-      preferredMode: preferredMode ?? "BEGINNER",
-      onboarded: true,
-    },
+    data: { allergens, avoidList, preferredMode, onboarded: true },
   });
 
   return NextResponse.json({ ok: true });

@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { extractTextFromImageFile } from "@/lib/vision";
+import { rateLimit, clientKey } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
 export async function POST(req: NextRequest) {
   try {
+    // OCR calls paid vision APIs — throttle per IP.
+    const rl = rateLimit(clientKey(req, "ocr"), 20, 60_000);
+    if (!rl.ok) {
+      return NextResponse.json({ error: "Too many requests. Please slow down." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfter) } });
+    }
     const formData = await req.formData();
     const file = formData.get("image") as File | null;
 
