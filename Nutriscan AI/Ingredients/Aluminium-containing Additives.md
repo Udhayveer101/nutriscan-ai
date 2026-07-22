@@ -9,7 +9,7 @@ last_reviewed: 2026-07-22
 
 **Category:** acidity regulator  ·  **Function:** Leavening / anticaking / colour
 **Evidence strength:** MODERATE
-**E-number(s):** e541, e173, e520, e523
+**E-number(s):** e541, e173, e520, e521, e523, e554, e555, e556, e559
 **ADI:** 1 mg/kg bw/week aluminium (EFSA TWI)
 
 ## Concern by concentration

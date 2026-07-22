@@ -9,7 +9,7 @@ last_reviewed: 2026-07-22
 
 **Category:** acidity regulator  ·  **Function:** Emulsifying salt / stabiliser
 **Evidence strength:** MODERATE
-**E-number(s):** e339, e340, e451, e452
+**E-number(s):** e339, e340, e450, e451, e452
 
 
 ## Concern by concentration

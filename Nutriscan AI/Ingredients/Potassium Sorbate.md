@@ -9,7 +9,7 @@ last_reviewed: 2026-07-22
 
 **Category:** preservative  ·  **Function:** Antimicrobial preservative
 **Evidence strength:** INSUFFICIENT
-**E-number(s):** e202, e200
+**E-number(s):** e202, e200, e203
 **ADI:** 3 mg/kg bw/day (EFSA 2015)
 
 ## Concern by concentration

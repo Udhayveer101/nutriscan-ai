@@ -24,6 +24,11 @@ Answer questions in this order — cheapest first, source last:
   knowledge-base change; it must stay green.** Fix the methodology, never manually nudge a
   product's score.
 
+## Adding an ingredient
+Follow the seven-gate workflow in `Nutriscan AI/Methodology/Adding Ingredients.md` (research →
+verify → document → score → confidence → DB+scanner integrate → verify). Every seed row needs
+`lookupAdditive` coverage or the scanner scores it as unknown.
+
 ## After changing scoring or the knowledge base
 1. `npx tsx scripts/validate-scoring.ts` (must pass)
 2. `npx tsx scripts/gen-vault.ts` (if additives/interactions changed)

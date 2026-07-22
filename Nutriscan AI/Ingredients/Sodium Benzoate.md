@@ -9,7 +9,7 @@ last_reviewed: 2026-07-22
 
 **Category:** preservative  ·  **Function:** Antimicrobial preservative
 **Evidence strength:** MODERATE
-**E-number(s):** e211, e210
+**E-number(s):** e211, e210, e212, e213
 **ADI:** 5 mg/kg bw/day (EFSA)
 
 ## Concern by concentration
