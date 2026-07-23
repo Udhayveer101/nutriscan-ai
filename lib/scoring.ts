@@ -40,14 +40,20 @@ const ALLERGEN_MAP: Record<string, string[]> = {
   "Molluscs":         ["mollusc", "mollusk", "squid", "octopus", "snail", "abalone"],
 };
 
+// Word-boundary match (optional plural "s") — substring matching produced false
+// positives on allergen alerts: "oat" inside "sodium benzOATe", "malt" inside
+// "MALTodextrin", "fish" inside "king FISHer". False allergen warnings destroy
+// trust in the one feature users rely on for safety.
+export const allergenPattern = (k: string) =>
+  new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}s?\\b`, "i");
+
 export function detectAllergens(ingredientNames: string[]): AllergenMatch[] {
   const found: AllergenMatch[] = [];
   const seen = new Set<string>();
   for (const name of ingredientNames) {
-    const lower = name.toLowerCase();
     for (const [allergen, keywords] of Object.entries(ALLERGEN_MAP)) {
       if (seen.has(allergen)) continue;
-      if (keywords.some((k) => lower.includes(k))) {
+      if (keywords.some((k) => allergenPattern(k).test(name))) {
         found.push({ allergen, matchedIngredient: name });
         seen.add(allergen);
       }

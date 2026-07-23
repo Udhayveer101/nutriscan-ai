@@ -27,13 +27,12 @@ export function ScannerInterface() {
 
   const handleAnalyze = useCallback(
     async (data: { method: string; text?: string; ingredients?: string[]; barcode?: string }) => {
-      // Flush state synchronously before starting the network request so the
-      // loading UI appears on the very next paint, not after the fetch begins.
       setError(null);
       setIsAnalyzing(true);
-
-      // Yield to the browser for one frame so React can paint the loading state
-      await new Promise<void>((r) => requestAnimationFrame(() => r()));
+      // NOTE: never await requestAnimationFrame here — RAF doesn't fire in
+      // non-painting tabs (backgrounded/minimized/throttled), which silently
+      // hung the entire analysis before the request was ever sent. React
+      // paints the loading state on its own while the fetch is in flight.
 
       try {
         const res = await fetch("/api/analysis", {

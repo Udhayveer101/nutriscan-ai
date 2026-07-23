@@ -1,6 +1,6 @@
 // Large-scale sanity validation of the redesigned scoring engine against real products.
 // Run: npx tsx scripts/validate-scoring.ts
-import { evaluateProduct } from "../lib/scoring";
+import { evaluateProduct, detectAllergens } from "../lib/scoring";
 import { _demo as additivesDemo } from "../lib/additives";
 import { _demo as interactionsDemo } from "../lib/interactions";
 
@@ -34,5 +34,17 @@ for (const p of PRODUCTS) {
   if (!ok) console.log(`        reasons: ${r.reasons?.join(" | ")}`);
 }
 additivesDemo(); interactionsDemo();
+
+// Allergen detection self-check — word-boundary matching, no substring false positives.
+{
+  const hits = detectAllergens(["Sodium Benzoate", "Maltodextrin", "Sunflower Oil"]);
+  if (hits.length !== 0) { fail++; console.log(`FAIL  allergen false positives: ${JSON.stringify(hits)}`); }
+  const real = detectAllergens(["Enriched Wheat Flour", "Whey Powder", "Oats", "Soy Lecithin"]);
+  const names = real.map((h) => h.allergen).sort();
+  const want = ["Gluten / Wheat", "Milk / Dairy", "Soy"].sort();
+  if (JSON.stringify(names) !== JSON.stringify(want)) { fail++; console.log(`FAIL  allergen misses: got ${JSON.stringify(names)}`); }
+  if (fail === 0) console.log("allergen detection self-check OK");
+}
+
 console.log(`\n${fail === 0 ? "ALL PASS" : fail + " FAILED"}\n`);
 process.exit(fail === 0 ? 0 : 1);

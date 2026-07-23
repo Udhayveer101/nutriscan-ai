@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { extractIngredientsFromText, sanitizeIngredients, generateIngredientExplanation, generateProductSummary, type ExplanationMode } from "@/lib/gemini";
-import { evaluateProduct, inferConcernLevel, adjustConcernForConcentration, detectAllergens } from "@/lib/scoring";
+import { evaluateProduct, inferConcernLevel, adjustConcernForConcentration, detectAllergens, allergenPattern } from "@/lib/scoring";
 import { scanUploadSchema } from "@/lib/validators";
 import { auth } from "@/lib/auth";
 import { rateLimit, clientKey } from "@/lib/ratelimit";
@@ -138,10 +138,12 @@ export async function POST(req: NextRequest) {
 
     const personalFlags = ingredientExplanations.map((ing) => {
       const name = (ing.normalizedName ?? ing.rawName).toLowerCase();
+      // Word-boundary match (allergenPattern) — plain substring matching false-flagged
+      // e.g. user allergen "oat" against "sodium benzOATe".
       const triggersUserAllergen = userAllergens.some((a) =>
-        name.includes(a.toLowerCase()) || allergens.some((m) => m.allergen === a && m.matchedIngredient.toLowerCase() === name)
+        allergenPattern(a).test(name) || allergens.some((m) => m.allergen === a && m.matchedIngredient.toLowerCase() === name)
       );
-      const triggersUserAvoid = userAvoidList.some((a) => name.includes(a.toLowerCase()));
+      const triggersUserAvoid = userAvoidList.some((a) => allergenPattern(a).test(name));
       return { ...ing, triggersUserAllergen, triggersUserAvoid };
     });
 
