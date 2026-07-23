@@ -26,7 +26,7 @@ export function ScannerInterface() {
   const router = useRouter();
 
   const handleAnalyze = useCallback(
-    async (data: { method: string; text?: string; barcode?: string }) => {
+    async (data: { method: string; text?: string; ingredients?: string[]; barcode?: string }) => {
       // Flush state synchronously before starting the network request so the
       // loading UI appears on the very next paint, not after the fetch begins.
       setError(null);

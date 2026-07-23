@@ -5,8 +5,37 @@ import { Upload, X, ImageIcon, ArrowRight, RefreshCw, AlertCircle, CheckCircle }
 import Image from "next/image";
 
 interface Props {
-  onAnalyze: (data: { method: string; text?: string }) => void;
+  onAnalyze: (data: { method: string; text?: string; ingredients?: string[] }) => void;
   isLoading: boolean;
+}
+
+// Stage 0 (client capture quality): downscale the longest edge to ~1600px before
+// upload — smaller payload, faster upload + faster OCR, no visible quality loss
+// for reading label text. Canvas draw also applies EXIF orientation in modern
+// browsers, so no separate orientation step is needed. HEIC can't be decoded by
+// <canvas> in most browsers, so it's uploaded as-is.
+const MAX_EDGE = 1600;
+
+async function downscaleImage(file: File): Promise<File> {
+  if (file.name.toLowerCase().match(/\.hei[cf]$/) || !file.type.startsWith("image/")) return file;
+
+  const bitmap = await createImageBitmap(file).catch(() => null);
+  if (!bitmap) return file;
+
+  const scale = Math.min(1, MAX_EDGE / Math.max(bitmap.width, bitmap.height));
+  if (scale === 1) return file;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return file;
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+
+  const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.88));
+  if (!blob) return file;
+
+  return new File([blob], file.name.replace(/\.\w+$/, ".jpg"), { type: "image/jpeg" });
 }
 
 export function UploadTab({ onAnalyze, isLoading }: Props) {
@@ -15,6 +44,7 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
   const [isDragging, setIsDragging] = useState(false);
   const [isExtracting, setIsExtracting] = useState(false);
   const [extractedText, setExtractedText] = useState<string | null>(null);
+  const [ingredients, setIngredients] = useState<string[]>([]);
   const [ocrFailed, setOcrFailed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -43,6 +73,7 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
     setFile(null);
     setPreview(null);
     setExtractedText(null);
+    setIngredients([]);
     setIsExtracting(false);
     setOcrFailed(false);
     setSubmitted(false);
@@ -56,6 +87,7 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
     abortRef.current = controller;
 
     setExtractedText(null);
+    setIngredients([]);
     setOcrFailed(false);
     setIsExtracting(true);
 
@@ -68,8 +100,13 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
         signal: controller.signal,
       });
       const data = await res.json();
-      if (data.ingredientText && data.ingredientText.trim().length > 0) {
-        setExtractedText(data.ingredientText);
+      // Structured OCR contract: prefer the parsed ingredient array; fall back to
+      // the regex-extracted section text for the preview.
+      const parsed: string[] = Array.isArray(data.ingredients) ? data.ingredients : [];
+      setIngredients(parsed);
+      const previewText = parsed.length ? parsed.join(", ") : (data.ingredientText ?? "");
+      if (previewText.trim().length > 0) {
+        setExtractedText(previewText);
         setOcrFailed(false);
       } else {
         setOcrFailed(true);
@@ -83,11 +120,12 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
     }
   }, []);
 
-  const handleFile = useCallback(async (f: File) => {
-    if (!isValidImage(f)) return;
+  const handleFile = useCallback(async (rawFile: File) => {
+    if (!isValidImage(rawFile)) return;
 
     if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
 
+    const f = await downscaleImage(rawFile);
     currentFileRef.current = f;
     setFile(f);
     setSubmitted(false);
@@ -117,10 +155,11 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
 
   const handleSubmit = () => {
     if (submitted) return;
-    // Allow submit even without OCR text — the analysis API will handle it
+    // Send the structured ingredient array (skips server-side re-extraction); keep
+    // the text as a fallback for when OCR structuring yielded nothing.
     const text = extractedText ?? "";
     setSubmitted(true);
-    onAnalyze({ method: "IMAGE", text });
+    onAnalyze({ method: "IMAGE", text, ingredients: ingredients.length ? ingredients : undefined });
   };
 
   const canSubmit = !isExtracting && !isLoading && !submitted && !!file;

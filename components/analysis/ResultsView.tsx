@@ -52,8 +52,18 @@ const CONCERN_CONFIG: Record<string, { icon: typeof CheckCircle2; label: string;
   CRITICAL: { icon: Skull, label: "AVOID — serious risk", text: "#fff", bg: "#1c1917", border: "#1c1917" },
 };
 
+// Highest risk first. Within LOW, natural/whole-food ingredients (beneficial) sort
+// ahead of unrecognised-but-harmless ones (neutral) — mirrors the 6-tier risk order.
+const CONCERN_RANK: Record<string, number> = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
+function riskSortKey(ing: ScanIngredient): number {
+  const rank = CONCERN_RANK[ing.concernLevel] ?? 3;
+  if (rank !== 3) return rank * 10;
+  return ing.ingredient ? 30 : 31; // beneficial (recognized/natural) before neutral
+}
+
 export function ResultsView({ scan }: { scan: Scan }) {
   const breakdown = scan.scoreBreakdown;
+  const sortedIngredients = [...scan.ingredients].sort((a, b) => riskSortKey(a) - riskSortKey(b));
 
   const gaugeData = [
     { label: "Processing Level", value: breakdown.processing as number, description: "How processed is this product" },
@@ -159,7 +169,7 @@ export function ResultsView({ scan }: { scan: Scan }) {
           </span>
         </h2>
         <div className="space-y-2.5">
-          {scan.ingredients.map((ing, i) => {
+          {sortedIngredients.map((ing, i) => {
             const concern = CONCERN_CONFIG[ing.concernLevel] ?? CONCERN_CONFIG.LOW;
             const Icon = concern.icon;
 

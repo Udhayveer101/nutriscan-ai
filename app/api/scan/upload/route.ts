@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { extractTextFromImageFile } from "@/lib/vision";
+import { structuredOcrFromImageFile } from "@/lib/vision";
 import { rateLimit, clientKey } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
@@ -35,9 +35,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Image must be under 10MB" }, { status: 400 });
     }
 
-    const { text, ingredientText, confidence, ocrProvider } = await extractTextFromImageFile(file);
+    const structured = await structuredOcrFromImageFile(file);
 
-    return NextResponse.json({ rawText: text, ingredientText, confidence, ocrProvider });
+    // Return the full structured OCR contract. `ingredients` is canonical; the
+    // client sends it straight to /api/analysis so nothing re-parses raw OCR text.
+    return NextResponse.json({
+      ingredients: structured.ingredients,
+      rawText: structured.rawText,
+      ingredientText: structured.ingredientText,
+      confidence: structured.confidence,
+      ocrProvider: structured.ocrProvider,
+      passesUsed: structured.passesUsed,
+      enhancedUsed: structured.enhancedUsed,
+    });
   } catch (error) {
     const msg = (error as Error).message;
     console.error("OCR upload error:", error);

@@ -55,26 +55,20 @@ export async function generateIngredientExplanation(
 ): Promise<string> {
   const completion = await withRetry(() => groq.chat.completions.create({
     model: MODEL,
+    max_tokens: 90,
     messages: [
       { role: "system", content: MODE_SYSTEM_PROMPTS[req.mode] },
       {
         role: "user",
-        content: `Explain the food ingredient "${req.ingredientName}" (category: ${req.category}).
+        content: `In exactly 1-2 short sentences, explain the food ingredient "${req.ingredientName}" (category: ${req.category}) for a consumer scanning a label.
 ${req.context ? `Context: ${req.context}` : ""}
 
-Provide:
-1. What it is and what it does in food
-2. Why manufacturers use it (often cost-cutting or shelf life — be honest about this)
-3. Documented health concerns backed by research — be specific and direct, not vague
-4. Who should especially avoid it
-5. One-line verdict: is it something consumers should try to avoid?
-
-Keep your response to 150-200 words. Be honest and direct — do not sugarcoat known risks.`,
+Lead with the single most important thing: the main health concern, or why it's fine, or its main benefit. Be specific (name the concern), not vague. No preamble, no lists, no "in conclusion" — just the 1-2 sentences.`,
       },
     ],
   }));
 
-  return completion.choices[0]?.message?.content ?? "Analysis unavailable.";
+  return completion.choices[0]?.message?.content?.trim() ?? "Analysis unavailable.";
 }
 
 export async function extractIngredientsFromText(text: string): Promise<string[]> {
@@ -127,10 +121,34 @@ Response format: {"ingredients": ["Ingredient One", "Ingredient Two", ...]}`,
   try {
     const parsed = JSON.parse(responseText);
     const ingredients = parsed.ingredients ?? parsed.items ?? Object.values(parsed)[0];
-    return Array.isArray(ingredients) ? ingredients : [];
+    return sanitizeIngredients(Array.isArray(ingredients) ? ingredients : []);
   } catch {
     return [];
   }
+}
+
+// ── Stage 5: deterministic sanitization ───────────────────────────────────────
+// The LLM already strips most non-ingredient text; this is the safety net that
+// removes garbage the model may leak through and de-duplicates. Pure + testable —
+// see scripts/bench-scan.ts for the self-check.
+const GARBAGE = /^(nutrition|serving|calories?|total|per\s|daily value|\d+\s*(g|mg|kcal|%)|www\.|http)/i;
+
+export function sanitizeIngredients(names: unknown[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const raw of names) {
+    if (typeof raw !== "string") continue;
+    const name = raw.trim().replace(/\s+/g, " ");
+    // Drop empties, pure numbers/punctuation, over-long OCR fragments, nutrition rows.
+    if (name.length < 2 || name.length > 120) continue;
+    if (!/[a-z]/i.test(name)) continue;
+    if (GARBAGE.test(name)) continue;
+    const key = name.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(name);
+  }
+  return out;
 }
 
 export async function generateProductSummary(
@@ -141,6 +159,7 @@ export async function generateProductSummary(
 ): Promise<string> {
   const completion = await withRetry(() => groq.chat.completions.create({
     model: MODEL,
+    max_tokens: 120,
     messages: [
       { role: "system", content: MODE_SYSTEM_PROMPTS[mode] },
       {

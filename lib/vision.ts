@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Groq from "groq-sdk";
+import { extractIngredientsFromText } from "./gemini";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
@@ -119,6 +120,53 @@ export function findIngredientSection(rawText: string): string {
   return rawText;
 }
 
+// ── Stage 2: OCR quality gate ────────────────────────────────────────────────
+// Structural check, not text length: does this look like a real ingredient
+// declaration (comma-separated list, ingredient/E-number vocabulary)?
+const E_NUMBER = /\be\s?-?\d{3}[a-z]?\b/i;
+const ADDITIVE_WORDS = /\b(sodium|acid|extract|flavou?r|preservative|emulsifier|colou?r|starch|syrup|oil|lecithin|gum|sugar|salt)\b/i;
+
+export function assessOcrQuality(rawText: string): { acceptable: boolean; confidence: number; reasons: string[] } {
+  const reasons: string[] = [];
+  const section = findIngredientSection(rawText);
+  const hasIngredientLabel = /ingr[eé]dients?\s*:/i.test(rawText);
+  const commaCount = (section.match(/,/g) ?? []).length;
+  const itemCount = commaCount + 1;
+  const hasENumber = E_NUMBER.test(section);
+  const hasAdditiveWord = ADDITIVE_WORDS.test(section);
+
+  if (hasIngredientLabel) reasons.push("ingredient section header found");
+  if (itemCount >= 3) reasons.push(`${itemCount} comma-separated items`);
+  if (hasENumber) reasons.push("E-number detected");
+  if (hasAdditiveWord) reasons.push("additive vocabulary detected");
+
+  // Acceptable if it structurally resembles a real ingredient list — an explicit
+  // "Ingredients:" header is decisive; otherwise require a comma-separated list
+  // plus at least one additive/E-number signal.
+  const acceptable = hasIngredientLabel
+    ? itemCount >= 2
+    : itemCount >= 3 && (hasENumber || hasAdditiveWord);
+
+  const confidence = acceptable
+    ? Math.min(0.95, 0.6 + itemCount * 0.03 + (hasENumber ? 0.1 : 0) + (hasIngredientLabel ? 0.1 : 0))
+    : Math.min(0.5, 0.15 + itemCount * 0.03);
+
+  return { acceptable, confidence, reasons };
+}
+
+// ── Stage 6: structured OCR contract ─────────────────────────────────────────
+// The single object every downstream system consumes. Nothing downstream should
+// read raw OCR strings — `ingredients` is the canonical, sanitized array.
+export interface StructuredOcr {
+  ingredients: string[];        // Stage 4/5 canonical, sanitized ingredient array
+  rawText: string;              // raw OCR — reference/debug only, not for logic
+  ingredientText: string;       // regex-extracted section — for the UI preview only
+  confidence: number;           // structural OCR confidence (assessOcrQuality)
+  ocrProvider: "gemini" | "groq";
+  passesUsed: number;           // OCR passes run (1 = primary only, 2 = + fallback)
+  enhancedUsed: boolean;        // Stage 3 enhanced retry — reserved (always false until built)
+}
+
 // ── Public API ─────────────────────────────────────────────────────────────────
 
 export async function extractTextFromImageFile(file: File): Promise<{
@@ -126,6 +174,7 @@ export async function extractTextFromImageFile(file: File): Promise<{
   ingredientText: string;
   confidence: number;
   ocrProvider: "gemini" | "groq";
+  passesUsed: number;
 }> {
   const arrayBuffer = await file.arrayBuffer();
   const base64 = Buffer.from(arrayBuffer).toString("base64");
@@ -140,10 +189,14 @@ export async function extractTextFromImageFile(file: File): Promise<{
 
   let text = "";
   let ocrProvider: "gemini" | "groq" = "gemini";
+  let gate = { acceptable: false, confidence: 0, reasons: [] as string[] };
+  let passesUsed = 0;
 
-  // Try Gemini first
+  // Stage 1: OCR pass 1 (Gemini primary)
   try {
     text = await ocrWithGemini(base64, mimeType);
+    passesUsed = 1;
+    gate = assessOcrQuality(text);
   } catch (geminiErr) {
     const isQuota = isQuotaError(geminiErr);
     console.warn(
@@ -152,29 +205,52 @@ export async function extractTextFromImageFile(file: File): Promise<{
         : "Gemini OCR failed — falling back to Groq vision",
       geminiErr
     );
+  }
 
-    // Fallback to Groq vision
+  // Stage 2/3: quality gate failed (or Gemini errored) — retry with Groq vision
+  // and keep whichever pass structurally looks more like a real ingredient list.
+  if (!gate.acceptable) {
     try {
-      text = await ocrWithGroq(base64, mimeType);
-      ocrProvider = "groq";
+      const groqText = await ocrWithGroq(base64, mimeType);
+      passesUsed += 1;
+      const groqGate = assessOcrQuality(groqText);
+      if (groqGate.confidence > gate.confidence) {
+        text = groqText;
+        gate = groqGate;
+        ocrProvider = "groq";
+      }
     } catch (groqErr) {
-      console.error("Both Gemini and Groq OCR failed", groqErr);
-      throw new Error("OCR_BOTH_FAILED");
+      if (!text) {
+        console.error("Both Gemini and Groq OCR failed", groqErr);
+        throw new Error("OCR_BOTH_FAILED");
+      }
+      // Gemini gave us something, even if it failed the quality gate — degrade gracefully.
     }
   }
 
-  if (!text || text.length < 10) {
-    // Gemini returned but empty — try Groq as fallback
-    try {
-      text = await ocrWithGroq(base64, mimeType);
-      ocrProvider = "groq";
-    } catch {
-      // Both attempted — return whatever we have
-    }
-  }
+  if (!text) throw new Error("OCR_BOTH_FAILED");
 
   const ingredientText = findIngredientSection(text);
-  const confidence = text.length > 200 ? 0.95 : text.length > 80 ? 0.80 : text.length > 20 ? 0.55 : 0.2;
 
-  return { text, ingredientText, confidence, ocrProvider };
+  return { text, ingredientText, confidence: gate.confidence, ocrProvider, passesUsed };
+}
+
+// Stage 4 + 6: OCR an image and return the full structured contract. This is the
+// entry point the upload endpoint calls — OCR → structure → sanitize, once.
+export async function structuredOcrFromImageFile(file: File): Promise<StructuredOcr> {
+  const { text, ingredientText, confidence, ocrProvider, passesUsed } =
+    await extractTextFromImageFile(file);
+
+  // Stage 4/5: raw OCR → canonical sanitized ingredient array (extract already sanitizes).
+  const ingredients = await extractIngredientsFromText(text);
+
+  return {
+    ingredients,
+    rawText: text,
+    ingredientText,
+    confidence,
+    ocrProvider,
+    passesUsed,
+    enhancedUsed: false, // ponytail: flips true when Stage 3 enhanced-retry lands
+  };
 }

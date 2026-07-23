@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { extractIngredientsFromText, generateIngredientExplanation, generateProductSummary, type ExplanationMode } from "@/lib/gemini";
+import { extractIngredientsFromText, sanitizeIngredients, generateIngredientExplanation, generateProductSummary, type ExplanationMode } from "@/lib/gemini";
 import { evaluateProduct, inferConcernLevel, adjustConcernForConcentration, detectAllergens } from "@/lib/scoring";
 import { scanUploadSchema } from "@/lib/validators";
 import { auth } from "@/lib/auth";
@@ -26,21 +26,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid request", details: parsed.error.flatten() }, { status: 400 });
     }
 
-    const { method, text, barcode, mode } = parsed.data;
+    const { method, text, ingredients, barcode, mode } = parsed.data;
 
-    if (!text && !barcode) {
+    if (!text && !barcode && !ingredients?.length) {
       return NextResponse.json({ error: "No ingredient text or barcode provided" }, { status: 400 });
     }
 
-    // 1. Extract ingredients from text
+    // Per-stage timings (Phase 5) — measured, returned to the client, and logged.
+    const t: Record<string, number> = {};
+    const clock = () => performance.now();
+
+    // 1. Ingredients: prefer the structured array from the OCR contract (image scans
+    //    already parsed it, so skip the LLM extraction call). Fall back to extracting
+    //    from raw text only for paste/barcode paths.
     const rawText = text ?? "";
-    const extractedNames = await extractIngredientsFromText(rawText);
+    let t0 = clock();
+    const extractedNames = ingredients?.length
+      ? sanitizeIngredients(ingredients)
+      : await extractIngredientsFromText(rawText);
+    t.extract = clock() - t0;
 
     if (!extractedNames.length) {
       return NextResponse.json({ error: "No ingredients could be extracted from the provided text" }, { status: 422 });
     }
 
     // 2. Single DB query for all ingredients + user prefs in parallel
+    t0 = clock();
     const [allFound, userPrefs] = await Promise.all([
       prisma.ingredient.findMany({
         where: {
@@ -71,8 +82,10 @@ export async function POST(req: NextRequest) {
         ) ?? null;
       return { rawName: name, ingredient };
     });
+    t.dbLookup = clock() - t0;
 
     // 3. Generate AI explanations for all ingredients in parallel
+    t0 = clock();
     const ingredientExplanations = await Promise.all(
       dbIngredients.slice(0, 15).map(async ({ rawName, ingredient }, i) => {
         const explanation = await generateIngredientExplanation({
@@ -105,13 +118,16 @@ export async function POST(req: NextRequest) {
         };
       })
     );
+    t.explanations = clock() - t0;
 
     // 4. Calculate health scores — NOVA-anchored, explainable engine.
+    t0 = clock();
     // Score off the full extracted label (all names + order), not just the first 15
     // explained rows, so processing/interaction detection sees everything.
     const scoreBreakdown = evaluateProduct(
       extractedNames.map((name, position) => ({ name, position }))
     );
+    t.scoring = clock() - t0;
 
     // 5. Detect allergens + apply user prefs (prefs already fetched in step 2)
     const allIngredientNames = ingredientExplanations.map((i) => i.normalizedName ?? i.rawName);
@@ -130,6 +146,7 @@ export async function POST(req: NextRequest) {
     });
 
     // 6. Product summary + DB save in parallel
+    t0 = clock();
     const [productSummary, scan] = await Promise.all([
       generateProductSummary(
         "Scanned Product",
@@ -161,6 +178,11 @@ export async function POST(req: NextRequest) {
         select: { id: true },
       }),
     ]);
+    t.summaryAndSave = clock() - t0;
+    t.total = Object.values(t).reduce((a, b) => a + b, 0);
+
+    const timings = Object.fromEntries(Object.entries(t).map(([k, v]) => [k, Math.round(v)]));
+    console.log("[analysis timings ms]", timings);
 
     return NextResponse.json({
       scanId: scan.id,
@@ -172,6 +194,7 @@ export async function POST(req: NextRequest) {
       userAvoidList,
       totalIngredients: extractedNames.length,
       recognizedCount: ingredientExplanations.filter((i) => i.isRecognized).length,
+      timings,
     });
   } catch (error) {
     console.error("Analysis error:", error);

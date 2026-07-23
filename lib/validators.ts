@@ -3,6 +3,9 @@ import { z } from "zod";
 export const scanUploadSchema = z.object({
   method: z.enum(["IMAGE", "PASTE", "BARCODE", "CAMERA"]),
   text: z.string().max(10000).optional(),
+  // Structured OCR contract: image scans send the already-parsed ingredient array
+  // so analysis skips re-extraction and never re-parses raw OCR text.
+  ingredients: z.array(z.string().max(300)).max(100).optional(),
   barcode: z.string().max(20).optional(),
   mode: z.enum(["BEGINNER", "PARENT", "ATHLETE", "SCIENTIFIC"]).default("BEGINNER"),
 });
