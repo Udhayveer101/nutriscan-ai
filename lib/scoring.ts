@@ -189,6 +189,7 @@ export interface ScoreBreakdown {
   sugarContent: number;
   sodiumContent: number;
   // ── new explainability fields ──
+  hasNutrition?: boolean; // false = sugar/sodium had no data and were excluded from the composite
   novaGroup?: NovaGroup;
   confidence?: "high" | "moderate" | "low";
   reasons?: string[];
@@ -318,6 +319,7 @@ export function evaluateProduct(
     ingredientQuality: Math.round(ingredientQuality),
     sugarContent: Math.round(sugarContent),
     sodiumContent: Math.round(sodiumContent),
+    hasNutrition,
     novaGroup: nova.group,
     confidence,
     reasons,

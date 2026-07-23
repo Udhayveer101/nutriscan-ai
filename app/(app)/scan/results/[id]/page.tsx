@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { ResultsView } from "@/components/analysis/ResultsView";
-import { detectAllergens } from "@/lib/scoring";
+import { detectAllergens, allergenPattern } from "@/lib/scoring";
 import { auth } from "@/lib/auth";
 import type { Metadata } from "next";
 
@@ -53,11 +53,12 @@ export default async function ResultsPage({ params }: Props) {
     const name = (ing.normalizedName ?? ing.rawName).toLowerCase();
     return {
       ...ing,
+      // Word-boundary match — substring matching false-flagged e.g. "oat" in "benzOATe".
       triggersUserAllergen: userAllergens.some((a) =>
-        name.includes(a.toLowerCase()) ||
+        allergenPattern(a).test(name) ||
         allergens.some((m) => m.allergen === a && m.matchedIngredient.toLowerCase() === name)
       ),
-      triggersUserAvoid: userAvoidList.some((a) => name.includes(a.toLowerCase())),
+      triggersUserAvoid: userAvoidList.some((a) => allergenPattern(a).test(name)),
     };
   });
 

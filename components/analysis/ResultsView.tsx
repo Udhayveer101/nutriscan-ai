@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Share2, Bookmark, CheckCircle2, AlertCircle, Info, ExternalLink, Skull, ShieldAlert } from "lucide-react";
 import { ScoreGauge } from "./ScoreGauge";
@@ -38,7 +39,11 @@ interface Scan {
   brand: string | null;
   overallScore: number;
   grade: string;
-  scoreBreakdown: Record<string, number | string>;
+  scoreBreakdown: Record<string, number | string | boolean | string[] | undefined> & {
+    reasons?: string[];
+    hasNutrition?: boolean;
+    novaGroup?: number;
+  };
   ingredients: ScanIngredient[];
   allergens?: AllergenMatch[];
   method: string;
@@ -63,15 +68,45 @@ function riskSortKey(ing: ScanIngredient): number {
 
 export function ResultsView({ scan }: { scan: Scan }) {
   const breakdown = scan.scoreBreakdown;
+
+  // Progressive loading: explanations are generated after the scan is saved.
+  // Poll until they all arrive (or give up after ~30 s and keep the report as-is).
+  const [liveExplanations, setLiveExplanations] = useState<Record<string, string>>({});
+  const hasPending = scan.ingredients.some((i) => !i.aiExplanation && !liveExplanations[i.id]);
+  useEffect(() => {
+    if (!hasPending) return;
+    let tries = 0;
+    const timer = setInterval(async () => {
+      tries += 1;
+      try {
+        const res = await fetch(`/api/scans/${scan.id}/explanations`);
+        if (!res.ok) return;
+        const data: { pending: boolean; explanations: { id: string; aiExplanation: string }[] } = await res.json();
+        if (data.explanations.length) {
+          setLiveExplanations(Object.fromEntries(data.explanations.map((e) => [e.id, e.aiExplanation])));
+        }
+        if (!data.pending || tries >= 20) clearInterval(timer);
+      } catch { /* transient — next tick retries */ }
+    }, 1500);
+    return () => clearInterval(timer);
+  }, [scan.id, hasPending]);
   const sortedIngredients = [...scan.ingredients].sort((a, b) => riskSortKey(a) - riskSortKey(b));
 
+  // Sugar/sodium bars only render when nutrition data was actually supplied —
+  // the engine excludes them from the composite otherwise, and displaying "100/100"
+  // for absent data made the overall grade look inconsistent with the bars.
   const gaugeData = [
     { label: "Processing Level", value: breakdown.processing as number, description: "How processed is this product" },
     { label: "Additive Score", value: breakdown.additiveDensity as number, description: "Density of artificial additives" },
     { label: "Nutritional Value", value: (breakdown.ingredientQuality ?? breakdown.nutritionalValue) as number, description: "Overall nutritional quality" },
-    { label: "Sugar Content", value: breakdown.sugarContent as number, description: "Sugar level evaluation" },
-    { label: "Sodium Content", value: breakdown.sodiumContent as number, description: "Sodium level evaluation" },
+    ...(breakdown.hasNutrition !== false
+      ? [
+          { label: "Sugar Content", value: breakdown.sugarContent as number, description: "Sugar level evaluation" },
+          { label: "Sodium Content", value: breakdown.sodiumContent as number, description: "Sodium level evaluation" },
+        ]
+      : []),
   ];
+  const gradeReasons = breakdown.reasons ?? [];
 
   return (
     <div className="space-y-5">
@@ -134,6 +169,23 @@ export function ResultsView({ scan }: { scan: Scan }) {
             <ScoreGauge key={g.label} label={g.label} value={g.value} description={g.description} delay={i * 0.08} />
           ))}
         </div>
+
+        {/* Why this grade — the engine's own reasoning (NOVA ceiling, deductions),
+            so the final grade never looks disconnected from the category bars. */}
+        {gradeReasons.length > 0 && (
+          <>
+            <div className="h-px my-6" style={{ background: "var(--separator)" }} />
+            <h2 className="font-heading font-bold text-lg mb-3" style={{ color: "var(--ink)" }}>Why this grade</h2>
+            <ul className="space-y-1.5">
+              {gradeReasons.map((r) => (
+                <li key={r} className="flex items-start gap-2.5 text-[13px] leading-relaxed" style={{ color: "var(--muted)" }}>
+                  <span className="w-1 h-1 rounded-full flex-shrink-0 mt-[7px]" style={{ background: "var(--brand-600)" }} />
+                  {r}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </Reveal>
 
       {/* Allergen Warning */}
@@ -220,7 +272,17 @@ export function ResultsView({ scan }: { scan: Scan }) {
                         ◈ On your avoid list
                       </div>
                     )}
-                    <p className="text-[13px] leading-relaxed" style={{ color: "var(--muted)" }}>{ing.aiExplanation}</p>
+                    {(() => {
+                      const text = ing.aiExplanation || liveExplanations[ing.id];
+                      return text ? (
+                        <p className="text-[13px] leading-relaxed" style={{ color: "var(--muted)" }}>{text}</p>
+                      ) : (
+                        <div className="space-y-1.5 animate-pulse" aria-label="Explanation loading">
+                          <div className="h-3 rounded-full w-full" style={{ background: "rgba(20,70,45,.08)" }} />
+                          <div className="h-3 rounded-full w-2/3" style={{ background: "rgba(20,70,45,.08)" }} />
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
               </Reveal>

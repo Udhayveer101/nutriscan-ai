@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { after } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { extractIngredientsFromText, sanitizeIngredients, generateIngredientExplanation, generateProductSummary, type ExplanationMode } from "@/lib/gemini";
+import { extractIngredientsFromText, sanitizeIngredients, generateIngredientExplanation, type ExplanationMode } from "@/lib/gemini";
 import { evaluateProduct, inferConcernLevel, adjustConcernForConcentration, detectAllergens, allergenPattern } from "@/lib/scoring";
 import { scanUploadSchema } from "@/lib/validators";
 import { auth } from "@/lib/auth";
@@ -84,50 +85,44 @@ export async function POST(req: NextRequest) {
     });
     t.dbLookup = clock() - t0;
 
-    // 3. Generate AI explanations for all ingredients in parallel
+    // 3. Score first — needs only names+positions (~4 ms), so the product summary
+    //    can run in parallel with the per-ingredient explanations instead of after
+    //    them (summary depends on the score, not on the explanations).
     t0 = clock();
-    const ingredientExplanations = await Promise.all(
-      dbIngredients.slice(0, 15).map(async ({ rawName, ingredient }, i) => {
-        const explanation = await generateIngredientExplanation({
-          ingredientName: ingredient?.name ?? rawName,
-          category: ingredient?.category?.name ?? "Food Additive",
-          mode: mode as ExplanationMode,
-        });
-
-        return {
-          rawName,
-          normalizedName: ingredient?.name ?? rawName,
-          ingredientId: ingredient?.id ?? null,
-          position: i,
-          aiExplanation: explanation,
-          concernLevel: (() => {
-            const inferred = inferConcernLevel(rawName);
-            // Resolve base concern: CRITICAL never overridden; DB safety score used if available
-            const base: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL" =
-              inferred === "CRITICAL" ? "CRITICAL"
-              : ingredient?.safetyScore !== undefined
-                ? ingredient.safetyScore >= 70 ? "LOW" : ingredient.safetyScore >= 50 ? "MEDIUM" : "HIGH"
-                : inferred;
-            // Adjust for concentration: ingredients at position 0 = most abundant; position 8+ = trace
-            return adjustConcernForConcentration(ingredient?.name ?? rawName, base, i);
-          })(),
-          isRecognized: !!ingredient,
-          category: ingredient?.category?.name,
-          safetyScore: ingredient?.safetyScore ?? 65,
-          isNatural: ingredient?.isNatural ?? false,
-        };
-      })
-    );
-    t.explanations = clock() - t0;
-
-    // 4. Calculate health scores — NOVA-anchored, explainable engine.
-    t0 = clock();
-    // Score off the full extracted label (all names + order), not just the first 15
-    // explained rows, so processing/interaction detection sees everything.
     const scoreBreakdown = evaluateProduct(
       extractedNames.map((name, position) => ({ name, position }))
     );
     t.scoring = clock() - t0;
+
+    // 4. Ingredient rows — fully deterministic (KB/DB concern, normalization),
+    //    no LLM. Explanations are generated AFTER the response (progressive
+    //    loading): the user sees the grade, bars, and risk-sorted list
+    //    immediately; paragraphs fill in when ready.
+    //    (The old generateProductSummary call was removed outright — its output
+    //    was returned in JSON but never rendered anywhere. One LLM call/scan saved.)
+    const ingredientExplanations = dbIngredients.slice(0, 15).map(({ rawName, ingredient }, i) => ({
+      rawName,
+      normalizedName: ingredient?.name ?? rawName,
+      ingredientId: ingredient?.id ?? null,
+      position: i,
+      aiExplanation: "",
+      promptCategory: ingredient?.category?.name ?? "Food Additive",
+      concernLevel: (() => {
+        const inferred = inferConcernLevel(rawName);
+        // Resolve base concern: CRITICAL never overridden; DB safety score used if available
+        const base: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL" =
+          inferred === "CRITICAL" ? "CRITICAL"
+          : ingredient?.safetyScore !== undefined
+            ? ingredient.safetyScore >= 70 ? "LOW" : ingredient.safetyScore >= 50 ? "MEDIUM" : "HIGH"
+            : inferred;
+        // Adjust for concentration: ingredients at position 0 = most abundant; position 8+ = trace
+        return adjustConcernForConcentration(ingredient?.name ?? rawName, base, i);
+      })(),
+      isRecognized: !!ingredient,
+      category: ingredient?.category?.name,
+      safetyScore: ingredient?.safetyScore ?? 65,
+      isNatural: ingredient?.isNatural ?? false,
+    }));
 
     // 5. Detect allergens + apply user prefs (prefs already fetched in step 2)
     const allIngredientNames = ingredientExplanations.map((i) => i.normalizedName ?? i.rawName);
@@ -147,16 +142,9 @@ export async function POST(req: NextRequest) {
       return { ...ing, triggersUserAllergen, triggersUserAvoid };
     });
 
-    // 6. Product summary + DB save in parallel
+    // 6. Persist the scan (explanation paragraphs still empty at this point)
     t0 = clock();
-    const [productSummary, scan] = await Promise.all([
-      generateProductSummary(
-        "Scanned Product",
-        extractedNames,
-        { overall: scoreBreakdown.overall, gradeLabel: scoreBreakdown.gradeLabel, grade: scoreBreakdown.grade },
-        mode as ExplanationMode
-      ),
-      prisma.scan.create({
+    const scan = await prisma.scan.create({
         data: {
           userId: session?.user?.id ?? null,
           method: method as "IMAGE" | "PASTE" | "BARCODE" | "CAMERA",
@@ -177,10 +165,37 @@ export async function POST(req: NextRequest) {
             })),
           },
         },
-        select: { id: true },
-      }),
-    ]);
-    t.summaryAndSave = clock() - t0;
+        select: { id: true, ingredients: { select: { id: true, position: true } } },
+      });
+    t.save = clock() - t0;
+
+    // 7. Deferred explanations — generated after the response is sent (next/server
+    //    `after`), written to the ScanIngredient rows; the results page polls
+    //    /api/scans/[id]/explanations until they arrive.
+    const explanationMode = mode as ExplanationMode;
+    after(async () => {
+      try {
+        await Promise.all(
+          scan.ingredients.map(async (row) => {
+            const src = ingredientExplanations[row.position];
+            if (!src) return;
+            const explanation = await generateIngredientExplanation({
+              ingredientName: src.normalizedName ?? src.rawName,
+              category: src.promptCategory,
+              mode: explanationMode,
+            });
+            await prisma.scanIngredient.update({
+              where: { id: row.id },
+              data: { aiExplanation: explanation },
+            });
+          })
+        );
+      } catch (err) {
+        // Non-fatal: the report is complete without paragraphs; the UI stops
+        // polling and keeps the deterministic content.
+        console.error("deferred explanation generation failed", err);
+      }
+    });
     t.total = Object.values(t).reduce((a, b) => a + b, 0);
 
     const timings = Object.fromEntries(Object.entries(t).map(([k, v]) => [k, Math.round(v)]));
@@ -188,7 +203,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       scanId: scan.id,
-      productSummary,
       scoreBreakdown,
       ingredients: personalFlags,
       allergens,
