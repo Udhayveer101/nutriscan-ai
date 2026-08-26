@@ -23,10 +23,18 @@ export function rateLimit(key: string, limit: number, windowMs: number): RateLim
   return { ok: true, remaining: limit - w.count, retryAfter: 0 };
 }
 
-// Best-effort client IP from proxy headers (Vercel sets x-forwarded-for).
+// Client IP for the limit key, taken from headers the platform sets rather than ones the
+// caller can choose. The leftmost entry of x-forwarded-for is whatever the client sent, so
+// keying on it lets anyone bypass the limit on the paid LLM routes by rotating one header.
+// Vercel's own x-vercel-forwarded-for (and x-real-ip) are written by the proxy and cannot be
+// spoofed from outside; x-forwarded-for is used only as a last resort, and then its RIGHTMOST
+// entry, which is the hop the proxy actually observed.
 export function clientKey(req: Request, scope: string): string {
-  const fwd = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  const ip = fwd || req.headers.get("x-real-ip") || "unknown";
+  const trusted =
+    req.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip")?.trim();
+  const parts = req.headers.get("x-forwarded-for")?.split(",").map((s) => s.trim()).filter(Boolean);
+  const ip = trusted || parts?.[parts.length - 1] || "unknown";
   return `${scope}:${ip}`;
 }
 
