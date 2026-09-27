@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: thickener
 evidence: LIMITED
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Carboxymethylcellulose (CMC)
 
 **Category:** thickener  ·  **Function:** Thickener / stabiliser
 **Evidence strength:** LIMITED
-**E-number(s):** e466
+**E-number(s):** e466, e468, e469
 
 
 ## Concern by concentration

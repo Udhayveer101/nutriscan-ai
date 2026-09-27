@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: thickener
 evidence: STRONG
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Inulin / Chicory Fibre

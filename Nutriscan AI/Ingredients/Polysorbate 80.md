@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: emulsifier
 evidence: LIMITED
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Polysorbate 80
 
 **Category:** emulsifier  ·  **Function:** Emulsifier
 **Evidence strength:** LIMITED
-**E-number(s):** e433, e435
+**E-number(s):** e433, e434, e435, e436
 **ADI:** 25 mg/kg bw/day (EFSA)
 
 ## Concern by concentration

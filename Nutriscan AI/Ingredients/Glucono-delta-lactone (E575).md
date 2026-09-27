@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Glucono-delta-lactone (E575)
 
 **Category:** acidity regulator  ·  **Function:** Slow-release acidifier / coagulant
 **Evidence strength:** STRONG
-**E-number(s):** e575
+**E-number(s):** e575, e574, e576, e577, e578
 **ADI:** not specified (JECFA)
 
 ## Concern by concentration

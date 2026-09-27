@@ -38,11 +38,11 @@ const ARTICLES: Record<string, Article> = {
         title: "Grade Scale",
         rows: [
           { label: "A+", value: "90–100", note: "Minimal additives, predominantly natural ingredients" },
-          { label: "A", value: "80–89", note: "Very good profile, minor well-studied additives" },
-          { label: "B", value: "70–79", note: "Decent product, some additives at acceptable levels" },
-          { label: "C", value: "55–69", note: "Mixed profile with notable additives" },
-          { label: "D", value: "40–54", note: "Higher additive density — worth being aware of" },
-          { label: "F", value: "0–39", note: "Significant additive concerns or ultra-processed" },
+          { label: "A", value: "78–89", note: "Very good profile, minor well-studied additives" },
+          { label: "B", value: "65–77", note: "Decent product, some additives at acceptable levels" },
+          { label: "C", value: "50–64", note: "Mixed profile with notable additives" },
+          { label: "D", value: "35–49", note: "Higher additive density — worth being aware of" },
+          { label: "F", value: "0–34", note: "Significant additive concerns or ultra-processed" },
         ],
       },
       {

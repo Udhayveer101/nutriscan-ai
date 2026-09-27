@@ -13,7 +13,7 @@ const VERDICT_ROWS = [
 ];
 
 const BULLETS = [
-  { icon: "◆", bg: "#dcfce7", text: "#15803d", title: "Per-ingredient grades", desc: "Every additive scored A to F." },
+  { icon: "◆", bg: "#dcfce7", text: "#15803d", title: "Per-ingredient grades", desc: "Every additive scored A+ to F." },
   { icon: "◈", bg: "#dbeafe", text: "#1e40af", title: "Cited evidence", desc: "Sources you can actually check." },
   { icon: "⚡", bg: "#fef3c7", text: "#b45309", title: "Under 3 seconds", desc: "A full readout before you check out." },
 ];

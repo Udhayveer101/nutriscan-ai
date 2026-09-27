@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: antioxidant
 evidence: MODERATE
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # 4-Hexylresorcinol (E586)

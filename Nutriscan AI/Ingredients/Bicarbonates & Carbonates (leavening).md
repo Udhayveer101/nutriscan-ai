@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: raising agent
 evidence: STRONG
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Bicarbonates & Carbonates (leavening)
 
 **Category:** raising agent  ·  **Function:** CO₂-releasing leavening / buffer
 **Evidence strength:** STRONG
-**E-number(s):** e500, e503, e504
+**E-number(s):** e500, e501ii, e503, e504
 **ADI:** not specified (JECFA)
 
 ## Concern by concentration

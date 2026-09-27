@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://nutriscan.ai";
+const BASE_URL = SITE_URL;
 
 // Render on request (revalidated hourly), not at build — the sitemap must never be a
 // build-time DB dependency, and a DB blip must degrade to the static pages, not 500.

@@ -95,7 +95,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   // HIGH concern — solid evidence of risk at typical/dominant exposure.
   // ───────────────────────────────────────────────────────────────────────────
   {
-    id: "aspartame", name: "Aspartame", keywords: ["aspartame"], eNumbers: ["e951"],
+    id: "aspartame", name: "Aspartame", keywords: ["aspartame", "aspartame-acesulfame salt", "aspartame acesulfame salt"], eNumbers: ["e951", "e962"],
     category: "sweetener", function: "Artificial sweetener",
     dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM", evidence: "LIMITED",
     adi: "40 mg/kg bw/day (EFSA); 50 (FDA)",
@@ -187,7 +187,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2019 phosphates re-evaluation",
   },
   {
-    id: "caramel-color-iv", name: "Caramel Colour (Class III/IV)", keywords: ["caramel color", "caramel colour", "e150c", "e150d"], eNumbers: ["e150c", "e150d"],
+    id: "caramel-color-iv", name: "Caramel Colour (Class III/IV)", keywords: ["sulphite ammonia caramel", "sulfite ammonia caramel", "ammonia caramel", "caramel color", "caramel colour", "e150c", "e150d"], eNumbers: ["e150c", "e150d"],
     category: "coloring", function: "Brown colouring",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
     adi: "4-MEI-related; EFSA 100–200 mg/kg for caramels",
@@ -199,9 +199,10 @@ export const ADDITIVES: AdditiveProfile[] = [
   // Synthetic azo/colour dyes — Southampton study (hyperactivity)
   {
     id: "azo-dyes", name: "Synthetic Colour Dyes (Red 40, Yellow 5/6, etc.)",
-    keywords: ["red 40", "allura red", "yellow 5", "tartrazine", "yellow 6", "sunset yellow",
-               "blue 1", "brilliant blue", "blue 2", "indigotine", "green 3", "ponceau"],
-    eNumbers: ["e129", "e102", "e110", "e133", "e132", "e124"],
+    keywords: ["indigo carmine", "cochineal red a", "red 40", "allura red", "yellow 5", "tartrazine", "yellow 6", "sunset yellow",
+               "blue 1", "brilliant blue", "blue 2", "indigotine", "green 3", "ponceau",
+               "quinoline yellow", "carmoisine", "azorubine"],
+    eNumbers: ["e129", "e102", "e110", "e133", "e132", "e124", "e104", "e122"],
     category: "coloring", function: "Synthetic colour",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     regulatory: "Approved; EU mandates hyperactivity warning label",
@@ -222,7 +223,8 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA GRAS; Nickerson 2015 (gut microbiome)",
   },
   {
-    id: "modified-starch", name: "Modified Starch", keywords: ["modified starch", "modified food starch", "modified corn starch"],
+    id: "modified-starch", name: "Modified Starch", keywords: ["osa starch", "modified starch", "modified food starch", "modified corn starch", "modified maize starch", "modified tapioca starch", "modified potato starch", "dextrin", "oxidised starch", "oxidized starch", "monostarch phosphate", "distarch phosphate", "acetylated starch", "starch acetate", "acetylated distarch adipate", "hydroxypropyl starch", "hydroxypropyl distarch phosphate", "acetylated oxidised starch", "starch sodium octenyl succinate", "sodium starch octenyl succinate"],
+    eNumbers: ["e1400", "e1404", "e1410", "e1412", "e1413", "e1414", "e1420", "e1422", "e1440", "e1442", "e1450", "e1451"],
     category: "thickener", function: "Texture / stability",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "INSUFFICIENT",
     regulatory: "GRAS",
@@ -239,7 +241,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2000; ongoing re-evaluation",
   },
   {
-    id: "sucralose", name: "Sucralose", keywords: ["sucralose"], eNumbers: ["e955"],
+    id: "sucralose", name: "Sucralose", keywords: ["trichlorogalactosucrose", "sucralose"], eNumbers: ["e955"],
     category: "sweetener", function: "Artificial sweetener",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     adi: "15 mg/kg bw/day (EFSA)",
@@ -257,7 +259,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2015 sorbates re-evaluation",
   },
   {
-    id: "polysorbate-80", name: "Polysorbate 80", keywords: ["polysorbate 80", "polysorbate 60", "polysorbate"], eNumbers: ["e433", "e435"],
+    id: "polysorbate-80", name: "Polysorbate 80", keywords: ["polyoxyethylene sorbitan", "polysorbate 80", "polysorbate 60", "polysorbate 40", "polysorbate 65", "polysorbate"], eNumbers: ["e433", "e434", "e435", "e436"],
     category: "emulsifier", function: "Emulsifier",
     dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
     adi: "25 mg/kg bw/day (EFSA)",
@@ -267,7 +269,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "Chassaing et al. 2015 (Nature)",
   },
   {
-    id: "carboxymethylcellulose", name: "Carboxymethylcellulose (CMC)", keywords: ["carboxymethylcellulose", "cellulose gum", "cmc"], eNumbers: ["e466"],
+    id: "carboxymethylcellulose", name: "Carboxymethylcellulose (CMC)", keywords: ["carboxymethylcellulose", "carboxymethyl cellulose", "cellulose gum", "cmc", "croscarmellose"], eNumbers: ["e466", "e468", "e469"],
     category: "thickener", function: "Thickener / stabiliser",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     regulatory: "Approved; emulsifier–microbiome research",
@@ -280,7 +282,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   // Nutrients / benign — positive or neutral, to prevent false penalties.
   // ───────────────────────────────────────────────────────────────────────────
   {
-    id: "ascorbic-acid", name: "Ascorbic Acid (Vitamin C)", keywords: ["ascorbic acid", "vitamin c", "sodium ascorbate"], eNumbers: ["e300"],
+    id: "ascorbic-acid", name: "Ascorbic Acid (Vitamin C)", keywords: ["ascorbic acid", "vitamin c", "sodium ascorbate", "calcium ascorbate", "potassium ascorbate"], eNumbers: ["e300", "e301", "e302"],
     category: "antioxidant", function: "Antioxidant / vitamin",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; essential nutrient",
@@ -314,7 +316,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion batch (curated ~35; regulatory-cited) ─────────────────────────
   {
-    id: "sulphites", name: "Sulphites (SO₂, metabisulphites)", keywords: ["sulphite", "sulfite", "metabisulphite", "metabisulfite", "sulphur dioxide", "sulfur dioxide"], eNumbers: ["e220", "e221", "e223", "e224", "e228"],
+    id: "sulphites", name: "Sulphites (SO₂, metabisulphites)", keywords: ["sulphite", "sulfite", "metabisulphite", "metabisulfite", "sulphur dioxide", "sulfur dioxide"], eNumbers: ["e220", "e221", "e222", "e223", "e224", "e226", "e227", "e228"],
     category: "preservative", function: "Preservative / antioxidant",
     dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM", evidence: "STRONG",
     adi: "0.7 mg/kg bw/day SO₂ (EFSA)", regulatory: "Approved; mandatory allergen declaration (EU/US)",
@@ -323,7 +325,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2016 sulphites re-evaluation",
   },
   {
-    id: "propyl-gallate", name: "Propyl Gallate", keywords: ["propyl gallate", "propyl ester"], eNumbers: ["e310"],
+    id: "propyl-gallate", name: "Propyl Gallate", keywords: ["trihydroxybenzoate", "propyl gallate", "propyl ester"], eNumbers: ["e310"],
     category: "antioxidant", function: "Fat antioxidant",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
     adi: "1.4 mg/kg bw/day (EFSA 2014)", regulatory: "Approved; endocrine-activity research",
@@ -356,7 +358,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "Witkowski et al. 2023 (Nature Medicine)",
   },
   {
-    id: "xylitol", name: "Xylitol", keywords: ["xylitol"], eNumbers: ["e967"],
+    id: "xylitol", name: "Xylitol", keywords: ["wood sugar", "birch sugar", "xylitol"], eNumbers: ["e967"],
     category: "sweetener", function: "Sugar alcohol",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     regulatory: "Approved; 2023 cardiovascular-association research",
@@ -374,7 +376,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA polyols; EU labelling rules",
   },
   {
-    id: "mono-diglycerides", name: "Mono- and Diglycerides", keywords: ["mono- and diglycerides", "monoglycerides", "diglycerides", "mono and diglycerides"], eNumbers: ["e471"],
+    id: "mono-diglycerides", name: "Mono- and Diglycerides", keywords: ["glycerol monostearate", "glyceryl monostearate", "mono- and diglycerides", "monoglycerides", "diglycerides", "mono and diglycerides"], eNumbers: ["e471"],
     category: "emulsifier", function: "Emulsifier",
     dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
     regulatory: "Approved; can contain trans fats (not label-declared)",
@@ -415,7 +417,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2019 phosphates re-evaluation",
   },
   {
-    id: "aluminium-additives", name: "Aluminium-containing Additives", keywords: ["aluminium", "aluminum", "sodium aluminium phosphate", "aluminium sulphate", "sodium aluminium sulphate", "sodium aluminum sulfate", "aluminosilicate", "aluminium silicate"], eNumbers: ["e541", "e173", "e520", "e521", "e523", "e554", "e555", "e556", "e559"],
+    id: "aluminium-additives", name: "Aluminium-containing Additives", keywords: ["aluminium", "aluminum", "sodium aluminium phosphate", "aluminium sulphate", "sodium aluminium sulphate", "sodium aluminum sulfate", "aluminosilicate", "aluminium silicate"], eNumbers: ["e541", "e173", "e520", "e521", "e523", "e554", "e555", "e556", "e559", "e1452"],
     category: "acidity regulator", function: "Leavening / anticaking / colour",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     adi: "1 mg/kg bw/week aluminium (EFSA TWI)", regulatory: "Restricted; EFSA set a tolerable weekly intake",
@@ -440,7 +442,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2017 guar gum",
   },
   {
-    id: "xanthan-gum", name: "Xanthan Gum", keywords: ["xanthan gum", "xanthan"], eNumbers: ["e415"],
+    id: "xanthan-gum", name: "Xanthan Gum", keywords: ["corn sugar gum", "xanthan gum", "xanthan"], eNumbers: ["e415"],
     category: "thickener", function: "Fermentation-derived thickener",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; no ADI (very low toxicity)",
@@ -456,14 +458,14 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2017 pectins",
   },
   {
-    id: "locust-bean-gum", name: "Locust Bean Gum", keywords: ["locust bean gum", "carob gum"], eNumbers: ["e410"],
+    id: "locust-bean-gum", name: "Locust Bean, Tara & Cassia Gums", keywords: ["tara gum", "cassia gum", "locust bean gum", "carob gum"], eNumbers: ["e410", "e417", "e427"],
     category: "thickener", function: "Natural thickener",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; no ADI", note: "Carob-seed fibre; benign. (Restricted in infant formula pending review.)",
     ref: "EFSA 2017 locust bean gum",
   },
   {
-    id: "calcium-propionate", name: "Calcium Propionate", keywords: ["calcium propionate", "sodium propionate", "propionic acid"], eNumbers: ["e282", "e281", "e280"],
+    id: "calcium-propionate", name: "Calcium Propionate", keywords: ["calcium propionate", "sodium propionate", "potassium propionate", "propionic acid"], eNumbers: ["e282", "e281", "e280", "e283"],
     category: "preservative", function: "Antifungal (bread)",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     regulatory: "Approved; EFSA re-affirmed safety 2014",
@@ -472,7 +474,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2014 propionates",
   },
   {
-    id: "sodium-erythorbate", name: "Sodium Erythorbate", keywords: ["erythorbate", "erythorbic acid"], eNumbers: ["e316", "e315"],
+    id: "sodium-erythorbate", name: "Sodium Erythorbate", keywords: ["erythorbate"], eNumbers: ["e316"],
     category: "antioxidant", function: "Antioxidant / cure accelerator",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Approved", note: "Isomer of vitamin C used to speed curing and prevent oxidation; low toxicity. Note: often accompanies nitrites in cured meats.",
@@ -511,7 +513,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA shellac",
   },
   {
-    id: "sodium-stearoyl-lactylate", name: "Sodium Stearoyl Lactylate", keywords: ["stearoyl lactylate", "ssl", "sodium stearoyl"], eNumbers: ["e481", "e482"],
+    id: "sodium-stearoyl-lactylate", name: "Sodium Stearoyl Lactylate", keywords: ["stearoyl lactylate", "ssl", "sodium stearoyl"], eNumbers: ["e481"],
     category: "emulsifier", function: "Dough conditioner / emulsifier",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     adi: "20 mg/kg bw/day (EFSA)", regulatory: "Approved",
@@ -526,14 +528,14 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA lactic acid",
   },
   {
-    id: "malic-acid", name: "Malic Acid", keywords: ["malic acid"], eNumbers: ["e296"],
+    id: "malic-acid", name: "Malic Acid & Malates", keywords: ["malic acid", "sodium malate", "potassium malate", "calcium malate"], eNumbers: ["e296", "e350", "e351", "e352"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; no ADI", note: "Found naturally in apples; benign tart flavouring/acidulant.",
     ref: "EFSA malic acid",
   },
   {
-    id: "sodium-citrate", name: "Sodium Citrate", keywords: ["sodium citrate", "trisodium citrate"], eNumbers: ["e331"],
+    id: "sodium-citrate", name: "Sodium & Potassium Citrates", keywords: ["sodium citrate", "trisodium citrate", "potassium citrate", "tripotassium citrate", "monopotassium citrate", "ammonium citrate"], eNumbers: ["e331", "e332", "e380"],
     category: "acidity regulator", function: "Buffer / emulsifying salt",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; no ADI", note: "Benign buffer and emulsifying salt (e.g. in processed cheese).",
@@ -547,7 +549,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA calcium carbonate",
   },
   {
-    id: "beta-carotene", name: "Beta-Carotene (E160a)", keywords: ["beta-carotene", "beta carotene", "carotene"], eNumbers: ["e160a"],
+    id: "beta-carotene", name: "Beta-Carotene (E160a)", keywords: ["provitamin a", "beta-carotene", "beta carotene", "carotene"], eNumbers: ["e160a"],
     category: "coloring", function: "Natural orange colour / provitamin A",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; provitamin A", populations: ["smokers (high-dose supplement caution)"],
@@ -578,7 +580,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2018 gellan gum",
   },
   {
-    id: "inulin", name: "Inulin / Chicory Fibre", keywords: ["inulin", "chicory root", "chicory fiber", "chicory fibre", "oligofructose"],
+    id: "inulin", name: "Inulin / Chicory Fibre", keywords: ["inulin", "chicory root", "chicory fiber", "chicory fibre", "oligofructose", "fructooligosaccharide", "fructo-oligosaccharide"],
     category: "thickener", function: "Prebiotic fibre",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; a recognised dietary fibre", populations: ["IBS/FODMAP-sensitive (bloating)"],
@@ -620,7 +622,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Emulsifiers ──────────────────────────────────────────
   {
-    id: "datem", name: "DATEM (E472e)", keywords: ["datem", "diacetyl tartaric", "mono- and diacetyl tartaric", "e472e"], eNumbers: ["e472e"],
+    id: "datem", name: "DATEM (E472e)", keywords: ["diacetyl tartaric acid ester", "datem", "diacetyl tartaric", "mono- and diacetyl tartaric", "e472e"], eNumbers: ["e472e"],
     category: "emulsifier", function: "Dough conditioner / crumb softener",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "0–50 mg/kg bw/day (JECFA)",
@@ -670,7 +672,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA Journal 2021;19(11):6885; Nat. Commun. 2024",
   },
   {
-    id: "acetylated-monoglycerides", name: "Acetylated Mono-/Diglycerides (E472a)", keywords: ["acetylated monoglyceride", "acetic acid ester of mono", "acetoglyceride", "e472a"], eNumbers: ["e472a"],
+    id: "acetylated-monoglycerides", name: "Acetylated Mono-/Diglycerides (E472a)", keywords: ["acetic acid esters of mono", "acetylated mono- and diglycerides", "acetylated monoglyceride", "acetic acid ester of mono", "acetoglyceride", "e472a"], eNumbers: ["e472a"],
     category: "emulsifier", function: "Emulsifier / coating film",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified (JECFA)",
@@ -791,7 +793,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2018 re-evaluation of polyols",
   },
   {
-    id: "glucose-syrup", name: "Glucose Syrup", keywords: ["glucose syrup", "glucose-fructose syrup", "corn syrup", "liquid glucose"], eNumbers: [],
+    id: "glucose-syrup", name: "Glucose Syrup", keywords: ["glucose syrup", "corn syrup", "liquid glucose"], eNumbers: [],
     category: "sweetener", function: "Bulk sugar syrup / free sugars",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Not restricted (a food, not an additive)",
@@ -968,7 +970,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "JECFA gum guaiac evaluation",
   },
   {
-    id: "citric-acid-esters", name: "Citric Acid Esters of Monoglycerides (E472c)", keywords: ["citric acid ester", "citrem", "e472c"], eNumbers: ["e472c"],
+    id: "citric-acid-esters", name: "Citric Acid Esters of Monoglycerides (E472c)", keywords: ["citric acid esters of mono", "citric acid ester", "citrem", "e472c"], eNumbers: ["e472c"],
     category: "antioxidant", function: "Antioxidant synergist / emulsifier",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified (JECFA)",
@@ -1030,7 +1032,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2017 re-evaluation of alginates; JECFA",
   },
   {
-    id: "native-starch", name: "Native Starch (tapioca/potato/rice/corn)", keywords: ["tapioca starch", "potato starch", "rice starch", "arrowroot", "wheat starch", "tapioca flour", "corn starch", "cornstarch", "maize starch", "corn flour"], eNumbers: [],
+    id: "native-starch", name: "Native Starch (tapioca/potato/rice/corn)", keywords: ["starch", "tapioca starch", "potato starch", "rice starch", "arrowroot", "wheat starch", "tapioca flour", "corn starch", "cornstarch", "maize starch", "corn flour"], eNumbers: [],
     category: "thickener", function: "Unmodified starch thickener",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Foods, not additives",
@@ -1102,7 +1104,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Acidity regulators ───────────────────────────────────
   {
-    id: "glucono-delta-lactone", name: "Glucono-delta-lactone (E575)", keywords: ["glucono delta lactone", "glucono-delta-lactone", "gdl", "gluconolactone"], eNumbers: ["e575"],
+    id: "glucono-delta-lactone", name: "Glucono-delta-lactone (E575)", keywords: ["glucono delta lactone", "glucono-delta-lactone", "gdl", "gluconolactone", "gluconic acid", "sodium gluconate", "potassium gluconate", "calcium gluconate"], eNumbers: ["e575", "e574", "e576", "e577", "e578"],
     category: "acidity regulator", function: "Slow-release acidifier / coagulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1112,7 +1114,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluation of gluconic acid/GDL; FDA GRAS",
   },
   {
-    id: "food-alkalis", name: "Food Alkalis (hydroxides & carbonates, E500–E527)", keywords: ["sodium hydroxide", "potassium hydroxide", "calcium hydroxide", "ammonium hydroxide", "sodium carbonate", "potassium carbonate", "slaked lime", "calcium oxide", "sodium sesquicarbonate"], eNumbers: ["e501", "e524", "e525", "e526", "e527", "e529"],
+    id: "food-alkalis", name: "Food Alkalis (hydroxides & carbonates, E500–E527)", keywords: ["sodium hydroxide", "potassium hydroxide", "calcium hydroxide", "ammonium hydroxide", "sodium carbonate", "potassium carbonate", "slaked lime", "calcium oxide", "magnesium hydroxide"], eNumbers: ["e500i", "e501", "e524", "e525", "e526", "e527", "e528", "e529"],
     category: "acidity regulator", function: "pH adjuster / alkali",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1235,7 +1237,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Raising agents ───────────────────────────────────────
   {
-    id: "leavening-bicarbonates", name: "Bicarbonates & Carbonates (leavening)", keywords: ["sodium bicarbonate", "bicarbonate of soda", "baking soda", "potassium bicarbonate", "ammonium bicarbonate", "ammonium carbonate", "sodium sesquicarbonate", "magnesium carbonate"], eNumbers: ["e500", "e503", "e504"],
+    id: "leavening-bicarbonates", name: "Bicarbonates & Carbonates (leavening)", keywords: ["sodium bicarbonate", "bicarbonate of soda", "baking soda", "potassium bicarbonate", "ammonium bicarbonate", "ammonium carbonate", "sodium sesquicarbonate", "magnesium carbonate"], eNumbers: ["e500", "e501ii", "e503", "e504"],
     category: "raising agent", function: "CO₂-releasing leavening / buffer",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1266,7 +1268,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Humectants ───────────────────────────────────────────
   {
-    id: "triacetin", name: "Triacetin (E1518)", keywords: ["triacetin", "glyceryl triacetate", "glycerol triacetate"], eNumbers: ["e1518"],
+    id: "triacetin", name: "Triacetin & Diacetin (E1518/E1517)", keywords: ["diacetin", "glyceryl diacetate", "triacetin", "glyceryl triacetate", "glycerol triacetate"], eNumbers: ["e1518", "e1517"],
     category: "humectant", function: "Humectant / carrier solvent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "0–14 mg/kg bw/day (EFSA)",
@@ -1295,7 +1297,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA novel-food opinion on trehalose",
   },
   {
-    id: "polyol-syrups", name: "Polyols (maltitol/isomalt/sorbitol/polyglycitol syrups)", keywords: ["sorbitol syrup", "maltitol syrup", "maltitol", "isomalt", "polyglycitol syrup", "hydrogenated glucose syrup", "hydrogenated starch hydrolysate"], eNumbers: ["e420", "e953", "e964", "e965"],
+    id: "polyol-syrups", name: "Polyols (maltitol/isomalt/sorbitol/polyglycitol syrups)", keywords: ["sorbitol syrup", "maltitol syrup", "maltitol", "isomalt", "polyglycitol syrup", "hydrogenated glucose syrup", "hydrogenated starch hydrolysate"], eNumbers: ["e953", "e964", "e965"],
     category: "humectant", function: "Humectant / bulk sweetener syrup",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified; laxative-effect labelling required",
@@ -1314,7 +1316,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA authorised health claim for betaine",
   },
   {
-    id: "unrefined-sugar-syrups", name: "Unrefined Sugars & Syrups (molasses, jaggery, golden/date syrup)", keywords: ["molasses", "treacle", "golden syrup", "date syrup", "cane syrup", "jaggery", "gur", "coconut sugar", "palm sugar"], eNumbers: [],
+    id: "unrefined-sugar-syrups", name: "Unrefined Sugars & Syrups (molasses, jaggery, maple/golden/date syrup)", keywords: ["maple sugar", "unrefined cane sugar", "molasses", "treacle", "golden syrup", "date syrup", "cane syrup", "jaggery", "coconut sugar", "palm sugar", "maple syrup", "panela", "rapadura", "khandsari", "sorghum syrup", "evaporated cane juice", "cane juice"], eNumbers: [],
     category: "humectant", function: "Humectant / sweetener (free sugars)",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Foods, not additives",
@@ -1417,7 +1419,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluation of ammonium chloride; FDA GRAS",
   },
   {
-    id: "dough-enzymes", name: "Dough Enzymes (amylase, protease, glucose oxidase, xylanase)", keywords: ["alpha-amylase", "amylase", "protease", "glucose oxidase", "xylanase", "fungal enzyme", "transglutaminase"], eNumbers: [],
+    id: "dough-enzymes", name: "Food Enzymes (amylase, protease, papain, invertase, xylanase)", keywords: ["alpha-amylase", "amylase", "protease", "glucose oxidase", "xylanase", "fungal enzyme", "transglutaminase", "papain", "bromelain", "invertase", "lactase", "lipase", "pectinase"], eNumbers: ["e1101", "e1102", "e1103"],
     category: "flour treatment", function: "Enzymatic dough improver (processing aid)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified (processing aids, largely inactivated on baking)",
@@ -1438,7 +1440,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Vitamins & minerals (fortificants) ───────────────────
   {
-    id: "added-vitamins", name: "Added Vitamins (fortification)", keywords: ["cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol"], eNumbers: [],
+    id: "added-vitamins", name: "Added Vitamins (fortification)", keywords: ["pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3"], eNumbers: ["e101"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1447,13 +1449,444 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA/IOM dietary reference values & upper limits",
   },
   {
-    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate"], eNumbers: [],
+    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate"], eNumbers: ["e579", "e585", "e650"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
     populations: ["iron overload (haemochromatosis); mineral upper limits"],
     note: "Mineral fortificants correcting common deficiencies (iron, zinc, iodine, selenium). Beneficial at fortification levels; iron and zinc have upper intake limits, and iron fortificants matter for people with iron-overload conditions.",
     ref: "EFSA/IOM dietary reference values & upper limits",
+  },
+  // ── Expansion 2026-09: colours ──────────────────────────────────────────────
+  {
+    id: "plant-colours", name: "Plant-derived Colours (curcumin, paprika, lycopene, beetroot, anthocyanins)",
+    keywords: ["curcumin", "turmeric extract", "turmeric oleoresin", "paprika extract", "paprika oleoresin", "capsanthin", "capsorubin", "lycopene", "beetroot red", "beet red", "betanin", "anthocyanin", "grape skin extract", "black carrot extract", "purple carrot extract", "beet juice concentrate", "beetroot juice concentrate"],
+    eNumbers: ["e100", "e160c", "e160d", "e162", "e163"],
+    category: "coloring", function: "Natural colour",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    adi: "Curcumin 3, paprika extract 24, lycopene 0.5 mg/kg bw/day; beetroot red & anthocyanins not specified (EFSA)",
+    regulatory: "EU-approved (E100/E160c/E160d/E162/E163); FDA-exempt colours from natural sources",
+    note: "Colours extracted from turmeric, paprika, tomato, beetroot and berries/grapes. EFSA re-evaluations (2010–2015) found no safety concern at use levels; several are also normal dietary constituents.",
+    ref: "EFSA re-evaluations of E100 (2010), E160c (2015), E160d (2008), E162 (2015), E163 (2013)",
+  },
+  {
+    id: "other-synthetic-dyes", name: "Other Synthetic Dyes (Amaranth, Green S, Brown HT)",
+    keywords: ["amaranth dye", "fd&c red no. 2", "fd&c red 2", "green s colour", "green s color", "food green s", "lissamine green", "brown ht", "chocolate brown ht"],
+    eNumbers: ["e123", "e142", "e155"],
+    category: "coloring", function: "Synthetic colour",
+    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
+    adi: "Amaranth 0.15, Green S 5, Brown HT 1.5 mg/kg bw/day (EFSA 2010)",
+    regulatory: "EU-approved (Amaranth only in aperitif wines & fish roe); none permitted as food colours in the US (Amaranth delisted 1976)",
+    populations: ["children"],
+    note: "Synthetic azo/triarylmethane dyes with purely cosmetic function. Amaranth was banned in the US in 1976 over tumour signals and has a very low EU ADI; EFSA flagged that children can exceed the Brown HT ADI.",
+    ref: "EFSA ANS 2010 re-evaluations of E123, E142, E155",
+  },
+  {
+    id: "red-2g", name: "Red 2G (E128)", keywords: ["red 2g"], eNumbers: ["e128"],
+    category: "coloring", function: "Synthetic red dye (sausages)",
+    dominant: "CRITICAL", moderate: "HIGH", trace: "HIGH", evidence: "MODERATE",
+    regulatory: "Withdrawn in EU (2007); not permitted in US",
+    populations: ["everyone"],
+    note: "Metabolised to aniline, a carcinogen in rodents; EFSA could not exclude genotoxic carcinogenicity and its EU authorisation was suspended in 2007.",
+    ref: "EFSA AFC opinion 2007 on Red 2G; Commission Reg. (EC) 884/2007",
+  },
+  {
+    id: "vegetable-carbon", name: "Vegetable Carbon (E153)", keywords: ["vegetable carbon", "carbon black", "vegetable black"], eNumbers: ["e153"],
+    category: "coloring", function: "Black colour",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "EU-approved with PAH purity limits; not permitted as a colour in the US",
+    note: "Finely divided charcoal from burnt plant material. EFSA found no concern at reported uses provided polycyclic aromatic hydrocarbon impurities stay within specification.",
+    ref: "EFSA ANS 2012 re-evaluation of vegetable carbon (E153)",
+  },
+  {
+    id: "plain-caramel", name: "Plain & Caustic Sulphite Caramel (E150a/E150b)", keywords: ["plain caramel", "caustic caramel", "caustic sulphite caramel", "caustic sulfite caramel"], eNumbers: ["e150a", "e150b"],
+    category: "coloring", function: "Brown colouring",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "Group ADI 300 mg/kg bw/day for caramel colours; E150b 160 mg/kg bw/day (EFSA 2011)",
+    regulatory: "EU/FDA approved",
+    note: "Caramels made without ammonia, so they don't carry the 4-MEI contaminant associated with Class III/IV (E150c/E150d) caramels. Low concern.",
+    ref: "EFSA ANS 2011 re-evaluation of caramel colours",
+  },
+  {
+    id: "silver-e174", name: "Silver (E174)", keywords: ["edible silver", "silver leaf", "silver foil", "silver varq", "chandi varq", "varak", "vark"], eNumbers: ["e174"],
+    category: "coloring", function: "Metallic surface decoration",
+    dominant: "MEDIUM", moderate: "MEDIUM", trace: "MEDIUM", evidence: "INSUFFICIENT",
+    regulatory: "EU-approved for decoration only; EFSA unable to confirm safety (2016, 2025); FSSAI sets purity standards for silver leaf",
+    note: "Used as leaf on sweets and confectionery. EFSA could not conclude on safety in 2016 or its 2025 follow-up because nanoparticle content and genotoxicity data were inadequate. In India, low-grade leaf has been found adulterated with aluminium.",
+    ref: "EFSA 2016 & 2025 opinions on silver (E174); FSSAI silver leaf standard 2016",
+  },
+  {
+    id: "gold-e175", name: "Gold (E175)", keywords: ["edible gold", "gold leaf", "gold foil"], eNumbers: ["e175"],
+    category: "coloring", function: "Metallic surface decoration",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "EU-approved for decoration only",
+    note: "Elemental gold is highly insoluble, so EFSA did not expect systemic effects despite the absence of toxicity studies. Purely decorative.",
+    ref: "EFSA 2016 re-evaluation of gold (E175)",
+  },
+
+  // ── Expansion 2026-09: preservatives ────────────────────────────────────────
+  {
+    id: "parabens", name: "Parabens (p-hydroxybenzoates, E214–E219)", keywords: ["paraben", "methylparaben", "ethylparaben", "propylparaben", "p-hydroxybenzoate", "4-hydroxybenzoate", "parahydroxybenzoate", "methyl p-hydroxybenzoate", "ethyl p-hydroxybenzoate"],
+    eNumbers: ["e214", "e215", "e216", "e217", "e218", "e219"],
+    category: "preservative", function: "Antimicrobial preservative",
+    dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
+    adi: "Methyl + ethyl group ADI 10 mg/kg bw/day (EFSA 2004); none for propyl",
+    regulatory: "Methyl/ethyl approved EU; propylparaben (E216/E217) removed from the EU list in 2006; GRAS in US",
+    populations: ["endocrine-sensitive groups (pregnancy, children)"],
+    note: "Preservatives with weak oestrogenic activity. EFSA excluded propylparaben from the group ADI over effects on sperm in rats, and the EU withdrew it from food. Methyl and ethyl parabens remain approved at low use levels.",
+    ref: "EFSA AFC 2004 opinion on para-hydroxybenzoates (E214–219)",
+  },
+  {
+    id: "hexamine", name: "Hexamethylenetetramine (E239)", keywords: ["hexamethylenetetramine", "hexamethylene tetramine", "hexamine", "methenamine"], eNumbers: ["e239"],
+    category: "preservative", function: "Preservative (Provolone cheese)",
+    dominant: "HIGH", moderate: "MEDIUM", trace: "MEDIUM", evidence: "LIMITED",
+    adi: "0.15 mg/kg bw/day (JECFA)",
+    regulatory: "EU: Provolone cheese only; not permitted as a food additive in the US",
+    note: "Works by releasing formaldehyde, which IARC classifies as a human carcinogen (by inhalation). Restricted to one cheese in the EU; residues are low but it is a formaldehyde donor.",
+    ref: "JECFA 1973; EU Reg. 1333/2008 Annex II; IARC Vol. 100F (formaldehyde)",
+  },
+  {
+    id: "boric-acid", name: "Boric Acid & Borax (E284/E285)", keywords: ["boric acid", "borax", "sodium tetraborate", "sodium borate"], eNumbers: ["e284", "e285"],
+    category: "preservative", function: "Preservative (caviar only)",
+    dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM", evidence: "MODERATE",
+    adi: "0.16 mg boron/kg bw/day group ADI (EFSA 2013)",
+    regulatory: "EU: sturgeon caviar only; not permitted in US foods; prohibited by FSSAI (a known adulterant)",
+    populations: ["pregnancy (developmental toxicity)", "children"],
+    note: "Boron compounds are reproductive/developmental toxicants (EU CLP Repr. 1B). Legal only in caviar in the EU; elsewhere their presence usually signals illegal adulteration.",
+    ref: "EFSA ANS 2013 re-evaluation of E284/E285",
+  },
+  {
+    id: "acetates", name: "Acetic Acid & Acetates (E260–E263)", keywords: ["acetic acid", "glacial acetic acid", "sodium acetate", "sodium diacetate", "potassium acetate", "calcium acetate"],
+    eNumbers: ["e260", "e261", "e262", "e263"],
+    category: "acidity regulator", function: "Acidulant / preservative",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    adi: "not specified (JECFA)",
+    regulatory: "GRAS; EU-approved quantum satis",
+    note: "Acetic acid is the acid in vinegar; its salts give salt-and-vinegar flavour and inhibit moulds and Listeria in meats. Normal metabolites — no toxicity concern at food levels.",
+    ref: "JECFA acetic acid and salts; FDA 21 CFR 184.1005/184.1754",
+  },
+  {
+    id: "tartrates", name: "Tartaric Acid & Tartrates (E334–E337, E354)", keywords: ["tartaric acid", "tartrate", "cream of tartar", "potassium bitartrate", "rochelle salt"],
+    eNumbers: ["e334", "e335", "e336", "e337", "e354"],
+    category: "acidity regulator", function: "Acidulant / raising acid",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    adi: "240 mg/kg bw/day group ADI as tartaric acid (EFSA 2020)",
+    regulatory: "EU-approved; GRAS",
+    note: "Grape-derived acid and its salts (cream of tartar is the classic baking acid). EFSA's 2020 re-evaluation raised the group ADI; no concern at use levels.",
+    ref: "EFSA FAF 2020 re-evaluation of E334–E337 and E354",
+  },
+  {
+    id: "fumaric-acid", name: "Fumaric Acid (E297)", keywords: ["fumaric acid"], eNumbers: ["e297"],
+    category: "acidity regulator", function: "Acidulant",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    adi: "6 mg/kg bw/day (SCF 1990)",
+    regulatory: "EU-approved; GRAS",
+    note: "A normal intermediate of the body's citric-acid cycle. Provides long-lasting sourness in powdered drinks and desserts; no concern within the ADI.",
+    ref: "SCF 1990; FDA 21 CFR 172.350",
+  },
+  {
+    id: "mineral-acids", name: "Hydrochloric & Sulphuric Acid (E507/E513)", keywords: ["hydrochloric acid", "sulphuric acid", "sulfuric acid"], eNumbers: ["e507", "e513"],
+    category: "acidity regulator", function: "Processing acid / pH control",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    adi: "not specified (JECFA)",
+    regulatory: "EU-approved; GRAS",
+    note: "Strong acids used in tiny amounts in processing (e.g. starch hydrolysis) and fully neutralised in the finished food. No residual concern.",
+    ref: "JECFA; FDA 21 CFR 182.1057/184.1095",
+  },
+  {
+    id: "sulphate-salts", name: "Sodium, Potassium & Ammonium Sulphates (E514/E515/E517)", keywords: ["sodium sulphate", "sodium sulfate", "potassium sulphate", "potassium sulfate", "ammonium sulphate", "ammonium sulfate"],
+    eNumbers: ["e514", "e515", "e517"],
+    category: "acidity regulator", function: "Carrier / pH control / yeast nutrient",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "not specified (JECFA)",
+    regulatory: "EU-approved; GRAS",
+    note: "Simple mineral salts used as carriers, acidity regulators and yeast food. Large doses of sulphate are laxative, but food use is far below that.",
+    ref: "EFSA 2019 re-evaluation of sulphates E514–E517",
+  },
+
+  // ── Expansion 2026-09: gases, glazing & processing agents ───────────────────
+  {
+    id: "carbon-dioxide", name: "Carbon Dioxide (E290)", keywords: ["carbon dioxide", "co2", "carbonic acid gas"], eNumbers: ["e290"],
+    category: "preservative", function: "Carbonation / packaging gas",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    regulatory: "EU-approved quantum satis; GRAS",
+    note: "The bubbles in fizzy drinks and a protective packaging gas. No toxicity at food use; carbonation itself is harmless (the concern in sodas is sugar/acids, not CO₂).",
+    ref: "FDA 21 CFR 184.1240",
+  },
+  {
+    id: "packaging-gases", name: "Packaging Gases (nitrogen, argon, nitrous oxide…)", keywords: ["nitrogen", "nitrous oxide", "protective atmosphere", "packaging gas"],
+    eNumbers: ["e938", "e939", "e941", "e942", "e948", "e949"],
+    category: "preservative", function: "Modified-atmosphere packaging / propellant",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    regulatory: "EU-approved quantum satis; GRAS",
+    note: "Inert or natural air gases that displace oxygen to keep snacks and salads fresh, or propel whipped cream. They don't remain in the food in meaningful amounts.",
+    ref: "EU Reg. 1333/2008 Annex II; FDA 21 CFR 184.1540",
+  },
+  {
+    id: "dimethylpolysiloxane", name: "Dimethylpolysiloxane (E900)", keywords: ["dimethylpolysiloxane", "dimethyl polysiloxane", "polydimethylsiloxane", "dimethicone", "antifoaming agent"], eNumbers: ["e900"],
+    category: "stabilizer", function: "Anti-foaming agent (frying oils, drinks)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "17 mg/kg bw/day (EFSA 2020)",
+    regulatory: "EU-approved; FDA 21 CFR 173.340",
+    note: "A silicone added in parts-per-million to frying oil and juices to stop foaming. Poorly absorbed; EFSA raised its ADI in 2020 and found no concern at use levels.",
+    ref: "EFSA FAF 2020 re-evaluation of E900",
+  },
+  {
+    id: "glazing-waxes", name: "Glazing Waxes (beeswax, candelilla, microcrystalline, montan, PE wax)",
+    keywords: ["beeswax", "bees wax", "candelilla", "microcrystalline wax", "montan acid ester", "oxidised polyethylene wax", "oxidized polyethylene wax"],
+    eNumbers: ["e901", "e902", "e905", "e912", "e914"],
+    category: "stabilizer", function: "Glazing / coating agent",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "EU-approved for surface treatment (fruit, confectionery); montan esters & PE wax only on citrus/fruit peel",
+    note: "Thin wax coatings that give shine or seal fruit skins. Largely not absorbed; beeswax is animal-derived (not vegan). Montan and polyethylene waxes are restricted to inedible peel.",
+    ref: "EFSA 2007 (beeswax), 2012 (candelilla), 2013 (microcrystalline wax) opinions",
+  },
+  {
+    id: "weighting-agents", name: "Beverage Weighting Agents (SAIB E444, Ester Gum E445)", keywords: ["sucrose acetate isobutyrate", "saib", "glycerol ester of wood rosin", "glycerol esters of wood rosin", "glyceryl abietate", "ester gum"],
+    eNumbers: ["e444", "e445"],
+    category: "stabilizer", function: "Keeps citrus oils suspended in soft drinks",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "E445 10 mg/kg bw/day (EFSA 2023); SAIB 20 mg/kg bw/day (JECFA)",
+    regulatory: "EU/FDA approved; the usual replacements for banned brominated vegetable oil",
+    note: "Used at low levels in cloudy citrus sodas to stop flavour oils floating. EFSA's re-evaluations found no safety concern; a clear improvement over BVO.",
+    ref: "EFSA 2016 (E444) and 2023 follow-up (E445)",
+  },
+  {
+    id: "cyclodextrins", name: "Cyclodextrins (E459)", keywords: ["cyclodextrin", "beta-cyclodextrin", "betadex"], eNumbers: ["e459"],
+    category: "stabilizer", function: "Encapsulating carrier for flavours/vitamins",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "Beta-cyclodextrin 5 mg/kg bw/day (JECFA)",
+    regulatory: "EU-approved (E459); alpha/gamma forms GRAS in US",
+    note: "Ring-shaped starch derivatives that trap flavours or vitamins. Poorly digested in the small intestine and fermented in the colon; no concern within the ADI.",
+    ref: "JECFA 1995; EU Reg. 231/2012",
+  },
+  {
+    id: "cellulose-ethers", name: "Cellulose Ethers (methylcellulose, HPMC, E461–E465)",
+    keywords: ["methylcellulose", "methyl cellulose", "hydroxypropyl methylcellulose", "hydroxypropyl methyl cellulose", "hypromellose", "hpmc", "hydroxypropyl cellulose", "ethyl cellulose", "ethylcellulose", "ethyl methyl cellulose"],
+    eNumbers: ["e461", "e462", "e463", "e464", "e465"],
+    category: "thickener", function: "Thickener / binder / capsule material",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "not specified (EFSA 2018 group evaluation of celluloses)",
+    regulatory: "EU-approved; GRAS",
+    note: "Modified plant cellulose used as a binder in plant-based meats, a thickener, and vegetarian capsule shells. Not absorbed; acts like soluble fibre. EFSA saw no need for a numerical ADI.",
+    ref: "EFSA ANS 2018 re-evaluation of celluloses E460–E466, E468, E469",
+  },
+  {
+    id: "lactem-tartaric-esters", name: "Lactic/Tartaric Acid Esters of Mono-/Diglycerides (E472b/d/f)",
+    keywords: ["lactem", "lactic acid ester", "lactic acid esters of mono", "lactylated monoglyceride", "mixed acetic and tartaric"],
+    eNumbers: ["e472b", "e472d", "e472f"],
+    category: "emulsifier", function: "Emulsifier / whipping agent",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "not specified (JECFA)",
+    regulatory: "EU-approved",
+    note: "Mono-/diglycerides joined to lactic or tartaric acid, used in cake mixes and whipped toppings. Digested to fats and the parent acids; low concern, though they indicate ultra-processing.",
+    ref: "JECFA; EU Reg. 231/2012",
+  },
+  {
+    id: "propylene-glycol-esters", name: "Propylene Glycol Esters of Fatty Acids (E477)", keywords: ["propylene glycol ester", "propylene glycol monostearate", "propane-1,2-diol ester", "propane-1,2-diol esters"], eNumbers: ["e477"],
+    category: "emulsifier", function: "Emulsifier (cake mixes, toppings)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "25 mg/kg bw/day as propylene glycol (EFSA 2018)",
+    regulatory: "EU-approved; FDA 21 CFR 172.856",
+    note: "Hydrolysed in the gut to fatty acids and propylene glycol; EFSA's 2018 re-evaluation found no concern at use levels.",
+    ref: "EFSA ANS 2018 re-evaluation of E477",
+  },
+  {
+    id: "quillaia-extract", name: "Quillaia Extract (E999)", keywords: ["quillaia", "quillaja", "soapbark extract"], eNumbers: ["e999"],
+    category: "emulsifier", function: "Foaming agent (soft drinks, cider)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "3 mg saponins/kg bw/day (EFSA 2019)",
+    regulatory: "EU-approved; FDA GRAS",
+    note: "A saponin-rich bark extract that creates foam in drinks. EFSA set an ADI in 2019 and found no exposure scenario exceeding it.",
+    ref: "EFSA FAF 2019 re-evaluation of E999; 2024 follow-up",
+  },
+  {
+    id: "pullulan", name: "Pullulan (E1204)", keywords: ["pullulan"], eNumbers: ["e1204"],
+    category: "thickener", function: "Film former (capsules, breath strips)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "not specified (JECFA)",
+    regulatory: "EU-approved; FDA GRAS",
+    note: "A fermentation-derived polysaccharide used for vegetarian capsules and edible films. Behaves like a soluble fibre; no concern.",
+    ref: "EFSA 2004 opinion on pullulan; JECFA 2006",
+  },
+
+  // ── Expansion 2026-09: gums, gels & proteins ────────────────────────────────
+  {
+    id: "agar", name: "Agar (E406)", keywords: ["agar", "agar-agar", "agar agar", "japanese gelatin"], eNumbers: ["e406"],
+    category: "thickener", function: "Gelling agent",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    adi: "not specified (EFSA 2016)",
+    regulatory: "EU-approved; GRAS",
+    note: "A seaweed gel used as a vegetarian alternative to gelatin. Not digested — acts as soluble fibre. EFSA found no concern.",
+    ref: "EFSA ANS 2016 re-evaluation of agar (E406)",
+  },
+  {
+    id: "konjac", name: "Konjac Gum / Glucomannan (E425)", keywords: ["konjac", "konnyaku", "glucomannan"], eNumbers: ["e425"],
+    category: "thickener", function: "Gelling agent / thickener",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    adi: "not specified (EFSA 2017)",
+    regulatory: "EU-approved but banned in jelly mini-cups (choking deaths); GRAS",
+    populations: ["young children & elderly (choking risk in firm jelly confectionery)"],
+    note: "A highly absorbent soluble fibre that forms firm gels. Safe to eat, but firm konjac jelly cups caused choking deaths, so the EU bans it in jelly confectionery.",
+    ref: "EFSA ANS 2017 re-evaluation of E425; Commission Decision 2004/374/EC",
+  },
+  {
+    id: "gelatin", name: "Gelatin", keywords: ["gelatin", "gelatine", "bovine gelatin", "pork gelatin"], eNumbers: [],
+    category: "thickener", function: "Gelling agent",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    regulatory: "A food ingredient (not an E-number in the EU); GRAS",
+    populations: ["vegetarians/vegans; halal/kosher diets (animal source)"],
+    note: "Protein made from animal collagen (pig or cattle skin/bones). No safety concern; relevant mainly for dietary and religious choices.",
+    ref: "FDA GRAS; EU Reg. 853/2004 (gelatin hygiene)",
+  },
+  {
+    id: "caseinates", name: "Caseinates (milk protein)", keywords: ["caseinate", "sodium caseinate", "calcium caseinate", "casein"], eNumbers: [],
+    category: "emulsifier", function: "Protein emulsifier / texturiser",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    regulatory: "Food ingredient; milk allergen must be declared",
+    populations: ["milk allergy (still present in 'non-dairy' creamers)"],
+    note: "Purified milk protein used in coffee whiteners, processed cheese and meats. Nutritionally fine, but a milk allergen even in products labelled 'non-dairy'.",
+    ref: "EU Reg. 1169/2011 Annex II; FDA 21 CFR 182.1748",
+  },
+
+  // ── Expansion 2026-09: sweeteners & free sugars ─────────────────────────────
+  {
+    id: "neohesperidin-dc", name: "Neohesperidin DC (E959)", keywords: ["neohesperidin", "neohesperidine", "nhdc"], eNumbers: ["e959"],
+    category: "sweetener", function: "Intense sweetener / flavour modifier",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "20 mg/kg bw/day (EFSA 2022)",
+    regulatory: "EU-approved; not an approved sweetener in the US (flavour use only)",
+    note: "Made by hydrogenating a bitter-orange flavonoid; ~1,500× sweeter than sugar. EFSA's 2022 re-evaluation raised the ADI from 5 to 20 mg/kg and found no genotoxicity concern.",
+    ref: "EFSA FAF 2022 re-evaluation of E959",
+  },
+  {
+    id: "thaumatin", name: "Thaumatin (E957)", keywords: ["thaumatin", "katemfe"], eNumbers: ["e957"],
+    category: "sweetener", function: "Intense sweetener / flavour enhancer",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "not specified (JECFA); EFSA 2021: no concern",
+    regulatory: "EU-approved; FDA GRAS (flavour)",
+    note: "A sweet protein from the West African katemfe fruit; digested like any other protein. EFSA's 2021 re-evaluation found no safety concern.",
+    ref: "EFSA FAF 2021 re-evaluation of E957",
+  },
+  {
+    id: "monk-fruit", name: "Monk Fruit Extract (Mogrosides)", keywords: ["monk fruit", "luo han guo", "luohanguo", "mogroside", "siraitia grosvenorii"], eNumbers: [],
+    category: "sweetener", function: "Intense sweetener",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA GRAS notices (no objection); EFSA 2019 could not conclude on novel-food safety (data gaps)",
+    note: "Sweet mogrosides from a Chinese gourd with a long food history. Well tolerated in available studies, but EFSA considered the dossier insufficient in 2019, so long-term evidence is thinner than for stevia.",
+    ref: "FDA GRN 301/522/627; EFSA FAF 2019 opinion on Luo Han Fruit extract",
+  },
+  {
+    id: "fruit-juice-concentrate", name: "Fruit Juice Concentrate", keywords: ["juice concentrate", "concentrated fruit juice", "concentrated apple juice", "concentrated grape juice", "concentrated pear juice", "fruit juice powder", "grape must"], eNumbers: [],
+    category: "sweetener", function: "Sweetener (free sugars)",
+    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
+    regulatory: "Food ingredient; counts as free/added sugar (WHO, FDA)",
+    populations: ["diabetes; weight/dental health"],
+    note: "Juice boiled down to a sugar syrup — often used so a product can claim 'no added sugar'. WHO counts juice sugars as free sugars, and FDA counts concentrate used to sweeten as added sugar.",
+    ref: "WHO 2015 free-sugars guideline; FDA 2016 added-sugars rule",
+  },
+  {
+    id: "fructose", name: "Fructose (added)", keywords: ["fructose", "crystalline fructose", "fruit sugar", "fructose syrup"], eNumbers: [],
+    category: "sweetener", function: "Free sugar / sweetener",
+    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
+    regulatory: "Food ingredient; counts as free/added sugar",
+    populations: ["diabetes; fatty-liver disease; fructose malabsorption"],
+    note: "Pure fructose added as a sweetener. Low glycaemic index, but metabolised mainly in the liver where high intakes drive fat production and raise triglycerides. A free sugar like any other.",
+    ref: "WHO 2015 free-sugars guideline; EFSA 2022 opinion on dietary sugars",
+  },
+  {
+    id: "lactose", name: "Lactose (added)", keywords: ["lactose", "milk sugar"], eNumbers: [],
+    category: "sweetener", function: "Bulking agent / carrier / sugar",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    regulatory: "Food ingredient; milk allergen labelling where relevant",
+    populations: ["lactose intolerance", "milk allergy (may carry milk protein)"],
+    note: "Milk sugar used as a carrier in seasonings and as filler. Less sweet and less cariogenic than sucrose, but a problem for the lactose-intolerant; counts as added sugar when added.",
+    ref: "EFSA 2010 opinion on lactose thresholds; FDA added-sugars rule",
+  },
+  {
+    id: "malt-sugars", name: "Malt Extract & Maltose", keywords: ["malt extract", "barley malt extract", "malt syrup", "barley malt syrup", "maltose", "malted barley extract"], eNumbers: [],
+    category: "sweetener", function: "Sweetener / flavour / colour (free sugars)",
+    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
+    regulatory: "Food ingredient; counts as free/added sugar",
+    populations: ["coeliac disease (barley gluten)", "diabetes"],
+    note: "Sprouted-barley syrup rich in maltose, used in cereals and bread for flavour and browning. Nutritionally a free sugar and a source of gluten.",
+    ref: "WHO 2015 free-sugars guideline; EU Reg. 1169/2011 (cereals containing gluten)",
+  },
+  {
+    id: "brown-rice-syrup", name: "Brown Rice Syrup", keywords: ["rice syrup", "brown rice syrup", "rice malt syrup"], eNumbers: [],
+    category: "sweetener", function: "Sweetener (free sugars)",
+    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
+    regulatory: "Food ingredient; counts as added sugar; EU sets inorganic-arsenic limits for rice products",
+    populations: ["infants & toddlers (arsenic)", "diabetes (very high GI)"],
+    note: "A glucose/maltose syrup made from rice starch with a very high glycaemic index. Studies found notable inorganic arsenic in products sweetened with it, a particular concern for toddler foods.",
+    ref: "Jackson et al. 2012 (Environ Health Perspect); EU Reg. 2023/465 arsenic limits",
+  },
+
+  // ── Expansion 2026-09: flavour & other ──────────────────────────────────────
+  {
+    id: "ribonucleotides", name: "Ribonucleotides (disodium guanylate/inosinate, E626–E635)",
+    keywords: ["guanylate", "inosinate", "guanylic acid", "inosinic acid", "ribonucleotide", "disodium 5'-ribonucleotides"],
+    eNumbers: ["e626", "e627", "e628", "e629", "e630", "e631", "e632", "e633", "e634", "e635"],
+    category: "flavor enhancer", function: "Umami enhancer (synergist with MSG)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "not specified (JECFA)",
+    regulatory: "EU/FDA approved",
+    populations: ["gout / hyperuricaemia (purines)", "vegetarians (inosinate may be animal-derived)"],
+    note: "Used alongside MSG to multiply savoury taste in crisps and noodles. Metabolised to uric acid, so relevant for gout; otherwise low concern. A strong ultra-processing marker.",
+    ref: "JECFA 1993; EU Reg. 1333/2008",
+  },
+  {
+    id: "glycine", name: "Glycine (E640)", keywords: ["glycine", "aminoacetic acid"], eNumbers: ["e640"],
+    category: "flavor enhancer", function: "Flavour modifier",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    regulatory: "EU-approved; FDA 21 CFR 172.812",
+    note: "The simplest amino acid, naturally abundant in protein. Adds slight sweetness and masks bitterness; no concern.",
+    ref: "EU Reg. 1333/2008; FDA 21 CFR 172.812",
+  },
+  {
+    id: "yeast-extract", name: "Yeast Extract", keywords: ["yeast extract", "autolysed yeast", "autolyzed yeast", "yeast autolysate"], eNumbers: [],
+    category: "flavor enhancer", function: "Savoury flavour (natural free glutamate)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "Food ingredient (not an additive); GRAS",
+    populations: ["MSG-avoiders (contains free glutamate)"],
+    note: "Broken-down yeast cells rich in free glutamate and nucleotides — a 'clean label' way to add umami. Safe; it signals flavour engineering rather than a risk.",
+    ref: "FDA GRAS; EFSA 2017 glutamate opinion (context)",
+  },
+  {
+    id: "ethanol", name: "Ethanol / Alcohol (E1510)", keywords: ["ethanol", "ethyl alcohol", "alcohol (ethanol)"], eNumbers: ["e1510"],
+    category: "preservative", function: "Carrier solvent / preservative",
+    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
+    regulatory: "Carrier solvent in flavourings; alcoholic ingredients IARC Group 1",
+    populations: ["pregnancy", "children", "people avoiding alcohol for health or religious reasons"],
+    note: "Usually a trace solvent for flavourings. As a main ingredient it means an alcoholic product — alcohol is an IARC Group 1 carcinogen with no safe threshold identified.",
+    ref: "IARC Vol. 100E; WHO Europe 2023 statement on alcohol",
+  },
+  {
+    id: "benzyl-alcohol", name: "Benzyl Alcohol (E1519)", keywords: ["benzyl alcohol"], eNumbers: ["e1519"],
+    category: "preservative", function: "Carrier solvent for flavourings",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "5 mg/kg bw/day group ADI with benzoates (JECFA)",
+    regulatory: "EU-approved only as a flavouring carrier",
+    note: "Metabolised to benzoic acid, so it shares the benzoate group ADI. Present only in trace amounts in flavourings.",
+    ref: "JECFA 1996; EU Reg. 1333/2008 Annex III",
+  },
+  {
+    id: "fully-hydrogenated-oil", name: "Fully Hydrogenated Oil", keywords: ["fully hydrogenated", "fully hydrogenated vegetable oil", "fully hydrogenated vegetable fat", "fully hydrogenated palm", "fully hydrogenated soybean", "fully hydrogenated rapeseed", "fully hydrogenated cottonseed", "fully hydrogenated fat"], eNumbers: [],
+    category: "fat", function: "Hard fat / structuring",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "Permitted; not a partially hydrogenated oil (no significant trans fat)",
+    populations: ["cardiovascular (saturated fat)"],
+    note: "Complete hydrogenation turns unsaturated fat into saturated stearic acid, leaving negligible trans fat — unlike partially hydrogenated oils. A saturated, highly processed fat rather than a trans-fat hazard.",
+    ref: "FDA 2015 PHO determination (scope excludes fully hydrogenated oils)",
+  },
+  {
+    id: "interesterified-fat", name: "Interesterified Fat", keywords: ["interesterified", "inter-esterified"], eNumbers: [],
+    category: "fat", function: "Trans-fat-free hard fat",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "Permitted",
+    populations: ["cardiovascular (saturated fat)"],
+    note: "Fats whose fatty acids have been rearranged to harden them without creating trans fat. Usually rich in saturated fat; long-term metabolic effects are less studied.",
+    ref: "Mensink et al. 2016 (Prog Lipid Res) review of interesterified fats",
   },
 ];
 
@@ -1465,17 +1898,49 @@ export const WHOLEFOOD_KEYWORDS = [
   "olive oil", "honey", "yogurt", "chicken", "beef", "fish", "salt", "black pepper",
   "butter", "ghee", "cream", "vinegar", "tomato paste", "tomato puree",
   "garlic powder", "onion powder", "lemon juice", "tamarind",
+  "turmeric", "cardamom", "cinnamon", "ginger", "cumin", "coriander", "clove", "nutmeg", "vanilla", "cocoa",
 ];
 
 const NAME = (a: AdditiveProfile) => a;
 void NAME; // keep tree-shaker honest; profiles are the export
 
+// Pull additive codes out of label text as whole tokens: "E1200", "E 407a", "INS 330",
+// "E341(i)", and bare Codex codes in brackets such as "acidity regulator (330, 331)".
+// Each code yields candidates most-specific first: "e341ai" → e341ai, e341a, e341.
+const CODE_RE = /(?:^|[^a-z])(?:e|ins)\s*-?\s*(\d{3,4})([a-h](?![a-z]))?(?:\s*\(\s*([ivx]{1,4})\s*\)|([ivx]{1,4})(?![a-z]))?(?!\d)/g;
+const BRACKET_RE = /\(((?:[^()]|\([ivx]{1,4}\))*)\)/g;
+const BARE_LIST = /^\s*\d{3,4}[a-h]?(?:\([ivx]{1,4}\))?(?:\s*[,&/]\s*\d{3,4}[a-h]?(?:\([ivx]{1,4}\))?)*\s*$/;
+const BARE_CODE = /(\d{3,4})([a-h])?(?:\(([ivx]{1,4})\))?/g;
+
+function codeCandidates(digits: string, letter?: string, roman?: string): string[] {
+  const base = `e${digits}`;
+  const out: string[] = [];
+  if (letter && roman) out.push(`${base}${letter}${roman}`);
+  if (letter) out.push(`${base}${letter}`);
+  if (roman) out.push(`${base}${roman}`);
+  out.push(base);
+  return out;
+}
+
+export function extractCodes(lower: string): string[][] {
+  const codes: string[][] = [];
+  for (const m of Array.from(lower.matchAll(CODE_RE))) codes.push(codeCandidates(m[1], m[2], m[3] ?? m[4]));
+  for (const b of Array.from(lower.matchAll(BRACKET_RE))) {
+    if (!BARE_LIST.test(b[1])) continue;
+    for (const m of Array.from(b[1].matchAll(BARE_CODE))) codes.push(codeCandidates(m[1], m[2], m[3]));
+  }
+  return codes;
+}
+
 export function lookupAdditive(rawName: string): AdditiveProfile | null {
   const lower = rawName.toLowerCase().trim();
-  const squashed = lower.replace(/[\s-]/g, "");
-  // E-number is the strongest signal.
-  for (const a of ADDITIVES) {
-    if (a.eNumbers?.some((e) => squashed.includes(e))) return a;
+  // E/INS code is the strongest signal. Codes are matched as whole tokens so that
+  // E1200 (polydextrose) can't resolve to E120 (carmine), nor E407a to E407.
+  for (const candidates of extractCodes(lower)) {
+    for (const code of candidates) {
+      const hit = ADDITIVES.find((a) => a.eNumbers?.includes(code));
+      if (hit) return hit;
+    }
   }
   // Otherwise the most specific (longest) matching keyword wins, so a generic
   // substring like "sorbate"/"glycerol" can't shadow "polysorbate"/"polyglycerol".

@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: flour treatment
 evidence: MODERATE
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
-# Dough Enzymes (amylase, protease, glucose oxidase, xylanase)
+# Food Enzymes (amylase, protease, papain, invertase, xylanase)
 
 **Category:** flour treatment  ·  **Function:** Enzymatic dough improver (processing aid)
 **Evidence strength:** MODERATE
-
+**E-number(s):** e1101, e1102, e1103
 **ADI:** not specified (processing aids, largely inactivated on baking)
 
 ## Concern by concentration

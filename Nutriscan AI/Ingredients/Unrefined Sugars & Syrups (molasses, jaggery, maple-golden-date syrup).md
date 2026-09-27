@@ -2,10 +2,10 @@
 type: ingredient-profile
 category: humectant
 evidence: STRONG
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
-# Unrefined Sugar Syrups (molasses, golden/date syrup)
+# Unrefined Sugars & Syrups (molasses, jaggery, maple/golden/date syrup)
 
 **Category:** humectant  ·  **Function:** Humectant / sweetener (free sugars)
 **Evidence strength:** STRONG

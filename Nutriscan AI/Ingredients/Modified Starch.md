@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: thickener
 evidence: INSUFFICIENT
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Modified Starch
 
 **Category:** thickener  ·  **Function:** Texture / stability
 **Evidence strength:** INSUFFICIENT
-
+**E-number(s):** e1400, e1404, e1410, e1412, e1413, e1414, e1420, e1422, e1440, e1442, e1450, e1451
 
 
 ## Concern by concentration

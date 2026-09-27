@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-149 profiled additives. Generated 2026-07-22.
+194 profiled additives. Generated 2026-09-27.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -48,7 +48,7 @@
 - [[Guar Gum]] — thickener, STRONG evidence, dominant=LOW
 - [[Xanthan Gum]] — thickener, STRONG evidence, dominant=LOW
 - [[Pectin]] — thickener, STRONG evidence, dominant=LOW
-- [[Locust Bean Gum]] — thickener, STRONG evidence, dominant=LOW
+- [[Locust Bean, Tara & Cassia Gums]] — thickener, STRONG evidence, dominant=LOW
 - [[Calcium Propionate]] — preservative, LIMITED evidence, dominant=MEDIUM
 - [[Sodium Erythorbate]] — antioxidant, MODERATE evidence, dominant=LOW
 - [[Nisin]] — preservative, MODERATE evidence, dominant=LOW
@@ -57,8 +57,8 @@
 - [[Shellac]] — thickener, LIMITED evidence, dominant=LOW
 - [[Sodium Stearoyl Lactylate]] — emulsifier, LIMITED evidence, dominant=MEDIUM
 - [[Lactic Acid]] — acidity regulator, STRONG evidence, dominant=LOW
-- [[Malic Acid]] — acidity regulator, STRONG evidence, dominant=LOW
-- [[Sodium Citrate]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Malic Acid & Malates]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Sodium & Potassium Citrates]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Calcium Carbonate]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Beta-Carotene (E160a)]] — coloring, STRONG evidence, dominant=LOW
 - [[Annatto (E160b)]] — coloring, MODERATE evidence, dominant=LOW
@@ -132,12 +132,12 @@
 - [[Bicarbonates & Carbonates (leavening)]] — raising agent, STRONG evidence, dominant=LOW
 - [[Calcium Phosphates (E341)]] — raising agent, MODERATE evidence, dominant=MEDIUM
 - [[Baker's Yeast]] — raising agent, STRONG evidence, dominant=LOW
-- [[Triacetin (E1518)]] — humectant, MODERATE evidence, dominant=LOW
+- [[Triacetin & Diacetin (E1518-E1517)]] — humectant, MODERATE evidence, dominant=LOW
 - [[Triethyl Citrate (E1505)]] — humectant, MODERATE evidence, dominant=LOW
 - [[Trehalose]] — humectant, MODERATE evidence, dominant=MEDIUM
 - [[Polyols (maltitol-isomalt-sorbitol-polyglycitol syrups)]] — humectant, STRONG evidence, dominant=MEDIUM
 - [[Betaine]] — humectant, MODERATE evidence, dominant=LOW
-- [[Unrefined Sugars & Syrups (molasses, jaggery, golden-date syrup)]] — humectant, STRONG evidence, dominant=HIGH
+- [[Unrefined Sugars & Syrups (molasses, jaggery, maple-golden-date syrup)]] — humectant, STRONG evidence, dominant=HIGH
 - [[Silicates (silicon dioxide-calcium silicate-talc-bentonite)]] — anti-caking agent, MODERATE evidence, dominant=LOW
 - [[Cellulose (microcrystalline-powdered, E460)]] — anti-caking agent, STRONG evidence, dominant=LOW
 - [[Ferrocyanides (E535-E536-E538)]] — anti-caking agent, MODERATE evidence, dominant=LOW
@@ -147,7 +147,52 @@
 - [[Flour Bleaching-Oxidising Agents (E926-E928-E930)]] — flour treatment, MODERATE evidence, dominant=MEDIUM
 - [[L-Cysteine (E920)]] — flour treatment, MODERATE evidence, dominant=LOW
 - [[Ammonium Chloride (E510)]] — flour treatment, MODERATE evidence, dominant=LOW
-- [[Dough Enzymes (amylase, protease, glucose oxidase, xylanase)]] — flour treatment, MODERATE evidence, dominant=LOW
+- [[Food Enzymes (amylase, protease, papain, invertase, xylanase)]] — flour treatment, MODERATE evidence, dominant=LOW
 - [[Malted Barley Flour]] — flour treatment, STRONG evidence, dominant=LOW
 - [[Added Vitamins (fortification)]] — vitamin & mineral, STRONG evidence, dominant=LOW
 - [[Added Minerals (fortification)]] — vitamin & mineral, STRONG evidence, dominant=LOW
+- [[Plant-derived Colours (curcumin, paprika, lycopene, beetroot, anthocyanins)]] — coloring, STRONG evidence, dominant=LOW
+- [[Other Synthetic Dyes (Amaranth, Green S, Brown HT)]] — coloring, LIMITED evidence, dominant=HIGH
+- [[Red 2G (E128)]] — coloring, MODERATE evidence, dominant=CRITICAL
+- [[Vegetable Carbon (E153)]] — coloring, LIMITED evidence, dominant=LOW
+- [[Plain & Caustic Sulphite Caramel (E150a-E150b)]] — coloring, MODERATE evidence, dominant=LOW
+- [[Silver (E174)]] — coloring, INSUFFICIENT evidence, dominant=MEDIUM
+- [[Gold (E175)]] — coloring, LIMITED evidence, dominant=LOW
+- [[Parabens (p-hydroxybenzoates, E214–E219)]] — preservative, LIMITED evidence, dominant=MEDIUM
+- [[Hexamethylenetetramine (E239)]] — preservative, LIMITED evidence, dominant=HIGH
+- [[Boric Acid & Borax (E284-E285)]] — preservative, MODERATE evidence, dominant=HIGH
+- [[Acetic Acid & Acetates (E260–E263)]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Tartaric Acid & Tartrates (E334–E337, E354)]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Fumaric Acid (E297)]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Hydrochloric & Sulphuric Acid (E507-E513)]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Sodium, Potassium & Ammonium Sulphates (E514-E515-E517)]] — acidity regulator, MODERATE evidence, dominant=LOW
+- [[Carbon Dioxide (E290)]] — preservative, STRONG evidence, dominant=LOW
+- [[Packaging Gases (nitrogen, argon, nitrous oxide…)]] — preservative, STRONG evidence, dominant=LOW
+- [[Dimethylpolysiloxane (E900)]] — stabilizer, MODERATE evidence, dominant=LOW
+- [[Glazing Waxes (beeswax, candelilla, microcrystalline, montan, PE wax)]] — stabilizer, MODERATE evidence, dominant=LOW
+- [[Beverage Weighting Agents (SAIB E444, Ester Gum E445)]] — stabilizer, MODERATE evidence, dominant=LOW
+- [[Cyclodextrins (E459)]] — stabilizer, MODERATE evidence, dominant=LOW
+- [[Cellulose Ethers (methylcellulose, HPMC, E461–E465)]] — thickener, MODERATE evidence, dominant=LOW
+- [[Lactic-Tartaric Acid Esters of Mono--Diglycerides (E472b-d-f)]] — emulsifier, MODERATE evidence, dominant=LOW
+- [[Propylene Glycol Esters of Fatty Acids (E477)]] — emulsifier, MODERATE evidence, dominant=LOW
+- [[Quillaia Extract (E999)]] — emulsifier, MODERATE evidence, dominant=LOW
+- [[Pullulan (E1204)]] — thickener, MODERATE evidence, dominant=LOW
+- [[Agar (E406)]] — thickener, STRONG evidence, dominant=LOW
+- [[Konjac Gum - Glucomannan (E425)]] — thickener, STRONG evidence, dominant=LOW
+- [[Gelatin]] — thickener, STRONG evidence, dominant=LOW
+- [[Caseinates (milk protein)]] — emulsifier, STRONG evidence, dominant=LOW
+- [[Neohesperidin DC (E959)]] — sweetener, MODERATE evidence, dominant=LOW
+- [[Thaumatin (E957)]] — sweetener, MODERATE evidence, dominant=LOW
+- [[Monk Fruit Extract (Mogrosides)]] — sweetener, LIMITED evidence, dominant=LOW
+- [[Fruit Juice Concentrate]] — sweetener, STRONG evidence, dominant=HIGH
+- [[Fructose (added)]] — sweetener, STRONG evidence, dominant=HIGH
+- [[Lactose (added)]] — sweetener, STRONG evidence, dominant=MEDIUM
+- [[Malt Extract & Maltose]] — sweetener, STRONG evidence, dominant=HIGH
+- [[Brown Rice Syrup]] — sweetener, MODERATE evidence, dominant=HIGH
+- [[Ribonucleotides (disodium guanylate-inosinate, E626–E635)]] — flavor enhancer, MODERATE evidence, dominant=LOW
+- [[Glycine (E640)]] — flavor enhancer, STRONG evidence, dominant=LOW
+- [[Yeast Extract]] — flavor enhancer, MODERATE evidence, dominant=LOW
+- [[Ethanol - Alcohol (E1510)]] — preservative, STRONG evidence, dominant=HIGH
+- [[Benzyl Alcohol (E1519)]] — preservative, MODERATE evidence, dominant=MEDIUM
+- [[Fully Hydrogenated Oil]] — fat, MODERATE evidence, dominant=MEDIUM
+- [[Interesterified Fat]] — fat, LIMITED evidence, dominant=MEDIUM

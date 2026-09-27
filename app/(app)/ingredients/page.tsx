@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Ingredient Database",
-  description: "Search 2,000+ food ingredients including preservatives, sweeteners, colorings, emulsifiers, and more.",
+  description: "Search 300+ food ingredients including preservatives, sweeteners, colorings, emulsifiers, and more.",
 };
 
 export default async function IngredientsPage() {
@@ -27,7 +27,7 @@ export default async function IngredientsPage() {
             Decode any ingredient
           </h1>
           <p className="mt-4 max-w-[560px] mx-auto text-[17px] leading-relaxed" style={{ color: "var(--muted)" }}>
-            Search 2,000+ additives, preservatives, sweeteners and colorings — each with an evidence-based grade and a plain-language verdict.
+            Search 300+ additives, preservatives, sweeteners and colorings — each with an evidence-based grade and a plain-language verdict.
           </p>
         </div>
 

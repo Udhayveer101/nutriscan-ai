@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: thickener
 evidence: STRONG
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
-# Locust Bean Gum
+# Locust Bean, Tara & Cassia Gums
 
 **Category:** thickener  ·  **Function:** Natural thickener
 **Evidence strength:** STRONG
-**E-number(s):** e410
+**E-number(s):** e410, e417, e427
 
 
 ## Concern by concentration

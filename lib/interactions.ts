@@ -3,6 +3,8 @@
 // only interactions with real regulatory/peer-reviewed backing are listed. See vault
 // Interactions.md. Each rule requires ALL trigger groups to be present on the label.
 
+import { extractCodes } from "./additives";
+
 export interface InteractionRule {
   id: string;
   title: string;
@@ -45,7 +47,8 @@ export const INTERACTIONS: InteractionRule[] = [
     id: "dye-benzoate-hyperactivity",
     title: "Additive hyperactivity mixture (dyes + benzoate)",
     requires: [
-      ["red 40", "yellow 5", "yellow 6", "tartrazine", "sunset yellow", "allura red", "e129", "e102", "e110"],
+      ["red 40", "yellow 5", "yellow 6", "tartrazine", "sunset yellow", "allura red", "quinoline yellow", "carmoisine", "azorubine", "ponceau 4r",
+       "e129", "e102", "e110", "e104", "e122", "e124"],
       ["sodium benzoate", "benzoic acid", "e211"],
     ],
     penalty: 12, severity: "MEDIUM", evidence: "MODERATE",
@@ -77,12 +80,16 @@ export interface InteractionHit {
   ref: string;
 }
 
+const E_CODE = /^e\d{3,4}[a-z]*$/;
+
 export function detectInteractions(ingredientNames: string[]): InteractionHit[] {
   const hay = ingredientNames.map((n) => n.toLowerCase());
+  const codes = hay.flatMap((name) => extractCodes(name).flat());
   const hits: InteractionHit[] = [];
   for (const rule of INTERACTIONS) {
+    // E-numbers match as whole codes (E1105 lysozyme must not count as E110).
     const allPresent = rule.requires.every((group) =>
-      group.some((kw) => hay.some((name) => name.includes(kw)))
+      group.some((kw) => (E_CODE.test(kw) ? codes.includes(kw) : hay.some((name) => name.includes(kw))))
     );
     if (allPresent) {
       const { requires: _r, ...rest } = rule;

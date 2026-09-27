@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Providers } from "@/components/Providers";
+import { SITE_URL } from "@/lib/site";
 
 const heading = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ const monoLabel = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "NutriScan AI — Know What's Really In Your Food",
     template: "%s | NutriScan AI",
@@ -52,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://nutriscan.ai",
+    url: SITE_URL,
     siteName: "NutriScan AI",
     title: "NutriScan AI — Know What's Really In Your Food",
     description:

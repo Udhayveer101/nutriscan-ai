@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: preservative
 evidence: LIMITED
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Calcium Propionate
 
 **Category:** preservative  ·  **Function:** Antifungal (bread)
 **Evidence strength:** LIMITED
-**E-number(s):** e282, e281, e280
+**E-number(s):** e282, e281, e280, e283
 
 
 ## Concern by concentration

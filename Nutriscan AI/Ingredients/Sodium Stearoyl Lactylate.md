@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: emulsifier
 evidence: LIMITED
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Sodium Stearoyl Lactylate
 
 **Category:** emulsifier  ·  **Function:** Dough conditioner / emulsifier
 **Evidence strength:** LIMITED
-**E-number(s):** e481, e482
+**E-number(s):** e481
 **ADI:** 20 mg/kg bw/day (EFSA)
 
 ## Concern by concentration

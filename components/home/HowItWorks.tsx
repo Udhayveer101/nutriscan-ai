@@ -3,7 +3,7 @@ import { Reveal } from "@/components/ui/Reveal";
 const steps = [
   { icon: "↑", title: "Snap the label", description: "Camera, paste text, or scan a barcode." },
   { icon: "◎", title: "We read it", description: "OCR + NLP identify every component." },
-  { icon: "◆", title: "Grade it A–F", description: "A composite health score, per ingredient." },
+  { icon: "◆", title: "Grade it A+ to F", description: "A composite health score, per ingredient." },
   { icon: "✦", title: "Explain it plainly", description: "Tuned to you: parent, athlete, scientist." },
 ];
 

@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Food Alkalis (hydroxides & carbonates, E500–E527)
 
 **Category:** acidity regulator  ·  **Function:** pH adjuster / alkali
 **Evidence strength:** STRONG
-**E-number(s):** e501, e524, e525, e526, e527, e529
+**E-number(s):** e500i, e501, e524, e525, e526, e527, e528, e529
 **ADI:** not specified (JECFA)
 
 ## Concern by concentration

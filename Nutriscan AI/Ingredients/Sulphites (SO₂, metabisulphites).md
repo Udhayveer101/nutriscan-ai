@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: preservative
 evidence: STRONG
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Sulphites (SO₂, metabisulphites)
 
 **Category:** preservative  ·  **Function:** Preservative / antioxidant
 **Evidence strength:** STRONG
-**E-number(s):** e220, e221, e223, e224, e228
+**E-number(s):** e220, e221, e222, e223, e224, e226, e227, e228
 **ADI:** 0.7 mg/kg bw/day SO₂ (EFSA)
 
 ## Concern by concentration

@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: sweetener
 evidence: LIMITED
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Aspartame
 
 **Category:** sweetener  ·  **Function:** Artificial sweetener
 **Evidence strength:** LIMITED
-**E-number(s):** e951
+**E-number(s):** e951, e962
 **ADI:** 40 mg/kg bw/day (EFSA); 50 (FDA)
 
 ## Concern by concentration

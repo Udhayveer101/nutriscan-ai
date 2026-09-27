@@ -2,15 +2,15 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { GradeBadge } from "@/components/ui/GradeBadge";
 import { EvidenceBar } from "@/components/ui/EvidenceBar";
-import type { Grade } from "@/lib/grade";
 
-const PREVIEW: { name: string; slug: string; tag: string; grade: Grade; score: number; tagColor: string; tagBg: string }[] = [
-  { name: "Sodium Benzoate", slug: "sodium-benzoate", tag: "PRESERVATIVE · E211", grade: "C", score: 53, tagColor: "#b45309", tagBg: "#fef3c7" },
-  { name: "Ascorbic Acid", slug: "ascorbic-acid", tag: "ANTIOXIDANT · E300", grade: "A", score: 92, tagColor: "#15803d", tagBg: "#dcfce7" },
-  { name: "Aspartame", slug: "aspartame", tag: "SWEETENER · E951", grade: "F", score: 31, tagColor: "#1e40af", tagBg: "#dbeafe" },
-  { name: "Red 40", slug: "red-40", tag: "COLORING · E129", grade: "F", score: 28, tagColor: "#dc2626", tagBg: "#fee2e2" },
-  { name: "Lecithin", slug: "lecithin", tag: "EMULSIFIER · E322", grade: "A", score: 88, tagColor: "#15803d", tagBg: "#dcfce7" },
-  { name: "Carrageenan", slug: "carrageenan", tag: "STABILIZER · E407", grade: "C", score: 57, tagColor: "#b45309", tagBg: "#fef3c7" },
+// Scores mirror each ingredient's safetyScore in prisma/seed.ts; grades derive from them.
+const PREVIEW: { name: string; slug: string; tag: string; score: number; tagColor: string; tagBg: string }[] = [
+  { name: "Sodium Benzoate", slug: "sodium-benzoate", tag: "PRESERVATIVE · E211", score: 48, tagColor: "#b45309", tagBg: "#fef3c7" },
+  { name: "Ascorbic Acid", slug: "ascorbic-acid", tag: "ANTIOXIDANT · E300", score: 97, tagColor: "#15803d", tagBg: "#dcfce7" },
+  { name: "Aspartame", slug: "aspartame", tag: "SWEETENER · E951", score: 38, tagColor: "#1e40af", tagBg: "#dbeafe" },
+  { name: "Red 40", slug: "allura-red", tag: "COLORING · E129", score: 28, tagColor: "#dc2626", tagBg: "#fee2e2" },
+  { name: "Lecithin", slug: "lecithin", tag: "EMULSIFIER · E322", score: 82, tagColor: "#15803d", tagBg: "#dcfce7" },
+  { name: "Carrageenan", slug: "carrageenan", tag: "STABILIZER · E407", score: 42, tagColor: "#b45309", tagBg: "#fef3c7" },
 ];
 
 function barColors(score: number): [string, string] {
@@ -28,7 +28,7 @@ export function IngredientPreview() {
             INGREDIENT DATABASE
           </div>
           <h2 className="font-heading font-extrabold text-[28px] md:text-[40px] leading-[1.02] tracking-[-.025em] mt-3.5" style={{ color: "var(--ink)" }}>
-            2,000+ ingredients,<br />decoded for you
+            300+ ingredients,<br />decoded for you
           </h2>
         </div>
         <Link href="/ingredients" className="glass px-[18px] py-3 rounded-xl font-semibold text-[14px] transition-transform hover:-translate-y-0.5" style={{ color: "var(--ink-3)" }}>
@@ -49,7 +49,7 @@ export function IngredientPreview() {
                     </span>
                     <div className="mt-2.5 font-heading font-bold text-[17px]" style={{ color: "var(--ink-2)" }}>{ing.name}</div>
                   </div>
-                  <GradeBadge grade={ing.grade} />
+                  <GradeBadge score={ing.score} />
                 </div>
                 <div className="flex justify-between font-mono-label text-[10px] mt-3.5" style={{ color: "var(--muted-4)" }}>
                   <span>SAFETY</span>

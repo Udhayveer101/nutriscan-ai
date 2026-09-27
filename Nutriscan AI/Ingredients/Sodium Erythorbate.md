@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: antioxidant
 evidence: MODERATE
-last_reviewed: 2026-07-22
+last_reviewed: 2026-09-27
 ---
 
 # Sodium Erythorbate
 
 **Category:** antioxidant  ·  **Function:** Antioxidant / cure accelerator
 **Evidence strength:** MODERATE
-**E-number(s):** e316, e315
+**E-number(s):** e316
 
 
 ## Concern by concentration
