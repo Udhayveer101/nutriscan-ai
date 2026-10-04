@@ -35,7 +35,7 @@ export const INTERACTIONS: InteractionRule[] = [
     id: "nitrosamine-formation",
     title: "Nitrosamine formation (nitrite + protein/amines)",
     requires: [
-      ["sodium nitrite", "potassium nitrite", "sodium nitrate", "e249", "e250", "e251"],
+      ["sodium nitrite", "potassium nitrite", "sodium nitrate", "potassium nitrate", "cultured celery", "e249", "e250", "e251", "e252"],
       ["pork", "beef", "bacon", "ham", "sausage", "meat", "protein", "fish"],
     ],
     penalty: 18, severity: "HIGH", evidence: "STRONG",
@@ -82,6 +82,15 @@ export interface InteractionHit {
 
 const E_CODE = /^e\d{3,4}[a-z]*$/;
 
+// Keywords must start at a word boundary so "cola" can't match "chocolate" and
+// "ham" can't match "graham". A keyword may still be a prefix ("meat" → "meatballs").
+function hasWordStart(name: string, kw: string): boolean {
+  for (let i = name.indexOf(kw); i !== -1; i = name.indexOf(kw, i + 1)) {
+    if (i === 0 || !/[a-z]/.test(name[i - 1])) return true;
+  }
+  return false;
+}
+
 export function detectInteractions(ingredientNames: string[]): InteractionHit[] {
   const hay = ingredientNames.map((n) => n.toLowerCase());
   const codes = hay.flatMap((name) => extractCodes(name).flat());
@@ -89,7 +98,7 @@ export function detectInteractions(ingredientNames: string[]): InteractionHit[] 
   for (const rule of INTERACTIONS) {
     // E-numbers match as whole codes (E1105 lysozyme must not count as E110).
     const allPresent = rule.requires.every((group) =>
-      group.some((kw) => (E_CODE.test(kw) ? codes.includes(kw) : hay.some((name) => name.includes(kw))))
+      group.some((kw) => (E_CODE.test(kw) ? codes.includes(kw) : hay.some((name) => hasWordStart(name, kw))))
     );
     if (allPresent) {
       const { requires: _r, ...rest } = rule;
@@ -108,6 +117,10 @@ export function _demo(): void {
   if (!bacon.some((h) => h.id === "nitrosamine-formation")) throw new Error("nitrosamine interaction missed");
   const safe = detectInteractions(["Oats", "Water", "Salt"]);
   if (safe.length) throw new Error("false-positive interaction");
+  const cookie = detectInteractions(["Graham Flour", "Chocolate", "Phosphoric Acid", "Sodium Nitrite"]);
+  if (cookie.length) throw new Error("substring false positive (graham/chocolate)");
+  const cola = detectInteractions(["Carbonated Water", "Phosphoric Acid", "Coca-Cola Flavour"]);
+  if (!cola.some((h) => h.id === "phosphate-caffeine-calcium")) throw new Error("cola interaction missed");
   // eslint-disable-next-line no-console
   console.log("interactions.ts self-check OK");
 }

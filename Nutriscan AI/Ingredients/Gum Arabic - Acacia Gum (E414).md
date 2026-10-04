@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: thickener
 evidence: STRONG
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Gum Arabic / Acacia Gum (E414)
 
 **Category:** thickener  ·  **Function:** Natural gum / stabiliser / soluble fibre
 **Evidence strength:** STRONG
-**E-number(s):** e414
+**E-number(s):** e414, e423
 **ADI:** not specified (JECFA — very low toxicity)
 
 ## Concern by concentration

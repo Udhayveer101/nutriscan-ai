@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: stabilizer
 evidence: MODERATE
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Cyclodextrins (E459)

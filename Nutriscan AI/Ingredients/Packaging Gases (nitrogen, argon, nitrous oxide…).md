@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: preservative
 evidence: STRONG
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Packaging Gases (nitrogen, argon, nitrous oxide…)
 
 **Category:** preservative  ·  **Function:** Modified-atmosphere packaging / propellant
 **Evidence strength:** STRONG
-**E-number(s):** e938, e939, e941, e942, e948, e949
+**E-number(s):** e938, e939, e941, e942, e943a, e943b, e944, e948, e949
 
 
 ## Concern by concentration

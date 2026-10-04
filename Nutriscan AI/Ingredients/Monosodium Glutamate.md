@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: flavor enhancer
 evidence: LIMITED
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Monosodium Glutamate
 
 **Category:** flavor enhancer  ·  **Function:** Umami flavour enhancer
 **Evidence strength:** LIMITED
-**E-number(s):** e621, e620, e622, e623, e625
+**E-number(s):** e621, e620, e622, e623, e624, e625
 **ADI:** EFSA 30 mg/kg bw/day (glutamates, 2017)
 
 ## Concern by concentration

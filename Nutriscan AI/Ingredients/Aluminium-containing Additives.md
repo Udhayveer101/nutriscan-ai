@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: MODERATE
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Aluminium-containing Additives
 
 **Category:** acidity regulator  ·  **Function:** Leavening / anticaking / colour
 **Evidence strength:** MODERATE
-**E-number(s):** e541, e173, e520, e521, e523, e554, e555, e556, e559, e1452
+**E-number(s):** e541, e173, e520, e521, e522, e523, e554, e555, e556, e559, e1452
 **ADI:** 1 mg/kg bw/week aluminium (EFSA TWI)
 
 ## Concern by concentration

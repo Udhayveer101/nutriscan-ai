@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Filter, X, ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
@@ -42,10 +42,13 @@ export function IngredientSearch({ categories }: Props) {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  // Starts true so the first paint says "Searching..." rather than "0 ingredients found".
+  const [isLoading, setIsLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
+  const requestId = useRef(0);
 
   const fetchIngredients = useCallback(async () => {
+    const id = ++requestId.current;
     setIsLoading(true);
     try {
       const params = new URLSearchParams({
@@ -56,11 +59,15 @@ export function IngredientSearch({ categories }: Props) {
       });
       const res = await fetch(`/api/ingredients?${params}`);
       const data = await res.json();
+      // Ignore responses that arrive after a newer search was started.
+      if (id !== requestId.current) return;
       setIngredients(data.ingredients ?? []);
       setTotal(data.pagination?.total ?? 0);
       setPages(data.pagination?.pages ?? 1);
+    } catch {
+      if (id === requestId.current) { setIngredients([]); setTotal(0); setPages(1); }
     } finally {
-      setIsLoading(false);
+      if (id === requestId.current) setIsLoading(false);
     }
   }, [query, selectedCategory, page]);
 
@@ -84,17 +91,19 @@ export function IngredientSearch({ categories }: Props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name or E-number — e.g. 'sodium benzoate' or 'E211'"
+            aria-label="Search ingredients by name or E-number"
             className="w-full py-4 bg-transparent text-[15px] focus:outline-none"
             style={{ color: "var(--ink-2)" }}
           />
           {query && (
-            <button onClick={() => setQuery("")} style={{ color: "var(--muted-3)" }}>
+            <button onClick={() => setQuery("")} aria-label="Clear search" style={{ color: "var(--muted-3)" }}>
               <X className="w-4 h-4" />
             </button>
           )}
         </div>
         <button
           onClick={() => setShowFilters(!showFilters)}
+          aria-expanded={showFilters}
           className="glass flex items-center gap-2 px-5 rounded-2xl text-sm font-semibold transition-transform hover:-translate-y-0.5"
           style={{ color: showFilters || selectedCategory ? "var(--brand-800)" : "var(--ink-3)" }}
         >

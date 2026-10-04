@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: antioxidant
 evidence: LIMITED
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # TBHQ

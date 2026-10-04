@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: antioxidant
 evidence: MODERATE
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Green Tea Extract (Catechins/EGCG)

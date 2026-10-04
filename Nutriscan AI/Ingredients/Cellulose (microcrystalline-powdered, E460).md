@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: anti-caking agent
 evidence: STRONG
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Cellulose (microcrystalline/powdered, E460)

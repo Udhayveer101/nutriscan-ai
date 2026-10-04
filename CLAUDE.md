@@ -31,6 +31,7 @@ verify → document → score → confidence → DB+scanner integrate → verify
 
 ## After changing scoring or the knowledge base
 1. `npx tsx scripts/validate-scoring.ts` (must pass)
+   and `npx tsx scripts/check-kb.ts` (no duplicate keywords/E-numbers, every keyword resolves to its own profile)
 2. `npx tsx scripts/gen-vault.ts` (if additives/interactions changed)
 3. `npx tsc --noEmit`
 4. `graphify . --update` to refresh the graph

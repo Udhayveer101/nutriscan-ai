@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-194 profiled additives. Generated 2026-09-27.
+203 profiled additives. Generated 2026-10-04.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -42,7 +42,7 @@
 - [[Propylene Glycol]] — emulsifier, MODERATE evidence, dominant=MEDIUM
 - [[Carmine - Cochineal (E120)]] — coloring, MODERATE evidence, dominant=MEDIUM
 - [[Disodium EDTA]] — antioxidant, LIMITED evidence, dominant=MEDIUM
-- [[Sodium-Potassium Phosphates]] — acidity regulator, MODERATE evidence, dominant=MEDIUM
+- [[Sodium-Potassium-Magnesium Phosphates]] — acidity regulator, MODERATE evidence, dominant=MEDIUM
 - [[Aluminium-containing Additives]] — acidity regulator, MODERATE evidence, dominant=HIGH
 - [[Natamycin]] — preservative, MODERATE evidence, dominant=MEDIUM
 - [[Guar Gum]] — thickener, STRONG evidence, dominant=LOW
@@ -60,11 +60,11 @@
 - [[Malic Acid & Malates]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Sodium & Potassium Citrates]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Calcium Carbonate]] — acidity regulator, STRONG evidence, dominant=LOW
-- [[Beta-Carotene (E160a)]] — coloring, STRONG evidence, dominant=LOW
+- [[Beta-Carotene & Apocarotenal (E160a, E160e)]] — coloring, STRONG evidence, dominant=LOW
 - [[Annatto (E160b)]] — coloring, MODERATE evidence, dominant=LOW
 - [[Potassium Chloride]] — acidity regulator, MODERATE evidence, dominant=MEDIUM
 - [[Gellan Gum]] — thickener, MODERATE evidence, dominant=LOW
-- [[Inulin - Chicory Fibre]] — thickener, STRONG evidence, dominant=LOW
+- [[Inulin - Chicory Fibre & Prebiotic Oligosaccharides]] — thickener, STRONG evidence, dominant=LOW
 - [[Dimethyl Dicarbonate]] — preservative, MODERATE evidence, dominant=MEDIUM
 - [[Lysozyme]] — preservative, MODERATE evidence, dominant=LOW
 - [[Ethyl Lauroyl Arginate (LAE)]] — preservative, MODERATE evidence, dominant=MEDIUM
@@ -119,7 +119,7 @@
 - [[Glucono-delta-lactone (E575)]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Food Alkalis (hydroxides & carbonates, E500–E527)]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Calcium Citrate (E333)]] — acidity regulator, STRONG evidence, dominant=LOW
-- [[Adipic Acid (E355)]] — acidity regulator, MODERATE evidence, dominant=LOW
+- [[Adipic Acid & Adipates (E355–E357)]] — acidity regulator, MODERATE evidence, dominant=LOW
 - [[Succinic Acid (E363)]] — acidity regulator, MODERATE evidence, dominant=LOW
 - [[Chlorophylls & Copper Chlorophyllins (E140-E141)]] — coloring, MODERATE evidence, dominant=LOW
 - [[Iron Oxides & Hydroxides (E172)]] — coloring, MODERATE evidence, dominant=LOW
@@ -162,7 +162,7 @@
 - [[Hexamethylenetetramine (E239)]] — preservative, LIMITED evidence, dominant=HIGH
 - [[Boric Acid & Borax (E284-E285)]] — preservative, MODERATE evidence, dominant=HIGH
 - [[Acetic Acid & Acetates (E260–E263)]] — acidity regulator, STRONG evidence, dominant=LOW
-- [[Tartaric Acid & Tartrates (E334–E337, E354)]] — acidity regulator, STRONG evidence, dominant=LOW
+- [[Tartaric Acid & Tartrates (E334–E337, E353, E354)]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Fumaric Acid (E297)]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Hydrochloric & Sulphuric Acid (E507-E513)]] — acidity regulator, STRONG evidence, dominant=LOW
 - [[Sodium, Potassium & Ammonium Sulphates (E514-E515-E517)]] — acidity regulator, MODERATE evidence, dominant=LOW
@@ -196,3 +196,12 @@
 - [[Benzyl Alcohol (E1519)]] — preservative, MODERATE evidence, dominant=MEDIUM
 - [[Fully Hydrogenated Oil]] — fat, MODERATE evidence, dominant=MEDIUM
 - [[Interesterified Fat]] — fat, LIMITED evidence, dominant=MEDIUM
+- [[Isomaltulose (Palatinose)]] — sweetener, MODERATE evidence, dominant=MEDIUM
+- [[Tagatose]] — sweetener, MODERATE evidence, dominant=LOW
+- [[Soluble Fibre Dextrins (resistant dextrin, soluble corn fibre)]] — thickener, MODERATE evidence, dominant=LOW
+- [[Added Plant Fibres (citrus, oat, bamboo, pea, apple)]] — thickener, MODERATE evidence, dominant=LOW
+- [[Cultured Fermentates (cultured dextrose-sugar-wheat flour)]] — preservative, LIMITED evidence, dominant=LOW
+- [[Plant Sterols & Stanols (E499)]] — stabilizer, STRONG evidence, dominant=LOW
+- [[Soybean Hemicellulose (E426)]] — stabilizer, MODERATE evidence, dominant=LOW
+- [[Polyvinylpyrrolidones (PVP-PVPP, E1201–E1202)]] — stabilizer, MODERATE evidence, dominant=LOW
+- [[Supplement Coating Polymers (PVA, methacrylate copolymers, PEG)]] — glazing agent, MODERATE evidence, dominant=LOW

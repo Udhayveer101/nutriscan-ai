@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Hydrochloric & Sulphuric Acid (E507/E513)

@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: antioxidant
 evidence: STRONG
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Tocopherols (Vitamin E)
 
 **Category:** antioxidant  ·  **Function:** Natural antioxidant
 **Evidence strength:** STRONG
-**E-number(s):** e306, e307
+**E-number(s):** e306, e307, e308, e309
 
 
 ## Concern by concentration

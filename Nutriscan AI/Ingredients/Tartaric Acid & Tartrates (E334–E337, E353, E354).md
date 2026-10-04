@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
-# Tartaric Acid & Tartrates (E334–E337, E354)
+# Tartaric Acid & Tartrates (E334–E337, E353, E354)
 
 **Category:** acidity regulator  ·  **Function:** Acidulant / raising acid
 **Evidence strength:** STRONG
-**E-number(s):** e334, e335, e336, e337, e354
+**E-number(s):** e334, e335, e336, e337, e353, e354
 **ADI:** 240 mg/kg bw/day group ADI as tartaric acid (EFSA 2020)
 
 ## Concern by concentration

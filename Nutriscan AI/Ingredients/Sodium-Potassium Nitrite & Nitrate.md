@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: preservative
 evidence: STRONG
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
 # Sodium/Potassium Nitrite & Nitrate
@@ -23,7 +23,7 @@ last_reviewed: 2026-09-27
 Permitted with limits; processed meat = IARC Group 1 carcinogen
 
 ## Assessment
-Forms carcinogenic nitrosamines with amines under heat/stomach acid. Processed meats containing these are a WHO Group 1 carcinogen.
+Forms carcinogenic nitrosamines with amines under heat/stomach acid. Processed meats containing these are a WHO Group 1 carcinogen. "Cultured celery" powder in "uncured" meats is the same nitrite from a vegetable source, at similar residual levels.
 
 ## Population-specific concerns
 - infants (methaemoglobinaemia)

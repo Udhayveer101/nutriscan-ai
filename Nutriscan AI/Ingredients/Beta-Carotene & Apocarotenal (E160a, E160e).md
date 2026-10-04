@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: coloring
 evidence: STRONG
-last_reviewed: 2026-09-27
+last_reviewed: 2026-10-04
 ---
 
-# Beta-Carotene (E160a)
+# Beta-Carotene & Apocarotenal (E160a, E160e)
 
 **Category:** coloring  ·  **Function:** Natural orange colour / provitamin A
 **Evidence strength:** STRONG
-**E-number(s):** e160a
+**E-number(s):** e160a, e160e
 
 
 ## Concern by concentration
