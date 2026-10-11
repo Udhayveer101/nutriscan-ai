@@ -1,6 +1,8 @@
 import Groq from "groq-sdk";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+// Created on first use so builds and imports don't require GROQ_API_KEY.
+let groqClient: Groq | null = null;
+const groq = () => (groqClient ??= new Groq({ apiKey: process.env.GROQ_API_KEY }));
 const MODEL = "llama-3.3-70b-versatile";
 
 async function withRetry<T>(fn: () => Promise<T>, retries = 2, delayMs = 500): Promise<T> {
@@ -53,7 +55,7 @@ export interface IngredientExplanationRequest {
 export async function generateIngredientExplanation(
   req: IngredientExplanationRequest
 ): Promise<string> {
-  const completion = await withRetry(() => groq.chat.completions.create({
+  const completion = await withRetry(() => groq().chat.completions.create({
     model: MODEL,
     max_tokens: 90,
     messages: [
@@ -72,7 +74,7 @@ Lead with the single most important thing: the main health concern, or why it's 
 }
 
 export async function extractIngredientsFromText(text: string): Promise<string[]> {
-  const completion = await withRetry(() => groq.chat.completions.create({
+  const completion = await withRetry(() => groq().chat.completions.create({
     model: MODEL,
     response_format: { type: "json_object" },
     messages: [
@@ -157,7 +159,7 @@ export async function generateProductSummary(
   scoreBreakdown: Record<string, number | string>,
   mode: ExplanationMode
 ): Promise<string> {
-  const completion = await withRetry(() => groq.chat.completions.create({
+  const completion = await withRetry(() => groq().chat.completions.create({
     model: MODEL,
     max_tokens: 120,
     messages: [

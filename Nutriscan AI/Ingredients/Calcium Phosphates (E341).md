@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: raising agent
 evidence: MODERATE
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Calcium Phosphates (E341)

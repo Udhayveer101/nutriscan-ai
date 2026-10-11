@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: emulsifier
 evidence: MODERATE
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Polyglycerol Esters of Fatty Acids (E475)

@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: flour treatment
 evidence: MODERATE
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Flour Bleaching/Oxidising Agents (E926/E928/E930)

@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-203 profiled additives. Generated 2026-10-04.
+212 profiled additives. Generated 2026-10-11.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -147,9 +147,9 @@
 - [[Flour Bleaching-Oxidising Agents (E926-E928-E930)]] — flour treatment, MODERATE evidence, dominant=MEDIUM
 - [[L-Cysteine (E920)]] — flour treatment, MODERATE evidence, dominant=LOW
 - [[Ammonium Chloride (E510)]] — flour treatment, MODERATE evidence, dominant=LOW
-- [[Food Enzymes (amylase, protease, papain, invertase, xylanase)]] — flour treatment, MODERATE evidence, dominant=LOW
+- [[Food Enzymes (amylase, protease, rennet, lactase, invertase)]] — flour treatment, MODERATE evidence, dominant=LOW
 - [[Malted Barley Flour]] — flour treatment, STRONG evidence, dominant=LOW
-- [[Added Vitamins (fortification)]] — vitamin & mineral, STRONG evidence, dominant=LOW
+- [[Added Vitamins & Nutrients (fortification)]] — vitamin & mineral, STRONG evidence, dominant=LOW
 - [[Added Minerals (fortification)]] — vitamin & mineral, STRONG evidence, dominant=LOW
 - [[Plant-derived Colours (curcumin, paprika, lycopene, beetroot, anthocyanins)]] — coloring, STRONG evidence, dominant=LOW
 - [[Other Synthetic Dyes (Amaranth, Green S, Brown HT)]] — coloring, LIMITED evidence, dominant=HIGH
@@ -199,9 +199,18 @@
 - [[Isomaltulose (Palatinose)]] — sweetener, MODERATE evidence, dominant=MEDIUM
 - [[Tagatose]] — sweetener, MODERATE evidence, dominant=LOW
 - [[Soluble Fibre Dextrins (resistant dextrin, soluble corn fibre)]] — thickener, MODERATE evidence, dominant=LOW
-- [[Added Plant Fibres (citrus, oat, bamboo, pea, apple)]] — thickener, MODERATE evidence, dominant=LOW
+- [[Added Plant Fibres (citrus, oat, bamboo, pea, apple, beta-glucan)]] — thickener, MODERATE evidence, dominant=LOW
 - [[Cultured Fermentates (cultured dextrose-sugar-wheat flour)]] — preservative, LIMITED evidence, dominant=LOW
 - [[Plant Sterols & Stanols (E499)]] — stabilizer, STRONG evidence, dominant=LOW
 - [[Soybean Hemicellulose (E426)]] — stabilizer, MODERATE evidence, dominant=LOW
 - [[Polyvinylpyrrolidones (PVP-PVPP, E1201–E1202)]] — stabilizer, MODERATE evidence, dominant=LOW
 - [[Supplement Coating Polymers (PVA, methacrylate copolymers, PEG)]] — glazing agent, MODERATE evidence, dominant=LOW
+- [[Polyoxyethylene (40) Stearate (E431)]] — emulsifier, LIMITED evidence, dominant=MEDIUM
+- [[Thermally Oxidised Soya Bean Oil with Mono--Diglycerides (E479b)]] — emulsifier, LIMITED evidence, dominant=MEDIUM
+- [[Hydrogenated Poly-1-decene (E907)]] — glazing agent, MODERATE evidence, dominant=LOW
+- [[Carbamide (Urea, E927b)]] — humectant, MODERATE evidence, dominant=LOW
+- [[Food-grade Mineral Oil (liquid paraffin, petrolatum)]] — glazing agent, MODERATE evidence, dominant=HIGH
+- [[Ethyl Acetate (extraction solvent - flavouring)]] — flavour, STRONG evidence, dominant=LOW
+- [[Added Caffeine (incl. guarana, kola nut)]] — stimulant, STRONG evidence, dominant=MEDIUM
+- [[Taurine & Glucuronolactone (energy-drink actives)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Protein Isolates & Textured Proteins]] — protein, MODERATE evidence, dominant=LOW

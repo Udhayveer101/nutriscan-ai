@@ -3,7 +3,9 @@ import Groq from "groq-sdk";
 import { extractIngredientsFromText } from "./gemini";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+// Created on first use so builds and imports don't require GROQ_API_KEY.
+let groqClient: Groq | null = null;
+const groq = () => (groqClient ??= new Groq({ apiKey: process.env.GROQ_API_KEY }));
 
 // ── Gemini OCR ────────────────────────────────────────────────────────────────
 
@@ -49,7 +51,7 @@ async function ocrWithGroq(
     mimeType.includes("heic") || mimeType.includes("heif") ? "image/jpeg" : mimeType
   );
 
-  const completion = await groq.chat.completions.create({
+  const completion = await groq().chat.completions.create({
     model: "meta-llama/llama-4-scout-17b-16e-instruct",
     messages: [
       {

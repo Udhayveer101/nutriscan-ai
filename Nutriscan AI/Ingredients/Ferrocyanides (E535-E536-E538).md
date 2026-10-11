@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: anti-caking agent
 evidence: MODERATE
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Ferrocyanides (E535/E536/E538)

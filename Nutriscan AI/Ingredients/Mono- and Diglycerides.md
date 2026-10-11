@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: emulsifier
 evidence: LIMITED
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Mono- and Diglycerides

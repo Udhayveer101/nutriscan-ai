@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: raising agent
 evidence: STRONG
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Baker's Yeast

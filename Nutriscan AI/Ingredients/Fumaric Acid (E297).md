@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Fumaric Acid (E297)

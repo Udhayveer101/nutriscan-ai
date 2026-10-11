@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: coloring
 evidence: MODERATE
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Plain & Caustic Sulphite Caramel (E150a/E150b)

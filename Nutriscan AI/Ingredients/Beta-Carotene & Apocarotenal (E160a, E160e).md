@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: coloring
 evidence: STRONG
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Beta-Carotene & Apocarotenal (E160a, E160e)

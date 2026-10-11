@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: thickener
 evidence: MODERATE
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Soluble Fibre Dextrins (resistant dextrin, soluble corn fibre)

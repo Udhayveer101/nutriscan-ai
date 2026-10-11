@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: antioxidant
 evidence: STRONG
-last_reviewed: 2026-10-04
+last_reviewed: 2026-10-11
 ---
 
 # Ascorbyl Palmitate (E304)
