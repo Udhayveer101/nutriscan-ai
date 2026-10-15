@@ -175,10 +175,16 @@ export async function POST(req: NextRequest) {
     const explanationMode = mode as ExplanationMode;
     after(async () => {
       try {
-        await Promise.all(
-          scan.ingredients.map(async (row) => {
-            const src = ingredientExplanations[row.position];
-            if (!src) return;
+        // At most 3 Groq calls in flight: firing all ~15 at once tripped Groq's
+        // per-minute rate limit and starved the *next* scan's extraction call.
+        const queue = [...scan.ingredients];
+        const worker = async () => {
+          for (let row = queue.shift(); row; row = queue.shift()) await explain(row);
+        };
+        const explain = async (row: (typeof scan.ingredients)[number]) => {
+          const src = ingredientExplanations[row.position];
+          if (!src) return;
+          try {
             const explanation = await generateIngredientExplanation({
               ingredientName: src.normalizedName ?? src.rawName,
               category: src.promptCategory,
@@ -188,8 +194,12 @@ export async function POST(req: NextRequest) {
               where: { id: row.id },
               data: { aiExplanation: explanation },
             });
-          })
-        );
+          } catch (err) {
+            // One failed paragraph shouldn't stop the rest of the queue.
+            console.error("explanation failed for", src.rawName, err);
+          }
+        };
+        await Promise.all([worker(), worker(), worker()]);
       } catch (err) {
         // Non-fatal: the report is complete without paragraphs; the UI stops
         // polling and keeps the deterministic content.

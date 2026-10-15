@@ -1,11 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Groq from "groq-sdk";
-import { extractIngredientsFromText, GROQ_MODEL, stripThinking } from "./gemini";
+import { extractIngredientsFromText, GROQ_MODEL, groqOptions, stripThinking } from "./gemini";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 // Created on first use so builds and imports don't require GROQ_API_KEY.
 let groqClient: Groq | null = null;
-const groq = () => (groqClient ??= new Groq({ apiKey: process.env.GROQ_API_KEY }));
+const groq = () => (groqClient ??= new Groq({ apiKey: process.env.GROQ_API_KEY, ...groqOptions }));
 
 // ── Gemini OCR ────────────────────────────────────────────────────────────────
 

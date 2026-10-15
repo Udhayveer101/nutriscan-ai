@@ -2,7 +2,10 @@ import Groq from "groq-sdk";
 
 // Created on first use so builds and imports don't require GROQ_API_KEY.
 let groqClient: Groq | null = null;
-const groq = () => (groqClient ??= new Groq({ apiKey: process.env.GROQ_API_KEY }));
+// maxRetries 0: withRetry below already retries; the SDK's own 2 retries stacked on top
+// turned one failing call into 9 attempts and ~20 s before the user saw an error.
+export const groqOptions = { maxRetries: 0, timeout: 15_000 };
+const groq = () => (groqClient ??= new Groq({ apiKey: process.env.GROQ_API_KEY, ...groqOptions }));
 // Groq shut down llama-3.3-70b-versatile on 2026-08-16. Qwen 3.8 27B is Groq's current
 // multimodal instruct model (also used for vision OCR fallback); reasoning is switched off
 // so the small max_tokens budgets below go to the answer, not thinking tokens.
@@ -82,7 +85,19 @@ Lead with the single most important thing: the main health concern, or why it's 
   return stripThinking(completion.choices[0]?.message?.content) || "Analysis unavailable.";
 }
 
+// Extraction must never be a single point of failure: if Groq is down, rate-limited or
+// returns nothing usable, fall back to a deterministic parse of the label text.
 export async function extractIngredientsFromText(text: string): Promise<string[]> {
+  try {
+    const fromLlm = await extractIngredientsWithLlm(text);
+    if (fromLlm.length) return fromLlm;
+  } catch (err) {
+    console.error("LLM ingredient extraction failed — using local parser", err);
+  }
+  return parseIngredientsLocally(text);
+}
+
+async function extractIngredientsWithLlm(text: string): Promise<string[]> {
   const completion = await withRetry(() => groq().chat.completions.create({
     model: MODEL,
     reasoning_effort: "none",
@@ -137,6 +152,67 @@ Response format: {"ingredients": ["Ingredient One", "Ingredient Two", ...]}`,
   } catch {
     return [];
   }
+}
+
+// Deterministic label parser (fallback). Splits on top-level commas/semicolons, expands
+// "Parent (a, b)" into parent + children, keeps code/percentage brackets on the name
+// ("Sodium Benzoate (E211)"), and drops allergen statements ("Contains: …", "May contain …").
+const ALLERGEN_TAIL = /\b(?:contains|allergy advice|allergens?|may contain|may also contain|produced in a factory|made in a factory)\b\s*:?/i;
+
+function splitTopLevel(s: string): string[] {
+  const out: string[] = [];
+  let depth = 0;
+  let cur = "";
+  for (const ch of s) {
+    if (ch === "(" || ch === "[") depth++;
+    else if (ch === ")" || ch === "]") depth = Math.max(0, depth - 1);
+    if ((ch === "," || ch === ";") && depth === 0) {
+      out.push(cur);
+      cur = "";
+    } else cur += ch;
+  }
+  out.push(cur);
+  return out;
+}
+
+function cleanName(s: string): string {
+  return s
+    .replace(/\(?\s*\d+(?:[.,]\d+)?\s*%\s*\)?/g, "") // "(87%)", "10%"
+    .replace(/^\s*(?:and\/or|and|or)\s+/i, "")
+    .replace(/[.:*]+\s*$/, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function parseIngredientsLocally(text: string): string[] {
+  let body = text.replace(/\r?\n/g, " ");
+  const start = body.search(/ingredients?\s*:/i);
+  if (start >= 0) body = body.slice(start).replace(/^ingredients?\s*:/i, "");
+  const tail = body.search(ALLERGEN_TAIL);
+  if (tail > 0) body = body.slice(0, tail);
+
+  const names: string[] = [];
+  const walk = (segment: string) => {
+    const m = segment.match(/^([^([]*)[([](.*)[)\]]\s*([^()[\]]*)$/);
+    if (!m) {
+      names.push(cleanName(segment));
+      return;
+    }
+    const [, parent, inner, after] = m;
+    // A bracket holding only codes/percentages qualifies the name: keep it attached.
+    if (/^\s*(?:(?:e|ins)\s*-?\s*)?\d{3,4}[a-h]?(?:\s*\(?[ivx]{1,4}\)?)?(?:\s*[,&/]\s*(?:(?:e|ins)\s*-?\s*)?\d{3,4}[a-h]?(?:\s*\(?[ivx]{1,4}\)?)?)*\s*$/i.test(inner)) {
+      names.push(cleanName(`${parent} (${inner.trim()})${after ? " " + after : ""}`));
+      return;
+    }
+    if (/^\s*\d+(?:[.,]\d+)?\s*%\s*$/.test(inner)) {
+      names.push(cleanName(`${parent} ${after}`));
+      return;
+    }
+    if (cleanName(parent)) names.push(cleanName(parent));
+    for (const child of splitTopLevel(inner)) walk(child.trim());
+  };
+  for (const seg of splitTopLevel(body)) if (seg.trim()) walk(seg.trim());
+  return sanitizeIngredients(names);
 }
 
 // ── Stage 5: deterministic sanitization ───────────────────────────────────────
