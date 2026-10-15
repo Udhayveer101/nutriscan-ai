@@ -40,14 +40,14 @@ export default function PrivacyPage() {
         {
           title: "Image & Scan Data",
           content:
-            "Images you upload for ingredient scanning are processed in real time by Google Gemini (with Groq-hosted Llama vision as a fallback) and are not stored permanently after analysis. Extracted ingredient text and results are saved to your account if you are signed in.",
+            "Images you upload for ingredient scanning are processed in real time by Google Gemini (with a Groq-hosted Qwen vision model as a fallback) and are not stored permanently after analysis. Extracted ingredient text and results are saved to your account if you are signed in.",
         },
         {
           title: "Third-Party Services",
           content: [
             "Google OAuth — for sign-in authentication.",
             "Google Gemini AI — for OCR text extraction from images and AI-powered ingredient explanations.",
-            "Groq (Llama vision) — fallback OCR when Gemini is unavailable.",
+            "Groq (Qwen vision and text models) — fallback OCR when Gemini is unavailable.",
             "Open Food Facts — for product data via barcode lookup (public database).",
           ],
           type: "list",

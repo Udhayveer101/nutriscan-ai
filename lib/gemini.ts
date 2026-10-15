@@ -3,7 +3,15 @@ import Groq from "groq-sdk";
 // Created on first use so builds and imports don't require GROQ_API_KEY.
 let groqClient: Groq | null = null;
 const groq = () => (groqClient ??= new Groq({ apiKey: process.env.GROQ_API_KEY }));
-const MODEL = "llama-3.3-70b-versatile";
+// Groq shut down llama-3.3-70b-versatile on 2026-08-16. Qwen 3.8 27B is Groq's current
+// multimodal instruct model (also used for vision OCR fallback); reasoning is switched off
+// so the small max_tokens budgets below go to the answer, not thinking tokens.
+export const GROQ_MODEL = "qwen/qwen3.8-27b";
+const MODEL = GROQ_MODEL;
+
+// Defensive: drop any <think>…</think> block a reasoning-capable model might still emit.
+export const stripThinking = (s: string | null | undefined) =>
+  (s ?? "").replace(/<think>[\s\S]*?<\/think>/g, "").trim();
 
 async function withRetry<T>(fn: () => Promise<T>, retries = 2, delayMs = 500): Promise<T> {
   let lastErr: unknown;
@@ -57,6 +65,7 @@ export async function generateIngredientExplanation(
 ): Promise<string> {
   const completion = await withRetry(() => groq().chat.completions.create({
     model: MODEL,
+    reasoning_effort: "none",
     max_tokens: 90,
     messages: [
       { role: "system", content: MODE_SYSTEM_PROMPTS[req.mode] },
@@ -70,12 +79,13 @@ Lead with the single most important thing: the main health concern, or why it's 
     ],
   }));
 
-  return completion.choices[0]?.message?.content?.trim() ?? "Analysis unavailable.";
+  return stripThinking(completion.choices[0]?.message?.content) || "Analysis unavailable.";
 }
 
 export async function extractIngredientsFromText(text: string): Promise<string[]> {
   const completion = await withRetry(() => groq().chat.completions.create({
     model: MODEL,
+    reasoning_effort: "none",
     response_format: { type: "json_object" },
     messages: [
       {
@@ -118,7 +128,7 @@ Response format: {"ingredients": ["Ingredient One", "Ingredient Two", ...]}`,
     ],
   }));
 
-  const responseText = completion.choices[0]?.message?.content ?? "{}";
+  const responseText = stripThinking(completion.choices[0]?.message?.content) || "{}";
 
   try {
     const parsed = JSON.parse(responseText);
@@ -161,6 +171,7 @@ export async function generateProductSummary(
 ): Promise<string> {
   const completion = await withRetry(() => groq().chat.completions.create({
     model: MODEL,
+    reasoning_effort: "none",
     max_tokens: 120,
     messages: [
       { role: "system", content: MODE_SYSTEM_PROMPTS[mode] },
@@ -178,5 +189,5 @@ If the score is below 50, this is an unhealthy product and your summary should r
     ],
   }));
 
-  return completion.choices[0]?.message?.content ?? "";
+  return stripThinking(completion.choices[0]?.message?.content);
 }

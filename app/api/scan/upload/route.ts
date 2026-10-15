@@ -13,10 +13,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Too many requests. Please slow down." },
         { status: 429, headers: { "Retry-After": String(rl.retryAfter) } });
     }
-    const formData = await req.formData();
-    const file = formData.get("image") as File | null;
+    // A non-multipart body makes formData() throw — that's a bad request, not a 500.
+    const formData = await req.formData().catch(() => null);
+    const file = formData?.get("image");
 
-    if (!file) {
+    if (!(file instanceof File)) {
       return NextResponse.json({ error: "No image provided" }, { status: 400 });
     }
 

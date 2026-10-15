@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Groq from "groq-sdk";
-import { extractIngredientsFromText } from "./gemini";
+import { extractIngredientsFromText, GROQ_MODEL, stripThinking } from "./gemini";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 // Created on first use so builds and imports don't require GROQ_API_KEY.
@@ -52,7 +52,8 @@ async function ocrWithGroq(
   );
 
   const completion = await groq().chat.completions.create({
-    model: "meta-llama/llama-4-scout-17b-16e-instruct",
+    model: GROQ_MODEL, // llama-4-scout was shut down by Groq on 2026-07-17
+    reasoning_effort: "none",
     messages: [
       {
         role: "user",
@@ -82,7 +83,7 @@ Output the raw transcribed text only. No explanations.`,
     max_tokens: 1024,
   });
 
-  return completion.choices[0]?.message?.content?.trim() ?? "";
+  return stripThinking(completion.choices[0]?.message?.content);
 }
 
 // ── Shared helpers ─────────────────────────────────────────────────────────────

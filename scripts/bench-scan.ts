@@ -33,7 +33,7 @@ if (!key) {
 }
 
 const groq = new Groq({ apiKey: key });
-const MODEL = "llama-3.3-70b-versatile";
+const MODEL = "qwen/qwen3.8-27b";
 const SYSTEM = "You are a straightforward food expert explaining ingredients to everyday consumers. Be honest about health risks.";
 const SAMPLE = ["Sodium Benzoate", "Aspartame", "High Fructose Corn Syrup", "Citric Acid", "Red 40"];
 
@@ -55,6 +55,7 @@ async function run(label: string, prompt: (n: string) => string, maxTokens?: num
   const results = await Promise.all(SAMPLE.map((n) =>
     groq.chat.completions.create({
       model: MODEL,
+      reasoning_effort: "none",
       ...(maxTokens ? { max_tokens: maxTokens } : {}),
       messages: [{ role: "system", content: SYSTEM }, { role: "user", content: prompt(n) }],
     })
