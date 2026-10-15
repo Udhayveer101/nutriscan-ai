@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
+    "vercel-build": "prisma generate && (if [ \"$VERCEL_ENV\" = production ]; then tsx prisma/seed.ts || echo \"seed failed, continuing build\"; else echo \"skipping seed (not a production build)\"; fi) && next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
