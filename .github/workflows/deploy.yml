@@ -1,0 +1,65 @@
+# Deploys main to Vercel production and syncs the ingredient seed to the production DB.
+# Needed because production was last deployed by hand (Vercel CLI), so pushes to main
+# — including the weekly maintenance commits — never reached the live site.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   VERCEL_TOKEN   — a Vercel access token with access to the udhayveer101s-projects team
+#   DATABASE_URL   — the production Postgres URL (optional; the seed step is skipped without it)
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  VERCEL_ORG_ID: team_FZqkvIE27v51I7vHnmy09F2n
+  VERCEL_PROJECT_ID: prj_pXShfbUIpxapBOMUzCOIs2Wz2K5P
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # Same guardrails the maintainer runs locally; a red gate blocks the deploy.
+      - name: Scoring and knowledge-base gates
+        run: |
+          npx tsx scripts/validate-scoring.ts
+          npx tsx scripts/check-kb.ts
+          npx tsc --noEmit
+
+      - name: Deploy to production
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::error::VERCEL_TOKEN secret is not set; cannot deploy."
+            exit 1
+          fi
+          npx vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx vercel@latest build --prod --token="$VERCEL_TOKEN"
+          npx vercel@latest deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+
+      # The seed only upserts by slug, so re-running it is safe.
+      - name: Sync ingredient seed to production DB
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "::warning::DATABASE_URL secret is not set; skipping seed. New ingredient rows won't appear in production."
+            exit 0
+          fi
+          npx prisma generate
+          npx tsx prisma/seed.ts
