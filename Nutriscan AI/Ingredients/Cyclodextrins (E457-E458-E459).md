@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: stabilizer
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-15
 ---
 
-# Cyclodextrins (E459)
+# Cyclodextrins (E457/E458/E459)
 
 **Category:** stabilizer  ·  **Function:** Encapsulating carrier for flavours/vitamins
 **Evidence strength:** MODERATE
-**E-number(s):** e459
+**E-number(s):** e459, e457, e458
 **ADI:** Beta-cyclodextrin 5 mg/kg bw/day (JECFA)
 
 ## Concern by concentration

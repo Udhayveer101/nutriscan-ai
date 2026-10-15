@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: flour treatment
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-15
 ---
 
 # L-Cysteine (E920)
 
 **Category:** flour treatment  ·  **Function:** Dough reducing agent
 **Evidence strength:** MODERATE
-**E-number(s):** e920
+**E-number(s):** e920, e921
 **ADI:** not specified (an amino acid)
 
 ## Concern by concentration

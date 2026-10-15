@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: antioxidant
 evidence: LIMITED
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-15
 ---
 
 # Disodium EDTA
 
 **Category:** antioxidant  ·  **Function:** Sequestrant / preservative
 **Evidence strength:** LIMITED
-**E-number(s):** e385
+**E-number(s):** e385, e386
 **ADI:** 2.5 mg/kg bw/day (EFSA)
 
 ## Concern by concentration

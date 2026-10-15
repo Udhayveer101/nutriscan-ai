@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-212 profiled additives. Generated 2026-10-11.
+215 profiled additives. Generated 2026-10-15.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -171,7 +171,7 @@
 - [[Dimethylpolysiloxane (E900)]] — stabilizer, MODERATE evidence, dominant=LOW
 - [[Glazing Waxes (beeswax, candelilla, microcrystalline, montan, PE wax)]] — stabilizer, MODERATE evidence, dominant=LOW
 - [[Beverage Weighting Agents (SAIB E444, Ester Gum E445)]] — stabilizer, MODERATE evidence, dominant=LOW
-- [[Cyclodextrins (E459)]] — stabilizer, MODERATE evidence, dominant=LOW
+- [[Cyclodextrins (E457-E458-E459)]] — stabilizer, MODERATE evidence, dominant=LOW
 - [[Cellulose Ethers (methylcellulose, HPMC, E461–E465)]] — thickener, MODERATE evidence, dominant=LOW
 - [[Lactic-Tartaric Acid Esters of Mono--Diglycerides (E472b-d-f)]] — emulsifier, MODERATE evidence, dominant=LOW
 - [[Propylene Glycol Esters of Fatty Acids (E477)]] — emulsifier, MODERATE evidence, dominant=LOW
@@ -214,3 +214,6 @@
 - [[Added Caffeine (incl. guarana, kola nut)]] — stimulant, STRONG evidence, dominant=MEDIUM
 - [[Taurine & Glucuronolactone (energy-drink actives)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Protein Isolates & Textured Proteins]] — protein, MODERATE evidence, dominant=LOW
+- [[Flavourings (natural & artificial)]] — flavouring, LIMITED evidence, dominant=LOW
+- [[Liquorice - Glycyrrhizin (INS 958)]] — sweetener, STRONG evidence, dominant=MEDIUM
+- [[Melatonin (added to food or drink)]] — supplement, MODERATE evidence, dominant=HIGH

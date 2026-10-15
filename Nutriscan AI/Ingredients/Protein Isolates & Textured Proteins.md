@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: protein
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-15
 ---
 
 # Protein Isolates & Textured Proteins
@@ -23,7 +23,7 @@ last_reviewed: 2026-10-11
 Food ingredients, not additives; soy, milk and wheat sources are declarable allergens
 
 ## Assessment
-Proteins extracted from soy, pea, milk or wheat, or extruded into meat-like pieces. Nutritionally fine, but NOVA lists them as industrial ingredients that mark a food as ultra-processed.
+Proteins extracted from soy, pea, milk or wheat (including whey powder and wheat gluten), or extruded into meat-like pieces. Nutritionally fine, but NOVA lists them as industrial ingredients that mark a food as ultra-processed.
 
 ## Population-specific concerns
 - soy, milk or wheat allergy, depending on source

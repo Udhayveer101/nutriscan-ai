@@ -223,7 +223,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA GRAS; Nickerson 2015 (gut microbiome)",
   },
   {
-    id: "modified-starch", name: "Modified Starch", keywords: ["osa starch", "modified starch", "modified food starch", "modified corn starch", "modified maize starch", "modified tapioca starch", "modified potato starch", "dextrin", "oxidised starch", "oxidized starch", "monostarch phosphate", "distarch phosphate", "acetylated starch", "starch acetate", "acetylated distarch adipate", "hydroxypropyl starch", "hydroxypropyl distarch phosphate", "acetylated oxidised starch", "starch sodium octenyl succinate", "sodium starch octenyl succinate", "acid treated starch", "acid-treated starch", "alkaline treated starch", "alkali treated starch", "bleached starch", "enzyme treated starch", "enzyme-treated starch"],
+    id: "modified-starch", name: "Modified Starch", keywords: ["osa starch", "modified starch", "modified food starch", "modified corn starch", "modified maize starch", "modified tapioca starch", "modified potato starch", "dextrin", "oxidised starch", "oxidized starch", "monostarch phosphate", "distarch phosphate", "acetylated starch", "starch acetate", "acetylated distarch adipate", "hydroxypropyl starch", "hydroxypropyl distarch phosphate", "acetylated oxidised starch", "starch sodium octenyl succinate", "sodium starch octenyl succinate", "acid treated starch", "acid-treated starch", "alkaline-treated starch", "alkaline treated starch", "alkali treated starch", "bleached starch", "enzyme treated starch", "enzyme-treated starch"],
     eNumbers: ["e1400", "e1401", "e1402", "e1403", "e1404", "e1405", "e1410", "e1412", "e1413", "e1414", "e1420", "e1422", "e1440", "e1442", "e1450", "e1451"],
     category: "thickener", function: "Texture / stability",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "INSUFFICIENT",
@@ -401,7 +401,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2015 cochineal; case reports",
   },
   {
-    id: "disodium-edta", name: "Disodium EDTA", keywords: ["edta", "disodium edta", "calcium disodium edta"], eNumbers: ["e385"],
+    id: "disodium-edta", name: "Disodium EDTA", keywords: ["edta", "disodium edta", "calcium disodium edta", "disodium ethylenediaminetetraacetate", "edetate disodium"], eNumbers: ["e385", "e386"],
     category: "antioxidant", function: "Sequestrant / preservative",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     adi: "2.5 mg/kg bw/day (EFSA)", regulatory: "Approved with limits",
@@ -1104,7 +1104,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Acidity regulators ───────────────────────────────────
   {
-    id: "glucono-delta-lactone", name: "Glucono-delta-lactone (E575)", keywords: ["glucono delta lactone", "glucono-delta-lactone", "gdl", "gluconolactone", "gluconic acid", "sodium gluconate", "potassium gluconate", "calcium gluconate"], eNumbers: ["e575", "e574", "e576", "e577", "e578"],
+    id: "glucono-delta-lactone", name: "Glucono-delta-lactone (E575)", keywords: ["glucono delta lactone", "glucono-delta-lactone", "gdl", "gluconolactone", "gluconic acid", "sodium gluconate", "potassium gluconate", "calcium gluconate", "magnesium gluconate"], eNumbers: ["e575", "e574", "e576", "e577", "e578", "e580"],
     category: "acidity regulator", function: "Slow-release acidifier / coagulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1257,7 +1257,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2019 phosphate group ADI",
   },
   {
-    id: "bakers-yeast", name: "Baker's Yeast", keywords: ["baker's yeast", "bakers yeast", "saccharomyces cerevisiae", "yeast (leavening)"], eNumbers: [],
+    id: "bakers-yeast", name: "Baker's Yeast", keywords: ["baker's yeast", "bakers yeast", "saccharomyces cerevisiae", "yeast (leavening)", "yeast", "dried yeast", "fresh yeast", "instant yeast"], eNumbers: [],
     category: "raising agent", function: "Biological leavening",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Food, not an additive",
@@ -1337,7 +1337,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2018 re-evaluation of silicon dioxide (E551)",
   },
   {
-    id: "cellulose-bulking", name: "Cellulose (microcrystalline/powdered, E460)", keywords: ["microcrystalline cellulose", "powdered cellulose", "cellulose powder", "cellulose gel"], eNumbers: ["e460"],
+    id: "cellulose-bulking", name: "Cellulose (microcrystalline/powdered, E460)", keywords: ["microcrystalline cellulose", "powdered cellulose", "cellulose powder", "cellulose gel", "cellulose"], eNumbers: ["e460"],
     category: "anti-caking agent", function: "Anti-caking / bulking fibre",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1399,7 +1399,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EU flour-additive rules; FDA GRAS listings",
   },
   {
-    id: "l-cysteine", name: "L-Cysteine (E920)", keywords: ["l-cysteine", "cysteine", "cysteine hydrochloride"], eNumbers: ["e920"],
+    id: "l-cysteine", name: "L-Cysteine (E920)", keywords: ["l-cysteine", "cysteine", "cysteine hydrochloride", "l-cystine", "cystine"], eNumbers: ["e920", "e921"],
     category: "flour treatment", function: "Dough reducing agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified (an amino acid)",
@@ -1440,7 +1440,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Vitamins & minerals (fortificants) ───────────────────
   {
-    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3"], eNumbers: ["e101", "e101a"],
+    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "choline salts", "thiamin", "creatine monohydrate", "creatine", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3"], eNumbers: ["e101", "e101a", "e1001"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1449,7 +1449,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA/IOM dietary reference values & upper limits",
   },
   {
-    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate"], eNumbers: ["e579", "e585", "e650"],
+    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["chromium picolinate", "chromium chloride", "ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate"], eNumbers: ["e579", "e585", "e650"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1652,7 +1652,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2016 (E444) and 2023 follow-up (E445)",
   },
   {
-    id: "cyclodextrins", name: "Cyclodextrins (E459)", keywords: ["cyclodextrin", "beta-cyclodextrin", "betadex"], eNumbers: ["e459"],
+    id: "cyclodextrins", name: "Cyclodextrins (E457/E458/E459)", keywords: ["cyclodextrin", "beta-cyclodextrin", "betadex", "alpha-cyclodextrin", "alfadex", "gamma-cyclodextrin", "gammadex"], eNumbers: ["e459", "e457", "e458"],
     category: "stabilizer", function: "Encapsulating carrier for flavours/vitamins",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "Beta-cyclodextrin 5 mg/kg bw/day (JECFA)",
@@ -1844,7 +1844,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EU Reg. 1333/2008; FDA 21 CFR 172.812",
   },
   {
-    id: "yeast-extract", name: "Yeast Extract", keywords: ["yeast extract", "autolysed yeast", "autolyzed yeast", "yeast autolysate"], eNumbers: [],
+    id: "yeast-extract", name: "Yeast Extract", keywords: ["yeast extract", "autolysed yeast", "autolyzed yeast", "yeast autolysate", "torula yeast", "hydrolysed yeast", "hydrolyzed yeast"], eNumbers: [],
     category: "flavor enhancer", function: "Savoury flavour (natural free glutamate)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredient (not an additive); GRAS",
@@ -2033,7 +2033,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "ethyl-acetate", name: "Ethyl Acetate (extraction solvent / flavouring)",
-    keywords: ["ethyl acetate", "ethyl ethanoate"], eNumbers: [],
+    keywords: ["ethyl acetate", "ethyl ethanoate"], eNumbers: ["e1504"],
     category: "flavour", function: "Decaffeination and extraction solvent; fruity flavouring",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "0–25 mg/kg bw/day (JECFA)",
@@ -2063,13 +2063,44 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "protein-isolates", name: "Protein Isolates & Textured Proteins",
-    keywords: ["protein isolate", "protein concentrate", "textured vegetable protein", "textured soy protein", "textured soya protein", "textured wheat protein", "textured pea protein", "hydrolysed collagen", "hydrolyzed collagen", "collagen peptides", "collagen hydrolysate"], eNumbers: [],
+    keywords: ["protein isolate", "protein concentrate", "textured vegetable protein", "textured soy protein", "textured soya protein", "textured wheat protein", "textured pea protein", "hydrolysed collagen", "hydrolyzed collagen", "collagen peptides", "collagen hydrolysate", "whey powder", "whey solids", "demineralised whey", "demineralized whey", "sweet whey", "wheat gluten", "vital wheat gluten"], eNumbers: [],
     category: "protein", function: "Protein fortification / meat-like texture",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredients, not additives; soy, milk and wheat sources are declarable allergens",
     populations: ["soy, milk or wheat allergy, depending on source"],
-    note: "Proteins extracted from soy, pea, milk or wheat, or extruded into meat-like pieces. Nutritionally fine, but NOVA lists them as industrial ingredients that mark a food as ultra-processed.",
+    note: "Proteins extracted from soy, pea, milk or wheat (including whey powder and wheat gluten), or extruded into meat-like pieces. Nutritionally fine, but NOVA lists them as industrial ingredients that mark a food as ultra-processed.",
     ref: "Monteiro et al. 2019, NOVA classification (Public Health Nutr 22:936)",
+  },
+  {
+    id: "flavourings", name: "Flavourings (natural & artificial)",
+    keywords: ["natural flavour", "natural flavor", "natural flavouring", "natural flavoring", "flavouring", "flavoring", "flavourings", "flavorings", "artificial flavour", "artificial flavor", "nature-identical flavouring", "nature identical flavouring", "spice extract", "spice extracts"], eNumbers: [],
+    category: "flavouring", function: "Adds or restores aroma and taste",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "EU Reg. 1334/2008 (every flavouring substance on the Union list); FDA 21 CFR 101.22 / 172.515; JECFA evaluates individual substances",
+    populations: ["vegetarians/vegans (natural flavours may be animal-derived)", "people with rare flavour sensitivities"],
+    note: "A blend of aroma chemicals used in tiny amounts, so the toxicological risk is low: each substance is evaluated individually, and FDA delisted 7 synthetic flavours in 2018. The real issues are opacity (the label never says which chemicals, or whether they are animal-derived) and that flavourings are a NOVA marker of ultra-processed food.",
+    ref: "EU Reg. 1334/2008; FDA 21 CFR 101.22; Monteiro et al. 2019 (NOVA)",
+  },
+  {
+    id: "glycyrrhizin", name: "Liquorice / Glycyrrhizin (INS 958)",
+    keywords: ["glycyrrhizin", "glycyrrhizic acid", "glycyrrhizinic acid", "ammonium glycyrrhizinate", "monoammonium glycyrrhizinate", "ammoniated glycyrrhizin", "liquorice extract", "licorice extract", "liquorice root", "licorice root", "liquorice", "licorice"], eNumbers: ["e958"],
+    category: "sweetener", function: "Sweetener / flavouring (about 50× sweeter than sugar)",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    adi: "Upper limit for regular intake 100 mg glycyrrhizic acid/day (SCF 2003)",
+    regulatory: "EU flavouring; Reg. 1169/2011 Annex III requires 'contains liquorice' and a hypertension warning at ≥4 g/kg (confectionery) or ≥50 mg/l (drinks); FDA GRAS as a flavour",
+    populations: ["hypertension", "heart or kidney disease", "pregnancy", "people taking diuretics or digoxin"],
+    note: "Glycyrrhizin blocks cortisol breakdown, causing sodium retention and potassium loss. Regular intake above about 100 mg/day can raise blood pressure and, in heavy liquorice eaters, cause dangerously low potassium. Trace use as a flavour is not a concern.",
+    ref: "SCF 2003 opinion on glycyrrhizinic acid; EU Reg. 1169/2011 Annex III",
+  },
+  {
+    id: "melatonin", name: "Melatonin (added to food or drink)",
+    keywords: ["melatonin"], eNumbers: [],
+    category: "supplement", function: "Sleep hormone added to 'relaxation' foods and drinks",
+    dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM", evidence: "MODERATE",
+    regulatory: "FDA: not approved, GRAS or prior-sanctioned for conventional foods (warning letters 2010–2015); permitted only in dietary supplements. EU: supplement health claims only (0.5–1 mg)",
+    populations: ["children", "pregnancy", "people driving or operating machinery", "people on sedatives or anticoagulants"],
+    note: "A hormone, not a food ingredient. In a brownie or drink the dose is unlabelled and easy to over-consume, causing daytime drowsiness; FDA treats it as an unapproved additive in conventional foods.",
+    ref: "FDA warning letters (Lazy Cakes 2011; Dewmar 'Lean' 2014)",
   },
 ];
 
@@ -2084,6 +2115,12 @@ export const WHOLEFOOD_KEYWORDS = [
   "turmeric", "cardamom", "cinnamon", "ginger", "cumin", "coriander", "clove", "nutmeg", "vanilla", "cocoa",
   "flaxseed", "linseed", "chia seed", "millet", "sorghum", "buckwheat", "fenugreek", "mustard seed",
   "chilli", "chili", "paprika", "asafoetida", "besan", "gram flour", "curry leaves",
+  // Fermentation cultures (yogurt, cheese, kefir, sourdough): without these, "Lactobacillus
+  // acidophilus" tripped the chemical-name heuristic ("acid…") and scored MEDIUM.
+  "live cultures", "active cultures", "cultures", "lactobacillus", "lacticaseibacillus", "bifidobacterium", "bifidus",
+  "streptococcus thermophilus", "lactic cultures", "starter culture", "probiotic", "sourdough",
+  "hazelnut", "pistachio", "pecan", "macadamia", "sesame seeds", "pumpkin seeds", "sunflower seeds", "hemp seeds", // plural: "sunflower seed oil" must stay an oil
+  "raisins", "sultanas", "currants", "dates", "dried fruit", "lard", "tallow",
 ];
 
 const NAME = (a: AdditiveProfile) => a;
