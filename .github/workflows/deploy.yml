@@ -3,7 +3,7 @@
 # — including the weekly maintenance commits — never reached the live site.
 #
 # Required repository secrets (Settings → Secrets and variables → Actions):
-#   VERCEL_TOKEN   — a Vercel access token with access to the udhayveer101s-projects team
+#   VERCEL_TOKEN   — a Vercel access token with access to the udhayveer101s-projects team (optional; deploy is skipped without it)
 #   DATABASE_URL   — the production Postgres URL (optional; the seed step is skipped without it)
 name: Deploy to Vercel
 
@@ -45,8 +45,8 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           if [ -z "$VERCEL_TOKEN" ]; then
-            echo "::error::VERCEL_TOKEN secret is not set; cannot deploy."
-            exit 1
+            echo "::warning::VERCEL_TOKEN secret is not set; skipping deploy (deploy via the Vercel dashboard or connector instead)."
+            exit 0
           fi
           npx vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
           npx vercel@latest build --prod --token="$VERCEL_TOKEN"
