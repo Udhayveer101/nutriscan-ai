@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-241 profiled additives. Generated 2026-10-21.
+242 profiled additives. Generated 2026-10-21.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -243,3 +243,4 @@
 - [[Omega-3 Oils & Fatty Acids (fish, krill, algal oil, DHA, EPA)]] — fat, STRONG evidence, dominant=LOW
 - [[Coenzyme Q10 (ubiquinone)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Supplement Carotenoids (astaxanthin, zeaxanthin)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Prebiotic Oligosaccharides (HMOs, XOS)]] — nutrient, MODERATE evidence, dominant=LOW

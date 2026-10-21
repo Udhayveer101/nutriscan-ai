@@ -434,7 +434,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2009 natamycin",
   },
   {
-    id: "guar-gum", name: "Guar Gum", keywords: ["guar gum", "guar"], eNumbers: ["e412"],
+    id: "guar-gum", name: "Guar Gum", keywords: ["guar gum", "guar", "partially hydrolysed guar gum", "partially hydrolyzed guar gum", "phgg"], eNumbers: ["e412"],
     category: "thickener", function: "Natural thickener (fibre)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; a soluble fibre",
@@ -1922,7 +1922,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "plant-fibres", name: "Added Plant Fibres (citrus, oat, bamboo, pea, apple, beta-glucan)",
-    keywords: ["citrus fibre", "citrus fiber", "oat fibre", "oat fiber", "bamboo fibre", "bamboo fiber", "pea fibre", "pea fiber", "apple fibre", "apple fiber", "sugar beet fibre", "sugar beet fiber", "potato fibre", "potato fiber", "wheat fibre", "wheat fiber", "oat beta-glucan", "barley beta-glucan", "beta-glucan", "beta glucan"], eNumbers: [],
+    keywords: ["citrus fibre", "citrus fiber", "oat fibre", "oat fiber", "bamboo fibre", "bamboo fiber", "pea fibre", "pea fiber", "apple fibre", "apple fiber", "sugar beet fibre", "sugar beet fiber", "potato fibre", "potato fiber", "wheat fibre", "wheat fiber", "oat beta-glucan", "barley beta-glucan", "beta-glucan", "beta glucan", "resistant starch", "high-amylose maize starch", "high amylose maize starch", "arabinoxylan", "wheat arabinoxylan"], eNumbers: [],
     category: "thickener", function: "Texturiser / water binder / fibre",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredients, not additives; FDA counts mixed plant cell-wall fibres as dietary fibre (2018)",
@@ -2063,7 +2063,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "protein-isolates", name: "Protein Isolates & Textured Proteins",
-    keywords: ["protein isolate", "protein concentrate", "textured vegetable protein", "textured soy protein", "textured soya protein", "textured wheat protein", "textured pea protein", "hydrolysed collagen", "hydrolyzed collagen", "collagen peptides", "collagen hydrolysate"], eNumbers: [],
+    keywords: ["protein isolate", "protein concentrate", "textured vegetable protein", "textured soy protein", "textured soya protein", "textured wheat protein", "textured pea protein", "hydrolysed collagen", "hydrolyzed collagen", "collagen peptides", "collagen hydrolysate", "rice protein", "hemp protein", "potato protein", "mung bean protein", "fava bean protein", "faba bean protein", "chickpea protein", "rapeseed protein", "canola protein", "lupin protein", "hydrolysed whey", "hydrolyzed whey", "whey protein hydrolysate", "wheat gluten", "vital wheat gluten", "mycoprotein"], eNumbers: [],
     category: "protein", function: "Protein fortification / meat-like texture",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredients, not additives; soy, milk and wheat sources are declarable allergens",
@@ -2456,6 +2456,22 @@ export const ADDITIVES: AdditiveProfile[] = [
     regulatory: "Authorised novel foods for supplements with maximum daily amounts (astaxanthin 8 mg/day, EFSA 2020)",
     note: "Red and yellow carotenoid pigments. Astaxanthin gives salmon its colour (via feed) and is sold from Haematococcus algae; zeaxanthin accumulates in the retina. EFSA set safe supplement limits; claimed eye and skin benefits are not authorised.",
     ref: "EFSA NDA Panel 2020, Safety of astaxanthin for its use as a novel food in food supplements",
+  },
+  // ── Expansion 2026-10 batch 09: prebiotics, fibres, proteins ──
+  {
+    id: "prebiotic-oligosaccharides",
+    name: "Prebiotic Oligosaccharides (HMOs, XOS)",
+    keywords: ["2'-fucosyllactose", "2'-o-fucosyllactose", "2'-fl", "3-fucosyllactose", "lacto-n-neotetraose", "lacto-n-tetraose", "6'-sialyllactose", "3'-sialyllactose", "human milk oligosaccharides", "human milk oligosaccharide", "xylo-oligosaccharides", "xylooligosaccharides", "xylo-oligosaccharide"],
+    eNumbers: [],
+    category: "nutrient",
+    function: "Prebiotic carbohydrates for infant formula and supplements",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "Authorised novel foods in the EU with conditions of use (infant formula, supplements, some foods)",
+    note: "Short-chain carbohydrates that resist digestion and feed gut bacteria. Human milk oligosaccharides (HMOs) such as 2'-FL are made by fermentation to mirror breast milk; EFSA found them safe at breast-milk-like levels. XOS come from corn cobs or birch. High intakes can cause wind.",
+    ref: "EFSA NDA Panel 2015, safety of 2'-O-fucosyllactose and lacto-N-neotetraose as novel food ingredients; Commission Implementing Regulation (EU) 2017/2470",
   },
 ];
 
