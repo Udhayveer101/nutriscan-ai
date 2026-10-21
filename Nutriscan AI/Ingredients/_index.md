@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-237 profiled additives. Generated 2026-10-21.
+241 profiled additives. Generated 2026-10-21.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -239,3 +239,7 @@
 - [[Pungent Principles (capsaicin, capsicum oleoresin, piperine)]] — flavour, MODERATE evidence, dominant=MEDIUM
 - [[Named Flavouring Substances (menthol, cinnamaldehyde, citral, limonene…)]] — flavour, MODERATE evidence, dominant=LOW
 - [[Essential Oils & Natural Extracts (peppermint, citrus, clove, cinnamon, bitter almond…)]] — flavour, MODERATE evidence, dominant=MEDIUM
+- [[Added Amino Acids & Nucleotides (BCAA, creatine, theanine, formula nucleotides)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Omega-3 Oils & Fatty Acids (fish, krill, algal oil, DHA, EPA)]] — fat, STRONG evidence, dominant=LOW
+- [[Coenzyme Q10 (ubiquinone)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Supplement Carotenoids (astaxanthin, zeaxanthin)]] — nutrient, MODERATE evidence, dominant=LOW
