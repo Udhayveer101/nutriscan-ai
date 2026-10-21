@@ -151,7 +151,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2017 glutamates re-evaluation",
   },
   {
-    id: "palm-oil", name: "Palm Oil", keywords: ["palm oil", "palm kernel", "palm fat"],
+    id: "palm-oil", name: "Palm Oil", keywords: ["palm oil", "palm kernel", "palm fat", "palm olein", "palmolein", "palm stearin", "fractionated palm"],
     category: "fat", function: "Cheap solid fat",
     dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM", evidence: "MODERATE",
     regulatory: "Permitted; refining produces 3-MCPD/glycidyl esters (EFSA concern)",
@@ -2503,6 +2503,7 @@ export const WHOLEFOOD_WORDS: string[] = [
   "rye", "jau", "poha", "masa", "ragi", "teff", "rice", "suji", "rava", "aval", "samai", "bajri", "grits", "jowar", "cumbu", "kodra", "chena", "farik", "dalia", "kamut", "korra", "spelt", "mamra", "kuttu", "kutki", "bajra", "jonna", "kasha", "chura", "sooji", "lapsi", "sanwa", "barley", "mandua", "chawal", "bulgur", "dinkel", "varagu", "frikeh", "thinai", "nachni", "kangni", "kurmura", "burghul", "murmura", "polenta", "basmati", "freekeh", "zizania", "bulghur", "jhangora", "couscous", "cornmeal", "khorasan", "semolina", "wheatgerm", "wheat bran", "panivaragu", "wheat germ", "soba flour", "maize meal", "durum wheat", "maize flour", "echinochloa", "kuthiraivali", "broken wheat", "miller's bran", "makki ka atta", "cracked wheat", "eragrostis tef", "oriental wheat", "setaria italica", "triticum spelta", "eleusine coracana", "panicum miliaceum", "panicum sumatrense", "pumpernickel flour", "pennisetum glaucum", "paspalum scrobiculatum",
   "urad", "tofu", "miso", "tempe", "moong", "kollu", "rajma", "okara", "nattō", "chole", "natto", "matki", "lobia", "carob", "kulthi", "tempeh", "lupini", "chawli", "edamame", "cowpeas", "tur dal", "fagioli", "ulavalu", "gandules", "toor dal", "red gram", "mukimame", "borlotti", "soy pulp", "marrowfat", "arhar dal", "pea flour", "chana dal", "tuvar dal", "soy flour", "masoor dal", "horse gram", "chana daal", "desi chana", "cannellini", "soya flour", "kala chana", "green gram", "black gram", "lupin flour", "bengal gram", "chana flour", "masoor daal", "ful medames", "turkish gram", "kabuli chana", "whole masoor", "frijoles negros", "frijoles pintos", "vigna aconitifolia", "macrotyloma uniflorum",
   "til", "alsi", "chia", "kaju", "pecan", "badam", "pista", "sesame", "tahina", "akhrot", "tahini", "cobnuts", "brazils", "marrons", "pignoli", "pepitas", "filberts", "hazelnut", "chilgoza", "chestnuts", "groundnut", "para nuts", "pine nuts", "pistachio", "macadamia", "pinon nuts", "brazil nut", "moongphali", "lotus seed", "lotus nuts", "hemp seeds", "hemp hearts", "kamal gatta", "monkey nuts", "pine kernels", "chestnut flour", "chestnut puree", "gingelly seeds", "sunflower seed", "queensland nuts", "salvia hispanica", "sunflower kernels",
+  "lard", "suet", "tallow", "dripping", "saindoux", "duck fat", "schmaltz", "flax oil", "mustard oil", "theobroma oil", "kachi ghani oil", "rendered pork fat",
 ];
 
 let WORD_RE: RegExp | null = null;

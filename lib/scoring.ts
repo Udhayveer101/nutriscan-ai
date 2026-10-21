@@ -72,7 +72,7 @@ const BULK_RULES: { keywords: string[]; dominant: ConcernLevel; moderate: Concer
     note: "Salt — WHO recommends <5g/day; dominant salt is a cardiovascular risk." },
   { keywords: ["sugar", "sucrose", "glucose", "dextrose", "fructose", "corn syrup", "cane sugar", "invert sugar"], dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
     note: "Added sugar — WHO recommends <10% of energy; dominant sugar is a metabolic risk." },
-  { keywords: ["sunflower oil", "soybean oil", "corn oil", "cottonseed oil", "vegetable oil", "canola"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
+  { keywords: ["sunflower oil", "sunflower seed oil", "soybean oil", "soya oil", "soya bean oil", "corn oil", "maize oil", "cottonseed oil", "vegetable oil", "canola", "rapeseed oil", "safflower oil", "safflower seed oil", "grapeseed oil", "grape seed oil", "rice bran oil", "sesame oil", "gingelly oil", "peanut oil", "groundnut oil", "arachis oil", "cotton seed oil", "binola oil", "corn germ oil", "til oil", "til ka tel", "nallennai", "moongphali tel", "rice-bran oil"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
     note: "Refined seed oil — high omega-6; excess intake is pro-inflammatory." },
   { keywords: ["enriched flour", "refined flour", "bleached flour", "white flour", "all-purpose flour"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
     note: "Refined flour — high glycaemic index, stripped of fibre and micronutrients." },
