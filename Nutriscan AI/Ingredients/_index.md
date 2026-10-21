@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-242 profiled additives. Generated 2026-10-21.
+247 profiled additives. Generated 2026-10-21.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -244,3 +244,8 @@
 - [[Coenzyme Q10 (ubiquinone)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Supplement Carotenoids (astaxanthin, zeaxanthin)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Prebiotic Oligosaccharides (HMOs, XOS)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Areca Nut (betel nut, supari)]] — stimulant, STRONG evidence, dominant=CRITICAL
+- [[Ephedra (ma huang)]] — stimulant, STRONG evidence, dominant=CRITICAL
+- [[Yohimbe Bark (yohimbine)]] — stimulant, MODERATE evidence, dominant=CRITICAL
+- [[Aloe-emodin, Emodin, Danthron & Aloe Latex]] — processing aid, MODERATE evidence, dominant=CRITICAL
+- [[Senna, Cascara, Frangula & Rhubarb Root]] — processing aid, MODERATE evidence, dominant=HIGH
