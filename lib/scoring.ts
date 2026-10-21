@@ -68,7 +68,7 @@ const RANK_CONCERN: ConcernLevel[] = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
 
 // Sugar/salt/oil are "amounts", not additives — handled here for dominance sensitivity.
 const BULK_RULES: { keywords: string[]; dominant: ConcernLevel; moderate: ConcernLevel; trace: ConcernLevel; note: string }[] = [
-  { keywords: ["salt", "sodium chloride", "sea salt"], dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
+  { keywords: ["salt", "sodium chloride", "sea salt", "soy sauce", "soya sauce", "shoyu", "tamari", "fish sauce", "nam pla", "nuoc mam", "patis", "oyster sauce", "namak"], dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
     note: "Salt — WHO recommends <5g/day; dominant salt is a cardiovascular risk." },
   { keywords: ["sugar", "sucrose", "glucose", "dextrose", "fructose", "corn syrup", "cane sugar", "invert sugar"], dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
     note: "Added sugar — WHO recommends <10% of energy; dominant sugar is a metabolic risk." },
@@ -77,6 +77,15 @@ const BULK_RULES: { keywords: string[]; dominant: ConcernLevel; moderate: Concer
   { keywords: ["enriched flour", "refined flour", "bleached flour", "white flour", "all-purpose flour"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
     note: "Refined flour — high glycaemic index, stripped of fibre and micronutrients." },
 ];
+
+// Bulk keywords match at a word start and allow only simple endings (salts, salted, salty),
+// so "tamari" can't fire inside "tamarind" nor "salt" inside "unsalted".
+const BULK_RE = new Map<string, RegExp>();
+function bulkHit(lower: string, k: string): boolean {
+  let re = BULK_RE.get(k);
+  if (!re) BULK_RE.set(k, (re = new RegExp(`(?:^|[^a-z])${k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:s|es|ed|y)?(?![a-z])`)));
+  return re.test(lower);
+}
 
 export interface IngredientAssessment {
   name: string;
@@ -107,7 +116,7 @@ export function assessIngredient(name: string, position: number): IngredientAsse
     };
   }
   for (const rule of BULK_RULES) {
-    if (rule.keywords.some((k) => name.toLowerCase().includes(k))) {
+    if (rule.keywords.some((k) => bulkHit(name.toLowerCase(), k))) {
       return {
         name, position, concern: rule[b], evidence: "STRONG",
         reason: rule.note, isAdditive: false, isWhole: false,

@@ -1777,7 +1777,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA GRN 301/522/627; EFSA FAF 2019 opinion on Luo Han Fruit extract",
   },
   {
-    id: "fruit-juice-concentrate", name: "Fruit Juice Concentrate", keywords: ["juice concentrate", "concentrated fruit juice", "concentrated apple juice", "concentrated grape juice", "concentrated pear juice", "fruit juice powder", "grape must"], eNumbers: [],
+    id: "fruit-juice-concentrate", name: "Fruit Juice Concentrate", keywords: ["juice concentrate", "concentrated fruit juice", "concentrated apple juice", "concentrated grape juice", "concentrated pear juice", "fruit juice powder", "grape must", "apple juice", "orange juice", "grape juice", "pear juice", "pineapple juice", "fruit juice", "white grape juice"], eNumbers: [],
     category: "sweetener", function: "Sweetener (free sugars)",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Food ingredient; counts as free/added sugar (WHO, FDA)",
@@ -1853,7 +1853,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA GRAS; EFSA 2017 glutamate opinion (context)",
   },
   {
-    id: "ethanol", name: "Ethanol / Alcohol (E1510)", keywords: ["ethanol", "ethyl alcohol", "alcohol (ethanol)"], eNumbers: ["e1510"],
+    id: "ethanol", name: "Ethanol / Alcohol (E1510)", keywords: ["ethanol", "ethyl alcohol", "alcohol (ethanol)", "rum", "brandy", "cognac", "whisky", "whiskey", "vodka", "sake", "kirsch", "liqueur", "armagnac", "nihonshu", "ryorishu"], eNumbers: ["e1510"],
     category: "preservative", function: "Carrier solvent / preservative",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Carrier solvent in flavourings; alcoholic ingredients IARC Group 1",
@@ -2512,6 +2512,7 @@ export const WHOLEFOOD_WORDS: string[] = [
   "cep", "kelp", "nori", "enoki", "laver", "kombu", "konbu", "dulse", "morels", "gucchi", "hijiki", "wakame", "hiziki", "miyeok", "cremini", "dashima", "maitake", "porcini", "eryngii", "shitake", "wood ear", "shiitake", "girolles", "sea moss", "mushroom", "porphyra", "morchella", "chlorella", "enokitake", "penny bun", "spirulina", "laminaria", "irish moss", "chanterelle", "champignons", "auricularia", "black fungus", "seaweed sheets", "boletus edulis", "roasted seaweed", "palmaria palmata", "cloud ear fungus", "chondrus crispus", "grifola frondosa", "hen of the woods", "lentinula edodes", "agaricus bisporus", "tuber melanosporum", "undaria pinnatifida", "sargassum fusiforme", "pleurotus ostreatus", "arthrospira platensis", "cantharellus cibarius", "blue-green algae powder",
   "white truffle", "black truffle", "summer truffle", "tuber magnatum",
   "tea", "maté", "mate", "kahwa", "oolong", "nettle", "sencha", "matcha", "coffee", "karkade", "roselle", "melissa", "rooibos", "lavender", "hibiscus", "red bush", "camomile", "kombucha", "espresso", "chimarrão", "chamomile", "cacao nibs", "chai patti", "tieguanyin", "elderflower", "nariyal pani", "elder flower", "sorrel drink", "urtica dioica", "jamaica flowers", "aspalathus linearis", "ilex paraguariensis", "matricaria recutita", "matricaria chamomilla", "sambucus nigra flowers", "lavandula angustifolia",
+  "soba", "udon", "penne", "fensi", "pasta", "santan", "komezu", "ho fun", "fusilli", "macaroni", "dangmyeon", "spaghetti", "tagliatelle", "pho noodles", "nariyal doodh", "glass noodles", "balsamic glaze", "lasagne sheets", "aceto balsamico", "cellophane noodles",
 ];
 
 let WORD_RE: RegExp | null = null;
@@ -2590,6 +2591,8 @@ export function isWholeFood(rawName: string): boolean {
   if (lookupAdditive(rawName)) return false;
   // "Strawberry flavour" or "garlic flavouring" is a flavouring, not the food.
   if (/flavou?r/.test(lower)) return false;
+  // Composite products named after their main food ("tomato ketchup", "chicken stock") are not that food.
+  if (/\b(sauce|ketchup|stock|bouillon|gravy|dressing|marinade)s?\b/.test(lower)) return false;
   return WHOLEFOOD_KEYWORDS.some((k) => lower === k || lower.includes(k)) || wholeWordRe().test(lower);
 }
 
