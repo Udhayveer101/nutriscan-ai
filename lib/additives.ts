@@ -2508,6 +2508,7 @@ export const WHOLEFOOD_WORDS: string[] = [
   "mutton",
   "goat", "veal", "whey", "duck", "lamb", "pork", "yolk", "murgh", "chevon", "turkey", "albumen", "venison", "ox liver", "deer meat", "bakra meat",
   "buffalo milk", "bhains ka doodh",
+  "cod", "roe", "rui", "tako", "tuna", "swai", "crab", "rohu", "clam", "hake", "basa", "pulpo", "hilsa", "trout", "squid", "prawn", "tarli", "ilish", "mathi", "salmon", "shrimp", "bangda", "scampi", "mussel", "paplet", "jhinga", "moules", "oyster", "kipper", "tarama", "caviar", "tilapia", "vongole", "herring", "bacalao", "merluza", "sardine", "octopus", "anchovy", "haddock", "seabass", "pomfret", "nethili", "scallop", "pollack", "lobster", "pollock", "sea bass", "calamari", "branzino", "mackerel", "pilchard", "rollmops", "anchovies", "pangasius", "boquerones", "langoustine", "labeo rohita", "river cobbler", "tenualosa ilisha",
 ];
 
 let WORD_RE: RegExp | null = null;
