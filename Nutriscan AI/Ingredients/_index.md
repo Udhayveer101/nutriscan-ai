@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-235 profiled additives. Generated 2026-10-21.
+237 profiled additives. Generated 2026-10-21.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -237,3 +237,5 @@
 - [[Quinine (tonic water bitterness)]] — flavour, MODERATE evidence, dominant=MEDIUM
 - [[Glycyrrhizin - Liquorice Extract (INS 958)]] — sweetener, STRONG evidence, dominant=MEDIUM
 - [[Pungent Principles (capsaicin, capsicum oleoresin, piperine)]] — flavour, MODERATE evidence, dominant=MEDIUM
+- [[Named Flavouring Substances (menthol, cinnamaldehyde, citral, limonene…)]] — flavour, MODERATE evidence, dominant=LOW
+- [[Essential Oils & Natural Extracts (peppermint, citrus, clove, cinnamon, bitter almond…)]] — flavour, MODERATE evidence, dominant=MEDIUM
