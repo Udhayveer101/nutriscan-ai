@@ -32,7 +32,7 @@ export const BATCH_12: SeedIngredient[] = [
     ["Mandarin", ["mandarins", "mandarin oranges", "tangerine", "clementine", "satsuma", "citrus reticulata"], "Small easy-peel citrus", "Eaten fresh or canned in syrup.", "Vitamin C and beta-cryptoxanthin.", "None. Canned mandarins in syrup add sugar.", ["Canned fruit", "Fruit cups", "Salads"], 96],
     ["Grapes", ["grape", "red grapes", "green grapes", "table grapes"], "Juicy vine fruit", "Eaten fresh; also made into juice, raisins and wine.", "Polyphenols including resveratrol in red skins.",
       "Whole grapes are a known choking hazard for young children; cut them lengthwise.", ["Fruit salad", "Snack packs"], 94],
-    ["Raisins", ["raisin", "sultanas", "sultana", "golden raisins", "zante currants", "dried currants"], "Dried grapes", "Grapes dried in the sun or by machine; used in cereals, baking and trail mix.", "Fibre, potassium and polyphenols.",
+    ["Raisins", ["raisin", "sultanas", "sultana", "golden raisins", "zante currants", "dried currants", "currants"], "Dried grapes", "Grapes dried in the sun or by machine; used in cereals, baking and trail mix.", "Fibre, potassium and polyphenols.",
       "Very sugar-dense and sticky on teeth. Golden raisins are usually treated with sulphur dioxide (E220), which can trigger asthma in sensitive people.", ["Muesli", "Fruit cake", "Trail mix"], 86],
     ["Strawberry", ["strawberries", "strawberry pieces", "freeze-dried strawberries"], "Sweet red berry", "Eaten fresh, frozen or freeze-dried, and used in jams, yoghurts and desserts.", "High in vitamin C and anthocyanins.",
       "Can trigger oral allergy symptoms in some people with birch-pollen allergy. Strawberry 'flavour' is a separate ingredient.", ["Jam", "Yoghurt", "Cereal"], 94],

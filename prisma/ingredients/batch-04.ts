@@ -99,7 +99,7 @@ export const BATCH_04: SeedIngredient[] = [
   oil({ slug: "orange-blossom-water", name: "Orange Blossom Water", aliases: ["orange flower water", "neroli water"], purposeShort: "Distilled orange-blossom flavour",
     purpose: "Hydrosol from bitter-orange flowers used in Middle Eastern and Mediterranean pastries.", benefits: "Traditional flavour.",
     concerns: "None at culinary levels.", safetyScore: 92, commonProducts: ["Baklava", "Ma'amoul", "Madeleines"] }),
-  { ...oil({ slug: "kewra-water", name: "Kewra Water", aliases: ["kewda", "kewra essence", "screwpine water", "Pandanus odorifer"], purposeShort: "Screwpine-flower flavour used in biryani and sweets",
+  { ...oil({ slug: "kewra-water", name: "Kewra Water", aliases: ["kewda", "kewra", "kewra essence", "screwpine water", "Pandanus odorifer"], purposeShort: "Screwpine-flower flavour used in biryani and sweets",
     purpose: "Distillate of screwpine (Pandanus) flowers used in South Asian biryani, kebabs and sweets.", benefits: "Traditional flavour.",
     concerns: "None known at culinary levels; formal toxicology is limited.", safetyScore: 90, evidenceLevel: "LIMITED", commonProducts: ["Biryani", "Rasgulla", "Kulfi"] }),
     fdaStatus: "Not specifically listed", refs: [euFlavourings("Natural flavouring preparations from food or traditional food sources are permitted.")] },
