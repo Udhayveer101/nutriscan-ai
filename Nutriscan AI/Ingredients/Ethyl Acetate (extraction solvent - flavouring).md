@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: flavour
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Ethyl Acetate (extraction solvent / flavouring)

@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: stabilizer
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Beverage Weighting Agents (SAIB E444, Ester Gum E445)

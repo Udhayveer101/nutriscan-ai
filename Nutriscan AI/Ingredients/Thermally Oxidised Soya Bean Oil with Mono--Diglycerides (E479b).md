@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: emulsifier
 evidence: LIMITED
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Thermally Oxidised Soya Bean Oil with Mono-/Diglycerides (E479b)

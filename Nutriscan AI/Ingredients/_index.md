@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-212 profiled additives. Generated 2026-10-11.
+247 profiled additives. Generated 2026-10-21.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -214,3 +214,38 @@
 - [[Added Caffeine (incl. guarana, kola nut)]] — stimulant, STRONG evidence, dominant=MEDIUM
 - [[Taurine & Glucuronolactone (energy-drink actives)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Protein Isolates & Textured Proteins]] — protein, MODERATE evidence, dominant=LOW
+- [[Ethoxyquin (INS 324)]] — antioxidant, LIMITED evidence, dominant=MEDIUM
+- [[Sodium Stearyl Fumarate]] — anti-caking agent, LIMITED evidence, dominant=LOW
+- [[Olestra (sucrose polyester)]] — fat, MODERATE evidence, dominant=MEDIUM
+- [[Dioctyl Sodium Sulfosuccinate (docusate)]] — emulsifier, LIMITED evidence, dominant=MEDIUM
+- [[Sodium Lauryl Sulfate]] — emulsifier, LIMITED evidence, dominant=LOW
+- [[Castor Oil (E1503)]] — glazing agent, MODERATE evidence, dominant=MEDIUM
+- [[Zein (corn protein glaze)]] — glazing agent, MODERATE evidence, dominant=LOW
+- [[Alitame (INS 956)]] — sweetener, LIMITED evidence, dominant=LOW
+- [[Tannic Acid (tannins)]] — flavour, MODERATE evidence, dominant=MEDIUM
+- [[Antimicrobial Wash & Sterilant Agents (peroxide, ozone, hypochlorite, peracetic acid)]] — preservative, MODERATE evidence, dominant=LOW
+- [[Chitosan]] — thickener, MODERATE evidence, dominant=LOW
+- [[Extraction Solvents (hexane, acetone, methanol, methyl acetate…)]] — processing aid, MODERATE evidence, dominant=LOW
+- [[Dichloromethane (methylene chloride)]] — processing aid, MODERATE evidence, dominant=MEDIUM
+- [[Fast Green FCF (FD&C Green 3, E143)]] — coloring, LIMITED evidence, dominant=MEDIUM
+- [[Citrus Red No. 2]] — coloring, MODERATE evidence, dominant=HIGH
+- [[Gardenia Blue (genipin-glycine blue)]] — coloring, LIMITED evidence, dominant=LOW
+- [[Butterfly Pea Flower Extract]] — coloring, LIMITED evidence, dominant=LOW
+- [[Red Yeast Rice - Monascus (monacolins, angkak)]] — coloring, MODERATE evidence, dominant=HIGH
+- [[Restricted Flavour Principles (safrole, methyleugenol, estragole, pulegone, thujone…)]] — flavour, MODERATE evidence, dominant=HIGH
+- [[Coumarin]] — flavour, STRONG evidence, dominant=MEDIUM
+- [[Quinine (tonic water bitterness)]] — flavour, MODERATE evidence, dominant=MEDIUM
+- [[Glycyrrhizin - Liquorice Extract (INS 958)]] — sweetener, STRONG evidence, dominant=MEDIUM
+- [[Pungent Principles (capsaicin, capsicum oleoresin, piperine)]] — flavour, MODERATE evidence, dominant=MEDIUM
+- [[Named Flavouring Substances (menthol, cinnamaldehyde, citral, limonene…)]] — flavour, MODERATE evidence, dominant=LOW
+- [[Essential Oils & Natural Extracts (peppermint, citrus, clove, cinnamon, bitter almond…)]] — flavour, MODERATE evidence, dominant=MEDIUM
+- [[Added Amino Acids & Nucleotides (BCAA, creatine, theanine, formula nucleotides)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Omega-3 Oils & Fatty Acids (fish, krill, algal oil, DHA, EPA)]] — fat, STRONG evidence, dominant=LOW
+- [[Coenzyme Q10 (ubiquinone)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Supplement Carotenoids (astaxanthin, zeaxanthin)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Prebiotic Oligosaccharides (HMOs, XOS)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Areca Nut (betel nut, supari)]] — stimulant, STRONG evidence, dominant=CRITICAL
+- [[Ephedra (ma huang)]] — stimulant, STRONG evidence, dominant=CRITICAL
+- [[Yohimbe Bark (yohimbine)]] — stimulant, MODERATE evidence, dominant=CRITICAL
+- [[Aloe-emodin, Emodin, Danthron & Aloe Latex]] — processing aid, MODERATE evidence, dominant=CRITICAL
+- [[Senna, Cascara, Frangula & Rhubarb Root]] — processing aid, MODERATE evidence, dominant=HIGH

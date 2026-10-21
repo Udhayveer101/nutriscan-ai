@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: vitamin & mineral
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Added Minerals (fortification)
 
 **Category:** vitamin & mineral  ·  **Function:** Nutrient fortification
 **Evidence strength:** STRONG
-**E-number(s):** e579, e585, e650
+**E-number(s):** e579, e585, e650, e518, e329
 
 
 ## Concern by concentration

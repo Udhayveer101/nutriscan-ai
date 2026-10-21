@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: emulsifier
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Caseinates (milk protein)
