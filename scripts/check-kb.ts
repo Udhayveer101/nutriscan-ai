@@ -50,6 +50,7 @@ for (const a of ADDITIVES) {
 const BAND: Record<ConcernLevel, [number, number]> = { CRITICAL: [3, 25], HIGH: [25, 45], MEDIUM: [45, 70], LOW: [70, 97] };
 const RANK: Record<ConcernLevel, number> = { LOW: 0, MEDIUM: 1, HIGH: 2, CRITICAL: 3 };
 const expansion = new Set(EXPANSION_INGREDIENTS.map((r) => r.slug));
+const WHOLE_CATS = new Set(["spice-herb", "fruit", "vegetable", "grain", "legume", "nut-seed", "dairy-egg", "meat-seafood", "fungi-seaweed", "culture"]);
 const nameOwner = new Map<string, string>();   // lowercase name/alias → slug
 const codeOwner = new Map<string, string>();
 const slugSeen = new Set<string>();
@@ -87,7 +88,11 @@ for (const r of ALL_INGREDIENTS) {
   for (const al of r.aliases) {
     const hit = lookupAdditive(al);
     if (hit && byName && hit.id !== byName.id) report(`alias "${al}" → ${hit.id}, name → ${byName.id}`);
+    if (hit && !byName && a.isWhole) report(`alias "${al}" → ${hit.id}, but name is a whole food`);
+    if (!hit && a.isWhole && !assessIngredient(al, 0).isWhole) report(`alias "${al}" is not recognised as the whole food its name is`);
   }
+  // Whole-food categories must not resolve to a KB profile: any KB hit counts as an additive (NOVA 4).
+  if (WHOLE_CATS.has(r.categorySlug) && byName) report(`whole food routes to KB profile ${byName.id}`);
   // Gate 5: a row with its own profile mirrors that profile's certainty.
   const own = ADDITIVES.find((p) => p.id === r.slug);
   if (own && own.evidence !== r.evidenceLevel) report(`evidenceLevel ${r.evidenceLevel} ≠ KB evidence ${own.evidence}`);

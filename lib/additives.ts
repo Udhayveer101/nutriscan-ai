@@ -2489,6 +2489,17 @@ export const WHOLEFOOD_KEYWORDS = [
   "live cultures", "live and active cultures", "active cultures", "yoghurt cultures", "starter culture", "probiotic culture", "lactobacillus", "lacticaseibacillus", "lactiplantibacillus", "limosilactobacillus", "ligilactobacillus", "bifidobacterium", "bifidus", "streptococcus thermophilus", "lactococcus lactis", "leuconostoc", "pediococcus", "propionibacterium", "saccharomyces boulardii", "bacillus coagulans", "weizmannia coagulans", "bacillus subtilis", "penicillium roqueforti", "penicillium camemberti", "penicillium candidum", "aspergillus oryzae", "koji", "kefir grains", "kombucha culture", "scoby",
 ];
 
+// Named whole foods, matched as whole words (plural-tolerant) so short names such as
+// "sage" or "date" can't fire inside "sausage" or "updated".
+export const WHOLEFOOD_WORDS: string[] = [
+  "mace", "anise", "saunf", "laung", "jeera", "kesar", "ajowan", "ajwain", "aniseed", "nigella", "javitri", "cayenne", "jaiphal", "caraway", "saffron", "kalonji", "pippali", "pimentón", "allspice", "pimenton", "dill seed", "khus khus", "khas khas", "methi dana", "poppy seed", "methi seeds", "fennel seed", "celery seed", "carom seeds", "carum carvi", "long pepper", "badi elaichi", "white pepper", "piper longum", "chakra phool", "bishop's weed", "juniper berry", "dhania powder", "jamaica pepper", "illicium verum", "crocus sativus", "juniper berries", "amomum subulatum", "red pepper flakes", "pimpinella anisum", "white peppercorns", "green peppercorns", "juniperus communis", "crushed red pepper", "green pepper berries",
+  "lc1", "lgg", "kōji", "bb-12", "kewda", "b. breve", "l. casei", "l. lactis", "b. lactis", "gulab jal", "b. longum", "a. oryzae", "l. gasseri", "l. reuteri", "b. bifidum", "ganedenbc30", "acidophilus", "white mould", "b. infantis", "l. fermentum", "l. paracasei", "l. rhamnosus", "l. johnsonii", "l. plantarum", "s. boulardii", "p. roqueforti", "l. salivarius", "kefir culture", "p. camemberti", "kewra essence", "l. bulgaricus", "l. helveticus", "natto bacteria", "s. thermophilus", "blue cheese mould", "pandanus odorifer", "heyndrickxia coagulans",
+];
+
+let WORD_RE: RegExp | null = null;
+const wholeWordRe = (): RegExp =>
+  (WORD_RE ??= new RegExp(`(?:^|[^a-z])(?:${WHOLEFOOD_WORDS.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") || "(?!)"})(?:e?s)?(?![a-z])`));
+
 const NAME = (a: AdditiveProfile) => a;
 void NAME; // keep tree-shaker honest; profiles are the export
 
@@ -2549,7 +2560,7 @@ export function isWholeFood(rawName: string): boolean {
   const lower = rawName.toLowerCase().trim();
   // Only treat as whole food if no additive profile claims it.
   if (lookupAdditive(rawName)) return false;
-  return WHOLEFOOD_KEYWORDS.some((k) => lower === k || lower.includes(k));
+  return WHOLEFOOD_KEYWORDS.some((k) => lower === k || lower.includes(k)) || wholeWordRe().test(lower);
 }
 
 // ── self-check ──────────────────────────────────────────────────────────────

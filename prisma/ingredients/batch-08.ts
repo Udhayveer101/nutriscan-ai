@@ -68,7 +68,7 @@ export const BATCH_08: SeedIngredient[] = [
     "Starts fermentation in sauerkraut, kimchi and pickles.", "Traditional vegetable fermentation organism.", ["Sauerkraut", "Kimchi"]),
   strain("propionibacterium-freudenreichii", "Propionibacterium freudenreichii", ["Propionibacterium shermanii", "Propionibacterium"], "Makes the holes in Swiss cheese",
     "Produces CO2 and propionic acid in Emmental-type cheese; also makes vitamin B12.", "Flavour and eye formation in Swiss cheese.", ["Emmental", "Jarlsberg"], 94, { refs: [CHEESE] }),
-  strain("saccharomyces-boulardii", "Saccharomyces boulardii", ["S. boulardii", "Saccharomyces cerevisiae var. boulardii"], "Probiotic yeast",
+  strain("saccharomyces-boulardii", "Saccharomyces boulardii", ["S. boulardii"], "Probiotic yeast",
     "Sold as a probiotic supplement.", "Trial evidence for reducing antibiotic-associated diarrhoea.", ["Probiotic capsules"], 88,
     { concerns: "Safe for healthy people. Fungaemia has been reported in critically ill patients and those with central venous catheters, so it is avoided in those settings." }),
   strain("bacillus-coagulans", "Bacillus coagulans", ["Weizmannia coagulans", "Heyndrickxia coagulans", "GanedenBC30"], "Spore-forming probiotic",
