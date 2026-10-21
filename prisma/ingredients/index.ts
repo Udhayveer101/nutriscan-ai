@@ -27,6 +27,7 @@ import { BATCH_23 } from "./batch-23";
 import { BATCH_24 } from "./batch-24";
 import { BATCH_25 } from "./batch-25";
 import { BATCH_26 } from "./batch-26";
+import { BATCH_27 } from "./batch-27";
 
 const BATCHES: SeedIngredient[][] = [
   BATCH_01,
@@ -55,6 +56,7 @@ const BATCHES: SeedIngredient[][] = [
   BATCH_24,
   BATCH_25,
   BATCH_26,
+  BATCH_27,
 ];
 
 export const CORE_INGREDIENTS: SeedIngredient[] = [...INGREDIENTS, ...MORE_INGREDIENTS].map((r) => ({

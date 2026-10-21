@@ -74,7 +74,7 @@ const BULK_RULES: { keywords: string[]; dominant: ConcernLevel; moderate: Concer
     note: "Added sugar — WHO recommends <10% of energy; dominant sugar is a metabolic risk." },
   { keywords: ["sunflower oil", "sunflower seed oil", "soybean oil", "soya oil", "soya bean oil", "corn oil", "maize oil", "cottonseed oil", "vegetable oil", "canola", "rapeseed oil", "safflower oil", "safflower seed oil", "grapeseed oil", "grape seed oil", "rice bran oil", "sesame oil", "gingelly oil", "peanut oil", "groundnut oil", "arachis oil", "cotton seed oil", "binola oil", "corn germ oil", "til oil", "til ka tel", "nallennai", "moongphali tel", "rice-bran oil"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
     note: "Refined seed oil — high omega-6; excess intake is pro-inflammatory." },
-  { keywords: ["enriched flour", "refined flour", "bleached flour", "white flour", "all-purpose flour"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
+  { keywords: ["enriched flour", "enriched wheat flour", "refined flour", "refined wheat flour", "bleached flour", "white flour", "all-purpose flour", "plain flour", "maida", "self-raising flour", "self raising flour", "self-rising flour", "bread flour", "strong flour", "cake flour", "pastry flour", "strong white flour"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
     note: "Refined flour — high glycaemic index, stripped of fibre and micronutrients." },
 ];
 
