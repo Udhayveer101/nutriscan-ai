@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: coloring
 evidence: INSUFFICIENT
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Silver (E174)

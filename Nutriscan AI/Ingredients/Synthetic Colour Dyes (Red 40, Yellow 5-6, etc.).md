@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: coloring
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Synthetic Colour Dyes (Red 40, Yellow 5/6, etc.)

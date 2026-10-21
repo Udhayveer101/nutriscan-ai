@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: anti-caking agent
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Stearic Acid & Stearate Salts (E470/E570)

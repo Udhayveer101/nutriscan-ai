@@ -1,8 +1,10 @@
 // All Ingredient seed rows. Expansion batches are appended to BATCHES in order.
 import { INGREDIENTS, MORE_INGREDIENTS } from "./core";
 import type { SeedIngredient } from "./types";
+import { BATCH_01 } from "./batch-01";
 
 const BATCHES: SeedIngredient[][] = [
+  BATCH_01,
 ];
 
 export const CORE_INGREDIENTS: SeedIngredient[] = [...INGREDIENTS, ...MORE_INGREDIENTS].map((r) => ({

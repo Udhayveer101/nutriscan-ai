@@ -223,7 +223,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA GRAS; Nickerson 2015 (gut microbiome)",
   },
   {
-    id: "modified-starch", name: "Modified Starch", keywords: ["osa starch", "modified starch", "modified food starch", "modified corn starch", "modified maize starch", "modified tapioca starch", "modified potato starch", "dextrin", "oxidised starch", "oxidized starch", "monostarch phosphate", "distarch phosphate", "acetylated starch", "starch acetate", "acetylated distarch adipate", "hydroxypropyl starch", "hydroxypropyl distarch phosphate", "acetylated oxidised starch", "starch sodium octenyl succinate", "sodium starch octenyl succinate", "acid treated starch", "acid-treated starch", "alkaline treated starch", "alkali treated starch", "bleached starch", "enzyme treated starch", "enzyme-treated starch"],
+    id: "modified-starch", name: "Modified Starch", keywords: ["osa starch", "modified starch", "modified food starch", "modified corn starch", "modified maize starch", "modified tapioca starch", "modified potato starch", "dextrin", "oxidised starch", "oxidized starch", "monostarch phosphate", "distarch phosphate", "acetylated starch", "starch acetate", "acetylated distarch adipate", "hydroxypropyl starch", "hydroxypropyl distarch phosphate", "acetylated oxidised starch", "starch sodium octenyl succinate", "sodium starch octenyl succinate", "acid treated starch", "acid-treated starch", "alkaline treated starch", "alkali treated starch", "bleached starch", "enzyme treated starch", "enzyme-treated starch", "acid-treated starch", "acid treated starch", "alkaline-treated starch", "alkaline treated starch", "alkali-treated starch", "bleached starch", "enzyme-treated starch", "enzyme treated starch"],
     eNumbers: ["e1400", "e1401", "e1402", "e1403", "e1404", "e1405", "e1410", "e1412", "e1413", "e1414", "e1420", "e1422", "e1440", "e1442", "e1450", "e1451"],
     category: "thickener", function: "Texture / stability",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "INSUFFICIENT",
@@ -341,7 +341,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "NTP delisting 2000; EFSA opinion",
   },
   {
-    id: "stevia", name: "Steviol Glycosides (Stevia)", keywords: ["stevia", "steviol", "rebaudioside"], eNumbers: ["e960"],
+    id: "stevia", name: "Steviol Glycosides (Stevia)", keywords: ["stevia", "steviol", "rebaudioside", "stevioside"], eNumbers: ["e960"],
     category: "sweetener", function: "Natural high-intensity sweetener",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "4 mg/kg bw/day steviol (EFSA/JECFA)", regulatory: "Approved; a preferred natural sweetener",
@@ -417,7 +417,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2019 phosphates re-evaluation",
   },
   {
-    id: "aluminium-additives", name: "Aluminium-containing Additives", keywords: ["aluminium", "aluminum", "sodium aluminium phosphate", "aluminium sulphate", "sodium aluminium sulphate", "sodium aluminum sulfate", "aluminosilicate", "aluminium silicate", "aluminium potassium sulphate", "potassium aluminium sulphate", "aluminum potassium sulfate", "potash alum", "potassium alum", "aluminium ammonium sulphate", "aluminum ammonium sulfate", "ammonium alum", "kaolin"], eNumbers: ["e541", "e173", "e520", "e521", "e522", "e523", "e554", "e555", "e556", "e559", "e1452"],
+    id: "aluminium-additives", name: "Aluminium-containing Additives", keywords: ["aluminium", "aluminum", "sodium aluminium phosphate", "aluminium sulphate", "sodium aluminium sulphate", "sodium aluminum sulfate", "aluminosilicate", "aluminium silicate", "aluminium potassium sulphate", "potassium aluminium sulphate", "aluminum potassium sulfate", "potash alum", "potassium alum", "aluminium ammonium sulphate", "aluminum ammonium sulfate", "ammonium alum", "kaolin", "starch aluminium octenyl succinate", "starch aluminum octenyl succinate"], eNumbers: ["e541", "e173", "e520", "e521", "e522", "e523", "e554", "e555", "e556", "e559", "e1452"],
     category: "acidity regulator", function: "Leavening / anticaking / colour",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     adi: "1 mg/kg bw/week aluminium (EFSA TWI)", regulatory: "Restricted; EFSA set a tolerable weekly intake",
@@ -1327,7 +1327,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Anti-caking agents ───────────────────────────────────
   {
-    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite"], eNumbers: ["e551", "e552", "e553", "e558"],
+    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite", "magnesium silicate", "magnesium trisilicate"], eNumbers: ["e551", "e552", "e553", "e558"],
     category: "anti-caking agent", function: "Free-flow / anti-caking",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified; nano-fraction of E551 under review",
@@ -1357,7 +1357,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2018 re-evaluation of ferrocyanides",
   },
   {
-    id: "stearic-acid-salts", name: "Stearic Acid & Stearate Salts (E470/E570)", keywords: ["stearic acid", "magnesium stearate", "calcium stearate", "sodium stearate", "fatty acid salts"], eNumbers: ["e470", "e570"],
+    id: "stearic-acid-salts", name: "Stearic Acid & Stearate Salts (E470/E570)", keywords: ["stearic acid", "magnesium stearate", "calcium stearate", "sodium stearate", "fatty acid salts", "potassium stearate", "salts of fatty acids"], eNumbers: ["e470", "e570"],
     category: "anti-caking agent", function: "Anti-caking / release agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1449,7 +1449,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA/IOM dietary reference values & upper limits",
   },
   {
-    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate"], eNumbers: ["e579", "e585", "e650"],
+    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate", "calcium iodate"], eNumbers: ["e579", "e585", "e650"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1614,7 +1614,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA 21 CFR 184.1240",
   },
   {
-    id: "packaging-gases", name: "Packaging Gases (nitrogen, argon, nitrous oxide…)", keywords: ["nitrogen", "nitrous oxide", "protective atmosphere", "packaging gas", "isobutane", "argon", "helium"],
+    id: "packaging-gases", name: "Packaging Gases (nitrogen, argon, nitrous oxide…)", keywords: ["nitrogen", "nitrous oxide", "protective atmosphere", "packaging gas", "isobutane", "argon", "helium", "propane", "butane", "n-butane", "oxygen", "hydrogen gas"],
     eNumbers: ["e938", "e939", "e941", "e942", "e943a", "e943b", "e944", "e948", "e949"],
     category: "preservative", function: "Modified-atmosphere packaging / propellant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
@@ -1970,8 +1970,8 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "coating-polymers", name: "Supplement Coating Polymers (PVA, methacrylate copolymers, PEG)",
-    keywords: ["polyvinyl alcohol", "basic methacrylate copolymer", "neutral methacrylate copolymer", "anionic methacrylate copolymer", "methacrylate copolymer", "polyethylene glycol", "macrogol", "vinylpyrrolidone-vinyl acetate copolymer", "polyvinylpyrrolidone-vinyl acetate", "copovidone"],
-    eNumbers: ["e1203", "e1205", "e1206", "e1208", "e1209", "e1521"],
+    keywords: ["polyvinyl alcohol", "basic methacrylate copolymer", "neutral methacrylate copolymer", "anionic methacrylate copolymer", "methacrylate copolymer", "polyethylene glycol", "macrogol", "vinylpyrrolidone-vinyl acetate copolymer", "polyvinylpyrrolidone-vinyl acetate", "copovidone", "polyvinyl alcohol-polyethylene glycol graft copolymer", "pva-peg graft copolymer"],
+    eNumbers: ["e1203", "e1205", "e1206", "e1208", "e1209", "e1521", "e1207"],
     category: "glazing agent", function: "Film coating for tablets and capsules",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "PEG 10 mg/kg bw/day (JECFA); basic methacrylate copolymer not specified (JECFA)",
@@ -2070,6 +2070,75 @@ export const ADDITIVES: AdditiveProfile[] = [
     populations: ["soy, milk or wheat allergy, depending on source"],
     note: "Proteins extracted from soy, pea, milk or wheat, or extruded into meat-like pieces. Nutritionally fine, but NOVA lists them as industrial ingredients that mark a food as ultra-processed.",
     ref: "Monteiro et al. 2019, NOVA classification (Public Health Nutr 22:936)",
+  },
+  // ── Expansion 2026-10 batch 01: leftover and non-EU additives ──
+  {
+    id: "ethoxyquin", name: "Ethoxyquin (INS 324)", keywords: ["ethoxyquin", "ethoxyquine"], eNumbers: ["e324"],
+    category: "antioxidant", function: "Antioxidant for spice colour (paprika, chilli) and animal feed",
+    dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA permits it in paprika/chilli powder (21 CFR 172.140); not an authorised food additive in the EU, where its feed authorisation was suspended in 2017",
+    note: "A synthetic antioxidant that keeps ground chilli and paprika red. The EU suspended it in animal feed (Reg. 2017/962) because EFSA could not rule out that p-phenetidine, a production impurity and possible mutagen, was present, and data gaps remained. Direct food exposure is small, but the safety dossier is incomplete.",
+    ref: "21 CFR 172.140; Commission Implementing Regulation (EU) 2017/962; EFSA FEEDAP Panel 2015 opinion on ethoxyquin",
+  },
+  {
+    id: "sodium-stearyl-fumarate", name: "Sodium Stearyl Fumarate", keywords: ["sodium stearyl fumarate"], eNumbers: [],
+    category: "anti-caking agent", function: "Tablet lubricant / dough conditioner",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA food additive (21 CFR 172.826) in yeast-leavened bakery and processed cereals; not an EU food additive",
+    note: "Mainly a lubricant that stops supplement tablets sticking to presses. It breaks down to stearyl alcohol and fumaric acid, both ordinary metabolites. Modern food-safety data are sparse, but use levels are tiny.",
+    ref: "21 CFR 172.826",
+  },
+  {
+    id: "olestra", name: "Olestra (sucrose polyester)", keywords: ["olestra", "olean", "sucrose polyester", "sucrose polyesters"], eNumbers: [],
+    category: "fat", function: "Non-digestible fat substitute in savoury snacks",
+    dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
+    regulatory: "FDA-approved for savoury snacks (21 CFR 172.867); foods must be fortified with vitamins A, D, E and K; not authorised in the EU or Canada",
+    populations: ["children", "people with bowel disorders"],
+    note: "Sucrose esterified with 6 to 8 fatty acids, too big to digest, so it adds no calories. It can cause cramping and loose stools, and it carries fat-soluble vitamins and carotenoids out of the gut, which is why the FDA requires added vitamins A, D, E and K. The on-pack warning was dropped in 2003.",
+    ref: "FDA final rule on olestra, Federal Register 1996; 21 CFR 172.867",
+  },
+  {
+    id: "docusate-sodium", name: "Dioctyl Sodium Sulfosuccinate (docusate)", keywords: ["dioctyl sodium sulfosuccinate", "sodium dioctyl sulfosuccinate", "docusate sodium", "docusate"], eNumbers: [],
+    category: "emulsifier", function: "Wetting agent / solubiliser in drink mixes and cocoa",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA food additive (21 CFR 172.810) at low levels; not an EU food additive; also an over-the-counter stool softener",
+    note: "A surfactant that helps powders dissolve. At drug doses it is a stool softener, which is the main effect to expect if intake were high. Food use levels are far below laxative doses.",
+    ref: "21 CFR 172.810",
+  },
+  {
+    id: "sodium-lauryl-sulfate", name: "Sodium Lauryl Sulfate", keywords: ["sodium lauryl sulfate", "sodium lauryl sulphate", "sodium dodecyl sulfate", "sodium dodecyl sulphate"], eNumbers: [],
+    category: "emulsifier", function: "Whipping aid for egg whites; wetting agent",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA food additive (21 CFR 172.822) at low levels (e.g. 1000 ppm in dried egg whites); not an EU food additive",
+    note: "A detergent best known from toothpaste. In food it is a minor whipping aid. It irritates skin and mucosa at high concentration, but food levels are low and it is metabolised like a fatty alcohol.",
+    ref: "21 CFR 172.822",
+  },
+  {
+    id: "castor-oil", name: "Castor Oil (E1503)", keywords: ["castor oil", "ricinus oil"], eNumbers: ["e1503"],
+    category: "glazing agent", function: "Release agent / carrier / anti-sticking agent",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "0–0.7 mg/kg bw/day (JECFA)",
+    regulatory: "FDA food additive (21 CFR 172.876) as release agent; EU-listed as E1503 for limited uses",
+    populations: ["pregnancy (stimulant laxative)"],
+    note: "Used in tiny amounts so sweets and supplements don't stick. Its ricinoleic acid is a stimulant laxative at teaspoon doses, which is why the ADI is low. Refined castor oil contains no ricin.",
+    ref: "JECFA evaluation of castor oil; 21 CFR 172.876",
+  },
+  {
+    id: "zein", name: "Zein (corn protein glaze)", keywords: ["zein"], eNumbers: [],
+    category: "glazing agent", function: "Glaze / coating for sweets, nuts and tablets",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "FDA GRAS-affirmed (21 CFR 184.1984)",
+    note: "The main storage protein of maize, used as a vegan alternative to shellac glaze. It is an ordinary food protein and digested as such.",
+    ref: "21 CFR 184.1984",
+  },
+  {
+    id: "alitame", name: "Alitame (INS 956)", keywords: ["alitame"], eNumbers: ["e956"],
+    category: "sweetener", function: "High-intensity sweetener (~2000x sugar)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    adi: "0–1 mg/kg bw/day (JECFA 1996)",
+    regulatory: "Permitted in Australia/NZ, China and some other markets; not authorised in the EU or US",
+    note: "A dipeptide sweetener made from aspartic acid and alanine. JECFA set an ADI after animal studies showed liver weight increases at high doses. It is rarely used, and fewer regulators have reviewed it than aspartame or sucralose.",
+    ref: "JECFA 46th meeting (1996), alitame",
   },
 ];
 

@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: sweetener
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Fruit Juice Concentrate

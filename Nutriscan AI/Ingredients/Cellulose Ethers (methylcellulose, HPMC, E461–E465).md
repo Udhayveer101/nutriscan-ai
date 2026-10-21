@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: thickener
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-21
 ---
 
 # Cellulose Ethers (methylcellulose, HPMC, E461–E465)

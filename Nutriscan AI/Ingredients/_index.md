@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-212 profiled additives. Generated 2026-10-11.
+220 profiled additives. Generated 2026-10-21.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -214,3 +214,11 @@
 - [[Added Caffeine (incl. guarana, kola nut)]] — stimulant, STRONG evidence, dominant=MEDIUM
 - [[Taurine & Glucuronolactone (energy-drink actives)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Protein Isolates & Textured Proteins]] — protein, MODERATE evidence, dominant=LOW
+- [[Ethoxyquin (INS 324)]] — antioxidant, LIMITED evidence, dominant=MEDIUM
+- [[Sodium Stearyl Fumarate]] — anti-caking agent, LIMITED evidence, dominant=LOW
+- [[Olestra (sucrose polyester)]] — fat, MODERATE evidence, dominant=MEDIUM
+- [[Dioctyl Sodium Sulfosuccinate (docusate)]] — emulsifier, LIMITED evidence, dominant=MEDIUM
+- [[Sodium Lauryl Sulfate]] — emulsifier, LIMITED evidence, dominant=LOW
+- [[Castor Oil (E1503)]] — glazing agent, MODERATE evidence, dominant=MEDIUM
+- [[Zein (corn protein glaze)]] — glazing agent, MODERATE evidence, dominant=LOW
+- [[Alitame (INS 956)]] — sweetener, LIMITED evidence, dominant=LOW
