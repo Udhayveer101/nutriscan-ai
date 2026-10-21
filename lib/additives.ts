@@ -2509,6 +2509,8 @@ export const WHOLEFOOD_WORDS: string[] = [
   "goat", "veal", "whey", "duck", "lamb", "pork", "yolk", "murgh", "chevon", "turkey", "albumen", "venison", "ox liver", "deer meat", "bakra meat",
   "buffalo milk", "bhains ka doodh",
   "cod", "roe", "rui", "tako", "tuna", "swai", "crab", "rohu", "clam", "hake", "basa", "pulpo", "hilsa", "trout", "squid", "prawn", "tarli", "ilish", "mathi", "salmon", "shrimp", "bangda", "scampi", "mussel", "paplet", "jhinga", "moules", "oyster", "kipper", "tarama", "caviar", "tilapia", "vongole", "herring", "bacalao", "merluza", "sardine", "octopus", "anchovy", "haddock", "seabass", "pomfret", "nethili", "scallop", "pollack", "lobster", "pollock", "sea bass", "calamari", "branzino", "mackerel", "pilchard", "rollmops", "anchovies", "pangasius", "boquerones", "langoustine", "labeo rohita", "river cobbler", "tenualosa ilisha",
+  "cep", "kelp", "nori", "enoki", "laver", "kombu", "konbu", "dulse", "morels", "gucchi", "hijiki", "wakame", "hiziki", "miyeok", "cremini", "dashima", "maitake", "porcini", "eryngii", "shitake", "wood ear", "shiitake", "girolles", "sea moss", "mushroom", "porphyra", "morchella", "chlorella", "enokitake", "penny bun", "spirulina", "laminaria", "irish moss", "chanterelle", "champignons", "auricularia", "black fungus", "seaweed sheets", "boletus edulis", "roasted seaweed", "palmaria palmata", "cloud ear fungus", "chondrus crispus", "grifola frondosa", "hen of the woods", "lentinula edodes", "agaricus bisporus", "tuber melanosporum", "undaria pinnatifida", "sargassum fusiforme", "pleurotus ostreatus", "arthrospira platensis", "cantharellus cibarius", "blue-green algae powder",
+  "white truffle", "black truffle", "summer truffle", "tuber magnatum",
 ];
 
 let WORD_RE: RegExp | null = null;
