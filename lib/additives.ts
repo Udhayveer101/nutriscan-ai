@@ -2470,6 +2470,7 @@ export const WHOLEFOOD_KEYWORDS = [
   "turmeric", "cardamom", "cinnamon", "ginger", "cumin", "coriander", "clove", "nutmeg", "vanilla", "cocoa",
   "flaxseed", "linseed", "chia seed", "millet", "sorghum", "buckwheat", "fenugreek", "mustard seed",
   "chilli", "chili", "paprika", "asafoetida", "besan", "gram flour", "curry leaves",
+  "live cultures", "live and active cultures", "active cultures", "yoghurt cultures", "starter culture", "probiotic culture", "lactobacillus", "lacticaseibacillus", "lactiplantibacillus", "limosilactobacillus", "ligilactobacillus", "bifidobacterium", "bifidus", "streptococcus thermophilus", "lactococcus lactis", "leuconostoc", "pediococcus", "propionibacterium", "saccharomyces boulardii", "bacillus coagulans", "weizmannia coagulans", "bacillus subtilis", "penicillium roqueforti", "penicillium camemberti", "penicillium candidum", "aspergillus oryzae", "koji", "kefir grains", "kombucha culture", "scoby",
 ];
 
 const NAME = (a: AdditiveProfile) => a;
