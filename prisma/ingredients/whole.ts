@@ -18,7 +18,7 @@ export const AUNE_NUT = paper("Aune D et al.", 2016, "Nut consumption and risk o
 export const AFSHIN_LEG = paper("Afshin A, Micha R, Khatibzadeh S, Mozaffarian D", 2014, "Consumption of nuts and legumes and risk of incident ischemic heart disease, stroke, and diabetes: a systematic review and meta-analysis", "American Journal of Clinical Nutrition 100(1):278–288",
   "Legume intake was associated with lower ischaemic heart disease risk.", "10.3945/ajcn.113.076901");
 
-type Row = [name: string, aliases: string[], purposeShort: string, purpose: string, benefits: string, concerns: string, commonProducts: string[], safetyScore?: number, extra?: Partial<SeedIngredient>];
+type Row = [name: string, aliases: string[], purposeShort: string, purpose: string, benefits: string, concerns: string, commonProducts: string[], safetyScore?: number, extra?: Partial<SeedIngredient> & { src?: "ifct" | "own" }];
 
 /** Builds whole-food rows for one category. `fdcFinding` describes what FoodData Central records for the food. */
 export const wholeFoods = (categorySlug: string, defaults: Partial<SeedIngredient> & { refs?: SeedRef[] }, fdcFinding = (n: string) => `Nutrient composition entry for ${n.toLowerCase()}.`) => {
@@ -29,8 +29,12 @@ export const wholeFoods = (categorySlug: string, defaults: Partial<SeedIngredien
     fssaiStatus: "Food (FSS Act general provisions)", whoStatus: "No ADI (food)",
     ...defaults,
   });
-  return (rows: Row[], ref: "fdc" | "ifct" = "fdc"): SeedIngredient[] => rows.map(([name, aliases, purposeShort, purpose, benefits, concerns, commonProducts, safetyScore = 90, extra = {}]) =>
-    make({ slug: slugify(name), name, aliases, purposeShort, purpose, commonProducts, safetyScore,
+  // src: "fdc" (default) cites FoodData Central, "ifct" the Indian tables, "own" only the row's own refs.
+  return (rows: Row[], ref: "fdc" | "ifct" = "fdc"): SeedIngredient[] => rows.map(([name, aliases, purposeShort, purpose, benefits, concerns, commonProducts, safetyScore = 90, extra = {}]) => {
+    const { src = ref, ...rest } = extra;
+    const base = src === "fdc" ? [fdc(fdcFinding(name))] : src === "ifct" ? [IFCT] : [];
+    return make({ slug: slugify(name), name, aliases, purposeShort, purpose, commonProducts, safetyScore,
       ...(benefits ? { benefits } : {}), ...(concerns ? { concerns } : {}),
-      ...extra, refs: [ref === "fdc" ? fdc(fdcFinding(name)) : IFCT, ...(extra.refs ?? [])] }));
+      ...rest, refs: [...base, ...(rest.refs ?? [])] });
+  });
 };
