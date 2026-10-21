@@ -88,6 +88,7 @@ for (const r of ALL_INGREDIENTS) {
   for (const al of r.aliases) {
     const hit = lookupAdditive(al);
     if (hit && byName && hit.id !== byName.id) report(`alias "${al}" → ${hit.id}, name → ${byName.id}`);
+    if (!hit && byName) report(`alias "${al}" escapes the KB profile ${byName.id} its name resolves to`);
     if (hit && !byName && a.isWhole) report(`alias "${al}" → ${hit.id}, but name is a whole food`);
     if (!hit && a.isWhole && !assessIngredient(al, 0).isWhole) report(`alias "${al}" is not recognised as the whole food its name is`);
     if (!byName && !a.isWhole && a.evidence !== "INSUFFICIENT" && assessIngredient(al, 0).reason !== a.reason) report(`alias "${al}" does not hit the same bulk rule as its name`);

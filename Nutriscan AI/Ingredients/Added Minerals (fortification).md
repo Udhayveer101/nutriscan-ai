@@ -9,7 +9,7 @@ last_reviewed: 2026-10-21
 
 **Category:** vitamin & mineral  ·  **Function:** Nutrient fortification
 **Evidence strength:** STRONG
-**E-number(s):** e579, e585, e650
+**E-number(s):** e579, e585, e650, e518, e329
 
 
 ## Concern by concentration

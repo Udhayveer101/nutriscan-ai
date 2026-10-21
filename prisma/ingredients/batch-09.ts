@@ -108,7 +108,7 @@ export const BATCH_09: SeedIngredient[] = [
     ...(slug === "lupin-protein" ? { refs: [euAllergens("Lupin is a declarable allergen.")] } : {}),
     ...(["potato-protein", "mung-bean-protein", "rapeseed-protein"].includes(slug) ? { efsaStatus: "Authorised novel food", refs: [euNovelFoods(`${name} listed with specifications.`)] } : {}),
   })),
-  protein({ slug: "vital-wheat-gluten", name: "Vital Wheat Gluten", aliases: ["wheat gluten", "gluten", "seitan flour"], purposeShort: "Concentrated wheat protein",
+  protein({ slug: "vital-wheat-gluten", name: "Vital Wheat Gluten", aliases: ["wheat gluten", "seitan flour"], purposeShort: "Concentrated wheat protein",
     purpose: "Wheat protein washed free of starch; strengthens bread dough and forms the base of seitan and some meat alternatives.", benefits: "Very high protein; improves bread structure.",
     concerns: "Must be avoided in coeliac disease and wheat allergy.", safetyScore: 80, commonProducts: ["Bread", "Seitan", "Meat alternatives"], isNatural: true,
     refs: [euAllergens("Cereals containing gluten (wheat) are declarable allergens.")] }),

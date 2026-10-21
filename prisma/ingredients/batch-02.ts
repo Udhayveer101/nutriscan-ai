@@ -128,7 +128,7 @@ export const BATCH_02: SeedIngredient[] = [
     benefits: "Longer soft shelf life without emulsifiers.",
     concerns: "Inactivated by baking. Lets bread stay soft for weeks, which can mask age.",
     commonProducts: ["Packaged sliced bread", "Buns", "Tortillas"] }),
-  enzyme({ slug: "lactoperoxidase", name: "Lactoperoxidase", aliases: ["lactoperoxidase system", "LP system"],
+  enzyme({ slug: "lactoperoxidase", name: "Lactoperoxidase", aliases: ["lactoperoxidase system"],
     purposeShort: "Natural milk enzyme used to preserve raw milk",
     purpose: "The milk's own lactoperoxidase is activated with thiocyanate and peroxide to slow bacterial growth in raw milk where cooling isn't available.",
     benefits: "Extends raw-milk keeping time in hot climates without refrigeration.",

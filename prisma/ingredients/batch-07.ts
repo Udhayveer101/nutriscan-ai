@@ -24,7 +24,7 @@ export const BATCH_07: SeedIngredient[] = [
   aa("l-valine", "L-Valine", ["valine"], "Branched-chain essential amino acid", "Part of BCAA blends in sports products.", "Essential amino acid.", "No known concern at supplement doses.", ["BCAA supplements"]),
   aa("bcaa", "Branched-Chain Amino Acids", ["BCAA", "BCAAs", "branched chain amino acids"], "Leucine-isoleucine-valine blend", "A mix of the three branched-chain amino acids sold for training and recovery.",
     "Supplies essential amino acids; benefits beyond adequate total protein intake are modest.", "No known concern at usual doses; whole protein supplies the same amino acids.", ["Sports drinks", "Pre-workout powders"]),
-  aa("l-lysine", "L-Lysine Hydrochloride", ["L-lysine", "lysine hydrochloride", "lysine HCl", "INS 642"], "Essential amino acid often low in cereal diets", "Fortifies cereal foods and supplements; Codex-listed as a flavour enhancer (INS 642).",
+  aa("l-lysine", "L-Lysine Hydrochloride", ["L-lysine", "lysine hydrochloride", "lysine HCl"], "Essential amino acid often low in cereal diets", "Fortifies cereal foods and supplements; Codex-listed as a flavour enhancer (INS 642).",
     "Lysine is the limiting amino acid in wheat and rice protein.", "No known concern at usual doses.", ["Fortified cereals", "Supplements"]),
   aa("l-methionine", "L-Methionine", ["methionine", "DL-methionine"], "Sulphur-containing essential amino acid", "Used in infant formula, medical foods and supplements.",
     "Essential amino acid; often limiting in legume protein.", "Excess raises homocysteine; avoid high doses.", ["Infant formula", "Medical nutrition"], 84),

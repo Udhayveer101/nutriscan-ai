@@ -388,7 +388,7 @@ export const BATCH_01: SeedIngredient[] = [
     refs: [jecfa("Evaluation of certain food additives and contaminants: alitame (46th meeting)", 1996, "ADI 0–1 mg/kg bw based on liver-weight changes in dogs.")],
   },
   {
-    slug: "steviol-glycosides-fermentation", name: "Steviol Glycosides from Fermentation", aliases: ["E960b", "fermented steviol glycosides", "Reb M from fermentation"], eNumber: "E960b",
+    slug: "steviol-glycosides-fermentation", name: "Steviol Glycosides from Fermentation", aliases: ["E960b", "fermented steviol glycosides"], eNumber: "E960b",
     categorySlug: "sweetener", purposeShort: "Stevia sweeteners made by fermentation",
     purpose: "Steviol glycosides (mainly rebaudioside M and D) produced by engineered yeast rather than extracted from the leaf.",
     benefits: "Same molecules as leaf stevia with a cleaner taste profile; no calories.",

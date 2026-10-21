@@ -341,7 +341,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "NTP delisting 2000; EFSA opinion",
   },
   {
-    id: "stevia", name: "Steviol Glycosides (Stevia)", keywords: ["stevia", "steviol", "rebaudioside", "stevioside"], eNumbers: ["e960"],
+    id: "stevia", name: "Steviol Glycosides (Stevia)", keywords: ["stevia", "steviol", "rebaudioside", "stevioside", "reb m"], eNumbers: ["e960"],
     category: "sweetener", function: "Natural high-intensity sweetener",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "4 mg/kg bw/day steviol (EFSA/JECFA)", regulatory: "Approved; a preferred natural sweetener",
@@ -434,7 +434,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2009 natamycin",
   },
   {
-    id: "guar-gum", name: "Guar Gum", keywords: ["guar gum", "guar", "partially hydrolysed guar gum", "partially hydrolyzed guar gum", "phgg"], eNumbers: ["e412"],
+    id: "guar-gum", name: "Guar Gum", keywords: ["guar gum", "guar", "partially hydrolysed guar gum", "partially hydrolyzed guar gum", "phgg", "sunfiber"], eNumbers: ["e412"],
     category: "thickener", function: "Natural thickener (fibre)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; a soluble fibre",
@@ -1124,7 +1124,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluations of carbonates/hydroxides; FDA GRAS",
   },
   {
-    id: "calcium-citrate", name: "Calcium Citrate (E333)", keywords: ["calcium citrate"], eNumbers: ["e333"],
+    id: "calcium-citrate", name: "Calcium Citrate (E333)", keywords: ["calcium citrate", "ccm"], eNumbers: ["e333"],
     category: "acidity regulator", function: "Buffer / firming agent / calcium source",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1316,7 +1316,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA authorised health claim for betaine",
   },
   {
-    id: "unrefined-sugar-syrups", name: "Unrefined Sugars & Syrups (molasses, jaggery, maple/golden/date syrup)", keywords: ["maple sugar", "unrefined cane sugar", "molasses", "treacle", "golden syrup", "date syrup", "cane syrup", "jaggery", "coconut sugar", "palm sugar", "maple syrup", "panela", "rapadura", "khandsari", "sorghum syrup", "evaporated cane juice", "cane juice", "muscovado", "demerara", "turbinado", "piloncillo"], eNumbers: [],
+    id: "unrefined-sugar-syrups", name: "Unrefined Sugars & Syrups (molasses, jaggery, maple/golden/date syrup)", keywords: ["maple sugar", "unrefined cane sugar", "molasses", "treacle", "golden syrup", "date syrup", "cane syrup", "jaggery", "coconut sugar", "palm sugar", "maple syrup", "panela", "rapadura", "khandsari", "sorghum syrup", "evaporated cane juice", "cane juice", "muscovado", "demerara", "turbinado", "piloncillo", "carob syrup", "coconut nectar", "coconut syrup", "coconut sap sugar", "pekmez", "gur", "kithul", "gula jawa", "gula melaka", "nam tan pip", "desi khand", "dibs rumman", "nar ek\u015fisi", "harrub syrup", "grape syrup", "pomegranate syrup"], eNumbers: [],
     category: "humectant", function: "Humectant / sweetener (free sugars)",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Foods, not additives",
@@ -1327,7 +1327,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Anti-caking agents ───────────────────────────────────
   {
-    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite", "magnesium silicate", "magnesium trisilicate", "diatomaceous earth", "kieselguhr"], eNumbers: ["e551", "e552", "e553", "e558"],
+    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite", "magnesium silicate", "magnesium trisilicate", "diatomaceous earth", "kieselguhr", "diatomite"], eNumbers: ["e551", "e552", "e553", "e558"],
     category: "anti-caking agent", function: "Free-flow / anti-caking",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified; nano-fraction of E551 under review",
@@ -1419,7 +1419,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluation of ammonium chloride; FDA GRAS",
   },
   {
-    id: "dough-enzymes", name: "Food Enzymes (amylase, protease, rennet, lactase, invertase)", keywords: ["alpha-amylase", "amylase", "protease", "glucose oxidase", "xylanase", "fungal enzyme", "transglutaminase", "papain", "bromelain", "invertase", "lactase", "lipase", "pectinase", "rennet", "chymosin", "beta-galactosidase", "cellulase", "glucoamylase", "amyloglucosidase", "pullulanase", "phospholipase", "asparaginase", "catalase", "glucose isomerase", "xylose isomerase", "tannase", "naringinase", "phytase", "beta-glucanase", "lipoxygenase", "beta-amylase", "acetolactate decarboxylase", "lactoperoxidase", "pectin lyase", "polygalacturonase", "pectinesterase", "food enzymes"], eNumbers: ["e1100", "e1101", "e1102", "e1103", "e1104"],
+    id: "dough-enzymes", name: "Food Enzymes (amylase, protease, rennet, lactase, invertase)", keywords: ["alpha-amylase", "amylase", "protease", "glucose oxidase", "xylanase", "fungal enzyme", "transglutaminase", "papain", "bromelain", "invertase", "lactase", "lipase", "pectinase", "rennet", "chymosin", "beta-galactosidase", "cellulase", "glucoamylase", "amyloglucosidase", "pullulanase", "phospholipase", "asparaginase", "catalase", "glucose isomerase", "xylose isomerase", "tannase", "naringinase", "phytase", "beta-glucanase", "lipoxygenase", "beta-amylase", "acetolactate decarboxylase", "lactoperoxidase", "pectin lyase", "polygalacturonase", "pectinesterase", "food enzymes", "aldc", "anti-staling enzyme", "bromelin", "cellulolytic enzyme", "debranching enzyme", "enzyme-active soy flour", "glucan 1,4-alpha-glucosidase", "glucanase", "lipolytic enzyme", "meat glue", "pectolytic enzymes", "pineapple enzyme", "protein-glutamine gamma-glutamyltransferase", "tannin acylhydrolase", "\u03b2-galactosidase", "\u03b2-glucanase"], eNumbers: ["e1100", "e1101", "e1102", "e1103", "e1104"],
     category: "flour treatment", function: "Enzymatic dough improver (processing aid)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified (processing aids, largely inactivated on baking)",
@@ -1440,7 +1440,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Vitamins & minerals (fortificants) ───────────────────
   {
-    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3", "retinol", "retinyl acetate", "vitamin a acetate", "tocopheryl succinate", "tocopheryl acid succinate", "tocotrienol", "phylloquinone", "phytonadione", "vitamin k1", "menaquinone", "vitamin k2", "mk-7", "thiamine hydrochloride", "thiamin hydrochloride", "niacinamide", "nicotinamide riboside", "nicotinic acid", "panthenol", "dexpanthenol", "sodium pantothenate", "pyridoxal 5'-phosphate", "pyridoxal-5-phosphate", "pyridoxal phosphate", "methylfolate", "l-methylfolate", "5-methyltetrahydrofolate", "5-mthf", "methylcobalamin", "hydroxocobalamin", "adenosylcobalamin", "cobamamide", "sodium d-pantothenate", "acetyl-l-carnitine", "alcar"], eNumbers: ["e101", "e101a"],
+    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3", "retinol", "retinyl acetate", "vitamin a acetate", "tocopheryl succinate", "tocopheryl acid succinate", "tocotrienol", "phylloquinone", "phytonadione", "vitamin k1", "menaquinone", "vitamin k2", "mk-7", "thiamine hydrochloride", "thiamin hydrochloride", "niacinamide", "nicotinamide riboside", "nicotinic acid", "panthenol", "dexpanthenol", "sodium pantothenate", "pyridoxal 5'-phosphate", "pyridoxal-5-phosphate", "pyridoxal phosphate", "methylfolate", "l-methylfolate", "5-methyltetrahydrofolate", "5-mthf", "methylcobalamin", "hydroxocobalamin", "adenosylcobalamin", "cobamamide", "sodium d-pantothenate", "acetyl-l-carnitine", "alcar", "dibencozide", "hydroxycobalamin", "mecobalamin", "metafolin", "methyl b12", "niagen", "nr", "p5p", "plp", "provitamin b5"], eNumbers: ["e101", "e101a"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1449,7 +1449,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA/IOM dietary reference values & upper limits",
   },
   {
-    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate", "calcium iodate", "calcium glycerophosphate", "calcium bisglycinate", "calcium l-threonate", "magnesium citrate", "magnesium gluconate", "magnesium glycerophosphate", "magnesium bisglycinate", "magnesium glycinate", "magnesium sulphate", "magnesium sulfate", "magnesium lactate", "magnesium aspartate", "ferric sodium edta", "sodium iron edta", "sodium feredetate", "ferrous carbonate", "ferrous citrate", "ferric citrate", "ferric saccharate", "ferrous succinate", "zinc sulfate", "zinc gluconate", "zinc citrate", "zinc bisglycinate", "zinc picolinate", "zinc carbonate", "zinc chloride", "copper sulfate", "copper gluconate", "cupric gluconate", "cupric citrate", "copper citrate", "copper bisglycinate", "cupric oxide", "sodium iodide", "sodium iodate", "sodium selenate", "sodium hydrogen selenite", "selenomethionine", "l-selenomethionine", "selenium yeast", "selenium-enriched yeast", "chromium picolinate", "chromium chloride", "chromium(iii) chloride", "chromium nicotinate", "sodium molybdate", "ammonium molybdate", "manganese sulfate", "manganese gluconate", "manganese citrate", "manganese carbonate", "sodium fluoride", "potassium fluoride", "calcium fluoride", "nafeedta"], eNumbers: ["e579", "e585", "e650"],
+    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate", "calcium iodate", "calcium glycerophosphate", "calcium bisglycinate", "calcium l-threonate", "magnesium citrate", "magnesium gluconate", "magnesium glycerophosphate", "magnesium bisglycinate", "magnesium glycinate", "magnesium sulphate", "magnesium sulfate", "magnesium lactate", "magnesium aspartate", "ferric sodium edta", "sodium iron edta", "sodium feredetate", "ferrous carbonate", "ferrous citrate", "ferric citrate", "ferric saccharate", "ferrous succinate", "zinc sulfate", "zinc gluconate", "zinc citrate", "zinc bisglycinate", "zinc picolinate", "zinc carbonate", "zinc chloride", "copper sulfate", "copper gluconate", "cupric gluconate", "cupric citrate", "copper citrate", "copper bisglycinate", "cupric oxide", "sodium iodide", "sodium iodate", "sodium selenate", "sodium hydrogen selenite", "selenomethionine", "l-selenomethionine", "selenium yeast", "selenium-enriched yeast", "chromium picolinate", "chromium chloride", "chromium(iii) chloride", "chromium nicotinate", "sodium molybdate", "ammonium molybdate", "manganese sulfate", "manganese gluconate", "manganese citrate", "manganese carbonate", "sodium fluoride", "potassium fluoride", "calcium fluoride", "nafeedta", "calcium amino acid chelate", "calcium glycerylphosphate", "calcium glycinate", "calcium threonate", "chromic chloride", "chromium trichloride", "chromium(iii) picolinate", "copper glycinate", "cupric sulphate", "epsom salt", "ferric phosphate", "ferrochel", "iron bisglycinate", "iron glycinate", "iron(ii) carbonate", "iron(ii) citrate", "iron(ii) succinate", "iron(iii) citrate", "iron(iii) phosphate", "kf", "kio3", "magnesium amino acid chelate", "naf", "nai", "selenised yeast", "trimagnesium dicitrate", "trizinc dicitrate", "zinc glycinate"], eNumbers: ["e579", "e585", "e650", "e518", "e329"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1633,7 +1633,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "glazing-waxes", name: "Glazing Waxes (beeswax, candelilla, microcrystalline, montan, PE wax)",
-    keywords: ["beeswax", "bees wax", "candelilla", "microcrystalline wax", "montan acid ester", "oxidised polyethylene wax", "oxidized polyethylene wax"],
+    keywords: ["beeswax", "bees wax", "candelilla", "microcrystalline wax", "montan acid ester", "oxidised polyethylene wax", "oxidized polyethylene wax", "montan wax esters", "pe wax", "petroleum wax"],
     eNumbers: ["e901", "e902", "e905", "e912", "e914"],
     category: "stabilizer", function: "Glazing / coating agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
@@ -1652,7 +1652,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2016 (E444) and 2023 follow-up (E445)",
   },
   {
-    id: "cyclodextrins", name: "Cyclodextrins (E459)", keywords: ["cyclodextrin", "beta-cyclodextrin", "betadex"], eNumbers: ["e459"],
+    id: "cyclodextrins", name: "Cyclodextrins (E459)", keywords: ["cyclodextrin", "beta-cyclodextrin", "betadex", "alfadex"], eNumbers: ["e459"],
     category: "stabilizer", function: "Encapsulating carrier for flavours/vitamins",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "Beta-cyclodextrin 5 mg/kg bw/day (JECFA)",
@@ -1731,7 +1731,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA ANS 2017 re-evaluation of E425; Commission Decision 2004/374/EC",
   },
   {
-    id: "gelatin", name: "Gelatin", keywords: ["gelatin", "gelatine", "bovine gelatin", "pork gelatin", "isinglass", "fish gelatin", "fish gelatine"], eNumbers: [],
+    id: "gelatin", name: "Gelatin", keywords: ["gelatin", "gelatine", "bovine gelatin", "pork gelatin", "isinglass", "fish gelatin", "fish gelatine", "swim bladder collagen"], eNumbers: [],
     category: "thickener", function: "Gelling agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "A food ingredient (not an E-number in the EU); GRAS",
@@ -1922,7 +1922,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "plant-fibres", name: "Added Plant Fibres (citrus, oat, bamboo, pea, apple, beta-glucan)",
-    keywords: ["citrus fibre", "citrus fiber", "oat fibre", "oat fiber", "bamboo fibre", "bamboo fiber", "pea fibre", "pea fiber", "apple fibre", "apple fiber", "sugar beet fibre", "sugar beet fiber", "potato fibre", "potato fiber", "wheat fibre", "wheat fiber", "oat beta-glucan", "barley beta-glucan", "beta-glucan", "beta glucan", "resistant starch", "high-amylose maize starch", "high amylose maize starch", "arabinoxylan", "wheat arabinoxylan"], eNumbers: [],
+    keywords: ["citrus fibre", "citrus fiber", "oat fibre", "oat fiber", "bamboo fibre", "bamboo fiber", "pea fibre", "pea fiber", "apple fibre", "apple fiber", "sugar beet fibre", "sugar beet fiber", "potato fibre", "potato fiber", "wheat fibre", "wheat fiber", "oat beta-glucan", "barley beta-glucan", "beta-glucan", "beta glucan", "resistant starch", "high-amylose maize starch", "high amylose maize starch", "arabinoxylan", "wheat arabinoxylan", "apple pomace fibre", "bamboo cellulose", "beet fibre", "beta-1,3/1,6-glucan", "oat hull fibre", "pea cell wall fibre", "pea hull fibre", "wheat bran fibre"], eNumbers: [],
     category: "thickener", function: "Texturiser / water binder / fibre",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredients, not additives; FDA counts mixed plant cell-wall fibres as dietary fibre (2018)",
@@ -1970,7 +1970,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "coating-polymers", name: "Supplement Coating Polymers (PVA, methacrylate copolymers, PEG)",
-    keywords: ["polyvinyl alcohol", "basic methacrylate copolymer", "neutral methacrylate copolymer", "anionic methacrylate copolymer", "methacrylate copolymer", "polyethylene glycol", "macrogol", "vinylpyrrolidone-vinyl acetate copolymer", "polyvinylpyrrolidone-vinyl acetate", "copovidone", "polyvinyl alcohol-polyethylene glycol graft copolymer", "pva-peg graft copolymer"],
+    keywords: ["polyvinyl alcohol", "basic methacrylate copolymer", "neutral methacrylate copolymer", "anionic methacrylate copolymer", "methacrylate copolymer", "polyethylene glycol", "macrogol", "vinylpyrrolidone-vinyl acetate copolymer", "polyvinylpyrrolidone-vinyl acetate", "copovidone", "polyvinyl alcohol-polyethylene glycol graft copolymer", "pva-peg graft copolymer", "pvp-va copolymer"],
     eNumbers: ["e1203", "e1205", "e1206", "e1208", "e1209", "e1521", "e1207"],
     category: "glazing agent", function: "Film coating for tablets and capsules",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
@@ -2063,7 +2063,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "protein-isolates", name: "Protein Isolates & Textured Proteins",
-    keywords: ["protein isolate", "protein concentrate", "textured vegetable protein", "textured soy protein", "textured soya protein", "textured wheat protein", "textured pea protein", "hydrolysed collagen", "hydrolyzed collagen", "collagen peptides", "collagen hydrolysate", "rice protein", "hemp protein", "potato protein", "mung bean protein", "fava bean protein", "faba bean protein", "chickpea protein", "rapeseed protein", "canola protein", "lupin protein", "hydrolysed whey", "hydrolyzed whey", "whey protein hydrolysate", "wheat gluten", "vital wheat gluten", "mycoprotein"], eNumbers: [],
+    keywords: ["protein isolate", "protein concentrate", "textured vegetable protein", "textured soy protein", "textured soya protein", "textured wheat protein", "textured pea protein", "hydrolysed collagen", "hydrolyzed collagen", "collagen peptides", "collagen hydrolysate", "rice protein", "hemp protein", "potato protein", "mung bean protein", "fava bean protein", "faba bean protein", "chickpea protein", "rapeseed protein", "canola protein", "lupin protein", "hydrolysed whey", "hydrolyzed whey", "whey protein hydrolysate", "wheat gluten", "vital wheat gluten", "mycoprotein", "broad bean protein", "fusarium venenatum biomass", "hemp seed protein", "lupine protein", "mpc", "mpi", "seitan flour"], eNumbers: [],
     category: "protein", function: "Protein fortification / meat-like texture",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredients, not additives; soy, milk and wheat sources are declarable allergens",
@@ -2073,7 +2073,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   // ── Expansion 2026-10 batch 01: leftover and non-EU additives ──
   {
-    id: "ethoxyquin", name: "Ethoxyquin (INS 324)", keywords: ["ethoxyquin", "ethoxyquine"], eNumbers: ["e324"],
+    id: "ethoxyquin", name: "Ethoxyquin (INS 324)", keywords: ["ethoxyquin", "ethoxyquine", "6-ethoxy-1,2-dihydro-2,2,4-trimethylquinoline"], eNumbers: ["e324"],
     category: "antioxidant", function: "Antioxidant for spice colour (paprika, chilli) and animal feed",
     dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
     regulatory: "FDA permits it in paprika/chilli powder (21 CFR 172.140); not an authorised food additive in the EU, where its feed authorisation was suspended in 2017",
@@ -2081,7 +2081,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "21 CFR 172.140; Commission Implementing Regulation (EU) 2017/962; EFSA FEEDAP Panel 2015 opinion on ethoxyquin",
   },
   {
-    id: "sodium-stearyl-fumarate", name: "Sodium Stearyl Fumarate", keywords: ["sodium stearyl fumarate"], eNumbers: [],
+    id: "sodium-stearyl-fumarate", name: "Sodium Stearyl Fumarate", keywords: ["sodium stearyl fumarate", "ssf"], eNumbers: [],
     category: "anti-caking agent", function: "Tablet lubricant / dough conditioner",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     regulatory: "FDA food additive (21 CFR 172.826) in yeast-leavened bakery and processed cereals; not an EU food additive",
@@ -2098,7 +2098,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA final rule on olestra, Federal Register 1996; 21 CFR 172.867",
   },
   {
-    id: "docusate-sodium", name: "Dioctyl Sodium Sulfosuccinate (docusate)", keywords: ["dioctyl sodium sulfosuccinate", "sodium dioctyl sulfosuccinate", "docusate sodium", "docusate"], eNumbers: [],
+    id: "docusate-sodium", name: "Dioctyl Sodium Sulfosuccinate (docusate)", keywords: ["dioctyl sodium sulfosuccinate", "sodium dioctyl sulfosuccinate", "docusate sodium", "docusate", "dss"], eNumbers: [],
     category: "emulsifier", function: "Wetting agent / solubiliser in drink mixes and cocoa",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     regulatory: "FDA food additive (21 CFR 172.810) at low levels; not an EU food additive; also an over-the-counter stool softener",
@@ -2106,7 +2106,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "21 CFR 172.810",
   },
   {
-    id: "sodium-lauryl-sulfate", name: "Sodium Lauryl Sulfate", keywords: ["sodium lauryl sulfate", "sodium lauryl sulphate", "sodium dodecyl sulfate", "sodium dodecyl sulphate"], eNumbers: [],
+    id: "sodium-lauryl-sulfate", name: "Sodium Lauryl Sulfate", keywords: ["sodium lauryl sulfate", "sodium lauryl sulphate", "sodium dodecyl sulfate", "sodium dodecyl sulphate", "sls"], eNumbers: [],
     category: "emulsifier", function: "Whipping aid for egg whites; wetting agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     regulatory: "FDA food additive (21 CFR 172.822) at low levels (e.g. 1000 ppm in dried egg whites); not an EU food additive",
@@ -2124,7 +2124,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "JECFA evaluation of castor oil; 21 CFR 172.876",
   },
   {
-    id: "zein", name: "Zein (corn protein glaze)", keywords: ["zein"], eNumbers: [],
+    id: "zein", name: "Zein (corn protein glaze)", keywords: ["zein", "corn protein glaze"], eNumbers: [],
     category: "glazing agent", function: "Glaze / coating for sweets, nuts and tablets",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "FDA GRAS-affirmed (21 CFR 184.1984)",
@@ -2132,7 +2132,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "21 CFR 184.1984",
   },
   {
-    id: "alitame", name: "Alitame (INS 956)", keywords: ["alitame"], eNumbers: ["e956"],
+    id: "alitame", name: "Alitame (INS 956)", keywords: ["alitame", "aclame"], eNumbers: ["e956"],
     category: "sweetener", function: "High-intensity sweetener (~2000x sugar)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     adi: "0–1 mg/kg bw/day (JECFA 1996)",
@@ -2142,7 +2142,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   // ── Expansion 2026-10 batch 02: processing aids ──
   {
-    id: "tannic-acid", name: "Tannic Acid (tannins)", keywords: ["tannic acid", "tannins", "gallotannin"], eNumbers: [],
+    id: "tannic-acid", name: "Tannic Acid (tannins)", keywords: ["tannic acid", "tannins", "gallotannin", "food-grade tannin"], eNumbers: [],
     category: "flavour", function: "Clarifying agent for beer/wine/juice; astringent flavouring",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "FDA GRAS (21 CFR 184.1097); EU-authorised wine/beer processing aid",
@@ -2151,7 +2151,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "antimicrobial-washes", name: "Antimicrobial Wash & Sterilant Agents (peroxide, ozone, hypochlorite, peracetic acid)",
-    keywords: ["hydrogen peroxide", "ozone", "ozonated", "sodium hypochlorite", "chlorine wash", "chlorinated water", "peracetic acid", "peroxyacetic acid"], eNumbers: [],
+    keywords: ["hydrogen peroxide", "ozone", "ozonated", "sodium hypochlorite", "chlorine wash", "chlorinated water", "peracetic acid", "peroxyacetic acid", "bleach (food-grade)", "h2o2", "o3", "paa", "peroxide (processing aid)"], eNumbers: [],
     category: "preservative", function: "Processing aid: disinfects produce, carcasses, packaging or milk",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "FDA permits specified uses (21 CFR 173.368 ozone, 184.1366 hydrogen peroxide, 173.315 wash chemicals); EU restricts pathogen-reduction treatments of meat",
@@ -2160,7 +2160,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA CONTAM Panel 2015, risks for public health related to the presence of chlorate in food; 21 CFR 173.368, 184.1366",
   },
   {
-    id: "chitosan", name: "Chitosan", keywords: ["chitosan"], eNumbers: [],
+    id: "chitosan", name: "Chitosan", keywords: ["chitosan", "deacetylated chitin"], eNumbers: [],
     category: "thickener", function: "Fining agent for wine/juice; dietary fibre in supplements",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "EU wine processing aid (fungal chitosan); EFSA-backed claim for maintaining normal LDL cholesterol at 3 g/day",
@@ -2172,7 +2172,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "extraction-solvents",
     name: "Extraction Solvents (hexane, acetone, methanol, methyl acetate…)",
-    keywords: ["hexane", "n-hexane", "cyclohexane", "acetone", "methyl acetate", "methyl ethyl ketone", "ethyl methyl ketone", "butanone", "methanol", "methyl alcohol", "isopropyl alcohol", "isopropanol", "propan-2-ol", "diethyl ether", "extraction solvent", "methyl ethanoate"],
+    keywords: ["hexane", "n-hexane", "cyclohexane", "acetone", "methyl acetate", "methyl ethyl ketone", "ethyl methyl ketone", "butanone", "methanol", "methyl alcohol", "isopropyl alcohol", "isopropanol", "propan-2-ol", "diethyl ether", "extraction solvent", "methyl ethanoate", "2-propanol", "dimethyl ketone", "ether (solvent)", "ethyl ether", "hexahydrobenzene", "mek", "propanone", "wood alcohol"],
     eNumbers: [],
     category: "processing aid",
     function: "Extracts oils, flavours, caffeine or colours; evaporated off",
@@ -2187,7 +2187,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "dichloromethane",
     name: "Dichloromethane (methylene chloride)",
-    keywords: ["dichloromethane", "methylene chloride"],
+    keywords: ["dichloromethane", "methylene chloride", "dcm"],
     eNumbers: [],
     category: "processing aid",
     function: "Decaffeination and spice-oleoresin extraction solvent",
@@ -2220,7 +2220,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "citrus-red-2",
     name: "Citrus Red No. 2",
-    keywords: ["citrus red 2", "citrus red no. 2", "citrus red no 2"],
+    keywords: ["citrus red 2", "citrus red no. 2", "citrus red no 2", "solvent red 80"],
     eNumbers: [],
     category: "coloring",
     function: "Dye for orange peel",
@@ -2250,7 +2250,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "butterfly-pea-extract",
     name: "Butterfly Pea Flower Extract",
-    keywords: ["butterfly pea", "clitoria ternatea"],
+    keywords: ["butterfly pea", "clitoria ternatea", "blue pea flower"],
     eNumbers: [],
     category: "coloring",
     function: "Plant-derived blue/purple colour",
@@ -2281,7 +2281,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "restricted-flavour-principles",
     name: "Restricted Flavour Principles (safrole, methyleugenol, estragole, pulegone, thujone…)",
-    keywords: ["safrole", "methyleugenol", "methyl eugenol", "estragole", "pulegone", "menthofuran", "thujone", "beta-asarone", "β-asarone", "teucrin a"],
+    keywords: ["safrole", "methyleugenol", "methyl eugenol", "estragole", "pulegone", "menthofuran", "thujone", "beta-asarone", "β-asarone", "teucrin a", "1-allyl-4-methoxybenzene", "4-allyl-1,2-dimethoxybenzene", "4-allylanisole", "methyl chavicol", "shikimol"],
     eNumbers: [],
     category: "flavour",
     function: "Naturally occurring flavour constituents of herbs and spices",
@@ -2297,7 +2297,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "coumarin",
     name: "Coumarin",
-    keywords: ["coumarin", "tonka bean", "tonka"],
+    keywords: ["coumarin", "tonka bean", "tonka", "1,2-benzopyrone"],
     eNumbers: [],
     category: "flavour",
     function: "Sweet hay/vanilla-like flavour constituent (cassia cinnamon, tonka)",
@@ -2347,7 +2347,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "pungent-extracts",
     name: "Pungent Principles (capsaicin, capsicum oleoresin, piperine)",
-    keywords: ["capsaicin", "capsaicinoids", "capsicum oleoresin", "capsicum extract", "oleoresin capsicum", "piperine", "black pepper extract"],
+    keywords: ["capsaicin", "capsaicinoids", "capsicum oleoresin", "capsicum extract", "oleoresin capsicum", "piperine", "black pepper extract", "bioperine"],
     eNumbers: [],
     category: "flavour",
     function: "Heat/pungency from chilli and pepper",
@@ -2364,7 +2364,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "flavour-chemicals",
     name: "Named Flavouring Substances (menthol, cinnamaldehyde, citral, limonene…)",
-    keywords: ["menthol", "l-menthol", "cinnamaldehyde", "cinnamic aldehyde", "eugenol", "limonene", "d-limonene", "citral", "benzaldehyde", "anethole", "trans-anethole", "carvone", "l-carvone", "linalool", "methyl salicylate", "wintergreen oil", "oil of wintergreen", "eucalyptol", "1,8-cineole", "cineole"],
+    keywords: ["menthol", "l-menthol", "cinnamaldehyde", "cinnamic aldehyde", "eugenol", "limonene", "d-limonene", "citral", "benzaldehyde", "anethole", "trans-anethole", "carvone", "l-carvone", "linalool", "methyl salicylate", "wintergreen oil", "oil of wintergreen", "eucalyptol", "1,8-cineole", "cineole", "4-allyl-2-methoxyphenol", "anise camphor", "artificial almond", "cinnamal", "coriandrol", "geranial", "lemonal", "linalol"],
     eNumbers: [],
     category: "flavour",
     function: "Flavouring substance",
@@ -2380,7 +2380,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "essential-oils",
     name: "Essential Oils & Natural Extracts (peppermint, citrus, clove, cinnamon, bitter almond…)",
-    keywords: ["peppermint oil", "spearmint oil", "mint oil", "orange oil", "sweet orange oil", "lemon oil", "lime oil", "bergamot oil", "grapefruit oil", "mandarin oil", "clove oil", "clove bud oil", "cinnamon oil", "cinnamon bark oil", "cinnamon leaf oil", "cassia oil", "bitter almond oil", "almond essence", "eucalyptus oil", "anise oil", "aniseed oil", "star anise oil", "cardamom oil", "essential oil"],
+    keywords: ["peppermint oil", "spearmint oil", "mint oil", "orange oil", "sweet orange oil", "lemon oil", "lime oil", "bergamot oil", "grapefruit oil", "mandarin oil", "clove oil", "clove bud oil", "cinnamon oil", "cinnamon bark oil", "cinnamon leaf oil", "cassia oil", "bitter almond oil", "almond essence", "eucalyptus oil", "anise oil", "aniseed oil", "star anise oil", "cardamom oil", "essential oil", "citrus bergamia oil", "eucalyptus globulus oil", "lemon peel oil", "lime peel oil", "mentha piperita oil", "mentha spicata oil", "oil of bitter almond", "orange peel oil", "syzygium aromaticum oil"],
     eNumbers: [],
     category: "flavour",
     function: "Natural flavouring from distilled or pressed plant oils",
@@ -2397,8 +2397,8 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "added-amino-acids",
     name: "Added Amino Acids & Nucleotides (BCAA, creatine, theanine, formula nucleotides)",
-    keywords: ["l-leucine", "l-isoleucine", "l-valine", "l-lysine", "lysine hydrochloride", "l-lysine hydrochloride", "l-methionine", "dl-methionine", "l-threonine", "l-tryptophan", "l-phenylalanine", "l-histidine", "l-arginine", "arginine alpha-ketoglutarate", "l-glutamine", "l-alanine", "beta-alanine", "β-alanine", "l-aspartic acid", "l-cystine", "l-proline", "l-serine", "l-tyrosine", "l-citrulline", "citrulline malate", "l-ornithine", "branched-chain amino acids", "branched chain amino acids", "bcaa", "creatine monohydrate", "creatine", "gamma-aminobutyric acid", "gaba", "l-theanine", "theanine", "cytidine 5'-monophosphate", "cytidine monophosphate", "uridine 5'-monophosphate", "uridine monophosphate", "disodium uridine", "adenosine 5'-monophosphate", "adenosine monophosphate", "nucleotides"],
-    eNumbers: ["e641"],
+    keywords: ["l-leucine", "l-isoleucine", "l-valine", "l-lysine", "lysine hydrochloride", "l-lysine hydrochloride", "l-methionine", "dl-methionine", "l-threonine", "l-tryptophan", "l-phenylalanine", "l-histidine", "l-arginine", "arginine alpha-ketoglutarate", "l-glutamine", "l-alanine", "beta-alanine", "β-alanine", "l-aspartic acid", "l-cystine", "l-proline", "l-serine", "l-tyrosine", "l-citrulline", "citrulline malate", "l-ornithine", "branched-chain amino acids", "branched chain amino acids", "bcaa", "creatine monohydrate", "creatine", "gamma-aminobutyric acid", "gaba", "l-theanine", "theanine", "cytidine 5'-monophosphate", "cytidine monophosphate", "uridine 5'-monophosphate", "uridine monophosphate", "disodium uridine", "adenosine 5'-monophosphate", "adenosine monophosphate", "nucleotides", "aakg", "alanine", "amp", "arginine", "aspartate", "aspartic acid", "bcaas", "carnosyn", "citrulline", "cmp", "cystine", "gamma aminobutyric acid", "glutamine", "histidine", "isoleucine", "leucine", "lysine hcl", "methionine", "ornithine", "ornithine aspartate", "phenylalanine", "proline", "serine", "threonine", "tryptophan", "tyrosine", "ump", "valine"],
+    eNumbers: ["e641", "e642"],
     category: "nutrient",
     function: "Protein building blocks / sports and infant-formula nutrients",
     dominant: "LOW",
@@ -2413,7 +2413,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "omega-3-oils",
     name: "Omega-3 Oils & Fatty Acids (fish, krill, algal oil, DHA, EPA)",
-    keywords: ["fish oil", "refined fish oil", "krill oil", "algal oil", "algae oil", "schizochytrium oil", "cod liver oil", "docosahexaenoic acid", "eicosapentaenoic acid", "omega-3 fatty acids", "omega 3 fatty acids", "omega-3 concentrate", "dha-rich oil", "dha algal oil"],
+    keywords: ["fish oil", "refined fish oil", "krill oil", "algal oil", "algae oil", "schizochytrium oil", "cod liver oil", "docosahexaenoic acid", "eicosapentaenoic acid", "omega-3 fatty acids", "omega 3 fatty acids", "omega-3 concentrate", "dha-rich oil", "dha algal oil", "cod-liver oil", "dha", "epa", "euphausia superba oil"],
     eNumbers: [],
     category: "fat",
     function: "Source of long-chain omega-3 fatty acids",
@@ -2461,7 +2461,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "prebiotic-oligosaccharides",
     name: "Prebiotic Oligosaccharides (HMOs, XOS)",
-    keywords: ["2'-fucosyllactose", "2'-o-fucosyllactose", "2'-fl", "3-fucosyllactose", "lacto-n-neotetraose", "lacto-n-tetraose", "6'-sialyllactose", "3'-sialyllactose", "human milk oligosaccharides", "human milk oligosaccharide", "xylo-oligosaccharides", "xylooligosaccharides", "xylo-oligosaccharide"],
+    keywords: ["2'-fucosyllactose", "2'-o-fucosyllactose", "2'-fl", "3-fucosyllactose", "lacto-n-neotetraose", "lacto-n-tetraose", "6'-sialyllactose", "3'-sialyllactose", "human milk oligosaccharides", "human milk oligosaccharide", "xylo-oligosaccharides", "xylooligosaccharides", "xylo-oligosaccharide", "3'-sl", "3-fl", "6'-sl", "lnnt", "lnt", "xos"],
     eNumbers: [],
     category: "nutrient",
     function: "Prebiotic carbohydrates for infant formula and supplements",
@@ -2511,6 +2511,7 @@ export const WHOLEFOOD_WORDS: string[] = [
   "cod", "roe", "rui", "tako", "tuna", "swai", "crab", "rohu", "clam", "hake", "basa", "pulpo", "hilsa", "trout", "squid", "prawn", "tarli", "ilish", "mathi", "salmon", "shrimp", "bangda", "scampi", "mussel", "paplet", "jhinga", "moules", "oyster", "kipper", "tarama", "caviar", "tilapia", "vongole", "herring", "bacalao", "merluza", "sardine", "octopus", "anchovy", "haddock", "seabass", "pomfret", "nethili", "scallop", "pollack", "lobster", "pollock", "sea bass", "calamari", "branzino", "mackerel", "pilchard", "rollmops", "anchovies", "pangasius", "boquerones", "langoustine", "labeo rohita", "river cobbler", "tenualosa ilisha",
   "cep", "kelp", "nori", "enoki", "laver", "kombu", "konbu", "dulse", "morels", "gucchi", "hijiki", "wakame", "hiziki", "miyeok", "cremini", "dashima", "maitake", "porcini", "eryngii", "shitake", "wood ear", "shiitake", "girolles", "sea moss", "mushroom", "porphyra", "morchella", "chlorella", "enokitake", "penny bun", "spirulina", "laminaria", "irish moss", "chanterelle", "champignons", "auricularia", "black fungus", "seaweed sheets", "boletus edulis", "roasted seaweed", "palmaria palmata", "cloud ear fungus", "chondrus crispus", "grifola frondosa", "hen of the woods", "lentinula edodes", "agaricus bisporus", "tuber melanosporum", "undaria pinnatifida", "sargassum fusiforme", "pleurotus ostreatus", "arthrospira platensis", "cantharellus cibarius", "blue-green algae powder",
   "white truffle", "black truffle", "summer truffle", "tuber magnatum",
+  "tea", "maté", "mate", "kahwa", "oolong", "nettle", "sencha", "matcha", "coffee", "karkade", "roselle", "melissa", "rooibos", "lavender", "hibiscus", "red bush", "camomile", "kombucha", "espresso", "chimarrão", "chamomile", "cacao nibs", "chai patti", "tieguanyin", "elderflower", "nariyal pani", "elder flower", "sorrel drink", "urtica dioica", "jamaica flowers", "aspalathus linearis", "ilex paraguariensis", "matricaria recutita", "matricaria chamomilla", "sambucus nigra flowers", "lavandula angustifolia",
 ];
 
 let WORD_RE: RegExp | null = null;

@@ -44,8 +44,8 @@ export const BATCH_06: SeedIngredient[] = [
     ["magnesium-gluconate", "Magnesium Gluconate", [], "Magnesium salt of gluconic acid", "Magnesium source in drinks and supplements.", 88],
     ["magnesium-glycerophosphate", "Magnesium Glycerophosphate", [], "Magnesium and phosphorus source", "Soluble magnesium source used in supplements.", 88],
     ["magnesium-bisglycinate", "Magnesium Bisglycinate", ["magnesium glycinate", "magnesium amino acid chelate"], "Chelated magnesium", "Magnesium bound to glycine, popular in supplements.", 88],
-    ["magnesium-sulphate", "Magnesium Sulphate", ["magnesium sulfate", "Epsom salt", "E518"], "Magnesium salt; also a firming agent", "Magnesium source and firming agent (E518) in tofu and brewing water.", 84],
-    ["magnesium-lactate", "Magnesium Lactate", ["E329"], "Magnesium salt of lactic acid", "Magnesium source and acidity regulator.", 88],
+    ["magnesium-sulphate", "Magnesium Sulphate", ["magnesium sulfate", "Epsom salt"], "Magnesium salt; also a firming agent", "Magnesium source and firming agent (E518) in tofu and brewing water.", 84],
+    ["magnesium-lactate", "Magnesium Lactate", [], "Magnesium salt of lactic acid", "Magnesium source and acidity regulator.", 88],
   ] as [string, string, string[], string, string, number][]).map(([slug, name, aliases, purposeShort, purpose, safetyScore]) => mineral({
     slug, name, aliases, purposeShort, purpose, benefits: "Supplies magnesium for muscle, nerve and bone function.",
     concerns: "Supplemental magnesium above 250 mg/day can cause diarrhoea (EFSA UL). People with kidney failure must avoid magnesium loads.",

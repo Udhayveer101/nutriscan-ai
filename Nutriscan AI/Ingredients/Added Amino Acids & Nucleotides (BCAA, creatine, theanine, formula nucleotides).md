@@ -9,7 +9,7 @@ last_reviewed: 2026-10-21
 
 **Category:** nutrient  ·  **Function:** Protein building blocks / sports and infant-formula nutrients
 **Evidence strength:** MODERATE
-**E-number(s):** e641
+**E-number(s):** e641, e642
 
 
 ## Concern by concentration
