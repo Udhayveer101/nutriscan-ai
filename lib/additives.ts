@@ -2505,6 +2505,9 @@ export const WHOLEFOOD_WORDS: string[] = [
   "til", "alsi", "chia", "kaju", "pecan", "badam", "pista", "sesame", "tahina", "akhrot", "tahini", "cobnuts", "brazils", "marrons", "pignoli", "pepitas", "filberts", "hazelnut", "chilgoza", "chestnuts", "groundnut", "para nuts", "pine nuts", "pistachio", "macadamia", "pinon nuts", "brazil nut", "moongphali", "lotus seed", "lotus nuts", "hemp seeds", "hemp hearts", "kamal gatta", "monkey nuts", "pine kernels", "chestnut flour", "chestnut puree", "gingelly seeds", "sunflower seed", "queensland nuts", "salvia hispanica", "sunflower kernels",
   "lard", "suet", "tallow", "dripping", "saindoux", "duck fat", "schmaltz", "flax oil", "mustard oil", "theobroma oil", "kachi ghani oil", "rendered pork fat",
   "mawa", "skyr", "brie", "dahi", "khoa", "feta", "quark", "khoya", "gouda", "kefir", "chaas", "chevre", "hellim", "chhena", "topfen", "chhana", "labneh", "paneer", "chèvre", "stilton", "ricotta", "cheddar", "chhachh", "majjiga", "yoghurt", "emmental", "parmesan", "halloumi", "set curd", "camembert", "roquefort", "hung curd", "mozzarella", "magerquark", "parmigiano", "emmentaler", "mascarpone", "gorgonzola", "dolcelatte", "goat cheese", "whey cheese", "danish blue", "blue cheese", "swiss cheese", "fior di latte", "creme fraiche", "crème fraiche", "crème fraîche", "goat's cheese", "cottage cheese", "fresh curd cheese", "white brine cheese", "full-fat soft cheese",
+  "mutton",
+  "goat", "veal", "whey", "duck", "lamb", "pork", "yolk", "murgh", "chevon", "turkey", "albumen", "venison", "ox liver", "deer meat", "bakra meat",
+  "buffalo milk", "bhains ka doodh",
 ];
 
 let WORD_RE: RegExp | null = null;
@@ -2542,6 +2545,16 @@ export function extractCodes(lower: string): string[][] {
   return codes;
 }
 
+// Short keywords (four letters or fewer, e.g. "bha", "msg", "guar") must stand as whole
+// words, so "bha" can't fire inside "bhaji" or "bhains", nor "msg" inside a longer token.
+const SHORT_KW = new Map<string, RegExp>();
+function keywordHit(lower: string, k: string): boolean {
+  if (k.replace(/[^a-z]/g, "").length > 4) return lower.includes(k);
+  let re = SHORT_KW.get(k);
+  if (!re) SHORT_KW.set(k, (re = new RegExp(`(?:^|[^a-z0-9])${k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![a-z0-9])`)));
+  return re.test(lower);
+}
+
 export function lookupAdditive(rawName: string): AdditiveProfile | null {
   const lower = rawName.toLowerCase().trim();
   // E/INS code is the strongest signal. Codes are matched as whole tokens so that
@@ -2558,7 +2571,7 @@ export function lookupAdditive(rawName: string): AdditiveProfile | null {
   let bestLen = 0;
   for (const a of ADDITIVES) {
     for (const k of a.keywords) {
-      if (k.length > bestLen && lower.includes(k)) {
+      if (k.length > bestLen && keywordHit(lower, k)) {
         best = a;
         bestLen = k.length;
       }
