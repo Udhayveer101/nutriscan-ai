@@ -2,9 +2,11 @@
 import { INGREDIENTS, MORE_INGREDIENTS } from "./core";
 import type { SeedIngredient } from "./types";
 import { BATCH_01 } from "./batch-01";
+import { BATCH_02 } from "./batch-02";
 
 const BATCHES: SeedIngredient[][] = [
   BATCH_01,
+  BATCH_02,
 ];
 
 export const CORE_INGREDIENTS: SeedIngredient[] = [...INGREDIENTS, ...MORE_INGREDIENTS].map((r) => ({

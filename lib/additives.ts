@@ -1327,7 +1327,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Anti-caking agents ───────────────────────────────────
   {
-    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite", "magnesium silicate", "magnesium trisilicate"], eNumbers: ["e551", "e552", "e553", "e558"],
+    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite", "magnesium silicate", "magnesium trisilicate", "diatomaceous earth", "kieselguhr"], eNumbers: ["e551", "e552", "e553", "e558"],
     category: "anti-caking agent", function: "Free-flow / anti-caking",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified; nano-fraction of E551 under review",
@@ -1419,7 +1419,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluation of ammonium chloride; FDA GRAS",
   },
   {
-    id: "dough-enzymes", name: "Food Enzymes (amylase, protease, rennet, lactase, invertase)", keywords: ["alpha-amylase", "amylase", "protease", "glucose oxidase", "xylanase", "fungal enzyme", "transglutaminase", "papain", "bromelain", "invertase", "lactase", "lipase", "pectinase", "rennet", "chymosin"], eNumbers: ["e1100", "e1101", "e1102", "e1103", "e1104"],
+    id: "dough-enzymes", name: "Food Enzymes (amylase, protease, rennet, lactase, invertase)", keywords: ["alpha-amylase", "amylase", "protease", "glucose oxidase", "xylanase", "fungal enzyme", "transglutaminase", "papain", "bromelain", "invertase", "lactase", "lipase", "pectinase", "rennet", "chymosin", "beta-galactosidase", "cellulase", "glucoamylase", "amyloglucosidase", "pullulanase", "phospholipase", "asparaginase", "catalase", "glucose isomerase", "xylose isomerase", "tannase", "naringinase", "phytase", "beta-glucanase", "lipoxygenase", "beta-amylase", "acetolactate decarboxylase", "lactoperoxidase", "pectin lyase", "polygalacturonase", "pectinesterase", "food enzymes"], eNumbers: ["e1100", "e1101", "e1102", "e1103", "e1104"],
     category: "flour treatment", function: "Enzymatic dough improver (processing aid)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified (processing aids, largely inactivated on baking)",
@@ -1491,7 +1491,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA AFC opinion 2007 on Red 2G; Commission Reg. (EC) 884/2007",
   },
   {
-    id: "vegetable-carbon", name: "Vegetable Carbon (E153)", keywords: ["vegetable carbon", "carbon black", "vegetable black"], eNumbers: ["e153"],
+    id: "vegetable-carbon", name: "Vegetable Carbon (E153)", keywords: ["vegetable carbon", "carbon black", "vegetable black", "activated carbon", "activated charcoal"], eNumbers: ["e153"],
     category: "coloring", function: "Black colour",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     regulatory: "EU-approved with PAH purity limits; not permitted as a colour in the US",
@@ -1731,7 +1731,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA ANS 2017 re-evaluation of E425; Commission Decision 2004/374/EC",
   },
   {
-    id: "gelatin", name: "Gelatin", keywords: ["gelatin", "gelatine", "bovine gelatin", "pork gelatin"], eNumbers: [],
+    id: "gelatin", name: "Gelatin", keywords: ["gelatin", "gelatine", "bovine gelatin", "pork gelatin", "isinglass", "fish gelatin", "fish gelatine"], eNumbers: [],
     category: "thickener", function: "Gelling agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "A food ingredient (not an E-number in the EU); GRAS",
@@ -2139,6 +2139,34 @@ export const ADDITIVES: AdditiveProfile[] = [
     regulatory: "Permitted in Australia/NZ, China and some other markets; not authorised in the EU or US",
     note: "A dipeptide sweetener made from aspartic acid and alanine. JECFA set an ADI after animal studies showed liver weight increases at high doses. It is rarely used, and fewer regulators have reviewed it than aspartame or sucralose.",
     ref: "JECFA 46th meeting (1996), alitame",
+  },
+  // ── Expansion 2026-10 batch 02: processing aids ──
+  {
+    id: "tannic-acid", name: "Tannic Acid (tannins)", keywords: ["tannic acid", "tannins", "gallotannin"], eNumbers: [],
+    category: "flavour", function: "Clarifying agent for beer/wine/juice; astringent flavouring",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "FDA GRAS (21 CFR 184.1097); EU-authorised wine/beer processing aid",
+    note: "Plant polyphenols that bind proteins, so they are used to clear haze from drinks and add astringency. At very high intake they reduce iron absorption and irritate the gut, but use levels are small and much of the tannin is removed with the haze.",
+    ref: "21 CFR 184.1097",
+  },
+  {
+    id: "antimicrobial-washes", name: "Antimicrobial Wash & Sterilant Agents (peroxide, ozone, hypochlorite, peracetic acid)",
+    keywords: ["hydrogen peroxide", "ozone", "ozonated", "sodium hypochlorite", "chlorine wash", "chlorinated water", "peracetic acid", "peroxyacetic acid"], eNumbers: [],
+    category: "preservative", function: "Processing aid: disinfects produce, carcasses, packaging or milk",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "FDA permits specified uses (21 CFR 173.368 ozone, 184.1366 hydrogen peroxide, 173.315 wash chemicals); EU restricts pathogen-reduction treatments of meat",
+    populations: ["infants and young children (chlorate residues from chlorinated water)"],
+    note: "Oxidisers that kill microbes on food surfaces and packaging, then break down to water, oxygen, acetic acid or salt. The main residue question is chlorate and other by-products from chlorine washes, which EFSA linked to iodine-uptake inhibition at high chronic exposure, chiefly for infants.",
+    ref: "EFSA CONTAM Panel 2015, risks for public health related to the presence of chlorate in food; 21 CFR 173.368, 184.1366",
+  },
+  {
+    id: "chitosan", name: "Chitosan", keywords: ["chitosan"], eNumbers: [],
+    category: "thickener", function: "Fining agent for wine/juice; dietary fibre in supplements",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "EU wine processing aid (fungal chitosan); EFSA-backed claim for maintaining normal LDL cholesterol at 3 g/day",
+    populations: ["crustacean allergy (shellfish-derived chitosan)"],
+    note: "A fibre made from crustacean shells or fungal cell walls. It clears wine and juice and, in supplements at 3 g/day, helps maintain normal LDL cholesterol. It can bind fat-soluble vitamins at high intake.",
+    ref: "EFSA NDA Panel 2011 opinion on chitosan and maintenance of normal blood LDL-cholesterol",
   },
 ];
 

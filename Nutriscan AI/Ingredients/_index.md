@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-220 profiled additives. Generated 2026-10-21.
+223 profiled additives. Generated 2026-10-21.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -222,3 +222,6 @@
 - [[Castor Oil (E1503)]] — glazing agent, MODERATE evidence, dominant=MEDIUM
 - [[Zein (corn protein glaze)]] — glazing agent, MODERATE evidence, dominant=LOW
 - [[Alitame (INS 956)]] — sweetener, LIMITED evidence, dominant=LOW
+- [[Tannic Acid (tannins)]] — flavour, MODERATE evidence, dominant=MEDIUM
+- [[Antimicrobial Wash & Sterilant Agents (peroxide, ozone, hypochlorite, peracetic acid)]] — preservative, MODERATE evidence, dominant=LOW
+- [[Chitosan]] — thickener, MODERATE evidence, dominant=LOW
