@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-223 profiled additives. Generated 2026-10-21.
+235 profiled additives. Generated 2026-10-21.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -225,3 +225,15 @@
 - [[Tannic Acid (tannins)]] — flavour, MODERATE evidence, dominant=MEDIUM
 - [[Antimicrobial Wash & Sterilant Agents (peroxide, ozone, hypochlorite, peracetic acid)]] — preservative, MODERATE evidence, dominant=LOW
 - [[Chitosan]] — thickener, MODERATE evidence, dominant=LOW
+- [[Extraction Solvents (hexane, acetone, methanol, methyl acetate…)]] — processing aid, MODERATE evidence, dominant=LOW
+- [[Dichloromethane (methylene chloride)]] — processing aid, MODERATE evidence, dominant=MEDIUM
+- [[Fast Green FCF (FD&C Green 3, E143)]] — coloring, LIMITED evidence, dominant=MEDIUM
+- [[Citrus Red No. 2]] — coloring, MODERATE evidence, dominant=HIGH
+- [[Gardenia Blue (genipin-glycine blue)]] — coloring, LIMITED evidence, dominant=LOW
+- [[Butterfly Pea Flower Extract]] — coloring, LIMITED evidence, dominant=LOW
+- [[Red Yeast Rice - Monascus (monacolins, angkak)]] — coloring, MODERATE evidence, dominant=HIGH
+- [[Restricted Flavour Principles (safrole, methyleugenol, estragole, pulegone, thujone…)]] — flavour, MODERATE evidence, dominant=HIGH
+- [[Coumarin]] — flavour, STRONG evidence, dominant=MEDIUM
+- [[Quinine (tonic water bitterness)]] — flavour, MODERATE evidence, dominant=MEDIUM
+- [[Glycyrrhizin - Liquorice Extract (INS 958)]] — sweetener, STRONG evidence, dominant=MEDIUM
+- [[Pungent Principles (capsaicin, capsicum oleoresin, piperine)]] — flavour, MODERATE evidence, dominant=MEDIUM
