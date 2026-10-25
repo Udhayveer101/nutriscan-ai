@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Sodium, Potassium & Ammonium Sulphates (E514/E515/E517)
 
 **Category:** acidity regulator  ·  **Function:** Carrier / pH control / yeast nutrient
 **Evidence strength:** MODERATE
-**E-number(s):** e514, e515, e517
+**E-number(s):** e514, e515, e517, e518
 **ADI:** not specified (JECFA)
 
 ## Concern by concentration

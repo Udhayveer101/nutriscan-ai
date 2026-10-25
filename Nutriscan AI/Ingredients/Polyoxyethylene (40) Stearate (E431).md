@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: emulsifier
 evidence: LIMITED
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Polyoxyethylene (40) Stearate (E431)
 
 **Category:** emulsifier  ·  **Function:** Synthetic emulsifier
 **Evidence strength:** LIMITED
-**E-number(s):** e431
+**E-number(s):** e431, e430
 **ADI:** 0–25 mg/kg bw/day (JECFA 1973)
 
 ## Concern by concentration

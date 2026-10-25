@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: stimulant
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Added Caffeine (incl. guarana, kola nut)

@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: coloring
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Plant-derived Colours (curcumin, paprika, lycopene, beetroot, anthocyanins)
 
 **Category:** coloring  ·  **Function:** Natural colour
 **Evidence strength:** STRONG
-**E-number(s):** e100, e160c, e160d, e162, e163
+**E-number(s):** e100, e160c, e160d, e162, e163, e164
 **ADI:** Curcumin 3, paprika extract 24, lycopene 0.5 mg/kg bw/day; beetroot red & anthocyanins not specified (EFSA)
 
 ## Concern by concentration

@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: anti-caking agent
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Silicates (silicon dioxide/calcium silicate/talc/bentonite)
 
 **Category:** anti-caking agent  ·  **Function:** Free-flow / anti-caking
 **Evidence strength:** MODERATE
-**E-number(s):** e551, e552, e553, e558
+**E-number(s):** e551, e552, e553, e558, e550, e557, e560
 **ADI:** not specified; nano-fraction of E551 under review
 
 ## Concern by concentration

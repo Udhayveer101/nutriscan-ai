@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: preservative
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Ethanol / Alcohol (E1510)

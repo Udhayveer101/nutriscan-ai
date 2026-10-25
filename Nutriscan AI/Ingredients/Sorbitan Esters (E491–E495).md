@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: emulsifier
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Sorbitan Esters (E491–E495)
 
 **Category:** emulsifier  ·  **Function:** Emulsifier / crystallisation control
 **Evidence strength:** MODERATE
-**E-number(s):** e491, e492, e493, e494, e495
+**E-number(s):** e491, e492, e493, e494, e495, e496
 **ADI:** 0–25 mg/kg bw/day as sorbitan esters (EFSA)
 
 ## Concern by concentration

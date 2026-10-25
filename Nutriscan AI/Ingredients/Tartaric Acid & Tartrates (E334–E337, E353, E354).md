@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Tartaric Acid & Tartrates (E334–E337, E353, E354)

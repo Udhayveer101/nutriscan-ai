@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: humectant
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Triacetin & Diacetin (E1518/E1517)
 
 **Category:** humectant  ·  **Function:** Humectant / carrier solvent
 **Evidence strength:** MODERATE
-**E-number(s):** e1518, e1517
+**E-number(s):** e1518, e1517, e1516
 **ADI:** 0–14 mg/kg bw/day (EFSA)
 
 ## Concern by concentration

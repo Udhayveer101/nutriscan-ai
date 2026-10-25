@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: antioxidant
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Gallates (Octyl/Dodecyl, E311/E312)

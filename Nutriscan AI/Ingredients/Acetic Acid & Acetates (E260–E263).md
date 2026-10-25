@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Acetic Acid & Acetates (E260–E263)
 
 **Category:** acidity regulator  ·  **Function:** Acidulant / preservative
 **Evidence strength:** STRONG
-**E-number(s):** e260, e261, e262, e263
+**E-number(s):** e260, e261, e262, e263, e264
 **ADI:** not specified (JECFA)
 
 ## Concern by concentration

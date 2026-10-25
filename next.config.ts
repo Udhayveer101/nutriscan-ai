@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
     },
   },
   poweredByHeader: false,
+  async rewrites() {
+    // Browsers request /favicon.ico regardless of <link rel=icon>; serve the SVG logo instead of a 404.
+    return [{ source: "/favicon.ico", destination: "/logo.svg" }];
+  },
   async headers() {
     // Baseline production security headers. No CSP here — Next inline styles/scripts and
     // the webcam make a strict CSP a separate, careful task (see vault Security Audit).

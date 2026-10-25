@@ -201,8 +201,8 @@ export const ADDITIVES: AdditiveProfile[] = [
     id: "azo-dyes", name: "Synthetic Colour Dyes (Red 40, Yellow 5/6, etc.)",
     keywords: ["indigo carmine", "cochineal red a", "red 40", "allura red", "yellow 5", "tartrazine", "yellow 6", "sunset yellow",
                "blue 1", "brilliant blue", "blue 2", "indigotine", "green 3", "ponceau",
-               "quinoline yellow", "carmoisine", "azorubine"],
-    eNumbers: ["e129", "e102", "e110", "e133", "e132", "e124", "e104", "e122"],
+               "quinoline yellow", "carmoisine", "azorubine", "fast green fcf", "fast green", "fd&c green no. 3", "fd&c green 3"],
+    eNumbers: ["e129", "e102", "e110", "e133", "e132", "e124", "e104", "e122", "e143"],
     category: "coloring", function: "Synthetic colour",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     regulatory: "Approved; EU mandates hyperactivity warning label",
@@ -223,8 +223,8 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA GRAS; Nickerson 2015 (gut microbiome)",
   },
   {
-    id: "modified-starch", name: "Modified Starch", keywords: ["osa starch", "modified starch", "modified food starch", "modified corn starch", "modified maize starch", "modified tapioca starch", "modified potato starch", "dextrin", "oxidised starch", "oxidized starch", "monostarch phosphate", "distarch phosphate", "acetylated starch", "starch acetate", "acetylated distarch adipate", "hydroxypropyl starch", "hydroxypropyl distarch phosphate", "acetylated oxidised starch", "starch sodium octenyl succinate", "sodium starch octenyl succinate", "acid treated starch", "acid-treated starch", "alkaline treated starch", "alkali treated starch", "bleached starch", "enzyme treated starch", "enzyme-treated starch"],
-    eNumbers: ["e1400", "e1401", "e1402", "e1403", "e1404", "e1405", "e1410", "e1412", "e1413", "e1414", "e1420", "e1422", "e1440", "e1442", "e1450", "e1451"],
+    id: "modified-starch", name: "Modified Starch", keywords: ["osa starch", "modified starch", "modified food starch", "modified corn starch", "modified maize starch", "modified tapioca starch", "modified potato starch", "dextrin", "oxidised starch", "oxidized starch", "monostarch phosphate", "distarch phosphate", "acetylated starch", "starch acetate", "acetylated distarch adipate", "hydroxypropyl starch", "hydroxypropyl distarch phosphate", "acetylated oxidised starch", "starch sodium octenyl succinate", "sodium starch octenyl succinate", "acid treated starch", "acid-treated starch", "alkaline treated starch", "alkali treated starch", "bleached starch", "enzyme treated starch", "enzyme-treated starch", "distarch glycerol"],
+    eNumbers: ["e1400", "e1401", "e1402", "e1403", "e1404", "e1405", "e1410", "e1412", "e1413", "e1414", "e1420", "e1422", "e1440", "e1442", "e1450", "e1451", "e1411"],
     category: "thickener", function: "Texture / stability",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "INSUFFICIENT",
     regulatory: "GRAS",
@@ -401,7 +401,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2015 cochineal; case reports",
   },
   {
-    id: "disodium-edta", name: "Disodium EDTA", keywords: ["edta", "disodium edta", "calcium disodium edta"], eNumbers: ["e385"],
+    id: "disodium-edta", name: "Disodium EDTA", keywords: ["edta", "disodium edta", "calcium disodium edta"], eNumbers: ["e385", "e386"],
     category: "antioxidant", function: "Sequestrant / preservative",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     adi: "2.5 mg/kg bw/day (EFSA)", regulatory: "Approved with limits",
@@ -409,7 +409,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2018 EDTA re-evaluation",
   },
   {
-    id: "sodium-phosphates", name: "Sodium/Potassium/Magnesium Phosphates", keywords: ["sodium phosphate", "potassium phosphate", "sodium dihydrogen phosphate", "magnesium phosphate", "trimagnesium phosphate", "dimagnesium phosphate", "monomagnesium phosphate", "sodium tripolyphosphate", "trisodium phosphate", "tetrasodium pyrophosphate", "pyrophosphate", "sodium hexametaphosphate", "hexametaphosphate", "polyphosphate"], eNumbers: ["e339", "e340", "e343", "e450", "e451", "e452"],
+    id: "sodium-phosphates", name: "Sodium/Potassium/Magnesium Phosphates", keywords: ["sodium phosphate", "potassium phosphate", "sodium dihydrogen phosphate", "magnesium phosphate", "trimagnesium phosphate", "dimagnesium phosphate", "monomagnesium phosphate", "sodium tripolyphosphate", "trisodium phosphate", "tetrasodium pyrophosphate", "pyrophosphate", "sodium hexametaphosphate", "hexametaphosphate", "polyphosphate", "ammonium phosphate", "diammonium phosphate", "monoammonium phosphate", "ammonium dihydrogen phosphate", "diammonium hydrogen phosphate"], eNumbers: ["e339", "e340", "e343", "e450", "e451", "e452", "e342"],
     category: "acidity regulator", function: "Emulsifying salt / stabiliser",
     dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     regulatory: "Approved; EFSA 2019 group phosphate ADI", populations: ["chronic kidney disease", "cardiovascular"],
@@ -474,7 +474,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2014 propionates",
   },
   {
-    id: "sodium-erythorbate", name: "Sodium Erythorbate", keywords: ["erythorbate"], eNumbers: ["e316"],
+    id: "sodium-erythorbate", name: "Sodium Erythorbate", keywords: ["erythorbate", "potassium erythorbate", "calcium erythorbate"], eNumbers: ["e316", "e317", "e318"],
     category: "antioxidant", function: "Antioxidant / cure accelerator",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Approved", note: "Isomer of vitamin C used to speed curing and prevent oxidation; low toxicity. Note: often accompanies nitrites in cured meats.",
@@ -521,21 +521,21 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2013 stearoyl lactylates",
   },
   {
-    id: "lactic-acid", name: "Lactic Acid", keywords: ["lactic acid", "sodium lactate", "potassium lactate", "calcium lactate"], eNumbers: ["e270", "e325", "e326", "e327"],
+    id: "lactic-acid", name: "Lactic Acid", keywords: ["lactic acid", "sodium lactate", "potassium lactate", "calcium lactate", "magnesium lactate"], eNumbers: ["e270", "e325", "e326", "e327", "e329"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; no ADI", note: "Naturally occurring (fermentation); benign acidulant and preservative.",
     ref: "EFSA lactic acid",
   },
   {
-    id: "malic-acid", name: "Malic Acid & Malates", keywords: ["malic acid", "sodium malate", "potassium malate", "calcium malate", "sodium hydrogen malate", "calcium hydrogen malate", "potassium hydrogen malate"], eNumbers: ["e296", "e350", "e351", "e352"],
+    id: "malic-acid", name: "Malic Acid & Malates", keywords: ["malic acid", "sodium malate", "potassium malate", "calcium malate", "sodium hydrogen malate", "calcium hydrogen malate", "potassium hydrogen malate", "ammonium malate"], eNumbers: ["e296", "e350", "e351", "e352", "e349"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; no ADI", note: "Found naturally in apples; benign tart flavouring/acidulant.",
     ref: "EFSA malic acid",
   },
   {
-    id: "sodium-citrate", name: "Sodium & Potassium Citrates", keywords: ["sodium citrate", "trisodium citrate", "potassium citrate", "tripotassium citrate", "monopotassium citrate", "ammonium citrate"], eNumbers: ["e331", "e332", "e380"],
+    id: "sodium-citrate", name: "Sodium & Potassium Citrates", keywords: ["sodium citrate", "trisodium citrate", "potassium citrate", "tripotassium citrate", "monopotassium citrate", "ammonium citrate", "magnesium citrate", "trimagnesium citrate"], eNumbers: ["e331", "e332", "e380", "e345"],
     category: "acidity regulator", function: "Buffer / emulsifying salt",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; no ADI", note: "Benign buffer and emulsifying salt (e.g. in processed cheese).",
@@ -642,7 +642,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA Journal 2017;15(3):4743",
   },
   {
-    id: "sorbitan-esters", name: "Sorbitan Esters (E491–E495)", keywords: ["sorbitan monostearate", "sorbitan tristearate", "sorbitan monolaurate", "span 20", "span 60", "span 65", "sorbitan monooleate", "sorbitan monopalmitate", "span 80", "span 40", "e491", "e492"], eNumbers: ["e491", "e492", "e493", "e494", "e495"],
+    id: "sorbitan-esters", name: "Sorbitan Esters (E491–E495)", keywords: ["sorbitan monostearate", "sorbitan tristearate", "sorbitan monolaurate", "span 20", "span 60", "span 65", "sorbitan monooleate", "sorbitan monopalmitate", "span 80", "span 40", "e491", "e492", "sorbitan tripalmitate"], eNumbers: ["e491", "e492", "e493", "e494", "e495", "e496"],
     category: "emulsifier", function: "Emulsifier / crystallisation control",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "0–25 mg/kg bw/day as sorbitan esters (EFSA)",
@@ -1247,7 +1247,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluations of carbonates; FDA GRAS",
   },
   {
-    id: "calcium-phosphates", name: "Calcium Phosphates (E341)", keywords: ["monocalcium phosphate", "dicalcium phosphate", "tricalcium phosphate", "calcium phosphate"], eNumbers: ["e341"],
+    id: "calcium-phosphates", name: "Calcium Phosphates (E341)", keywords: ["monocalcium phosphate", "dicalcium phosphate", "tricalcium phosphate", "calcium phosphate", "edible bone phosphate", "bone phosphate"], eNumbers: ["e341", "e542"],
     category: "raising agent", function: "Leavening acid / calcium source / anti-caking",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "group phosphate ADI 40 mg/kg as P (EFSA)",
@@ -1268,7 +1268,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Humectants ───────────────────────────────────────────
   {
-    id: "triacetin", name: "Triacetin & Diacetin (E1518/E1517)", keywords: ["diacetin", "glyceryl diacetate", "triacetin", "glyceryl triacetate", "glycerol triacetate"], eNumbers: ["e1518", "e1517"],
+    id: "triacetin", name: "Triacetin & Diacetin (E1518/E1517)", keywords: ["diacetin", "glyceryl diacetate", "triacetin", "glyceryl triacetate", "glycerol triacetate", "monoacetin", "glyceryl monoacetate", "glycerol monoacetate"], eNumbers: ["e1518", "e1517", "e1516"],
     category: "humectant", function: "Humectant / carrier solvent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "0–14 mg/kg bw/day (EFSA)",
@@ -1297,7 +1297,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA novel-food opinion on trehalose",
   },
   {
-    id: "polyol-syrups", name: "Polyols (maltitol/isomalt/sorbitol/polyglycitol syrups)", keywords: ["sorbitol syrup", "maltitol syrup", "maltitol", "isomalt", "polyglycitol syrup", "hydrogenated glucose syrup", "hydrogenated starch hydrolysate"], eNumbers: ["e953", "e964", "e965"],
+    id: "polyol-syrups", name: "Polyols (maltitol/isomalt/sorbitol/polyglycitol syrups)", keywords: ["sorbitol syrup", "maltitol syrup", "maltitol", "isomalt", "polyglycitol syrup", "hydrogenated glucose syrup", "hydrogenated starch hydrolysate", "sugar alcohol", "polyols"], eNumbers: ["e953", "e964", "e965"],
     category: "humectant", function: "Humectant / bulk sweetener syrup",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified; laxative-effect labelling required",
@@ -1327,7 +1327,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Anti-caking agents ───────────────────────────────────
   {
-    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite"], eNumbers: ["e551", "e552", "e553", "e558"],
+    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite", "zinc silicate", "potassium silicate"], eNumbers: ["e551", "e552", "e553", "e558", "e550", "e557", "e560"],
     category: "anti-caking agent", function: "Free-flow / anti-caking",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified; nano-fraction of E551 under review",
@@ -1389,7 +1389,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "WHO/IPCS ADA assessment; EU ban; FDA 21 CFR 172.806",
   },
   {
-    id: "flour-bleaching-oxidisers", name: "Flour Bleaching/Oxidising Agents (E926/E928/E930)", keywords: ["benzoyl peroxide", "chlorine dioxide", "calcium peroxide", "flour bleach"], eNumbers: ["e926", "e928", "e930"],
+    id: "flour-bleaching-oxidisers", name: "Flour Bleaching/Oxidising Agents (E926/E928/E930)", keywords: ["benzoyl peroxide", "chlorine dioxide", "calcium peroxide", "flour bleach", "potassium persulphate", "potassium persulfate", "ammonium persulphate", "ammonium persulfate", "chlorinated flour"], eNumbers: ["e926", "e928", "e930", "e922", "e923", "e925"],
     category: "flour treatment", function: "Bleaching / maturing agent",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "varies; largely spent during processing",
@@ -1440,7 +1440,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Vitamins & minerals (fortificants) ───────────────────
   {
-    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3"], eNumbers: ["e101", "e101a"],
+    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3", "nicotinic acid"], eNumbers: ["e101", "e101a", "e375"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1449,7 +1449,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA/IOM dietary reference values & upper limits",
   },
   {
-    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate"], eNumbers: ["e579", "e585", "e650"],
+    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate", "magnesium gluconate", "cupric sulphate", "cupric sulfate", "copper sulfate", "ferrous carbonate", "calcium glycerophosphate"], eNumbers: ["e579", "e585", "e650", "e505", "e519", "e580", "e383"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1460,8 +1460,8 @@ export const ADDITIVES: AdditiveProfile[] = [
   // ── Expansion 2026-09: colours ──────────────────────────────────────────────
   {
     id: "plant-colours", name: "Plant-derived Colours (curcumin, paprika, lycopene, beetroot, anthocyanins)",
-    keywords: ["curcumin", "turmeric extract", "turmeric oleoresin", "paprika extract", "paprika oleoresin", "capsanthin", "capsorubin", "lycopene", "beetroot red", "beet red", "betanin", "anthocyanin", "grape skin extract", "black carrot extract", "purple carrot extract", "beet juice concentrate", "beetroot juice concentrate"],
-    eNumbers: ["e100", "e160c", "e160d", "e162", "e163"],
+    keywords: ["curcumin", "turmeric extract", "turmeric oleoresin", "paprika extract", "paprika oleoresin", "capsanthin", "capsorubin", "lycopene", "beetroot red", "beet red", "betanin", "anthocyanin", "grape skin extract", "black carrot extract", "purple carrot extract", "beet juice concentrate", "beetroot juice concentrate", "saffron", "kesar", "crocin"],
+    eNumbers: ["e100", "e160c", "e160d", "e162", "e163", "e164"],
     category: "coloring", function: "Natural colour",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "Curcumin 3, paprika extract 24, lycopene 0.5 mg/kg bw/day; beetroot red & anthocyanins not specified (EFSA)",
@@ -1556,8 +1556,8 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA ANS 2013 re-evaluation of E284/E285",
   },
   {
-    id: "acetates", name: "Acetic Acid & Acetates (E260–E263)", keywords: ["acetic acid", "glacial acetic acid", "sodium acetate", "sodium diacetate", "potassium acetate", "calcium acetate"],
-    eNumbers: ["e260", "e261", "e262", "e263"],
+    id: "acetates", name: "Acetic Acid & Acetates (E260–E263)", keywords: ["acetic acid", "glacial acetic acid", "sodium acetate", "sodium diacetate", "potassium acetate", "calcium acetate", "ammonium acetate"],
+    eNumbers: ["e260", "e261", "e262", "e263", "e264"],
     category: "acidity regulator", function: "Acidulant / preservative",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1576,7 +1576,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA FAF 2020 re-evaluation of E334–E337 and E354",
   },
   {
-    id: "fumaric-acid", name: "Fumaric Acid (E297)", keywords: ["fumaric acid"], eNumbers: ["e297"],
+    id: "fumaric-acid", name: "Fumaric Acid (E297)", keywords: ["fumaric acid", "sodium fumarate", "potassium fumarate", "calcium fumarate", "ammonium fumarate"], eNumbers: ["e297", "e365", "e366", "e367", "e368"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "6 mg/kg bw/day (SCF 1990)",
@@ -1594,8 +1594,8 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "JECFA; FDA 21 CFR 182.1057/184.1095",
   },
   {
-    id: "sulphate-salts", name: "Sodium, Potassium & Ammonium Sulphates (E514/E515/E517)", keywords: ["sodium sulphate", "sodium sulfate", "potassium sulphate", "potassium sulfate", "ammonium sulphate", "ammonium sulfate", "potassium hydrogen sulphate"],
-    eNumbers: ["e514", "e515", "e517"],
+    id: "sulphate-salts", name: "Sodium, Potassium & Ammonium Sulphates (E514/E515/E517)", keywords: ["sodium sulphate", "sodium sulfate", "potassium sulphate", "potassium sulfate", "ammonium sulphate", "ammonium sulfate", "potassium hydrogen sulphate", "magnesium sulphate", "magnesium sulfate", "epsom salt"],
+    eNumbers: ["e514", "e515", "e517", "e518"],
     category: "acidity regulator", function: "Carrier / pH control / yeast nutrient",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified (JECFA)",
@@ -1633,8 +1633,8 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "glazing-waxes", name: "Glazing Waxes (beeswax, candelilla, microcrystalline, montan, PE wax)",
-    keywords: ["beeswax", "bees wax", "candelilla", "microcrystalline wax", "montan acid ester", "oxidised polyethylene wax", "oxidized polyethylene wax"],
-    eNumbers: ["e901", "e902", "e905", "e912", "e914"],
+    keywords: ["beeswax", "bees wax", "candelilla", "microcrystalline wax", "montan acid ester", "oxidised polyethylene wax", "oxidized polyethylene wax", "rice bran wax", "lanolin", "wool fat", "wool wax"],
+    eNumbers: ["e901", "e902", "e905", "e912", "e914", "e908", "e913"],
     category: "stabilizer", function: "Glazing / coating agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "EU-approved for surface treatment (fruit, confectionery); montan esters & PE wax only on citrus/fruit peel",
@@ -1731,7 +1731,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA ANS 2017 re-evaluation of E425; Commission Decision 2004/374/EC",
   },
   {
-    id: "gelatin", name: "Gelatin", keywords: ["gelatin", "gelatine", "bovine gelatin", "pork gelatin"], eNumbers: [],
+    id: "gelatin", name: "Gelatin", keywords: ["gelatin", "gelatine", "bovine gelatin", "pork gelatin"], eNumbers: ["e441"],
     category: "thickener", function: "Gelling agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "A food ingredient (not an E-number in the EU); GRAS",
@@ -1982,7 +1982,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   // ── Expansion 2026-10: remaining EU codes, energy-drink actives, protein isolates ──
   {
     id: "polyoxyethylene-stearate", name: "Polyoxyethylene (40) Stearate (E431)",
-    keywords: ["polyoxyethylene (40) stearate", "polyoxyethylene 40 stearate", "polyoxyethylene stearate", "polyoxyl 40 stearate", "peg-40 stearate"], eNumbers: ["e431"],
+    keywords: ["polyoxyethylene (40) stearate", "polyoxyethylene 40 stearate", "polyoxyethylene stearate", "polyoxyl 40 stearate", "peg-40 stearate", "polyoxyethylene (8) stearate", "polyoxyethylene 8 stearate", "polyoxyl 8 stearate"], eNumbers: ["e431", "e430"],
     category: "emulsifier", function: "Synthetic emulsifier",
     dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
     adi: "0–25 mg/kg bw/day (JECFA 1973)",
@@ -2033,7 +2033,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "ethyl-acetate", name: "Ethyl Acetate (extraction solvent / flavouring)",
-    keywords: ["ethyl acetate", "ethyl ethanoate"], eNumbers: [],
+    keywords: ["ethyl acetate", "ethyl ethanoate"], eNumbers: ["e1504"],
     category: "flavour", function: "Decaffeination and extraction solvent; fruity flavouring",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "0–25 mg/kg bw/day (JECFA)",
@@ -2070,6 +2070,74 @@ export const ADDITIVES: AdditiveProfile[] = [
     populations: ["soy, milk or wheat allergy, depending on source"],
     note: "Proteins extracted from soy, pea, milk or wheat, or extruded into meat-like pieces. Nutritionally fine, but NOVA lists them as industrial ingredients that mark a food as ultra-processed.",
     ref: "Monteiro et al. 2019, NOVA classification (Public Health Nutr 22:936)",
+  },
+  {
+    id: "glycyrrhizin", name: "Glycyrrhizin / Liquorice Extract (INS 958)",
+    keywords: ["glycyrrhizin", "glycyrrhizic acid", "glycyrrhizinic acid", "ammonium glycyrrhizinate", "monoammonium glycyrrhizinate", "liquorice extract", "licorice extract", "liquorice root", "licorice root", "liquorice", "licorice", "mulethi"],
+    eNumbers: ["e958"],
+    category: "sweetener", function: "Sweetener / liquorice flavour",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    adi: "Upper limit 100 mg glycyrrhizic acid/day for regular intake (SCF 2003)",
+    regulatory: "EU flavouring with mandatory 'contains liquorice' label at ≥100 mg/kg (hypertension warning at ≥4 g/kg in confectionery); FDA GRAS as a flavour",
+    populations: ["hypertension", "heart or kidney disease", "pregnancy", "people on diuretics or potassium-lowering drugs"],
+    note: "Glycyrrhizin is 50× sweeter than sugar. Regular intake above about 100 mg/day can raise blood pressure and lower potassium (pseudo-aldosteronism), which is why EU labels must say 'contains liquorice'. Harmless in the small amounts used as flavour.",
+    ref: "SCF opinion 4 Apr 2003 on glycyrrhizinic acid; Reg. (EU) 1169/2011 Annex III; BfR 2009",
+  },
+  {
+    id: "dehydroacetic-acid", name: "Dehydroacetic Acid & Sodium Dehydroacetate (INS 265/266)",
+    keywords: ["dehydroacetic acid", "sodium dehydroacetate", "dehydroacetate"], eNumbers: ["e265", "e266"],
+    category: "preservative", function: "Antifungal preservative",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA: cut or peeled squash only, ≤65 ppm residue (21 CFR 172.130); not authorised as a food additive in the EU or Australia/NZ",
+    note: "A synthetic pyrone preservative, unrelated to vinegar despite the name. The US permits it only on cut squash at trace residue levels; the EU never authorised it for food.",
+    ref: "21 CFR 172.130",
+  },
+  {
+    id: "curdlan", name: "Curdlan (INS 424)", keywords: ["curdlan"], eNumbers: ["e424"],
+    category: "thickener", function: "Heat-set gelling agent",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "Not specified (JECFA 2001)",
+    regulatory: "FDA food additive (21 CFR 172.809); JECFA ADI not specified; not authorised in the EU",
+    note: "A fermentation-made glucose polymer (β-1,3-glucan) that forms a firm gel when heated, used in noodles, tofu and meat analogues. It is largely indigestible, behaving like fibre.",
+    ref: "JECFA 57th meeting (2001); 21 CFR 172.809",
+  },
+  {
+    id: "tannic-acid", name: "Tannic Acid (INS 181)", keywords: ["tannic acid", "gallotannin", "food grade tannin"], eNumbers: ["e181"],
+    category: "processing aid", function: "Clarifying agent / flavour adjunct",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "Not specified (JECFA 1989)",
+    regulatory: "FDA GRAS with use limits (21 CFR 184.1097); JECFA ADI not specified when removed after use",
+    note: "Plant gallotannins used to clarify beer and wine and as a flavour adjunct. The same astringent polyphenols occur naturally in tea and wine; no concern at the levels used.",
+    ref: "21 CFR 184.1097; JECFA 35th meeting (1989)",
+  },
+  {
+    id: "alitame", name: "Alitame (INS 956)", keywords: ["alitame", "aclame"], eNumbers: ["e956"],
+    category: "sweetener", function: "Intense sweetener (≈2000× sugar)",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    adi: "0–1 mg/kg bw/day (JECFA 1996, maintained 2002)",
+    regulatory: "Permitted in Australia/NZ, China, Mexico and some others; not authorised in the EU or US (FDA petition never approved)",
+    note: "A dipeptide intense sweetener (aspartic acid + alanine amide). JECFA set an ADI, but few regulators approved it and long-term human data are sparse. It does not contain phenylalanine.",
+    ref: "JECFA 46th (1996) and 59th (2002) meetings",
+  },
+  {
+    id: "sodium-lauryl-sulfate", name: "Sodium Lauryl Sulfate (INS 487)",
+    keywords: ["sodium lauryl sulfate", "sodium lauryl sulphate", "sodium dodecyl sulfate", "sodium dodecyl sulphate"], eNumbers: ["e487"],
+    category: "emulsifier", function: "Whipping aid / surfactant",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA: ≤1000 ppm in dried egg whites, 125 ppm in liquid/frozen whites, 0.5% of gelatin in marshmallows (21 CFR 172.822); not authorised in the EU",
+    note: "A synthetic detergent-type surfactant added to dried egg whites and marshmallow so they whip faster. Residues are small, but it is an industrial processing marker with no EU approval.",
+    ref: "21 CFR 172.822",
+  },
+  {
+    id: "free-amino-acids", name: "Free-Form Amino Acids (BCAAs, L-lysine, L-arginine…)",
+    keywords: ["leucine", "l-leucine", "l-isoleucine", "l-valine", "bcaa", "branched-chain amino acid", "branched chain amino acid", "l-lysine", "lysine hydrochloride", "lysine hcl", "l-arginine", "l-glutamine", "l-citrulline", "l-methionine", "l-threonine", "l-tryptophan"],
+    eNumbers: ["e641", "e642"],
+    category: "nutrient", function: "Protein fortification / sports supplement",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "Nutrient sources/flavourings; EFSA found no concern as flavourings; VKM could not draw conclusions on BCAA supplement doses for lack of data",
+    populations: ["kidney or liver disease (high-dose supplements)"],
+    note: "Single amino acids from fermentation, the same ones found in dietary protein. Food-level amounts are unremarkable; multi-gram supplement doses have little long-term safety data.",
+    ref: "VKM assessment of L-leucine/isoleucine/valine in supplements; Reg. (EU) 2015/649 (EFSA 2007 flavouring opinion)",
   },
 ];
 

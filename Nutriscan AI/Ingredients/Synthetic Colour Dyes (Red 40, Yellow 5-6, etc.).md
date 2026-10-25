@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: coloring
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Synthetic Colour Dyes (Red 40, Yellow 5/6, etc.)
 
 **Category:** coloring  ·  **Function:** Synthetic colour
 **Evidence strength:** MODERATE
-**E-number(s):** e129, e102, e110, e133, e132, e124, e104, e122
+**E-number(s):** e129, e102, e110, e133, e132, e124, e104, e122, e143
 
 
 ## Concern by concentration

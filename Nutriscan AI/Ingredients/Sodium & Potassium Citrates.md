@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Sodium & Potassium Citrates
 
 **Category:** acidity regulator  ·  **Function:** Buffer / emulsifying salt
 **Evidence strength:** STRONG
-**E-number(s):** e331, e332, e380
+**E-number(s):** e331, e332, e380, e345
 
 
 ## Concern by concentration

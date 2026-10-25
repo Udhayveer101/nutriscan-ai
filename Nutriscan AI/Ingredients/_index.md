@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-212 profiled additives. Generated 2026-10-11.
+219 profiled additives. Generated 2026-10-25.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -214,3 +214,10 @@
 - [[Added Caffeine (incl. guarana, kola nut)]] — stimulant, STRONG evidence, dominant=MEDIUM
 - [[Taurine & Glucuronolactone (energy-drink actives)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Protein Isolates & Textured Proteins]] — protein, MODERATE evidence, dominant=LOW
+- [[Glycyrrhizin - Liquorice Extract (INS 958)]] — sweetener, STRONG evidence, dominant=MEDIUM
+- [[Dehydroacetic Acid & Sodium Dehydroacetate (INS 265-266)]] — preservative, LIMITED evidence, dominant=MEDIUM
+- [[Curdlan (INS 424)]] — thickener, MODERATE evidence, dominant=LOW
+- [[Tannic Acid (INS 181)]] — processing aid, MODERATE evidence, dominant=LOW
+- [[Alitame (INS 956)]] — sweetener, LIMITED evidence, dominant=MEDIUM
+- [[Sodium Lauryl Sulfate (INS 487)]] — emulsifier, LIMITED evidence, dominant=MEDIUM
+- [[Free-Form Amino Acids (BCAAs, L-lysine, L-arginine…)]] — nutrient, LIMITED evidence, dominant=LOW

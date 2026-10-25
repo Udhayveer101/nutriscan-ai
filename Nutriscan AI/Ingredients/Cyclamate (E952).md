@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: sweetener
 evidence: MODERATE
-last_reviewed: 2026-10-11
+last_reviewed: 2026-10-25
 ---
 
 # Cyclamate (E952)
