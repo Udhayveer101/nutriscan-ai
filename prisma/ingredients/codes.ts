@@ -64,6 +64,9 @@ export const FIXES: Record<string, Fix> = {
   "niacin": { remove: ["nicotinic acid"] },
   "nicotinic-acid": { remove: ["niacin", "vitamin B3"] },
   "beta-cyclodextrin": { remove: ["cyclodextrin"] },
+  "cherry": { remove: ["sour cherries", "morello cherries"] },   // sour cherry is its own species (batch 30)
+  "broccoli": { remove: ["tenderstem broccoli"] },             // tenderstem is broccolini (batch 31)
+  "green-chilli": { remove: ["serrano chilli"] },              // serrano has its own row (batch 31)
   // Rows that had no alternative name or code.
   "maltodextrin": { add: ["maltodextrine", "malto-dextrin"] },
   "potato-starch": { add: ["native potato starch", "unmodified potato starch"] },
