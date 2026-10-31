@@ -9,7 +9,7 @@ last_reviewed: 2026-10-31
 
 **Category:** raising agent  ·  **Function:** Leavening acid / calcium source / anti-caking
 **Evidence strength:** MODERATE
-**E-number(s):** e341, e542
+**E-number(s):** e450vi, e450vii, e341, e542
 **ADI:** group phosphate ADI 40 mg/kg as P (EFSA)
 
 ## Concern by concentration

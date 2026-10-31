@@ -9,7 +9,7 @@ last_reviewed: 2026-10-31
 
 **Category:** acidity regulator  ·  **Function:** Acidulant
 **Evidence strength:** STRONG
-**E-number(s):** e270, e325, e326, e327, e329
+**E-number(s):** e328, e270, e325, e326, e327, e329
 
 
 ## Concern by concentration

@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-249 profiled additives. Generated 2026-10-31.
+258 profiled additives. Generated 2026-10-31.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -214,6 +214,15 @@
 - [[Added Caffeine (incl. guarana, kola nut)]] — stimulant, STRONG evidence, dominant=MEDIUM
 - [[Taurine & Glucuronolactone (energy-drink actives)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Protein Isolates & Textured Proteins]] — protein, MODERATE evidence, dominant=LOW
+- [[Thiodipropionic Acid & Esters (INS 388–390)]] — antioxidant, LIMITED evidence, dominant=LOW
+- [[Little-used Codex Additives (sequestrants, emulsifiers, carriers)]] — stabilizer, LIMITED evidence, dominant=LOW
+- [[Margarine, Shortening & Vanaspati (blended vegetable fats)]] — fat, MODERATE evidence, dominant=MEDIUM
+- [[Supplement Actives (polyphenols, joint and 'longevity' compounds)]] — nutrient, LIMITED evidence, dominant=LOW
+- [[Drug-like Supplement Actives (melatonin, 5-HTP, berberine, synephrine)]] — stimulant, MODERATE evidence, dominant=MEDIUM
+- [[Unapproved Synthetic Stimulants (DMHA, DMAA-type)]] — stimulant, MODERATE evidence, dominant=CRITICAL
+- [[Traditional Herbal Botanicals (Ayurvedic, TCM, Western herbal)]] — nutrient, LIMITED evidence, dominant=LOW
+- [[Herbs with Liver, Kidney or Interaction Risks (ashwagandha, kava, St John's wort…)]] — nutrient, MODERATE evidence, dominant=MEDIUM
+- [[Processed Meat (cured, smoked or salted)]] — protein, STRONG evidence, dominant=HIGH
 - [[Ethoxyquin (INS 324)]] — antioxidant, LIMITED evidence, dominant=MEDIUM
 - [[Sodium Stearyl Fumarate]] — anti-caking agent, LIMITED evidence, dominant=LOW
 - [[Olestra (sucrose polyester)]] — fat, MODERATE evidence, dominant=MEDIUM

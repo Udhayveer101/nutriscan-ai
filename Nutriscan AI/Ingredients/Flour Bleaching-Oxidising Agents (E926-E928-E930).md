@@ -9,7 +9,7 @@ last_reviewed: 2026-10-31
 
 **Category:** flour treatment  ·  **Function:** Bleaching / maturing agent
 **Evidence strength:** MODERATE
-**E-number(s):** e926, e928, e930, e922, e923, e925
+**E-number(s):** e925, e926, e928, e930, e922, e923, e925
 **ADI:** varies; largely spent during processing
 
 ## Concern by concentration

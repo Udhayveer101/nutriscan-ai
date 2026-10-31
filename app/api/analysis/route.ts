@@ -129,20 +129,25 @@ export async function POST(req: NextRequest) {
     }));
 
     // 5. Detect allergens + apply user prefs (prefs already fetched in step 2)
-    const allIngredientNames = ingredientExplanations.map((i) => i.normalizedName ?? i.rawName);
+    // Allergens are checked against BOTH the label text and the row it linked to. Linking
+    // can drop the allergen word ("Hydrolysed Soy Protein" → Hydrolysed Vegetable Protein,
+    // "Emulsifier (Soy Lecithin)" → Lecithin), so the raw text must still be read.
+    const namesOf = (i: { rawName: string; normalizedName?: string | null }) =>
+      i.normalizedName && i.normalizedName !== i.rawName ? [i.rawName, i.normalizedName] : [i.rawName];
+    const allIngredientNames = ingredientExplanations.flatMap(namesOf);
     const allergens = detectAllergens(allIngredientNames);
 
     const userAllergens = userPrefs?.allergens ?? [];
     const userAvoidList = userPrefs?.avoidList ?? [];
 
     const personalFlags = ingredientExplanations.map((ing) => {
-      const name = (ing.normalizedName ?? ing.rawName).toLowerCase();
+      const names = namesOf(ing).map((n) => n.toLowerCase());
       // Word-boundary match (allergenPattern) — plain substring matching false-flagged
       // e.g. user allergen "oat" against "sodium benzOATe".
       const triggersUserAllergen = userAllergens.some((a) =>
-        allergenPattern(a).test(name) || allergens.some((m) => m.allergen === a && m.matchedIngredient.toLowerCase() === name)
+        names.some((name) => allergenPattern(a).test(name) || allergens.some((m) => m.allergen === a && m.matchedIngredient.toLowerCase() === name))
       );
-      const triggersUserAvoid = userAvoidList.some((a) => allergenPattern(a).test(name));
+      const triggersUserAvoid = userAvoidList.some((a) => names.some((name) => allergenPattern(a).test(name)));
       return { ...ing, triggersUserAllergen, triggersUserAvoid };
     });
 
