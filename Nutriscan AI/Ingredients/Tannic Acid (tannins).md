@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: flavour
 evidence: MODERATE
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Tannic Acid (tannins)
 
 **Category:** flavour  ·  **Function:** Clarifying agent for beer/wine/juice; astringent flavouring
 **Evidence strength:** MODERATE
-
+**E-number(s):** e181
 
 
 ## Concern by concentration

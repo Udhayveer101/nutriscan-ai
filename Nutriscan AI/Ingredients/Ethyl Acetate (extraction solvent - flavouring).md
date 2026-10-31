@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: flavour
 evidence: STRONG
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Ethyl Acetate (extraction solvent / flavouring)
 
 **Category:** flavour  ·  **Function:** Decaffeination and extraction solvent; fruity flavouring
 **Evidence strength:** STRONG
-
+**E-number(s):** e1504
 **ADI:** 0–25 mg/kg bw/day (JECFA)
 
 ## Concern by concentration

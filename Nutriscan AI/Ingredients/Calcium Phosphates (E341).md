@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: raising agent
 evidence: MODERATE
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Calcium Phosphates (E341)
 
 **Category:** raising agent  ·  **Function:** Leavening acid / calcium source / anti-caking
 **Evidence strength:** MODERATE
-**E-number(s):** e341
+**E-number(s):** e341, e542
 **ADI:** group phosphate ADI 40 mg/kg as P (EFSA)
 
 ## Concern by concentration

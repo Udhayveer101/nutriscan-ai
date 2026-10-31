@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: anti-caking agent
 evidence: MODERATE
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Mineral Anti-caking Agents (magnesium oxide, ammonium ferric citrate)

@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: coloring
 evidence: MODERATE
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Red 2G (E128)

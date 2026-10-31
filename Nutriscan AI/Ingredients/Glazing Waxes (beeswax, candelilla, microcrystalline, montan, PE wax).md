@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: stabilizer
 evidence: MODERATE
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Glazing Waxes (beeswax, candelilla, microcrystalline, montan, PE wax)
 
 **Category:** stabilizer  ·  **Function:** Glazing / coating agent
 **Evidence strength:** MODERATE
-**E-number(s):** e901, e902, e905, e912, e914
+**E-number(s):** e901, e902, e905, e912, e914, e908, e913
 
 
 ## Concern by concentration

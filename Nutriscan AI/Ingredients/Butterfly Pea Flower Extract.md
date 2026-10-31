@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: coloring
 evidence: LIMITED
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Butterfly Pea Flower Extract

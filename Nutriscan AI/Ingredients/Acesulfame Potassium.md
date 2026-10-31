@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: sweetener
 evidence: LIMITED
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Acesulfame Potassium

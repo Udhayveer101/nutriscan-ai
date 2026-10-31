@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-247 profiled additives. Generated 2026-10-21.
+249 profiled additives. Generated 2026-10-31.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -249,3 +249,5 @@
 - [[Yohimbe Bark (yohimbine)]] — stimulant, MODERATE evidence, dominant=CRITICAL
 - [[Aloe-emodin, Emodin, Danthron & Aloe Latex]] — processing aid, MODERATE evidence, dominant=CRITICAL
 - [[Senna, Cascara, Frangula & Rhubarb Root]] — processing aid, MODERATE evidence, dominant=HIGH
+- [[Dehydroacetic Acid & Sodium Dehydroacetate (INS 265-266)]] — preservative, LIMITED evidence, dominant=MEDIUM
+- [[Curdlan (INS 424)]] — thickener, MODERATE evidence, dominant=LOW

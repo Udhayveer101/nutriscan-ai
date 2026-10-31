@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: nutrient
 evidence: MODERATE
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Taurine & Glucuronolactone (energy-drink actives)

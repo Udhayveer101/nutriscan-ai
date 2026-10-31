@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: emulsifier
 evidence: LIMITED
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Sodium Lauryl Sulfate
 
 **Category:** emulsifier  ·  **Function:** Whipping aid for egg whites; wetting agent
 **Evidence strength:** LIMITED
-
+**E-number(s):** e487
 
 
 ## Concern by concentration

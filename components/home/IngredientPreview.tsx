@@ -28,7 +28,7 @@ export function IngredientPreview() {
             INGREDIENT DATABASE
           </div>
           <h2 className="font-heading font-extrabold text-[28px] md:text-[40px] leading-[1.02] tracking-[-.025em] mt-3.5" style={{ color: "var(--ink)" }}>
-            300+ ingredients,<br />decoded for you
+            500+ ingredients,<br />decoded for you
           </h2>
         </div>
         <Link href="/ingredients" className="glass px-[18px] py-3 rounded-xl font-semibold text-[14px] transition-transform hover:-translate-y-0.5" style={{ color: "var(--ink-3)" }}>

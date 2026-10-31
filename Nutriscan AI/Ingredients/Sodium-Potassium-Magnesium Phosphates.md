@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: MODERATE
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Sodium/Potassium/Magnesium Phosphates
 
 **Category:** acidity regulator  ·  **Function:** Emulsifying salt / stabiliser
 **Evidence strength:** MODERATE
-**E-number(s):** e339, e340, e343, e450, e451, e452
+**E-number(s):** e339, e340, e343, e450, e451, e452, e342
 
 
 ## Concern by concentration

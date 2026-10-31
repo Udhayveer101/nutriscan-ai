@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: thickener
 evidence: STRONG
-last_reviewed: 2026-10-21
+last_reviewed: 2026-10-31
 ---
 
 # Konjac Gum / Glucomannan (E425)
