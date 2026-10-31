@@ -69,6 +69,21 @@ export const FIXES: Record<string, Fix> = {
   "green-chilli": { remove: ["serrano chilli"] },              // serrano has its own row (batch 31)
   "cinnamon": { remove: ["cassia cinnamon"] },
   "sacha-inchi-oil": { remove: ["sacha inchi"] },
+  "calcium-disodium-edta": { remove: ["disodium EDTA"] },        // E386 has its own row (batch 37)
+  // Rows that came in without the code their substance carries (main's weekly batches).
+  "magnesium-citrate": { eNumber: "E345" },
+  "calcium-glycerophosphate": { eNumber: "E383" },
+  "ferrous-carbonate": { eNumber: "E505" },
+  "magnesium-sulphate": { eNumber: "E518" },
+  "copper-sulphate": { eNumber: "E519" },
+  "l-leucine": { eNumber: "E641" },
+  "sodium-lauryl-sulfate": { eNumber: "E487" },
+  "tannic-acid": { eNumber: "E181" },
+  "papain": { eNumber: "E1101(ii)" },
+  "bromelain": { eNumber: "E1101(iii)" },
+  "glucose-oxidase": { eNumber: "E1102" },
+  // STPP keeps the bare E451 most labels print; the potassium salt is E451(ii) (batch 37).
+  "sodium-tripolyphosphate": { eNumber: "E451(i)", add: ["INS 451", "pentasodium triphosphate", "pentasodium tripolyphosphate"] },
   // Common label spellings that earlier rows were missing (from the label benchmark).
   "cumin-seed": { add: ["cumin", "cumin powder", "ground cumin"] },
   "vitamin-d": { add: ["vitamin d3", "vitamin d2", "ergocalciferol"] },

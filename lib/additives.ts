@@ -282,7 +282,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   // Nutrients / benign — positive or neutral, to prevent false penalties.
   // ───────────────────────────────────────────────────────────────────────────
   {
-    id: "ascorbic-acid", name: "Ascorbic Acid (Vitamin C)", keywords: ["ascorbic acid", "vitamin c", "sodium ascorbate", "calcium ascorbate", "potassium ascorbate", "magnesium ascorbate", "zinc ascorbate", "magnesium l-ascorbate"], eNumbers: ["e300", "e301", "e302"],
+    id: "ascorbic-acid", name: "Ascorbic Acid (Vitamin C)", keywords: ["ascorbic acid", "vitamin c", "sodium ascorbate", "calcium ascorbate", "potassium ascorbate", "magnesium ascorbate", "zinc ascorbate", "magnesium l-ascorbate"], eNumbers: ["e303", "e300", "e301", "e302"],
     category: "antioxidant", function: "Antioxidant / vitamin",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; essential nutrient",
@@ -401,7 +401,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2015 cochineal; case reports",
   },
   {
-    id: "disodium-edta", name: "Disodium EDTA", keywords: ["edta", "disodium edta", "calcium disodium edta"], eNumbers: ["e385", "e386"],
+    id: "disodium-edta", name: "Disodium EDTA", keywords: ["edetate disodium", "disodium edetate", "disodium ethylenediaminetetraacetate", "edta", "disodium edta", "calcium disodium edta"], eNumbers: ["e385", "e386"],
     category: "antioxidant", function: "Sequestrant / preservative",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     adi: "2.5 mg/kg bw/day (EFSA)", regulatory: "Approved with limits",
@@ -409,7 +409,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2018 EDTA re-evaluation",
   },
   {
-    id: "sodium-phosphates", name: "Sodium/Potassium/Magnesium Phosphates", keywords: ["sodium phosphate", "potassium phosphate", "sodium dihydrogen phosphate", "magnesium phosphate", "trimagnesium phosphate", "dimagnesium phosphate", "monomagnesium phosphate", "sodium tripolyphosphate", "trisodium phosphate", "tetrasodium pyrophosphate", "pyrophosphate", "sodium hexametaphosphate", "hexametaphosphate", "polyphosphate", "ammonium phosphate", "diammonium phosphate", "monoammonium phosphate", "ammonium dihydrogen phosphate", "diammonium hydrogen phosphate"], eNumbers: ["e339", "e340", "e343", "e450", "e451", "e452", "e342"],
+    id: "sodium-phosphates", name: "Sodium/Potassium/Magnesium Phosphates", keywords: ["trisodium diphosphate", "dipotassium diphosphate", "tetrapotassium diphosphate", "magnesium dihydrogen diphosphate", "pentasodium triphosphate", "pentapotassium triphosphate", "sodium tripolyphosphate", "sodium phosphate", "potassium phosphate", "sodium dihydrogen phosphate", "magnesium phosphate", "trimagnesium phosphate", "dimagnesium phosphate", "monomagnesium phosphate", "sodium tripolyphosphate", "trisodium phosphate", "tetrasodium pyrophosphate", "pyrophosphate", "sodium hexametaphosphate", "hexametaphosphate", "polyphosphate", "ammonium phosphate", "diammonium phosphate", "monoammonium phosphate", "ammonium dihydrogen phosphate", "diammonium hydrogen phosphate"], eNumbers: ["e339", "e340", "e343", "e450", "e451", "e452", "e342"],
     category: "acidity regulator", function: "Emulsifying salt / stabiliser",
     dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     regulatory: "Approved; EFSA 2019 group phosphate ADI", populations: ["chronic kidney disease", "cardiovascular"],
@@ -521,14 +521,14 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2013 stearoyl lactylates",
   },
   {
-    id: "lactic-acid", name: "Lactic Acid", keywords: ["lactic acid", "sodium lactate", "potassium lactate", "calcium lactate", "magnesium lactate"], eNumbers: ["e270", "e325", "e326", "e327", "e329"],
+    id: "lactic-acid", name: "Lactic Acid", keywords: ["ammonium lactate", "lactic acid", "sodium lactate", "potassium lactate", "calcium lactate", "magnesium lactate"], eNumbers: ["e328", "e270", "e325", "e326", "e327", "e329"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; no ADI", note: "Naturally occurring (fermentation); benign acidulant and preservative.",
     ref: "EFSA lactic acid",
   },
   {
-    id: "malic-acid", name: "Malic Acid & Malates", keywords: ["malic acid", "sodium malate", "potassium malate", "calcium malate", "sodium hydrogen malate", "calcium hydrogen malate", "potassium hydrogen malate", "ammonium malate"], eNumbers: ["e296", "e350", "e351", "e352", "e349"],
+    id: "malic-acid", name: "Malic Acid & Malates", keywords: ["malic acid", "sodium malate", "potassium malate", "calcium malate", "sodium hydrogen malate", "calcium hydrogen malate", "potassium hydrogen malate", "ammonium malate"], eNumbers: ["e349", "e296", "e350", "e351", "e352", "e349"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; no ADI", note: "Found naturally in apples; benign tart flavouring/acidulant.",
@@ -1134,7 +1134,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluation of citrates; FDA GRAS",
   },
   {
-    id: "adipic-acid", name: "Adipic Acid & Adipates (E355–E357)", keywords: ["adipic acid", "sodium adipate", "potassium adipate", "adipate"], eNumbers: ["e355", "e356", "e357"],
+    id: "adipic-acid", name: "Adipic Acid & Adipates (E355–E357)", keywords: ["adipic acid", "sodium adipate", "potassium adipate", "adipate"], eNumbers: ["e359", "e355", "e356", "e357"],
     category: "acidity regulator", function: "Tart acidulant / buffer",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "0–5 mg/kg bw/day (JECFA)",
@@ -1247,7 +1247,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluations of carbonates; FDA GRAS",
   },
   {
-    id: "calcium-phosphates", name: "Calcium Phosphates (E341)", keywords: ["monocalcium phosphate", "dicalcium phosphate", "tricalcium phosphate", "calcium phosphate", "edible bone phosphate", "bone phosphate"], eNumbers: ["e341", "e542"],
+    id: "calcium-phosphates", name: "Calcium Phosphates (E341)", keywords: ["dicalcium diphosphate", "calcium dihydrogen diphosphate", "calcium pyrophosphate", "monocalcium phosphate", "dicalcium phosphate", "tricalcium phosphate", "calcium phosphate", "edible bone phosphate", "bone phosphate"], eNumbers: ["e450vi", "e450vii", "e341", "e542"],
     category: "raising agent", function: "Leavening acid / calcium source / anti-caking",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "group phosphate ADI 40 mg/kg as P (EFSA)",
@@ -1389,7 +1389,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "WHO/IPCS ADA assessment; EU ban; FDA 21 CFR 172.806",
   },
   {
-    id: "flour-bleaching-oxidisers", name: "Flour Bleaching/Oxidising Agents (E926/E928/E930)", keywords: ["benzoyl peroxide", "chlorine dioxide", "calcium peroxide", "flour bleach", "potassium persulphate", "potassium persulfate", "ammonium persulphate", "ammonium persulfate", "chlorinated flour"], eNumbers: ["e926", "e928", "e930", "e922", "e923", "e925"],
+    id: "flour-bleaching-oxidisers", name: "Flour Bleaching/Oxidising Agents (E926/E928/E930)", keywords: ["chlorine gas", "chlorine", "benzoyl peroxide", "chlorine dioxide", "calcium peroxide", "flour bleach", "potassium persulphate", "potassium persulfate", "ammonium persulphate", "ammonium persulfate", "chlorinated flour"], eNumbers: ["e925", "e926", "e928", "e930", "e922", "e923", "e925"],
     category: "flour treatment", function: "Bleaching / maturing agent",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "varies; largely spent during processing",
@@ -1576,7 +1576,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA FAF 2020 re-evaluation of E334–E337 and E354",
   },
   {
-    id: "fumaric-acid", name: "Fumaric Acid (E297)", keywords: ["fumaric acid", "sodium fumarate", "potassium fumarate", "calcium fumarate", "ammonium fumarate"], eNumbers: ["e297", "e365", "e366", "e367", "e368"],
+    id: "fumaric-acid", name: "Fumaric Acid (E297)", keywords: ["fumaric acid", "sodium fumarate", "potassium fumarate", "calcium fumarate", "ammonium fumarate"], eNumbers: ["e366", "e367", "e368", "e297", "e365", "e366", "e367", "e368"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "6 mg/kg bw/day (SCF 1990)",
@@ -1614,8 +1614,8 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA 21 CFR 184.1240",
   },
   {
-    id: "packaging-gases", name: "Packaging Gases (nitrogen, argon, nitrous oxide…)", keywords: ["nitrogen", "nitrous oxide", "protective atmosphere", "packaging gas", "isobutane", "argon", "helium", "propane", "butane", "n-butane", "oxygen", "hydrogen gas"],
-    eNumbers: ["e938", "e939", "e941", "e942", "e943a", "e943b", "e944", "e948", "e949"],
+    id: "packaging-gases", name: "Packaging Gases (nitrogen, argon, nitrous oxide…)", keywords: ["dichlorodifluoromethane", "octafluorocyclobutane", "nitrogen", "nitrous oxide", "protective atmosphere", "packaging gas", "isobutane", "argon", "helium", "propane", "butane", "n-butane", "oxygen", "hydrogen gas"],
+    eNumbers: ["e940", "e946", "e938", "e939", "e941", "e942", "e943a", "e943b", "e944", "e948", "e949"],
     category: "preservative", function: "Modified-atmosphere packaging / propellant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "EU-approved quantum satis; GRAS",
@@ -2070,6 +2070,26 @@ export const ADDITIVES: AdditiveProfile[] = [
     populations: ["soy, milk or wheat allergy, depending on source"],
     note: "Proteins extracted from soy, pea, milk or wheat, or extruded into meat-like pieces. Nutritionally fine, but NOVA lists them as industrial ingredients that mark a food as ultra-processed.",
     ref: "Monteiro et al. 2019, NOVA classification (Public Health Nutr 22:936)",
+  },
+  {
+    id: "thiodipropionates", name: "Thiodipropionic Acid & Esters (INS 388–390)",
+    keywords: ["thiodipropionic acid", "dilauryl thiodipropionate", "distearyl thiodipropionate", "thiodipropionate"], eNumbers: ["e388", "e389", "e390"],
+    category: "antioxidant", function: "Antioxidant for fats and oils",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "US GRAS (21 CFR 182.3109, 182.3280); not authorised in the EU",
+    populations: [],
+    note: "Sulphur-containing antioxidants used at up to 0.02% of the fat in US foods. JECFA allocated a group ADI of 0–3 mg/kg bw; little modern data. Not the same as propionic acid, the bread mould inhibitor.",
+    ref: "JECFA 1974 evaluation; 21 CFR 182.3109 and 182.3280",
+  },
+  {
+    id: "little-used-additives", name: "Little-used Codex Additives (sequestrants, emulsifiers, carriers)",
+    keywords: ["peptone", "oxidised stearin", "oxidized stearin", "heptonolactone", "1,4-heptonolactone", "isopropyl citrate", "isopropyl citrates", "oxystearin", "calcium lactobionate", "lactobionate", "succistearin", "stearyl citrate", "peptones", "phytic acid", "sodium phytate", "sodium thiosulphate", "sodium thiosulfate", "calcium lignosulphonate", "calcium lignosulfonate", "lignosulphonate"], eNumbers: ["e370", "e384", "e387", "e391", "e399", "e429", "e446", "e484", "e539", "e1522"],
+    category: "stabilizer", function: "Sequestrant / emulsifier / carrier (rarely used)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "Listed in the Codex INS; most are not authorised in the EU (E1522 is, as a carrier)",
+    populations: [],
+    note: "A handful of additives with Codex INS numbers that are rarely seen on labels. Where JECFA evaluated them it found no concern at use levels, but the data are mostly old. Scored as low concern with limited evidence.",
+    ref: "Codex CAC/GL 36-1989 (INS); JECFA evaluations; Reg. (EU) No 231/2012 (E1522)",
   },
   {
     id: "processed-meat", name: "Processed Meat (cured, smoked or salted)",
