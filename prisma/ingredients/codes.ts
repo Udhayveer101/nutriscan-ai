@@ -69,6 +69,7 @@ export const FIXES: Record<string, Fix> = {
   "green-chilli": { remove: ["serrano chilli"] },              // serrano has its own row (batch 31)
   "cinnamon": { remove: ["cassia cinnamon"] },
   "sacha-inchi-oil": { remove: ["sacha inchi"] },
+  "ginkgo-nuts": { remove: ["ginkgo biloba nuts"] },            // "ginkgo biloba" on a label means the leaf extract (batch 41)
   "calcium-disodium-edta": { remove: ["disodium EDTA"] },        // E386 has its own row (batch 37)
   // Rows that came in without the code their substance carries (main's weekly batches).
   "magnesium-citrate": { eNumber: "E345" },
