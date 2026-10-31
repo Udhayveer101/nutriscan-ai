@@ -29,8 +29,8 @@ export const wholeFoods = (categorySlug: string, defaults: Partial<SeedIngredien
     fssaiStatus: "Food (FSS Act general provisions)", whoStatus: "No ADI (food)",
     ...defaults,
   });
-  // src: "fdc" (default) cites FoodData Central, "ifct" the Indian tables, "own" only the row's own refs.
-  return (rows: Row[], ref: "fdc" | "ifct" = "fdc"): SeedIngredient[] => rows.map(([name, aliases, purposeShort, purpose, benefits, concerns, commonProducts, safetyScore = 90, extra = {}]) => {
+  // src: "fdc" (default) cites FoodData Central, "ifct" the Indian tables, "own" only the family and row refs.
+  return (rows: Row[], ref: "fdc" | "ifct" | "own" = "fdc"): SeedIngredient[] => rows.map(([name, aliases, purposeShort, purpose, benefits, concerns, commonProducts, safetyScore = 90, extra = {}]) => {
     const { src = ref, ...rest } = extra;
     const base = src === "fdc" ? [fdc(fdcFinding(name))] : src === "ifct" ? [IFCT] : [];
     return make({ slug: slugify(name), name, aliases, purposeShort, purpose, commonProducts, safetyScore,
