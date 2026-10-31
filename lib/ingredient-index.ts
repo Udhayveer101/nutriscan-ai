@@ -34,8 +34,11 @@ export interface IndexMatch<R extends IndexRow = IndexRow> {
 }
 
 /** Lowercase, strip accents, and collapse everything except letters and digits to single spaces. */
+const GREEK: Record<string, string> = { "α": "alpha", "β": "beta", "γ": "gamma", "δ": "delta", "ω": "omega", "κ": "kappa", "ι": "iota", "λ": "lambda", "μ": "micro", "µ": "micro" };
+
 export function normalizeKey(s: string): string {
   return s
+    .replace(/[αβγδωκιλμµ]/g, (c) => ` ${GREEK[c]} `)
     .normalize("NFKD")
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
@@ -43,6 +46,9 @@ export function normalizeKey(s: string): string {
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
+
+/** A name that is nothing but a code: "E330", "INS 341(iii)", "E 160a", "CAS 77-92-9". */
+export const CODE_ONLY = /^\s*(?:(?:e|ins)\s*-?\s*\d{3,4}[a-z]?(?:\s*\(?\s*[ivx]{1,4}\s*\)?)?|cas\s*\d{2,7}-\d{2}-\d)\s*$/i;
 
 const CAS_RE = /\b(\d{2,7})-(\d{2})-(\d)\b/g;
 
@@ -129,29 +135,30 @@ export class IngredientIndex<R extends IndexRow = IndexRow> {
 
   constructor(rows: R[]) {
     this.rows = rows;
+    const claim = (map: Map<string, number>, key: string, i: number) => {
+      if (!key) return;
+      const prev = map.get(key);
+      if (prev === undefined) map.set(key, i);
+      else if (prev !== i && prev !== -1) {
+        this.collisions.push({ key, rows: [rows[prev].slug, rows[i].slug] });
+        map.set(key, -1);
+      }
+    };
     rows.forEach((r, i) => {
-      const claim = (map: Map<string, number>, key: string) => {
-        if (!key) return;
-        const prev = map.get(key);
-        if (prev === undefined) map.set(key, i);
-        else if (prev !== i && prev !== -1) {
-          this.collisions.push({ key, rows: [rows[prev].slug, r.slug] });
-          map.set(key, -1);
-        }
-      };
       const names = [r.name, ...r.aliases];
       for (const n of names) {
-        const codeOnly = /^\s*(?:(?:e|ins)\s*-?\s*\d{3,4}[a-z]?(?:\s*\(?\s*[ivx]{1,4}\s*\)?)?|cas\s*\d{2,7}-\d{2}-\d)\s*$/i.test(n);
-        if (!codeOnly) claim(this.exact, normalizeKey(n));
+        if (!CODE_ONLY.test(n)) claim(this.exact, normalizeKey(n), i);
       }
-      // Codes: the eNumber field and any code written as an alias ("INS 330", "E330", "CAS 77-92-9").
-      const codeTexts = [r.eNumber ?? "", ...r.aliases.filter((a) => /\d/.test(a))];
-      for (const t of codeTexts) {
-        const found = codeKeys(t);
-        // Only an alias that IS a code counts; "Polysorbate 80" contains no code token.
-        for (const cands of found) claim(this.codes, cands[0]);
-      }
+      // Codes written as aliases ("INS 330", "E330", "CAS 77-92-9") are firm claims.
+      for (const a of r.aliases) if (CODE_ONLY.test(a)) for (const cands of codeKeys(a)) claim(this.codes, cands[0], i);
     });
+    // The eNumber field is a weaker claim: it fills only codes no row lists as an alias,
+    // so a source variant (soy lecithin, E322) can show its code without stealing it.
+    const weak = new Map<string, number>();
+    rows.forEach((r, i) => {
+      for (const cands of codeKeys(r.eNumber ?? "")) if (!this.codes.has(cands[0])) claim(weak, cands[0], i);
+    });
+    for (const [k, i] of Array.from(weak)) this.codes.set(k, i);
     // Fuzzy keys: names and word aliases long enough to fuzz safely.
     rows.forEach((r, i) => {
       for (const n of [r.name, ...r.aliases]) {

@@ -86,6 +86,7 @@ for (const r of ALL_INGREDIENTS) {
   const a = assessIngredient(r.name, 0);
   if (a.evidence === "INSUFFICIENT" && a.reason.startsWith("Unrecognised")) report(`name "${r.name}" is not recognised by the scanner`);
   for (const al of r.aliases) {
+    if (/^CAS \d/.test(al)) continue;   // registry identifiers link DB rows; the KB doesn't score them
     const hit = lookupAdditive(al);
     if (hit && byName && hit.id !== byName.id) report(`alias "${al}" → ${hit.id}, name → ${byName.id}`);
     if (!hit && byName) report(`alias "${al}" escapes the KB profile ${byName.id} its name resolves to`);

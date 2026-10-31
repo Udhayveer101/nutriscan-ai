@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { ALL_INGREDIENTS } from "./ingredients";
 import { CATEGORIES } from "./ingredients/categories";
+import { MERGED } from "./ingredients/codes";
 
 const prisma = new PrismaClient();
 
@@ -47,6 +48,26 @@ async function main() {
   }
 
   console.log(`✓ ${count} ingredients seeded, ${refCount} research references`);
+
+  // Rows merged into another (codes.ts MERGED): move scan and bookmark links to the
+  // keeper, then delete the duplicate so the scanner index never sees it.
+  let merged = 0;
+  for (const [drop, keep] of Object.entries(MERGED)) {
+    const [old, target] = await Promise.all([
+      prisma.ingredient.findUnique({ where: { slug: drop }, select: { id: true } }),
+      prisma.ingredient.findUnique({ where: { slug: keep }, select: { id: true } }),
+    ]);
+    if (!old || !target) continue;
+    await prisma.$transaction([
+      prisma.scanIngredient.updateMany({ where: { ingredientId: old.id }, data: { ingredientId: target.id } }),
+      // A user who bookmarked both keeps one bookmark.
+      prisma.bookmark.deleteMany({ where: { ingredientId: old.id, user: { bookmarks: { some: { ingredientId: target.id } } } } }),
+      prisma.bookmark.updateMany({ where: { ingredientId: old.id }, data: { ingredientId: target.id } }),
+      prisma.ingredient.delete({ where: { id: old.id } }),
+    ]);
+    merged++;
+  }
+  if (merged) console.log(`✓ ${merged} duplicate ingredient(s) merged`);
   console.log("✅ Done");
 }
 

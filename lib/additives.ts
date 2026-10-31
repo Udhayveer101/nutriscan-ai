@@ -417,7 +417,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2019 phosphates re-evaluation",
   },
   {
-    id: "aluminium-additives", name: "Aluminium-containing Additives", keywords: ["aluminium", "aluminum", "sodium aluminium phosphate", "aluminium sulphate", "sodium aluminium sulphate", "sodium aluminum sulfate", "aluminosilicate", "aluminium silicate", "aluminium potassium sulphate", "potassium aluminium sulphate", "aluminum potassium sulfate", "potash alum", "potassium alum", "aluminium ammonium sulphate", "aluminum ammonium sulfate", "ammonium alum", "kaolin", "starch aluminium octenyl succinate", "starch aluminum octenyl succinate"], eNumbers: ["e541", "e173", "e520", "e521", "e522", "e523", "e554", "e555", "e556", "e559", "e1452"],
+    id: "aluminium-additives", name: "Aluminium-containing Additives", keywords: ["aluminium", "aluminum", "sodium aluminium phosphate", "aluminium sulphate", "sodium aluminium sulphate", "sodium aluminum sulfate", "aluminosilicate", "aluminium silicate", "aluminium potassium sulphate", "potassium aluminium sulphate", "aluminum potassium sulfate", "potash alum", "potassium alum", "aluminium ammonium sulphate", "aluminum ammonium sulfate", "ammonium alum", "kaolin", "starch aluminium octenyl succinate", "starch aluminum octenyl succinate", "aluminium potassium sulfate", "aluminum potassium sulphate", "aluminium ammonium sulfate", "aluminum ammonium sulphate"], eNumbers: ["e541", "e173", "e520", "e521", "e522", "e523", "e554", "e555", "e556", "e559", "e1452"],
     category: "acidity regulator", function: "Leavening / anticaking / colour",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     adi: "1 mg/kg bw/week aluminium (EFSA TWI)", regulatory: "Restricted; EFSA set a tolerable weekly intake",
@@ -1297,7 +1297,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA novel-food opinion on trehalose",
   },
   {
-    id: "polyol-syrups", name: "Polyols (maltitol/isomalt/sorbitol/polyglycitol syrups)", keywords: ["sorbitol syrup", "maltitol syrup", "maltitol", "isomalt", "polyglycitol syrup", "hydrogenated glucose syrup", "hydrogenated starch hydrolysate", "sugar alcohol", "polyols"], eNumbers: ["e953", "e964", "e965"],
+    id: "polyol-syrups", name: "Polyols (maltitol/isomalt/sorbitol/polyglycitol syrups)", keywords: ["sorbitol syrup", "maltitol syrup", "maltitol", "isomalt", "polyglycitol syrup", "hydrogenated glucose syrup", "hydrogenated starch hydrolysate", "sugar alcohol", "polyols"], eNumbers: ["e953", "e964", "e965", "e420ii"],
     category: "humectant", function: "Humectant / bulk sweetener syrup",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified; laxative-effect labelling required",
@@ -1440,7 +1440,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Vitamins & minerals (fortificants) ───────────────────
   {
-    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3", "retinol", "retinyl acetate", "vitamin a acetate", "tocopheryl succinate", "tocopheryl acid succinate", "tocotrienol", "phylloquinone", "phytonadione", "vitamin k1", "menaquinone", "vitamin k2", "mk-7", "thiamine hydrochloride", "thiamin hydrochloride", "niacinamide", "nicotinamide riboside", "nicotinic acid", "panthenol", "dexpanthenol", "sodium pantothenate", "pyridoxal 5'-phosphate", "pyridoxal-5-phosphate", "pyridoxal phosphate", "methylfolate", "l-methylfolate", "5-methyltetrahydrofolate", "5-mthf", "methylcobalamin", "hydroxocobalamin", "adenosylcobalamin", "cobamamide", "sodium d-pantothenate", "acetyl-l-carnitine", "alcar", "dibencozide", "hydroxycobalamin", "mecobalamin", "metafolin", "methyl b12", "niagen", "nr", "p5p", "plp", "provitamin b5"], eNumbers: ["e101", "e101a", "e375"],
+    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3", "retinol", "retinyl acetate", "vitamin a acetate", "tocopheryl succinate", "tocopheryl acid succinate", "tocotrienol", "phylloquinone", "phytonadione", "vitamin k1", "menaquinone", "vitamin k2", "mk-7", "thiamine hydrochloride", "thiamin hydrochloride", "niacinamide", "nicotinamide riboside", "nicotinic acid", "panthenol", "dexpanthenol", "sodium pantothenate", "pyridoxal 5'-phosphate", "pyridoxal-5-phosphate", "pyridoxal phosphate", "methylfolate", "l-methylfolate", "5-methyltetrahydrofolate", "5-mthf", "methylcobalamin", "hydroxocobalamin", "adenosylcobalamin", "cobamamide", "sodium d-pantothenate", "acetyl-l-carnitine", "alcar", "dibencozide", "hydroxycobalamin", "mecobalamin", "metafolin", "methyl b12", "niagen", "nr", "p5p", "plp", "provitamin b5", "vitamin b5"], eNumbers: ["e101", "e101a", "e375"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1449,7 +1449,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA/IOM dietary reference values & upper limits",
   },
   {
-    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate", "calcium iodate", "calcium glycerophosphate", "calcium bisglycinate", "calcium l-threonate", "magnesium gluconate", "magnesium glycerophosphate", "magnesium bisglycinate", "magnesium glycinate", "magnesium aspartate", "ferric sodium edta", "sodium iron edta", "sodium feredetate", "ferrous carbonate", "ferrous citrate", "ferric citrate", "ferric saccharate", "ferrous succinate", "zinc sulfate", "zinc gluconate", "zinc citrate", "zinc bisglycinate", "zinc picolinate", "zinc carbonate", "zinc chloride", "copper sulfate", "copper gluconate", "cupric gluconate", "cupric citrate", "copper citrate", "copper bisglycinate", "cupric oxide", "sodium iodide", "sodium iodate", "sodium selenate", "sodium hydrogen selenite", "selenomethionine", "l-selenomethionine", "selenium yeast", "selenium-enriched yeast", "chromium picolinate", "chromium chloride", "chromium(iii) chloride", "chromium nicotinate", "sodium molybdate", "ammonium molybdate", "manganese sulfate", "manganese gluconate", "manganese citrate", "manganese carbonate", "sodium fluoride", "potassium fluoride", "calcium fluoride", "nafeedta", "calcium amino acid chelate", "calcium glycerylphosphate", "calcium glycinate", "calcium threonate", "chromic chloride", "chromium trichloride", "chromium(iii) picolinate", "copper glycinate", "cupric sulphate", "ferric phosphate", "ferrochel", "iron bisglycinate", "iron glycinate", "iron(ii) carbonate", "iron(ii) citrate", "iron(ii) succinate", "iron(iii) citrate", "iron(iii) phosphate", "kf", "kio3", "magnesium amino acid chelate", "naf", "nai", "selenised yeast", "trizinc dicitrate", "zinc glycinate", "cupric sulfate"], eNumbers: ["e579", "e585", "e650", "e505", "e519", "e580", "e383"],
+    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["magnesium glycerylphosphate", "zinc pyridine-2-carboxylate", "zinc(ii) carbonate", "manganese(ii) gluconate", "ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate", "calcium iodate", "calcium glycerophosphate", "calcium bisglycinate", "calcium l-threonate", "magnesium gluconate", "magnesium glycerophosphate", "magnesium bisglycinate", "magnesium glycinate", "magnesium aspartate", "ferric sodium edta", "sodium iron edta", "sodium feredetate", "ferrous carbonate", "ferrous citrate", "ferric citrate", "ferric saccharate", "ferrous succinate", "zinc sulfate", "zinc gluconate", "zinc citrate", "zinc bisglycinate", "zinc picolinate", "zinc carbonate", "zinc chloride", "copper sulfate", "copper gluconate", "cupric gluconate", "cupric citrate", "copper citrate", "copper bisglycinate", "cupric oxide", "sodium iodide", "sodium iodate", "sodium selenate", "sodium hydrogen selenite", "selenomethionine", "l-selenomethionine", "selenium yeast", "selenium-enriched yeast", "chromium picolinate", "chromium chloride", "chromium(iii) chloride", "chromium nicotinate", "sodium molybdate", "ammonium molybdate", "manganese sulfate", "manganese gluconate", "manganese citrate", "manganese carbonate", "sodium fluoride", "potassium fluoride", "calcium fluoride", "nafeedta", "calcium amino acid chelate", "calcium glycerylphosphate", "calcium glycinate", "calcium threonate", "chromic chloride", "chromium trichloride", "chromium(iii) picolinate", "copper glycinate", "cupric sulphate", "ferric phosphate", "ferrochel", "iron bisglycinate", "iron glycinate", "iron(ii) carbonate", "iron(ii) citrate", "iron(ii) succinate", "iron(iii) citrate", "iron(iii) phosphate", "kf", "kio3", "magnesium amino acid chelate", "naf", "nai", "selenised yeast", "trizinc dicitrate", "zinc glycinate", "cupric sulfate", "iron (fortification)"], eNumbers: ["e579", "e585", "e650", "e505", "e519", "e580", "e383"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1844,7 +1844,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EU Reg. 1333/2008; FDA 21 CFR 172.812",
   },
   {
-    id: "yeast-extract", name: "Yeast Extract", keywords: ["yeast extract", "autolysed yeast", "autolyzed yeast", "yeast autolysate"], eNumbers: [],
+    id: "yeast-extract", name: "Yeast Extract", keywords: ["yeast extract", "autolysed yeast", "autolyzed yeast", "yeast autolysate", "hydrolysed yeast", "hydrolyzed yeast"], eNumbers: [],
     category: "flavor enhancer", function: "Savoury flavour (natural free glutamate)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredient (not an additive); GRAS",
@@ -2670,6 +2670,13 @@ function keywordHit(lower: string, k: string): boolean {
 // that scripts/check-lookup.ts compares the indexed lookup against; not used at runtime.
 export function lookupAdditiveLinear(rawName: string): AdditiveProfile | null {
   const lower = rawName.toLowerCase().trim();
+  const hit = linearScan(lower);
+  if (hit) return hit;
+  for (const v of spellingVariants(lower)) { const h = linearScan(v); if (h) return h; }
+  return null;
+}
+
+function linearScan(lower: string): AdditiveProfile | null {
   for (const candidates of extractCodes(lower)) {
     for (const code of candidates) {
       const hit = ADDITIVES.find((a) => a.eNumbers?.includes(code));
@@ -2687,6 +2694,26 @@ export function lookupAdditiveLinear(rawName: string): AdditiveProfile | null {
     }
   }
   return best;
+}
+
+// US/UK spellings. A name the KB misses is retried in the other spelling, so
+// "acesulphame K" and "aluminum sulfate" find the profiles that list the other form.
+const SPELL_UK: [RegExp, string][] = [
+  [/sulf(?!o)/g, "sulph"], [/sulfo/g, "sulpho"], [/color/g, "colour"], [/flavor/g, "flavour"], [/fiber/g, "fibre"],
+  [/aluminum/g, "aluminium"], [/yzed/g, "ysed"], [/yzate/g, "ysate"], [/ized/g, "ised"], [/izer/g, "iser"], [/yogurt/g, "yoghurt"],
+];
+const SPELL_US: [RegExp, string][] = [
+  [/sulph/g, "sulf"], [/colour/g, "color"], [/flavour/g, "flavor"], [/fibre/g, "fiber"],
+  [/aluminium/g, "aluminum"], [/ysed/g, "yzed"], [/ysate/g, "yzate"], [/ised/g, "ized"], [/iser/g, "izer"], [/yoghurt/g, "yogurt"],
+];
+export function spellingVariants(lower: string): string[] {
+  const out: string[] = [];
+  for (const table of [SPELL_UK, SPELL_US]) {
+    let v = lower;
+    for (const [re, to] of table) v = v.replace(re, to);
+    if (v !== lower && !out.includes(v)) out.push(v);
+  }
+  return out;
 }
 
 // ── Indexed lookup ───────────────────────────────────────────────────────────
@@ -2795,7 +2822,8 @@ export function lookupAdditive(rawName: string): AdditiveProfile | null {
   const lower = rawName.toLowerCase().trim();
   const cached = LOOKUP_CACHE.get(lower);
   if (cached !== undefined) return cached;
-  const hit = lookupUncached(lower);
+  let hit = lookupUncached(lower);
+  if (!hit) for (const v of spellingVariants(lower)) if ((hit = lookupUncached(v))) break;
   if (LOOKUP_CACHE.size >= CACHE_MAX) LOOKUP_CACHE.clear();
   LOOKUP_CACHE.set(lower, hit);
   return hit;
