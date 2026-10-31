@@ -67,7 +67,8 @@ export const FIXES: Record<string, Fix> = {
   "cherry": { remove: ["sour cherries", "morello cherries"] },   // sour cherry is its own species (batch 30)
   "broccoli": { remove: ["tenderstem broccoli"] },             // tenderstem is broccolini (batch 31)
   "green-chilli": { remove: ["serrano chilli"] },              // serrano has its own row (batch 31)
-  "cinnamon": { remove: ["cassia cinnamon"] },                 // cassia has its own row (batch 32)
+  "cinnamon": { remove: ["cassia cinnamon"] },
+  "sacha-inchi-oil": { remove: ["sacha inchi"] },              // the seed has its own row (batch 33)                 // cassia has its own row (batch 32)
   // Rows that had no alternative name or code.
   "maltodextrin": { add: ["maltodextrine", "malto-dextrin"] },
   "potato-starch": { add: ["native potato starch", "unmodified potato starch"] },
