@@ -68,7 +68,17 @@ export const FIXES: Record<string, Fix> = {
   "broccoli": { remove: ["tenderstem broccoli"] },             // tenderstem is broccolini (batch 31)
   "green-chilli": { remove: ["serrano chilli"] },              // serrano has its own row (batch 31)
   "cinnamon": { remove: ["cassia cinnamon"] },
-  "sacha-inchi-oil": { remove: ["sacha inchi"] },              // the seed has its own row (batch 33)                 // cassia has its own row (batch 32)
+  "sacha-inchi-oil": { remove: ["sacha inchi"] },
+  // Common label spellings that earlier rows were missing (from the label benchmark).
+  "cumin-seed": { add: ["cumin", "cumin powder", "ground cumin"] },
+  "vitamin-d": { add: ["vitamin d3", "vitamin d2", "ergocalciferol"] },
+  "dextrose": { add: ["dextrose monohydrate", "anhydrous dextrose"] },
+  "cocoa-powder": { add: ["cocoa", "cocoa solids"] },
+  "bakers-yeast": { add: ["yeast", "active dry yeast", "instant yeast", "fresh yeast"] },
+  "whole-milk-powder": { add: ["milk powder", "dried milk", "full cream milk powder"] },
+  "cream": { add: ["double cream", "heavy cream", "whipping cream", "single cream", "fresh cream"] },
+  "yoghurt": { add: ["plain yogurt", "dahi (curd)"] },
+  "egg": { add: ["pasteurised egg", "pasteurized egg", "whole egg"] },              // the seed has its own row (batch 33)                 // cassia has its own row (batch 32)
   // Rows that had no alternative name or code.
   "maltodextrin": { add: ["maltodextrine", "malto-dextrin"] },
   "potato-starch": { add: ["native potato starch", "unmodified potato starch"] },
