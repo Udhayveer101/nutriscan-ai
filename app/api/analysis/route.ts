@@ -3,7 +3,8 @@ import { after } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { extractIngredientsFromText, sanitizeIngredients, generateIngredientExplanation, type ExplanationMode } from "@/lib/gemini";
-import { evaluateProduct, inferConcernLevel, adjustConcernForConcentration, detectAllergens, allergenPattern } from "@/lib/scoring";
+import { evaluateProduct, inferConcernLevel, adjustConcernForConcentration, detectAllergens, allergenPattern, isRecognised } from "@/lib/scoring";
+import { getIngredientIndex } from "@/lib/ingredient-lookup";
 import { scanUploadSchema } from "@/lib/validators";
 import { auth } from "@/lib/auth";
 import { rateLimit, clientKey } from "@/lib/ratelimit";
@@ -51,18 +52,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No ingredients could be extracted from the provided text" }, { status: 422 });
     }
 
-    // 2. Single DB query for all ingredients + user prefs in parallel
+    // 2. Link each name to its canonical DB row through the in-memory index (name, alias,
+    //    E/INS/CAS code, bracket/plural clean-up, then guarded OCR-typo matching), then
+    //    fetch only the matched rows by primary key. User prefs load in parallel.
     t0 = clock();
-    const [allFound, userPrefs] = await Promise.all([
-      prisma.ingredient.findMany({
-        where: {
-          OR: extractedNames.flatMap((name) => [
-            { name: { equals: name, mode: "insensitive" as const } },
-            { eNumber: { equals: name, mode: "insensitive" as const } },
-          ]),
-        },
-        include: { category: true },
-      }),
+    const [index, userPrefs] = await Promise.all([
+      getIngredientIndex(prisma),
       session?.user?.id
         ? prisma.user.findUnique({
             where: { id: session.user.id },
@@ -70,27 +65,36 @@ export async function POST(req: NextRequest) {
           })
         : Promise.resolve(null),
     ]);
-
-    // Match each name to a DB record (in-memory, no extra queries)
-    const dbIngredients = extractedNames.map((name) => {
-      const lower = name.toLowerCase();
-      const ingredient =
-        allFound.find(
-          (r) =>
-            r.name.toLowerCase() === lower ||
-            r.eNumber?.toLowerCase() === lower ||
-            r.aliases.some((a) => a.toLowerCase() === lower)
-        ) ?? null;
-      return { rawName: name, ingredient };
-    });
+    const matches = extractedNames.map((name) => index.match(name));
+    const ids = Array.from(new Set(matches.flatMap((m) => (m ? [m.row.id] : []))));
+    const rows = ids.length
+      ? await prisma.ingredient.findMany({ where: { id: { in: ids } }, include: { category: true } })
+      : [];
+    const byId = new Map(rows.map((r) => [r.id, r]));
+    const dbIngredients = extractedNames.map((name, i) => ({
+      rawName: name,
+      ingredient: matches[i] ? byId.get(matches[i]!.row.id) ?? null : null,
+    }));
     t.dbLookup = clock() - t0;
+
+    // Score what the label says. Two exceptions, both only when the KB can't read the raw
+    // text: an OCR typo scores as the spelling it was corrected to, and a code the KB lacks
+    // scores as the row it names. Alias links never change the score (the KB leaves some
+    // names, such as bare "yeast", unrecognised on purpose).
+    const scoringNames = extractedNames.map((rawName, i) => {
+      const m = matches[i];
+      if (!m || isRecognised(rawName)) return rawName;
+      if (m.via === "fuzzy") return m.key;
+      if (m.via === "code") return m.row.name;
+      return rawName;
+    });
 
     // 3. Score first — needs only names+positions (~4 ms), so the product summary
     //    can run in parallel with the per-ingredient explanations instead of after
     //    them (summary depends on the score, not on the explanations).
     t0 = clock();
     const scoreBreakdown = evaluateProduct(
-      extractedNames.map((name, position) => ({ name, position }))
+      scoringNames.map((name, position) => ({ name, position }))
     );
     t.scoring = clock() - t0;
 
@@ -108,7 +112,7 @@ export async function POST(req: NextRequest) {
       aiExplanation: "",
       promptCategory: ingredient?.category?.name ?? "Food Additive",
       concernLevel: (() => {
-        const inferred = inferConcernLevel(rawName);
+        const inferred = inferConcernLevel(scoringNames[i]);
         // Resolve base concern: CRITICAL never overridden; DB safety score used if available
         const base: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL" =
           inferred === "CRITICAL" ? "CRITICAL"
@@ -116,7 +120,7 @@ export async function POST(req: NextRequest) {
             ? ingredient.safetyScore >= 70 ? "LOW" : ingredient.safetyScore >= 50 ? "MEDIUM" : "HIGH"
             : inferred;
         // Adjust for concentration: ingredients at position 0 = most abundant; position 8+ = trace
-        return adjustConcernForConcentration(ingredient?.name ?? rawName, base, i);
+        return adjustConcernForConcentration(scoringNames[i], base, i);
       })(),
       isRecognized: !!ingredient,
       category: ingredient?.category?.name,

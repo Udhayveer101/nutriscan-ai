@@ -2666,18 +2666,16 @@ function keywordHit(lower: string, k: string): boolean {
   return re.test(lower);
 }
 
-export function lookupAdditive(rawName: string): AdditiveProfile | null {
+// Reference implementation: scans every profile and every keyword. Kept as the oracle
+// that scripts/check-lookup.ts compares the indexed lookup against; not used at runtime.
+export function lookupAdditiveLinear(rawName: string): AdditiveProfile | null {
   const lower = rawName.toLowerCase().trim();
-  // E/INS code is the strongest signal. Codes are matched as whole tokens so that
-  // E1200 (polydextrose) can't resolve to E120 (carmine), nor E407a to E407.
   for (const candidates of extractCodes(lower)) {
     for (const code of candidates) {
       const hit = ADDITIVES.find((a) => a.eNumbers?.includes(code));
       if (hit) return hit;
     }
   }
-  // Otherwise the most specific (longest) matching keyword wins, so a generic
-  // substring like "sorbate"/"glycerol" can't shadow "polysorbate"/"polyglycerol".
   let best: AdditiveProfile | null = null;
   let bestLen = 0;
   for (const a of ADDITIVES) {
@@ -2691,10 +2689,133 @@ export function lookupAdditive(rawName: string): AdditiveProfile | null {
   return best;
 }
 
+// ── Indexed lookup ───────────────────────────────────────────────────────────
+// Built once on first use. Codes resolve through a hash map (O(1)); keywords through an
+// Aho–Corasick automaton that finds every keyword occurring in the name in one pass over
+// the name's characters, however many keywords the KB holds. Results are identical to
+// lookupAdditiveLinear: codes first, then the longest keyword, ties to the earlier one.
+interface KwEntry { k: string; profile: AdditiveProfile; rank: number; short: boolean }
+interface Matcher {
+  codes: Map<string, AdditiveProfile>;
+  next: Map<string, number>[];   // trie transitions per state
+  fail: number[];                // failure links
+  out: number[];                 // entry index ending at this state, or -1
+  dict: number[];                // nearest failure-ancestor state with an entry, or 0
+  entries: KwEntry[];
+}
+let MATCHER: Matcher | null = null;
+const ALNUM = /[a-z0-9]/;
+
+function buildMatcher(): Matcher {
+  const codes = new Map<string, AdditiveProfile>();
+  for (const a of ADDITIVES) for (const e of a.eNumbers ?? []) if (!codes.has(e)) codes.set(e, a);
+
+  const entries: KwEntry[] = [];
+  const next: Map<string, number>[] = [new Map()];
+  const out: number[] = [-1];
+  const seen = new Set<string>();
+  for (const a of ADDITIVES) {
+    for (const k of a.keywords) {
+      if (!k || seen.has(k)) continue;   // first owner wins, as in the linear scan
+      seen.add(k);
+      let s = 0;
+      for (const ch of k) {
+        let t = next[s].get(ch);
+        if (t === undefined) {
+          t = next.length;
+          next.push(new Map());
+          out.push(-1);
+          next[s].set(ch, t);
+        }
+        s = t;
+      }
+      out[s] = entries.length;
+      entries.push({ k, profile: a, rank: entries.length, short: k.replace(/[^a-z]/g, "").length <= 4 });
+    }
+  }
+  const fail = new Array<number>(next.length).fill(0);
+  const dict = new Array<number>(next.length).fill(0);
+  const queue: number[] = [];
+  for (const t of Array.from(next[0].values())) queue.push(t);
+  while (queue.length) {
+    const s = queue.shift()!;
+    for (const [ch, t] of Array.from(next[s])) {
+      let f = fail[s];
+      while (f && !next[f].has(ch)) f = fail[f];
+      const ft = next[f].get(ch);
+      fail[t] = ft !== undefined && ft !== t ? ft : 0;
+      dict[t] = out[fail[t]] >= 0 ? fail[t] : dict[fail[t]];
+      queue.push(t);
+    }
+  }
+  return { codes, next, fail, out, dict, entries };
+}
+
+function matcher(): Matcher {
+  return (MATCHER ??= buildMatcher());
+}
+
+function lookupUncached(lower: string): AdditiveProfile | null {
+  const m = matcher();
+  for (const candidates of extractCodes(lower)) {
+    for (const code of candidates) {
+      const hit = m.codes.get(code);
+      if (hit) return hit;
+    }
+  }
+  // Iterate code points (as `for…of` did when building the trie) so non-ASCII keywords line up.
+  const chars = Array.from(lower);
+  let best: KwEntry | null = null;
+  let s = 0;
+  for (let i = 0; i < chars.length; i++) {
+    const ch = chars[i];
+    while (s && !m.next[s].has(ch)) s = m.fail[s];
+    s = m.next[s].get(ch) ?? 0;
+    for (let o = m.out[s] >= 0 ? s : m.dict[s]; o; o = m.dict[o]) {
+      const e = m.entries[m.out[o]];
+      if (best && (e.k.length < best.k.length || (e.k.length === best.k.length && e.rank > best.rank))) continue;
+      if (e.short) {
+        const len = Array.from(e.k).length;
+        const before = i - len >= 0 ? chars[i - len] : "";
+        const after = i + 1 < chars.length ? chars[i + 1] : "";
+        if (ALNUM.test(before) || ALNUM.test(after)) continue;
+      }
+      best = e;
+    }
+  }
+  return best?.profile ?? null;
+}
+
+// Scans look the same names up several times (scoring, NOVA, the route's concern
+// column), so remember answers. Bounded so arbitrary input can't grow it forever.
+const LOOKUP_CACHE = new Map<string, AdditiveProfile | null>();
+const CACHE_MAX = 20_000;
+
+export function lookupAdditive(rawName: string): AdditiveProfile | null {
+  const lower = rawName.toLowerCase().trim();
+  const cached = LOOKUP_CACHE.get(lower);
+  if (cached !== undefined) return cached;
+  const hit = lookupUncached(lower);
+  if (LOOKUP_CACHE.size >= CACHE_MAX) LOOKUP_CACHE.clear();
+  LOOKUP_CACHE.set(lower, hit);
+  return hit;
+}
+
+const WHOLE_CACHE = new Map<string, boolean>();
+
 export function isWholeFood(rawName: string): boolean {
   const lower = rawName.toLowerCase().trim();
+  const cached = WHOLE_CACHE.get(lower);
+  if (cached !== undefined) return cached;
+  const v = isWholeFoodUncached(lower);
+  if (WHOLE_CACHE.size >= CACHE_MAX) WHOLE_CACHE.clear();
+  WHOLE_CACHE.set(lower, v);
+  return v;
+}
+
+function isWholeFoodUncached(lower: string): boolean {
   // Only treat as whole food if no additive profile claims it.
-  if (lookupAdditive(rawName)) return false;
+  if (lookupAdditive(lower)) return false;
   // "Strawberry flavour" or "garlic flavouring" is a flavouring, not the food.
   if (/flavou?r/.test(lower)) return false;
   // Composite products named after their main food ("tomato ketchup", "chicken stock") are not that food.

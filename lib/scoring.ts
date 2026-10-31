@@ -140,6 +140,12 @@ export function assessIngredient(name: string, position: number): IngredientAsse
   };
 }
 
+/** True when the KB, a bulk rule or the whole-food lists recognise the name. */
+export function isRecognised(name: string): boolean {
+  const a = assessIngredient(name, 0);
+  return !(a.evidence === "INSUFFICIENT" && a.reason.startsWith("Unrecognised"));
+}
+
 // Back-compat: old callers used inferConcernLevel(name) with no position.
 export function inferConcernLevel(name: string): ConcernLevel {
   return assessIngredient(name, 0).concern;
