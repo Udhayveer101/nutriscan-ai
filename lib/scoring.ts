@@ -67,16 +67,27 @@ const CONCERN_RANK: Record<ConcernLevel, number> = { LOW: 0, MEDIUM: 1, HIGH: 2,
 const RANK_CONCERN: ConcernLevel[] = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
 
 // Sugar/salt/oil are "amounts", not additives — handled here for dominance sensitivity.
-const BULK_RULES: { keywords: string[]; dominant: ConcernLevel; moderate: ConcernLevel; trace: ConcernLevel; note: string }[] = [
-  { keywords: ["salt", "sodium chloride", "sea salt"], dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
+const BULK_RULES: { keywords: string[]; unless?: RegExp; dominant: ConcernLevel; moderate: ConcernLevel; trace: ConcernLevel; note: string }[] = [
+  { keywords: ["salt", "sodium chloride", "sea salt", "soy sauce", "soya sauce", "shoyu", "tamari", "fish sauce", "nam pla", "nuoc mam", "patis", "oyster sauce", "namak"], dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
     note: "Salt — WHO recommends <5g/day; dominant salt is a cardiovascular risk." },
   { keywords: ["sugar", "sucrose", "glucose", "dextrose", "fructose", "corn syrup", "cane sugar", "invert sugar"], dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
     note: "Added sugar — WHO recommends <10% of energy; dominant sugar is a metabolic risk." },
-  { keywords: ["sunflower oil", "soybean oil", "corn oil", "cottonseed oil", "vegetable oil", "canola"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
+  { keywords: ["sunflower oil", "sunflower seed oil", "soybean oil", "soya oil", "soya bean oil", "corn oil", "maize oil", "cottonseed oil", "vegetable oil", "canola", "rapeseed oil", "safflower oil", "safflower seed oil", "grapeseed oil", "grape seed oil", "rice bran oil", "sesame oil", "gingelly oil", "peanut oil", "groundnut oil", "arachis oil", "cotton seed oil", "binola oil", "corn germ oil", "til oil", "til ka tel", "nallennai", "moongphali tel", "rice-bran oil"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
     note: "Refined seed oil — high omega-6; excess intake is pro-inflammatory." },
-  { keywords: ["enriched flour", "refined flour", "bleached flour", "white flour", "all-purpose flour"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
+  { keywords: ["enriched flour", "enriched wheat flour", "refined flour", "refined wheat flour", "bleached flour", "white flour", "all-purpose flour", "plain flour", "maida", "self-raising flour", "self raising flour", "self-rising flour", "bread flour", "strong flour", "cake flour", "pastry flour", "strong white flour", "wheat flour", "fortified wheat flour"], dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
+    // Bare "wheat flour"/"flour" is white flour (21 CFR 137.105; UK Bread and Flour Regulations 1998); whole-grain flours are named as such.
+    unless: /whole|wholemeal|wholegrain|\batta\b|\b(?:oat|rice|corn|maize|gram|chickpea|almond|coconut|soy|soya|rye|spelt|buckwheat|millet|sorghum|teff|quinoa|amaranth|cassava|tapioca|potato|banana|lentil|pea|bean|chestnut|tiger nut|hemp|flax|ragi|jowar|bajra|besan|singhara|kuttu|rajgira|barley|semolina|durum)\b/,
     note: "Refined flour — high glycaemic index, stripped of fibre and micronutrients." },
 ];
+
+// Bulk keywords match at a word start and allow only simple endings (salts, salted, salty),
+// so "tamari" can't fire inside "tamarind" nor "salt" inside "unsalted".
+const BULK_RE = new Map<string, RegExp>();
+function bulkHit(lower: string, k: string): boolean {
+  let re = BULK_RE.get(k);
+  if (!re) BULK_RE.set(k, (re = new RegExp(`(?:^|[^a-z])${k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:s|es|ed|y)?(?![a-z])`)));
+  return re.test(lower);
+}
 
 export interface IngredientAssessment {
   name: string;
@@ -107,7 +118,7 @@ export function assessIngredient(name: string, position: number): IngredientAsse
     };
   }
   for (const rule of BULK_RULES) {
-    if (rule.keywords.some((k) => name.toLowerCase().includes(k))) {
+    if (rule.keywords.some((k) => bulkHit(name.toLowerCase(), k)) && !rule.unless?.test(name.toLowerCase())) {
       return {
         name, position, concern: rule[b], evidence: "STRONG",
         reason: rule.note, isAdditive: false, isWhole: false,
@@ -127,6 +138,12 @@ export function assessIngredient(name: string, position: number): IngredientAsse
       : "Unrecognised ingredient with no documented concern.",
     isAdditive: chemical, isWhole: false,
   };
+}
+
+/** True when the KB, a bulk rule or the whole-food lists recognise the name. */
+export function isRecognised(name: string): boolean {
+  const a = assessIngredient(name, 0);
+  return !(a.evidence === "INSUFFICIENT" && a.reason.startsWith("Unrecognised"));
 }
 
 // Back-compat: old callers used inferConcernLevel(name) with no position.

@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: coloring
 evidence: LIMITED
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Other Synthetic Dyes (Amaranth, Green S, Brown HT)

@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: antioxidant
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Ascorbic Acid (Vitamin C)
 
 **Category:** antioxidant  ·  **Function:** Antioxidant / vitamin
 **Evidence strength:** STRONG
-**E-number(s):** e300, e301, e302
+**E-number(s):** e303, e300, e301, e302
 
 
 ## Concern by concentration

@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: stabilizer
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Calcium Chloride / Sulfate / Lactate (firming)

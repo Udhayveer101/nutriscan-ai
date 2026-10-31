@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Fumaric Acid (E297)
 
 **Category:** acidity regulator  ·  **Function:** Acidulant
 **Evidence strength:** STRONG
-**E-number(s):** e297, e365, e366, e367, e368
+**E-number(s):** e366, e367, e368, e297, e365, e366, e367, e368
 **ADI:** 6 mg/kg bw/day (SCF 1990)
 
 ## Concern by concentration

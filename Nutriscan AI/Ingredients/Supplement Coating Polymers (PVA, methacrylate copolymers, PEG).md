@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: glazing agent
 evidence: MODERATE
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Supplement Coating Polymers (PVA, methacrylate copolymers, PEG)
 
 **Category:** glazing agent  ·  **Function:** Film coating for tablets and capsules
 **Evidence strength:** MODERATE
-**E-number(s):** e1203, e1205, e1206, e1208, e1209, e1521
+**E-number(s):** e1203, e1205, e1206, e1208, e1209, e1521, e1207
 **ADI:** PEG 10 mg/kg bw/day (JECFA); basic methacrylate copolymer not specified (JECFA)
 
 ## Concern by concentration

@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: thickener
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Inulin / Chicory Fibre & Prebiotic Oligosaccharides

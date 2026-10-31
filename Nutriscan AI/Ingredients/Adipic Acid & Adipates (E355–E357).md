@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: MODERATE
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Adipic Acid & Adipates (E355–E357)
 
 **Category:** acidity regulator  ·  **Function:** Tart acidulant / buffer
 **Evidence strength:** MODERATE
-**E-number(s):** e355, e356, e357
+**E-number(s):** e359, e355, e356, e357
 **ADI:** 0–5 mg/kg bw/day (JECFA)
 
 ## Concern by concentration

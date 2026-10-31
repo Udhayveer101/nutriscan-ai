@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Food Alkalis (hydroxides & carbonates, E500–E527)

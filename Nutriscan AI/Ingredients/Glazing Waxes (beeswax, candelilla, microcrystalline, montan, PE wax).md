@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: stabilizer
 evidence: MODERATE
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Glazing Waxes (beeswax, candelilla, microcrystalline, montan, PE wax)

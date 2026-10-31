@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Lactic Acid
 
 **Category:** acidity regulator  ·  **Function:** Acidulant
 **Evidence strength:** STRONG
-**E-number(s):** e270, e325, e326, e327, e329
+**E-number(s):** e328, e270, e325, e326, e327, e329
 
 
 ## Concern by concentration

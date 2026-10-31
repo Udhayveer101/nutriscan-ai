@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: emulsifier
 evidence: MODERATE
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Lactic/Tartaric Acid Esters of Mono-/Diglycerides (E472b/d/f)

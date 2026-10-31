@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: humectant
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Polyols (maltitol/isomalt/sorbitol/polyglycitol syrups)
 
 **Category:** humectant  ·  **Function:** Humectant / bulk sweetener syrup
 **Evidence strength:** STRONG
-**E-number(s):** e953, e964, e965
+**E-number(s):** e953, e964, e965, e420ii
 **ADI:** not specified; laxative-effect labelling required
 
 ## Concern by concentration

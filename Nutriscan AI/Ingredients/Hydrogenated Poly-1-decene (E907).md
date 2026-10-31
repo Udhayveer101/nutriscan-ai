@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: glazing agent
 evidence: MODERATE
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Hydrogenated Poly-1-decene (E907)

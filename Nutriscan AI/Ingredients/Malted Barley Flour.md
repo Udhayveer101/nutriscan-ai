@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: flour treatment
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Malted Barley Flour

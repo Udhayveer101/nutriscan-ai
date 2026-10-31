@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: anti-caking agent
 evidence: MODERATE
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Silicates (silicon dioxide/calcium silicate/talc/bentonite)

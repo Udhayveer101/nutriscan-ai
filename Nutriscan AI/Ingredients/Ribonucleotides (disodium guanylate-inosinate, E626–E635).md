@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: flavor enhancer
 evidence: MODERATE
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Ribonucleotides (disodium guanylate/inosinate, E626–E635)

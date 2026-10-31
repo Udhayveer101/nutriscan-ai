@@ -151,7 +151,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2017 glutamates re-evaluation",
   },
   {
-    id: "palm-oil", name: "Palm Oil", keywords: ["palm oil", "palm kernel", "palm fat"],
+    id: "palm-oil", name: "Palm Oil", keywords: ["palm oil", "palm kernel", "palm fat", "palm olein", "palmolein", "palm stearin", "fractionated palm"],
     category: "fat", function: "Cheap solid fat",
     dominant: "HIGH", moderate: "HIGH", trace: "MEDIUM", evidence: "MODERATE",
     regulatory: "Permitted; refining produces 3-MCPD/glycidyl esters (EFSA concern)",
@@ -200,9 +200,9 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "azo-dyes", name: "Synthetic Colour Dyes (Red 40, Yellow 5/6, etc.)",
     keywords: ["indigo carmine", "cochineal red a", "red 40", "allura red", "yellow 5", "tartrazine", "yellow 6", "sunset yellow",
-               "blue 1", "brilliant blue", "blue 2", "indigotine", "green 3", "ponceau",
-               "quinoline yellow", "carmoisine", "azorubine", "fast green fcf", "fast green", "fd&c green no. 3", "fd&c green 3"],
-    eNumbers: ["e129", "e102", "e110", "e133", "e132", "e124", "e104", "e122", "e143"],
+               "blue 1", "brilliant blue", "blue 2", "indigotine", "ponceau",
+               "quinoline yellow", "carmoisine", "azorubine"],
+    eNumbers: ["e129", "e102", "e110", "e133", "e132", "e124", "e104", "e122"],
     category: "coloring", function: "Synthetic colour",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     regulatory: "Approved; EU mandates hyperactivity warning label",
@@ -223,7 +223,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA GRAS; Nickerson 2015 (gut microbiome)",
   },
   {
-    id: "modified-starch", name: "Modified Starch", keywords: ["osa starch", "modified starch", "modified food starch", "modified corn starch", "modified maize starch", "modified tapioca starch", "modified potato starch", "dextrin", "oxidised starch", "oxidized starch", "monostarch phosphate", "distarch phosphate", "acetylated starch", "starch acetate", "acetylated distarch adipate", "hydroxypropyl starch", "hydroxypropyl distarch phosphate", "acetylated oxidised starch", "starch sodium octenyl succinate", "sodium starch octenyl succinate", "acid treated starch", "acid-treated starch", "alkaline treated starch", "alkali treated starch", "bleached starch", "enzyme treated starch", "enzyme-treated starch", "distarch glycerol"],
+    id: "modified-starch", name: "Modified Starch", keywords: ["osa starch", "modified starch", "modified food starch", "modified corn starch", "modified maize starch", "modified tapioca starch", "modified potato starch", "dextrin", "oxidised starch", "oxidized starch", "monostarch phosphate", "distarch phosphate", "acetylated starch", "starch acetate", "acetylated distarch adipate", "hydroxypropyl starch", "hydroxypropyl distarch phosphate", "acetylated oxidised starch", "starch sodium octenyl succinate", "sodium starch octenyl succinate", "acid treated starch", "acid-treated starch", "alkaline treated starch", "alkali treated starch", "bleached starch", "enzyme treated starch", "enzyme-treated starch", "alkaline-treated starch", "alkali-treated starch", "distarch glycerol"],
     eNumbers: ["e1400", "e1401", "e1402", "e1403", "e1404", "e1405", "e1410", "e1412", "e1413", "e1414", "e1420", "e1422", "e1440", "e1442", "e1450", "e1451", "e1411"],
     category: "thickener", function: "Texture / stability",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "INSUFFICIENT",
@@ -282,7 +282,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   // Nutrients / benign — positive or neutral, to prevent false penalties.
   // ───────────────────────────────────────────────────────────────────────────
   {
-    id: "ascorbic-acid", name: "Ascorbic Acid (Vitamin C)", keywords: ["ascorbic acid", "vitamin c", "sodium ascorbate", "calcium ascorbate", "potassium ascorbate"], eNumbers: ["e300", "e301", "e302"],
+    id: "ascorbic-acid", name: "Ascorbic Acid (Vitamin C)", keywords: ["ascorbic acid", "vitamin c", "sodium ascorbate", "calcium ascorbate", "potassium ascorbate", "magnesium ascorbate", "zinc ascorbate", "magnesium l-ascorbate"], eNumbers: ["e303", "e300", "e301", "e302"],
     category: "antioxidant", function: "Antioxidant / vitamin",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; essential nutrient",
@@ -341,7 +341,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "NTP delisting 2000; EFSA opinion",
   },
   {
-    id: "stevia", name: "Steviol Glycosides (Stevia)", keywords: ["stevia", "steviol", "rebaudioside"], eNumbers: ["e960"],
+    id: "stevia", name: "Steviol Glycosides (Stevia)", keywords: ["stevia", "steviol", "rebaudioside", "stevioside", "reb m"], eNumbers: ["e960"],
     category: "sweetener", function: "Natural high-intensity sweetener",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "4 mg/kg bw/day steviol (EFSA/JECFA)", regulatory: "Approved; a preferred natural sweetener",
@@ -401,7 +401,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2015 cochineal; case reports",
   },
   {
-    id: "disodium-edta", name: "Disodium EDTA", keywords: ["edta", "disodium edta", "calcium disodium edta"], eNumbers: ["e385", "e386"],
+    id: "disodium-edta", name: "Disodium EDTA", keywords: ["edetate disodium", "disodium edetate", "disodium ethylenediaminetetraacetate", "edta", "disodium edta", "calcium disodium edta"], eNumbers: ["e385", "e386"],
     category: "antioxidant", function: "Sequestrant / preservative",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     adi: "2.5 mg/kg bw/day (EFSA)", regulatory: "Approved with limits",
@@ -409,7 +409,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2018 EDTA re-evaluation",
   },
   {
-    id: "sodium-phosphates", name: "Sodium/Potassium/Magnesium Phosphates", keywords: ["sodium phosphate", "potassium phosphate", "sodium dihydrogen phosphate", "magnesium phosphate", "trimagnesium phosphate", "dimagnesium phosphate", "monomagnesium phosphate", "sodium tripolyphosphate", "trisodium phosphate", "tetrasodium pyrophosphate", "pyrophosphate", "sodium hexametaphosphate", "hexametaphosphate", "polyphosphate", "ammonium phosphate", "diammonium phosphate", "monoammonium phosphate", "ammonium dihydrogen phosphate", "diammonium hydrogen phosphate"], eNumbers: ["e339", "e340", "e343", "e450", "e451", "e452", "e342"],
+    id: "sodium-phosphates", name: "Sodium/Potassium/Magnesium Phosphates", keywords: ["trisodium diphosphate", "dipotassium diphosphate", "tetrapotassium diphosphate", "magnesium dihydrogen diphosphate", "pentasodium triphosphate", "pentapotassium triphosphate", "sodium tripolyphosphate", "sodium phosphate", "potassium phosphate", "sodium dihydrogen phosphate", "magnesium phosphate", "trimagnesium phosphate", "dimagnesium phosphate", "monomagnesium phosphate", "sodium tripolyphosphate", "trisodium phosphate", "tetrasodium pyrophosphate", "pyrophosphate", "sodium hexametaphosphate", "hexametaphosphate", "polyphosphate", "ammonium phosphate", "diammonium phosphate", "monoammonium phosphate", "ammonium dihydrogen phosphate", "diammonium hydrogen phosphate"], eNumbers: ["e339", "e340", "e343", "e450", "e451", "e452", "e342"],
     category: "acidity regulator", function: "Emulsifying salt / stabiliser",
     dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     regulatory: "Approved; EFSA 2019 group phosphate ADI", populations: ["chronic kidney disease", "cardiovascular"],
@@ -417,7 +417,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2019 phosphates re-evaluation",
   },
   {
-    id: "aluminium-additives", name: "Aluminium-containing Additives", keywords: ["aluminium", "aluminum", "sodium aluminium phosphate", "aluminium sulphate", "sodium aluminium sulphate", "sodium aluminum sulfate", "aluminosilicate", "aluminium silicate", "aluminium potassium sulphate", "potassium aluminium sulphate", "aluminum potassium sulfate", "potash alum", "potassium alum", "aluminium ammonium sulphate", "aluminum ammonium sulfate", "ammonium alum", "kaolin"], eNumbers: ["e541", "e173", "e520", "e521", "e522", "e523", "e554", "e555", "e556", "e559", "e1452"],
+    id: "aluminium-additives", name: "Aluminium-containing Additives", keywords: ["aluminium", "aluminum", "sodium aluminium phosphate", "aluminium sulphate", "sodium aluminium sulphate", "sodium aluminum sulfate", "aluminosilicate", "aluminium silicate", "aluminium potassium sulphate", "potassium aluminium sulphate", "aluminum potassium sulfate", "potash alum", "potassium alum", "aluminium ammonium sulphate", "aluminum ammonium sulfate", "ammonium alum", "kaolin", "starch aluminium octenyl succinate", "starch aluminum octenyl succinate", "aluminium potassium sulfate", "aluminum potassium sulphate", "aluminium ammonium sulfate", "aluminum ammonium sulphate"], eNumbers: ["e541", "e173", "e520", "e521", "e522", "e523", "e554", "e555", "e556", "e559", "e1452"],
     category: "acidity regulator", function: "Leavening / anticaking / colour",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
     adi: "1 mg/kg bw/week aluminium (EFSA TWI)", regulatory: "Restricted; EFSA set a tolerable weekly intake",
@@ -434,7 +434,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2009 natamycin",
   },
   {
-    id: "guar-gum", name: "Guar Gum", keywords: ["guar gum", "guar"], eNumbers: ["e412"],
+    id: "guar-gum", name: "Guar Gum", keywords: ["guar gum", "guar", "partially hydrolysed guar gum", "partially hydrolyzed guar gum", "phgg", "sunfiber"], eNumbers: ["e412"],
     category: "thickener", function: "Natural thickener (fibre)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; a soluble fibre",
@@ -521,21 +521,21 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2013 stearoyl lactylates",
   },
   {
-    id: "lactic-acid", name: "Lactic Acid", keywords: ["lactic acid", "sodium lactate", "potassium lactate", "calcium lactate", "magnesium lactate"], eNumbers: ["e270", "e325", "e326", "e327", "e329"],
+    id: "lactic-acid", name: "Lactic Acid", keywords: ["ammonium lactate", "lactic acid", "sodium lactate", "potassium lactate", "calcium lactate", "magnesium lactate"], eNumbers: ["e328", "e270", "e325", "e326", "e327", "e329"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; no ADI", note: "Naturally occurring (fermentation); benign acidulant and preservative.",
     ref: "EFSA lactic acid",
   },
   {
-    id: "malic-acid", name: "Malic Acid & Malates", keywords: ["malic acid", "sodium malate", "potassium malate", "calcium malate", "sodium hydrogen malate", "calcium hydrogen malate", "potassium hydrogen malate", "ammonium malate"], eNumbers: ["e296", "e350", "e351", "e352", "e349"],
+    id: "malic-acid", name: "Malic Acid & Malates", keywords: ["malic acid", "sodium malate", "potassium malate", "calcium malate", "sodium hydrogen malate", "calcium hydrogen malate", "potassium hydrogen malate", "ammonium malate"], eNumbers: ["e349", "e296", "e350", "e351", "e352", "e349"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved; no ADI", note: "Found naturally in apples; benign tart flavouring/acidulant.",
     ref: "EFSA malic acid",
   },
   {
-    id: "sodium-citrate", name: "Sodium & Potassium Citrates", keywords: ["sodium citrate", "trisodium citrate", "potassium citrate", "tripotassium citrate", "monopotassium citrate", "ammonium citrate", "magnesium citrate", "trimagnesium citrate"], eNumbers: ["e331", "e332", "e380", "e345"],
+    id: "sodium-citrate", name: "Sodium & Potassium Citrates", keywords: ["trimagnesium dicitrate", "sodium citrate", "trisodium citrate", "potassium citrate", "tripotassium citrate", "monopotassium citrate", "ammonium citrate", "magnesium citrate", "trimagnesium citrate"], eNumbers: ["e331", "e332", "e380", "e345"],
     category: "acidity regulator", function: "Buffer / emulsifying salt",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "GRAS; no ADI", note: "Benign buffer and emulsifying salt (e.g. in processed cheese).",
@@ -724,7 +724,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Sweeteners ───────────────────────────────────────────
   {
-    id: "sucrose", name: "Sugar (Sucrose)", keywords: ["sugar", "sucrose", "cane sugar", "beet sugar", "table sugar", "caster sugar", "icing sugar", "brown sugar", "granulated sugar"], eNumbers: [],
+    id: "sucrose", name: "Sugar (Sucrose)", keywords: ["candied peel", "mixed peel", "candied citrus peel", "candied orange peel", "candied lemon peel", "glacé cherries", "glace cherries", "candied cherries", "cocktail cherries", "maraschino cherries", "tutti frutti", "tutti-frutti", "candied papaya", "candied fruit", "crystallised ginger", "candied ginger", "crystallized ginger", "stem ginger in syrup", "sugar", "sucrose", "cane sugar", "beet sugar", "table sugar", "caster sugar", "icing sugar", "brown sugar", "granulated sugar", "mishri", "misri", "rock candy", "bing tang"], eNumbers: [],
     category: "sweetener", function: "Free sugar / sweetener",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Not restricted (a food)",
@@ -1032,7 +1032,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2017 re-evaluation of alginates; JECFA",
   },
   {
-    id: "native-starch", name: "Native Starch (tapioca/potato/rice/corn)", keywords: ["starch", "tapioca starch", "potato starch", "rice starch", "arrowroot", "wheat starch", "tapioca flour", "corn starch", "cornstarch", "maize starch", "corn flour"], eNumbers: [],
+    id: "native-starch", name: "Native Starch (tapioca/potato/rice/corn)", keywords: ["starch", "tapioca starch", "potato starch", "rice starch", "arrowroot", "wheat starch", "tapioca flour", "corn starch", "cornstarch", "maize starch", "corn flour", "tapioca pearls", "sabudana", "sabudana pearls"], eNumbers: [],
     category: "thickener", function: "Unmodified starch thickener",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Foods, not additives",
@@ -1124,7 +1124,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluations of carbonates/hydroxides; FDA GRAS",
   },
   {
-    id: "calcium-citrate", name: "Calcium Citrate (E333)", keywords: ["calcium citrate"], eNumbers: ["e333"],
+    id: "calcium-citrate", name: "Calcium Citrate (E333)", keywords: ["calcium citrate", "ccm"], eNumbers: ["e333"],
     category: "acidity regulator", function: "Buffer / firming agent / calcium source",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1134,7 +1134,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluation of citrates; FDA GRAS",
   },
   {
-    id: "adipic-acid", name: "Adipic Acid & Adipates (E355–E357)", keywords: ["adipic acid", "sodium adipate", "potassium adipate", "adipate"], eNumbers: ["e355", "e356", "e357"],
+    id: "adipic-acid", name: "Adipic Acid & Adipates (E355–E357)", keywords: ["adipic acid", "sodium adipate", "potassium adipate", "adipate"], eNumbers: ["e359", "e355", "e356", "e357"],
     category: "acidity regulator", function: "Tart acidulant / buffer",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "0–5 mg/kg bw/day (JECFA)",
@@ -1247,7 +1247,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluations of carbonates; FDA GRAS",
   },
   {
-    id: "calcium-phosphates", name: "Calcium Phosphates (E341)", keywords: ["monocalcium phosphate", "dicalcium phosphate", "tricalcium phosphate", "calcium phosphate", "edible bone phosphate", "bone phosphate"], eNumbers: ["e341", "e542"],
+    id: "calcium-phosphates", name: "Calcium Phosphates (E341)", keywords: ["dicalcium diphosphate", "calcium dihydrogen diphosphate", "calcium pyrophosphate", "monocalcium phosphate", "dicalcium phosphate", "tricalcium phosphate", "calcium phosphate", "edible bone phosphate", "bone phosphate"], eNumbers: ["e450vi", "e450vii", "e341", "e542"],
     category: "raising agent", function: "Leavening acid / calcium source / anti-caking",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "group phosphate ADI 40 mg/kg as P (EFSA)",
@@ -1297,7 +1297,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA novel-food opinion on trehalose",
   },
   {
-    id: "polyol-syrups", name: "Polyols (maltitol/isomalt/sorbitol/polyglycitol syrups)", keywords: ["sorbitol syrup", "maltitol syrup", "maltitol", "isomalt", "polyglycitol syrup", "hydrogenated glucose syrup", "hydrogenated starch hydrolysate", "sugar alcohol", "polyols"], eNumbers: ["e953", "e964", "e965"],
+    id: "polyol-syrups", name: "Polyols (maltitol/isomalt/sorbitol/polyglycitol syrups)", keywords: ["sorbitol syrup", "maltitol syrup", "maltitol", "isomalt", "polyglycitol syrup", "hydrogenated glucose syrup", "hydrogenated starch hydrolysate", "sugar alcohol", "polyols"], eNumbers: ["e953", "e964", "e965", "e420ii"],
     category: "humectant", function: "Humectant / bulk sweetener syrup",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified; laxative-effect labelling required",
@@ -1316,7 +1316,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA authorised health claim for betaine",
   },
   {
-    id: "unrefined-sugar-syrups", name: "Unrefined Sugars & Syrups (molasses, jaggery, maple/golden/date syrup)", keywords: ["maple sugar", "unrefined cane sugar", "molasses", "treacle", "golden syrup", "date syrup", "cane syrup", "jaggery", "coconut sugar", "palm sugar", "maple syrup", "panela", "rapadura", "khandsari", "sorghum syrup", "evaporated cane juice", "cane juice", "muscovado", "demerara", "turbinado", "piloncillo"], eNumbers: [],
+    id: "unrefined-sugar-syrups", name: "Unrefined Sugars & Syrups (molasses, jaggery, maple/golden/date syrup)", keywords: ["maple sugar", "unrefined cane sugar", "chancaca", "sucanat", "karupatti", "coconut sap syrup", "coconut blossom nectar", "birch syrup", "molasses", "treacle", "golden syrup", "date syrup", "cane syrup", "jaggery", "coconut sugar", "palm sugar", "maple syrup", "panela", "rapadura", "khandsari", "sorghum syrup", "evaporated cane juice", "cane juice", "muscovado", "demerara", "turbinado", "piloncillo", "carob syrup", "coconut nectar", "coconut syrup", "coconut sap sugar", "pekmez", "gur", "kithul", "gula jawa", "gula melaka", "nam tan pip", "desi khand", "dibs rumman", "nar ek\u015fisi", "harrub syrup", "grape syrup", "pomegranate syrup"], eNumbers: [],
     category: "humectant", function: "Humectant / sweetener (free sugars)",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Foods, not additives",
@@ -1327,7 +1327,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Anti-caking agents ───────────────────────────────────
   {
-    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite", "zinc silicate", "potassium silicate"], eNumbers: ["e551", "e552", "e553", "e558", "e550", "e557", "e560"],
+    id: "silicates-anticaking", name: "Silicates (silicon dioxide/calcium silicate/talc/bentonite)", keywords: ["silicon dioxide", "silica", "calcium silicate", "sodium silicate", "talc", "bentonite", "magnesium silicate", "magnesium trisilicate", "diatomaceous earth", "kieselguhr", "diatomite", "zinc silicate", "potassium silicate"], eNumbers: ["e551", "e552", "e553", "e558", "e550", "e557", "e560"],
     category: "anti-caking agent", function: "Free-flow / anti-caking",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified; nano-fraction of E551 under review",
@@ -1357,7 +1357,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2018 re-evaluation of ferrocyanides",
   },
   {
-    id: "stearic-acid-salts", name: "Stearic Acid & Stearate Salts (E470/E570)", keywords: ["stearic acid", "magnesium stearate", "calcium stearate", "sodium stearate", "fatty acid salts"], eNumbers: ["e470", "e570"],
+    id: "stearic-acid-salts", name: "Stearic Acid & Stearate Salts (E470/E570)", keywords: ["stearic acid", "magnesium stearate", "calcium stearate", "sodium stearate", "fatty acid salts", "potassium stearate", "salts of fatty acids"], eNumbers: ["e470", "e570"],
     category: "anti-caking agent", function: "Anti-caking / release agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA)",
@@ -1389,7 +1389,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "WHO/IPCS ADA assessment; EU ban; FDA 21 CFR 172.806",
   },
   {
-    id: "flour-bleaching-oxidisers", name: "Flour Bleaching/Oxidising Agents (E926/E928/E930)", keywords: ["benzoyl peroxide", "chlorine dioxide", "calcium peroxide", "flour bleach", "potassium persulphate", "potassium persulfate", "ammonium persulphate", "ammonium persulfate", "chlorinated flour"], eNumbers: ["e926", "e928", "e930", "e922", "e923", "e925"],
+    id: "flour-bleaching-oxidisers", name: "Flour Bleaching/Oxidising Agents (E926/E928/E930)", keywords: ["chlorine gas", "chlorine", "benzoyl peroxide", "chlorine dioxide", "calcium peroxide", "flour bleach", "potassium persulphate", "potassium persulfate", "ammonium persulphate", "ammonium persulfate", "chlorinated flour"], eNumbers: ["e925", "e926", "e928", "e930", "e922", "e923", "e925"],
     category: "flour treatment", function: "Bleaching / maturing agent",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "varies; largely spent during processing",
@@ -1419,7 +1419,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA re-evaluation of ammonium chloride; FDA GRAS",
   },
   {
-    id: "dough-enzymes", name: "Food Enzymes (amylase, protease, rennet, lactase, invertase)", keywords: ["alpha-amylase", "amylase", "protease", "glucose oxidase", "xylanase", "fungal enzyme", "transglutaminase", "papain", "bromelain", "invertase", "lactase", "lipase", "pectinase", "rennet", "chymosin"], eNumbers: ["e1100", "e1101", "e1102", "e1103", "e1104"],
+    id: "dough-enzymes", name: "Food Enzymes (amylase, protease, rennet, lactase, invertase)", keywords: ["alpha-galactosidase", "α-galactosidase", "melibiase", "laccase", "polyphenol oxidase (laccase)", "aminopeptidase", "leucine aminopeptidase", "pepsin", "porcine pepsin", "bovine pepsin", "trypsin", "porcine trypsin", "pancreatin", "pancreatic enzymes", "pancrelipase", "chitinase", "chitin hydrolase", "cyclodextrin glucanotransferase", "cgtase", "cyclodextrin glycosyltransferase", "prolyl oligopeptidase", "aspergillus niger prolyl endopeptidase", "an-pep", "prolyl endoprotease", "glutaminase", "l-glutaminase", "peroxidase", "horseradish peroxidase", "nattokinase", "natto kinase", "subtilisin nat", "5'-phosphodiesterase", "nuclease p1", "5'-phosphodiesterase enzyme", "amp deaminase", "adenylic acid deaminase", "5'-adenylic acid deaminase", "dextranase", "dextran hydrolase", "mannanase", "beta-mannanase", "β-mannanase", "transglucosidase", "alpha-glucosidase (transglucosidase)", "alpha-amylase", "amylase", "protease", "glucose oxidase", "xylanase", "fungal enzyme", "transglutaminase", "papain", "bromelain", "invertase", "lactase", "lipase", "pectinase", "rennet", "chymosin", "beta-galactosidase", "cellulase", "glucoamylase", "amyloglucosidase", "pullulanase", "phospholipase", "asparaginase", "catalase", "glucose isomerase", "xylose isomerase", "tannase", "naringinase", "phytase", "beta-glucanase", "lipoxygenase", "beta-amylase", "acetolactate decarboxylase", "lactoperoxidase", "pectin lyase", "polygalacturonase", "pectinesterase", "food enzymes", "aldc", "anti-staling enzyme", "bromelin", "cellulolytic enzyme", "debranching enzyme", "enzyme-active soy flour", "glucan 1,4-alpha-glucosidase", "glucanase", "lipolytic enzyme", "meat glue", "pectolytic enzymes", "pineapple enzyme", "protein-glutamine gamma-glutamyltransferase", "tannin acylhydrolase", "\u03b2-galactosidase", "\u03b2-glucanase"], eNumbers: ["e1100", "e1101", "e1102", "e1103", "e1104"],
     category: "flour treatment", function: "Enzymatic dough improver (processing aid)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "not specified (processing aids, largely inactivated on baking)",
@@ -1440,7 +1440,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Vitamins & minerals (fortificants) ───────────────────
   {
-    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3", "nicotinic acid"], eNumbers: ["e101", "e101a", "e375"],
+    id: "added-vitamins", name: "Added Vitamins & Nutrients (fortification)", keywords: ["inositol", "l-carnitine", "carnitine", "choline chloride", "choline bitartrate", "pteroylmonoglutamic acid", "cyanocobalamin", "vitamin b12", "vitamin a palmitate", "retinyl palmitate", "tocopheryl acetate", "vitamin e acetate", "thiamine", "thiamin mononitrate", "pyridoxine", "vitamin b6", "calcium pantothenate", "pantothenic acid", "biotin", "vitamin k", "menadione", "cholecalciferol", "vitamin d", "ergocalciferol", "vitamin a", "folic acid", "folate", "niacin", "nicotinamide", "riboflavin", "vitamin b2", "vitamin b1", "vitamin b3", "retinol", "retinyl acetate", "vitamin a acetate", "tocopheryl succinate", "tocopheryl acid succinate", "tocotrienol", "phylloquinone", "phytonadione", "vitamin k1", "menaquinone", "vitamin k2", "mk-7", "thiamine hydrochloride", "thiamin hydrochloride", "niacinamide", "nicotinamide riboside", "nicotinic acid", "panthenol", "dexpanthenol", "sodium pantothenate", "pyridoxal 5'-phosphate", "pyridoxal-5-phosphate", "pyridoxal phosphate", "methylfolate", "l-methylfolate", "5-methyltetrahydrofolate", "5-mthf", "methylcobalamin", "hydroxocobalamin", "adenosylcobalamin", "cobamamide", "sodium d-pantothenate", "acetyl-l-carnitine", "alcar", "dibencozide", "hydroxycobalamin", "mecobalamin", "metafolin", "methyl b12", "niagen", "nr", "p5p", "plp", "provitamin b5", "vitamin b5"], eNumbers: ["e101", "e101a", "e375"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1449,7 +1449,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA/IOM dietary reference values & upper limits",
   },
   {
-    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate", "magnesium gluconate", "cupric sulphate", "cupric sulfate", "copper sulfate", "ferrous carbonate", "calcium glycerophosphate"], eNumbers: ["e579", "e585", "e650", "e505", "e519", "e580", "e383"],
+    id: "added-minerals", name: "Added Minerals (fortification)", keywords: ["magnesium glycerylphosphate", "zinc pyridine-2-carboxylate", "zinc(ii) carbonate", "manganese(ii) gluconate", "ferrous fumarate", "ferrous sulphate", "ferrous sulfate", "zinc oxide", "zinc sulphate", "potassium iodide", "potassium iodate", "sodium selenite", "manganese sulphate", "copper sulphate", "iron (", "iron fortificant", "elemental iron", "reduced iron", "electrolytic iron", "ferric pyrophosphate", "ferric orthophosphate", "ferrous bisglycinate", "ferrous gluconate", "ferrous lactate", "zinc acetate", "calcium iodate", "calcium glycerophosphate", "calcium bisglycinate", "calcium l-threonate", "magnesium gluconate", "magnesium glycerophosphate", "magnesium bisglycinate", "magnesium glycinate", "magnesium aspartate", "ferric sodium edta", "sodium iron edta", "sodium feredetate", "ferrous carbonate", "ferrous citrate", "ferric citrate", "ferric saccharate", "ferrous succinate", "zinc sulfate", "zinc gluconate", "zinc citrate", "zinc bisglycinate", "zinc picolinate", "zinc carbonate", "zinc chloride", "copper sulfate", "copper gluconate", "cupric gluconate", "cupric citrate", "copper citrate", "copper bisglycinate", "cupric oxide", "sodium iodide", "sodium iodate", "sodium selenate", "sodium hydrogen selenite", "selenomethionine", "l-selenomethionine", "selenium yeast", "selenium-enriched yeast", "chromium picolinate", "chromium chloride", "chromium(iii) chloride", "chromium nicotinate", "sodium molybdate", "ammonium molybdate", "manganese sulfate", "manganese gluconate", "manganese citrate", "manganese carbonate", "sodium fluoride", "potassium fluoride", "calcium fluoride", "nafeedta", "calcium amino acid chelate", "calcium glycerylphosphate", "calcium glycinate", "calcium threonate", "chromic chloride", "chromium trichloride", "chromium(iii) picolinate", "copper glycinate", "cupric sulphate", "ferric phosphate", "ferrochel", "iron bisglycinate", "iron glycinate", "iron(ii) carbonate", "iron(ii) citrate", "iron(ii) succinate", "iron(iii) citrate", "iron(iii) phosphate", "kf", "kio3", "magnesium amino acid chelate", "naf", "nai", "selenised yeast", "trizinc dicitrate", "zinc glycinate", "cupric sulfate", "iron (fortification)"], eNumbers: ["e579", "e585", "e650", "e505", "e519", "e580", "e383"],
     category: "vitamin & mineral", function: "Nutrient fortification",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "Approved fortificants (EU & FDA)",
@@ -1460,7 +1460,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   // ── Expansion 2026-09: colours ──────────────────────────────────────────────
   {
     id: "plant-colours", name: "Plant-derived Colours (curcumin, paprika, lycopene, beetroot, anthocyanins)",
-    keywords: ["curcumin", "turmeric extract", "turmeric oleoresin", "paprika extract", "paprika oleoresin", "capsanthin", "capsorubin", "lycopene", "beetroot red", "beet red", "betanin", "anthocyanin", "grape skin extract", "black carrot extract", "purple carrot extract", "beet juice concentrate", "beetroot juice concentrate", "saffron", "kesar", "crocin"],
+    keywords: ["curcumin", "turmeric extract", "turmeric oleoresin", "paprika extract", "paprika oleoresin", "capsanthin", "capsorubin", "lycopene", "beetroot red", "beet red", "betanin", "anthocyanin", "grape skin extract", "black carrot extract", "purple carrot extract", "beet juice concentrate", "beetroot juice concentrate", "crocin"],
     eNumbers: ["e100", "e160c", "e160d", "e162", "e163", "e164"],
     category: "coloring", function: "Natural colour",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
@@ -1491,7 +1491,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA AFC opinion 2007 on Red 2G; Commission Reg. (EC) 884/2007",
   },
   {
-    id: "vegetable-carbon", name: "Vegetable Carbon (E153)", keywords: ["vegetable carbon", "carbon black", "vegetable black"], eNumbers: ["e153"],
+    id: "vegetable-carbon", name: "Vegetable Carbon (E153)", keywords: ["vegetable carbon", "carbon black", "vegetable black", "activated carbon", "activated charcoal"], eNumbers: ["e153"],
     category: "coloring", function: "Black colour",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
     regulatory: "EU-approved with PAH purity limits; not permitted as a colour in the US",
@@ -1576,7 +1576,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA FAF 2020 re-evaluation of E334–E337 and E354",
   },
   {
-    id: "fumaric-acid", name: "Fumaric Acid (E297)", keywords: ["fumaric acid", "sodium fumarate", "potassium fumarate", "calcium fumarate", "ammonium fumarate"], eNumbers: ["e297", "e365", "e366", "e367", "e368"],
+    id: "fumaric-acid", name: "Fumaric Acid (E297)", keywords: ["fumaric acid", "sodium fumarate", "potassium fumarate", "calcium fumarate", "ammonium fumarate"], eNumbers: ["e366", "e367", "e368", "e297", "e365", "e366", "e367", "e368"],
     category: "acidity regulator", function: "Acidulant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "6 mg/kg bw/day (SCF 1990)",
@@ -1614,8 +1614,8 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA 21 CFR 184.1240",
   },
   {
-    id: "packaging-gases", name: "Packaging Gases (nitrogen, argon, nitrous oxide…)", keywords: ["nitrogen", "nitrous oxide", "protective atmosphere", "packaging gas", "isobutane", "argon", "helium"],
-    eNumbers: ["e938", "e939", "e941", "e942", "e943a", "e943b", "e944", "e948", "e949"],
+    id: "packaging-gases", name: "Packaging Gases (nitrogen, argon, nitrous oxide…)", keywords: ["dichlorodifluoromethane", "octafluorocyclobutane", "nitrogen", "nitrous oxide", "protective atmosphere", "packaging gas", "isobutane", "argon", "helium", "propane", "butane", "n-butane", "oxygen", "hydrogen gas"],
+    eNumbers: ["e940", "e946", "e938", "e939", "e941", "e942", "e943a", "e943b", "e944", "e948", "e949"],
     category: "preservative", function: "Modified-atmosphere packaging / propellant",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "EU-approved quantum satis; GRAS",
@@ -1633,7 +1633,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "glazing-waxes", name: "Glazing Waxes (beeswax, candelilla, microcrystalline, montan, PE wax)",
-    keywords: ["beeswax", "bees wax", "candelilla", "microcrystalline wax", "montan acid ester", "oxidised polyethylene wax", "oxidized polyethylene wax", "rice bran wax", "lanolin", "wool fat", "wool wax"],
+    keywords: ["beeswax", "bees wax", "candelilla", "microcrystalline wax", "montan acid ester", "oxidised polyethylene wax", "oxidized polyethylene wax", "montan wax esters", "pe wax", "petroleum wax", "rice bran wax", "lanolin", "wool fat", "wool wax"],
     eNumbers: ["e901", "e902", "e905", "e912", "e914", "e908", "e913"],
     category: "stabilizer", function: "Glazing / coating agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
@@ -1652,7 +1652,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2016 (E444) and 2023 follow-up (E445)",
   },
   {
-    id: "cyclodextrins", name: "Cyclodextrins (E459)", keywords: ["cyclodextrin", "beta-cyclodextrin", "betadex"], eNumbers: ["e459"],
+    id: "cyclodextrins", name: "Cyclodextrins (E459)", keywords: ["cyclodextrin", "beta-cyclodextrin", "betadex", "alfadex"], eNumbers: ["e459"],
     category: "stabilizer", function: "Encapsulating carrier for flavours/vitamins",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "Beta-cyclodextrin 5 mg/kg bw/day (JECFA)",
@@ -1731,7 +1731,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA ANS 2017 re-evaluation of E425; Commission Decision 2004/374/EC",
   },
   {
-    id: "gelatin", name: "Gelatin", keywords: ["gelatin", "gelatine", "bovine gelatin", "pork gelatin"], eNumbers: ["e441"],
+    id: "gelatin", name: "Gelatin", keywords: ["gelatin", "gelatine", "bovine gelatin", "pork gelatin", "isinglass", "fish gelatin", "fish gelatine", "swim bladder collagen"], eNumbers: ["e441"],
     category: "thickener", function: "Gelling agent",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     regulatory: "A food ingredient (not an E-number in the EU); GRAS",
@@ -1777,7 +1777,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA GRN 301/522/627; EFSA FAF 2019 opinion on Luo Han Fruit extract",
   },
   {
-    id: "fruit-juice-concentrate", name: "Fruit Juice Concentrate", keywords: ["juice concentrate", "concentrated fruit juice", "concentrated apple juice", "concentrated grape juice", "concentrated pear juice", "fruit juice powder", "grape must"], eNumbers: [],
+    id: "fruit-juice-concentrate", name: "Fruit Juice Concentrate", keywords: ["juice concentrate", "concentrated fruit juice", "concentrated apple juice", "concentrated grape juice", "concentrated pear juice", "fruit juice powder", "grape must", "apple juice", "orange juice", "grape juice", "pear juice", "pineapple juice", "fruit juice", "white grape juice"], eNumbers: [],
     category: "sweetener", function: "Sweetener (free sugars)",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Food ingredient; counts as free/added sugar (WHO, FDA)",
@@ -1844,7 +1844,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EU Reg. 1333/2008; FDA 21 CFR 172.812",
   },
   {
-    id: "yeast-extract", name: "Yeast Extract", keywords: ["yeast extract", "autolysed yeast", "autolyzed yeast", "yeast autolysate"], eNumbers: [],
+    id: "yeast-extract", name: "Yeast Extract", keywords: ["yeast extract", "autolysed yeast", "autolyzed yeast", "yeast autolysate", "hydrolysed yeast", "hydrolyzed yeast"], eNumbers: [],
     category: "flavor enhancer", function: "Savoury flavour (natural free glutamate)",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredient (not an additive); GRAS",
@@ -1853,7 +1853,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "FDA GRAS; EFSA 2017 glutamate opinion (context)",
   },
   {
-    id: "ethanol", name: "Ethanol / Alcohol (E1510)", keywords: ["ethanol", "ethyl alcohol", "alcohol (ethanol)"], eNumbers: ["e1510"],
+    id: "ethanol", name: "Ethanol / Alcohol (E1510)", keywords: ["ethanol", "ethyl alcohol", "alcohol (ethanol)", "rum", "brandy", "cognac", "whisky", "whiskey", "vodka", "sake", "kirsch", "liqueur", "armagnac", "nihonshu", "ryorishu"], eNumbers: ["e1510"],
     category: "preservative", function: "Carrier solvent / preservative",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Carrier solvent in flavourings; alcoholic ingredients IARC Group 1",
@@ -1922,7 +1922,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "plant-fibres", name: "Added Plant Fibres (citrus, oat, bamboo, pea, apple, beta-glucan)",
-    keywords: ["citrus fibre", "citrus fiber", "oat fibre", "oat fiber", "bamboo fibre", "bamboo fiber", "pea fibre", "pea fiber", "apple fibre", "apple fiber", "sugar beet fibre", "sugar beet fiber", "potato fibre", "potato fiber", "wheat fibre", "wheat fiber", "oat beta-glucan", "barley beta-glucan", "beta-glucan", "beta glucan"], eNumbers: [],
+    keywords: ["citrus fibre", "citrus fiber", "oat fibre", "oat fiber", "bamboo fibre", "bamboo fiber", "pea fibre", "pea fiber", "apple fibre", "apple fiber", "sugar beet fibre", "sugar beet fiber", "potato fibre", "potato fiber", "wheat fibre", "wheat fiber", "oat beta-glucan", "barley beta-glucan", "beta-glucan", "beta glucan", "resistant starch", "high-amylose maize starch", "high amylose maize starch", "arabinoxylan", "wheat arabinoxylan", "apple pomace fibre", "bamboo cellulose", "beet fibre", "beta-1,3/1,6-glucan", "oat hull fibre", "pea cell wall fibre", "pea hull fibre", "wheat bran fibre"], eNumbers: [],
     category: "thickener", function: "Texturiser / water binder / fibre",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredients, not additives; FDA counts mixed plant cell-wall fibres as dietary fibre (2018)",
@@ -1970,8 +1970,8 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "coating-polymers", name: "Supplement Coating Polymers (PVA, methacrylate copolymers, PEG)",
-    keywords: ["polyvinyl alcohol", "basic methacrylate copolymer", "neutral methacrylate copolymer", "anionic methacrylate copolymer", "methacrylate copolymer", "polyethylene glycol", "macrogol", "vinylpyrrolidone-vinyl acetate copolymer", "polyvinylpyrrolidone-vinyl acetate", "copovidone"],
-    eNumbers: ["e1203", "e1205", "e1206", "e1208", "e1209", "e1521"],
+    keywords: ["polyvinyl alcohol", "basic methacrylate copolymer", "neutral methacrylate copolymer", "anionic methacrylate copolymer", "methacrylate copolymer", "polyethylene glycol", "macrogol", "vinylpyrrolidone-vinyl acetate copolymer", "polyvinylpyrrolidone-vinyl acetate", "copovidone", "polyvinyl alcohol-polyethylene glycol graft copolymer", "pva-peg graft copolymer", "pvp-va copolymer"],
+    eNumbers: ["e1203", "e1205", "e1206", "e1208", "e1209", "e1521", "e1207"],
     category: "glazing agent", function: "Film coating for tablets and capsules",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "PEG 10 mg/kg bw/day (JECFA); basic methacrylate copolymer not specified (JECFA)",
@@ -2063,7 +2063,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "protein-isolates", name: "Protein Isolates & Textured Proteins",
-    keywords: ["protein isolate", "protein concentrate", "textured vegetable protein", "textured soy protein", "textured soya protein", "textured wheat protein", "textured pea protein", "hydrolysed collagen", "hydrolyzed collagen", "collagen peptides", "collagen hydrolysate"], eNumbers: [],
+    keywords: ["protein isolate", "protein concentrate", "textured vegetable protein", "textured soy protein", "textured soya protein", "textured wheat protein", "textured pea protein", "hydrolysed collagen", "hydrolyzed collagen", "collagen peptides", "collagen hydrolysate", "rice protein", "hemp protein", "potato protein", "mung bean protein", "fava bean protein", "faba bean protein", "chickpea protein", "rapeseed protein", "canola protein", "lupin protein", "hydrolysed whey", "hydrolyzed whey", "whey protein hydrolysate", "wheat gluten", "vital wheat gluten", "mycoprotein", "broad bean protein", "fusarium venenatum biomass", "hemp seed protein", "lupine protein", "mpc", "mpi", "seitan flour", "soy protein", "soya protein", "pea protein"], eNumbers: [],
     category: "protein", function: "Protein fortification / meat-like texture",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     regulatory: "Food ingredients, not additives; soy, milk and wheat sources are declarable allergens",
@@ -2072,16 +2072,577 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "Monteiro et al. 2019, NOVA classification (Public Health Nutr 22:936)",
   },
   {
-    id: "glycyrrhizin", name: "Glycyrrhizin / Liquorice Extract (INS 958)",
-    keywords: ["glycyrrhizin", "glycyrrhizic acid", "glycyrrhizinic acid", "ammonium glycyrrhizinate", "monoammonium glycyrrhizinate", "liquorice extract", "licorice extract", "liquorice root", "licorice root", "liquorice", "licorice", "mulethi"],
+    id: "thiodipropionates", name: "Thiodipropionic Acid & Esters (INS 388–390)",
+    keywords: ["thiodipropionic acid", "dilauryl thiodipropionate", "distearyl thiodipropionate", "thiodipropionate"], eNumbers: ["e388", "e389", "e390"],
+    category: "antioxidant", function: "Antioxidant for fats and oils",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "US GRAS (21 CFR 182.3109, 182.3280); not authorised in the EU",
+    populations: [],
+    note: "Sulphur-containing antioxidants used at up to 0.02% of the fat in US foods. JECFA allocated a group ADI of 0–3 mg/kg bw; little modern data. Not the same as propionic acid, the bread mould inhibitor.",
+    ref: "JECFA 1974 evaluation; 21 CFR 182.3109 and 182.3280",
+  },
+  {
+    id: "little-used-additives", name: "Little-used Codex Additives (sequestrants, emulsifiers, carriers)",
+    keywords: ["peptone", "oxidised stearin", "oxidized stearin", "heptonolactone", "1,4-heptonolactone", "isopropyl citrate", "isopropyl citrates", "oxystearin", "calcium lactobionate", "lactobionate", "succistearin", "stearyl citrate", "peptones", "phytic acid", "sodium phytate", "sodium thiosulphate", "sodium thiosulfate", "calcium lignosulphonate", "calcium lignosulfonate", "lignosulphonate"], eNumbers: ["e370", "e384", "e387", "e391", "e399", "e429", "e446", "e484", "e539", "e1522"],
+    category: "stabilizer", function: "Sequestrant / emulsifier / carrier (rarely used)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "Listed in the Codex INS; most are not authorised in the EU (E1522 is, as a carrier)",
+    populations: [],
+    note: "A handful of additives with Codex INS numbers that are rarely seen on labels. Where JECFA evaluated them it found no concern at use levels, but the data are mostly old. Scored as low concern with limited evidence.",
+    ref: "Codex CAC/GL 36-1989 (INS); JECFA evaluations; Reg. (EU) No 231/2012 (E1522)",
+  },
+  {
+    id: "margarine-shortening", name: "Margarine, Shortening & Vanaspati (blended vegetable fats)",
+    keywords: ["margarine", "vegetable shortening", "bakery shortening", "shortening", "vanaspati", "vegetable ghee", "vanaspati ghee", "fat spread", "vegetable fat spread", "dairy-free spread", "baking fat", "cake margarine", "puff pastry margarine"], eNumbers: [],
+    category: "fat", function: "Solid fat for spreading, baking and frying",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "Industrial trans fat capped at 2 g/100 g fat in the EU (Reg. (EU) 2019/649) and in India (FSSAI, 2022); PHOs no longer GRAS in the US",
+    populations: [],
+    note: "Vegetable oils made solid by blending with palm fats, interesterification or full hydrogenation, plus emulsifiers. Modern margarines and Indian vanaspati are capped at 2% trans fat, so the old trans-fat problem is largely solved where rules are enforced; they remain industrial (NOVA 4) fats, often high in saturated fat from palm.",
+    ref: "Reg. (EU) 2019/649 on trans fat; FSSAI (Food Products Standards) amendment 2021 on TFA; WHO REPLACE trans fat framework",
+  },
+  {
+    id: "supplement-actives", name: "Supplement Actives (polyphenols, joint and 'longevity' compounds)",
+    keywords: ["n-acetyl cysteine", "n-acetylcysteine", "nac", "acetylcysteine", "alpha-lipoic acid", "lipoic acid", "thioctic acid", "ala (lipoic)", "r-lipoic acid", "resveratrol", "trans-resveratrol", "polygonum cuspidatum extract", "quercetin", "quercetin dihydrate", "sophoretin", "hesperidin", "citrus bioflavonoids", "hesperetin glycoside", "methyl hesperidin", "rutin", "rutoside", "quercetin-3-rutinoside", "sophorin", "glucosamine", "glucosamine sulphate", "glucosamine sulfate", "glucosamine hydrochloride", "glucosamine hcl", "chondroitin sulphate", "chondroitin", "chondroitin sulfate", "sodium chondroitin sulphate", "methylsulfonylmethane", "msm", "dimethyl sulfone", "dimethyl sulphone", "hyaluronic acid", "sodium hyaluronate", "hyaluronan", "bovine colostrum", "colostrum", "colostrum powder", "lactoferrin", "bovine lactoferrin", "lactotransferrin", "pyrroloquinoline quinone", "pqq", "pqq disodium salt", "citicoline", "cdp-choline", "cytidine diphosphate choline", "phosphatidylserine", "ps (phosphatidylserine)", "soy phosphatidylserine", "spermidine", "wheat germ extract (spermidine)", "spermidine trihydrochloride", "ergothioneine", "l-ergothioneine", "glutathione", "l-glutathione", "reduced glutathione", "liposomal glutathione", "l-carnosine", "carnosine", "beta-alanyl-l-histidine", "beta-hydroxy-beta-methylbutyrate", "hmb", "calcium hmb", "calcium beta-hydroxy-beta-methylbutyrate", "d-ribose", "ribose", "d-mannose", "mannose", "grape seed extract", "grapeseed extract", "opc", "oligomeric proanthocyanidins", "vitis vinifera seed extract", "pine bark extract", "pycnogenol", "maritime pine bark extract", "pinus pinaster bark extract", "olive leaf extract", "oleuropein", "olea europaea leaf extract", "hydroxytyrosol", "3,4-dihydroxyphenylethanol", "olive polyphenols", "elderberry extract", "sambucus nigra extract", "black elderberry extract", "sambucol", "cranberry extract", "cranberry pacs", "vaccinium macrocarpon extract", "cranberry juice powder", "bilberry extract", "vaccinium myrtillus extract", "bilberry anthocyanosides", "nicotinamide mononucleotide", "nmn", "beta-nicotinamide mononucleotide", "β-nmn", "creatine hydrochloride", "creatine hcl", "fucoidan", "fucoidan extract", "brown seaweed fucoidan"], eNumbers: [],
+    category: "nutrient", function: "Supplement ingredient",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "Food supplement ingredients; several are EU novel foods with intake limits; EFSA has rejected most health claims",
+    populations: ["people on blood thinners (several polyphenol extracts)", "shellfish allergy (glucosamine)"],
+    note: "Compounds sold for joints, skin, energy or 'anti-ageing'. Generally well tolerated at labelled doses, but most marketed benefits have not been substantiated by EFSA, and concentrated polyphenol extracts can interact with medicines.",
+    ref: "EFSA NDA Panel health-claim opinions (2009–2012); Reg. (EU) 2017/2470 Union list of novel foods",
+  },
+  {
+    id: "drug-like-supplements", name: "Drug-like Supplement Actives (melatonin, 5-HTP, berberine, synephrine)",
+    keywords: ["melatonin", "n-acetyl-5-methoxytryptamine", "5-hydroxytryptophan", "5-htp", "oxitriptan", "griffonia simplicifolia extract", "berberine", "berberine hydrochloride", "berberine hcl", "berberis extract", "synephrine", "bitter orange extract", "citrus aurantium extract", "p-synephrine", "garcinia cambogia", "hydroxycitric acid", "hca (garcinia)", "malabar tamarind extract"], eNumbers: [],
+    category: "stimulant", function: "Pharmacologically active supplement ingredient",
+    dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
+    regulatory: "Medicines or restricted in several countries (melatonin is prescription-only in the UK); sold as supplements in the US",
+    populations: ["people taking antidepressants (5-HTP)", "people on any regular medication (berberine)", "heart conditions (synephrine)", "pregnancy", "children"],
+    note: "Supplement ingredients with genuine drug-like effects: hormones, neurotransmitter precursors, stimulants and enzyme-inhibiting alkaloids. They can work, which is exactly why they carry side effects and interactions that ordinary food ingredients do not.",
+    ref: "BfR 2012 opinion on synephrine; FDA 2022 consumer warnings on melatonin gummies; Das et al. 2004, Toxicol Lett 150:111 (5-HTP); Lelak et al. 2022, MMWR 71:725 (melatonin)",
+  },
+  {
+    id: "unapproved-stimulants", name: "Unapproved Synthetic Stimulants (DMHA, DMAA-type)",
+    keywords: ["dmha", "2-aminoisoheptane", "octodrine", "2-amino-6-methylheptane", "dmaa", "1,3-dimethylamylamine", "methylhexanamine", "geranamine"], eNumbers: [],
+    category: "stimulant", function: "Synthetic stimulant",
+    dominant: "CRITICAL", moderate: "HIGH", trace: "HIGH", evidence: "MODERATE",
+    regulatory: "Not lawful dietary ingredients (FDA warning letters 2013 DMAA, 2019 DMHA); banned in sport (WADA)",
+    populations: ["everyone; especially heart conditions"],
+    note: "Amphetamine-like synthetic stimulants sold in pre-workout products. The FDA has warned they can raise blood pressure and cause heart attacks, and DMAA has been linked to deaths.",
+    ref: "FDA warning letters on DMAA (2013) and DMHA (2019)",
+  },
+  {
+    id: "traditional-herbs", name: "Traditional Herbal Botanicals (Ayurvedic, TCM, Western herbal)",
+    keywords: ["shatavari", "asparagus racemosus", "shatawari", "satavari", "brahmi", "bacopa", "bacopa monnieri", "water hyssop", "triphala", "triphala churna", "three fruits blend", "haritaki", "harad", "terminalia chebula", "chebulic myrobalan", "bibhitaki", "baheda", "terminalia bellirica", "belleric myrobalan", "arjuna", "arjuna bark", "terminalia arjuna", "gokshura", "tribulus", "tribulus terrestris", "gokhru", "puncture vine", "safed musli", "chlorophytum borivilianum", "white musli", "guggul", "guggulu", "commiphora wightii", "commiphora mukul", "guggulsterone", "boswellia", "shallaki", "boswellia serrata", "indian frankincense", "boswellic acids", "punarnava", "boerhavia diffusa", "spreading hogweed", "kalmegh", "andrographis", "andrographis paniculata", "king of bitters", "chirata", "chirayita", "swertia chirata", "manjistha", "rubia cordifolia", "indian madder", "bhringraj", "eclipta alba", "eclipta prostrata", "false daisy", "jatamansi", "spikenard", "nardostachys jatamansi", "gymnema", "gurmar", "gymnema sylvestre", "sugar destroyer", "jamun seed powder", "jamun seed", "syzygium cumini seed", "jambolan seed", "vijaysar", "pterocarpus marsupium", "indian kino tree", "kaunch beej", "mucuna pruriens", "kapikacchu", "velvet bean seed", "ginseng", "panax ginseng", "korean ginseng", "red ginseng", "asian ginseng", "american ginseng", "panax quinquefolius", "eleuthero root", "siberian ginseng", "eleutherococcus senticosus", "rhodiola", "rhodiola rosea", "golden root", "arctic root", "maca", "maca root", "lepidium meyenii", "peruvian ginseng", "maca powder", "tongkat ali", "eurycoma longifolia", "longjack", "pasak bumi", "saw palmetto", "serenoa repens", "sabal serrulata", "milk thistle", "silymarin", "silybum marianum", "silybin", "valerian root", "valerian extract", "valerian root", "valeriana officinalis", "echinacea", "purple coneflower", "echinacea purpurea", "echinacea angustifolia", "dandelion root", "taraxacum officinale radix", "roasted dandelion root", "dandelion coffee", "marshmallow root", "althaea officinalis", "althaea root", "slippery elm", "ulmus rubra", "slippery elm bark", "horsetail", "equisetum arvense", "field horsetail", "passionflower", "passiflora incarnata", "maypop", "hops", "humulus lupulus", "hop cones", "hop extract", "gotu kola", "centella asiatica", "mandukparni", "brahmi (centella)", "astragalus", "huang qi", "astragalus membranaceus", "milkvetch root", "schisandra", "schisandra chinensis", "wu wei zi", "five-flavour berry", "omija", "turkey tail", "trametes versicolor", "coriolus versicolor", "yun zhi", "reishi", "ganoderma lucidum", "lingzhi", "ling zhi", "reishi mushroom"], eNumbers: [],
+    category: "nutrient", function: "Herbal supplement or tonic ingredient",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "Botanicals in food supplements (EU national rules; FSSAI nutraceutical schedule; US DSHEA); some have EMA traditional-use monographs",
+    populations: ["pregnancy and breastfeeding", "people on regular medication (interaction risk)"],
+    note: "Herbs used in Ayurvedic, Chinese and Western herbal traditions. At food or tea amounts they are generally safe; benefits of concentrated extracts are mostly unproven, and quality varies (adulteration and heavy-metal contamination have been found in some products).",
+    ref: "EMA HMPC herbal monographs; Ayurvedic Pharmacopoeia of India; Saper et al. 2008, JAMA 300:915",
+  },
+  {
+    id: "herbs-organ-risk", name: "Herbs with Liver, Kidney or Interaction Risks (ashwagandha, kava, St John's wort…)",
+    keywords: ["ashwagandha", "withania somnifera", "indian ginseng", "winter cherry", "ksm-66", "ashwagandha root", "giloy", "guduchi", "tinospora cordifolia", "amrita (giloy)", "gulvel", "shilajit", "mumijo", "mumie", "asphaltum punjabianum", "silajit", "kava", "kava kava", "piper methysticum", "awa", "yaqona", "he shou wu", "fo-ti", "polygonum multiflorum", "reynoutria multiflora", "fallopia multiflora", "black cohosh", "actaea racemosa", "cimicifuga racemosa", "st john's wort", "hypericum perforatum", "hypericum", "st. john's wort", "ginkgo biloba", "ginkgo leaf", "ginkgo biloba", "ginkgo leaf extract", "egb 761", "chaga", "inonotus obliquus", "chaga mushroom", "birch conk", "dong quai", "angelica sinensis", "dang gui", "female ginseng"], eNumbers: [],
+    category: "nutrient", function: "Herbal supplement ingredient",
+    dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
+    regulatory: "Restricted, banned or carrying mandatory warnings in some countries (kava, ashwagandha in Denmark, black cohosh liver warning)",
+    populations: ["liver disease", "pregnancy", "people on any regular medication", "people on blood thinners"],
+    note: "Herbs with published cases of liver or kidney injury, or with strong medicine interactions (St John's wort makes the contraceptive pill and many drugs less effective). Occasional food-level exposure is not the concern; concentrated supplements are.",
+    ref: "NIDDK LiverTox; WHO 2007 kava hepatotoxicity assessment; DTU Food 2020 ashwagandha risk assessment; IARC Vol. 108 (ginkgo)",
+  },
+  {
+    id: "processed-meat", name: "Processed Meat (cured, smoked or salted)",
+    keywords: ["bacon", "ham", "salami", "pepperoni", "chorizo", "sausage", "sausages", "frankfurter", "frankfurters", "wiener", "prosciutto", "pancetta", "pastrami", "corned beef", "mortadella", "bresaola", "luncheon meat", "spam", "jerky", "biltong", "nduja", "kabanos", "kielbasa", "gammon", "lardons", "black pudding", "blood sausage", "andouille", "saucisson", "cured meat", "cured pork", "smoked meat", "processed meat", "chicken sausage", "chicken salami", "pork sausage", "rashers", "jamón serrano", "jamon serrano", "jamón ibérico", "jamon iberico", "guanciale", "salame", "chouriço", "chourico", "bangers", "baloney", "polony", "droëwors", "droewors", "n'duja", "cabanossi", "blood pudding", "morcilla", "boudin noir", "salt beef", "bully beef"], eNumbers: [],
+    category: "protein", function: "Cured, smoked or salted meat",
+    dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
+    regulatory: "Food; IARC Group 1 carcinogen (colorectal cancer)",
+    populations: ["anyone eating it daily; colorectal cancer risk rises ~18% per 50 g/day"],
+    note: "Meat transformed by salting, curing, fermentation or smoking. IARC classifies processed meat as carcinogenic to humans (Group 1): each 50 g eaten daily raises colorectal cancer risk by about 18%. Usually also high in salt and often cured with nitrite.",
+    ref: "IARC Monographs Vol. 114 (2018), Red Meat and Processed Meat; Bouvard et al. 2015, Lancet Oncol 16:1599",
+  },
+  // ── Expansion 2026-10 batch 01: leftover and non-EU additives ──
+  {
+    id: "ethoxyquin", name: "Ethoxyquin (INS 324)", keywords: ["ethoxyquin", "ethoxyquine", "6-ethoxy-1,2-dihydro-2,2,4-trimethylquinoline"], eNumbers: ["e324"],
+    category: "antioxidant", function: "Antioxidant for spice colour (paprika, chilli) and animal feed",
+    dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA permits it in paprika/chilli powder (21 CFR 172.140); not an authorised food additive in the EU, where its feed authorisation was suspended in 2017",
+    note: "A synthetic antioxidant that keeps ground chilli and paprika red. The EU suspended it in animal feed (Reg. 2017/962) because EFSA could not rule out that p-phenetidine, a production impurity and possible mutagen, was present, and data gaps remained. Direct food exposure is small, but the safety dossier is incomplete.",
+    ref: "21 CFR 172.140; Commission Implementing Regulation (EU) 2017/962; EFSA FEEDAP Panel 2015 opinion on ethoxyquin",
+  },
+  {
+    id: "sodium-stearyl-fumarate", name: "Sodium Stearyl Fumarate", keywords: ["sodium stearyl fumarate", "ssf"], eNumbers: [],
+    category: "anti-caking agent", function: "Tablet lubricant / dough conditioner",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA food additive (21 CFR 172.826) in yeast-leavened bakery and processed cereals; not an EU food additive",
+    note: "Mainly a lubricant that stops supplement tablets sticking to presses. It breaks down to stearyl alcohol and fumaric acid, both ordinary metabolites. Modern food-safety data are sparse, but use levels are tiny.",
+    ref: "21 CFR 172.826",
+  },
+  {
+    id: "olestra", name: "Olestra (sucrose polyester)", keywords: ["olestra", "olean", "sucrose polyester", "sucrose polyesters"], eNumbers: [],
+    category: "fat", function: "Non-digestible fat substitute in savoury snacks",
+    dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "MODERATE",
+    regulatory: "FDA-approved for savoury snacks (21 CFR 172.867); foods must be fortified with vitamins A, D, E and K; not authorised in the EU or Canada",
+    populations: ["children", "people with bowel disorders"],
+    note: "Sucrose esterified with 6 to 8 fatty acids, too big to digest, so it adds no calories. It can cause cramping and loose stools, and it carries fat-soluble vitamins and carotenoids out of the gut, which is why the FDA requires added vitamins A, D, E and K. The on-pack warning was dropped in 2003.",
+    ref: "FDA final rule on olestra, Federal Register 1996; 21 CFR 172.867",
+  },
+  {
+    id: "docusate-sodium", name: "Dioctyl Sodium Sulfosuccinate (docusate)", keywords: ["dioctyl sodium sulfosuccinate", "sodium dioctyl sulfosuccinate", "docusate sodium", "docusate", "dss"], eNumbers: [],
+    category: "emulsifier", function: "Wetting agent / solubiliser in drink mixes and cocoa",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA food additive (21 CFR 172.810) at low levels; not an EU food additive; also an over-the-counter stool softener",
+    note: "A surfactant that helps powders dissolve. At drug doses it is a stool softener, which is the main effect to expect if intake were high. Food use levels are far below laxative doses.",
+    ref: "21 CFR 172.810",
+  },
+  {
+    id: "sodium-lauryl-sulfate", name: "Sodium Lauryl Sulfate", keywords: ["sodium lauryl sulfate", "sodium lauryl sulphate", "sodium dodecyl sulfate", "sodium dodecyl sulphate", "sls"], eNumbers: ["e487"],
+    category: "emulsifier", function: "Whipping aid for egg whites; wetting agent",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA food additive (21 CFR 172.822) at low levels (e.g. 1000 ppm in dried egg whites); not an EU food additive",
+    note: "A detergent best known from toothpaste. In food it is a minor whipping aid. It irritates skin and mucosa at high concentration, but food levels are low and it is metabolised like a fatty alcohol.",
+    ref: "21 CFR 172.822",
+  },
+  {
+    id: "castor-oil", name: "Castor Oil (E1503)", keywords: ["castor oil", "ricinus oil"], eNumbers: ["e1503"],
+    category: "glazing agent", function: "Release agent / carrier / anti-sticking agent",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    adi: "0–0.7 mg/kg bw/day (JECFA)",
+    regulatory: "FDA food additive (21 CFR 172.876) as release agent; EU-listed as E1503 for limited uses",
+    populations: ["pregnancy (stimulant laxative)"],
+    note: "Used in tiny amounts so sweets and supplements don't stick. Its ricinoleic acid is a stimulant laxative at teaspoon doses, which is why the ADI is low. Refined castor oil contains no ricin.",
+    ref: "JECFA evaluation of castor oil; 21 CFR 172.876",
+  },
+  {
+    id: "zein", name: "Zein (corn protein glaze)", keywords: ["zein", "corn protein glaze"], eNumbers: [],
+    category: "glazing agent", function: "Glaze / coating for sweets, nuts and tablets",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "FDA GRAS-affirmed (21 CFR 184.1984)",
+    note: "The main storage protein of maize, used as a vegan alternative to shellac glaze. It is an ordinary food protein and digested as such.",
+    ref: "21 CFR 184.1984",
+  },
+  {
+    id: "alitame", name: "Alitame (INS 956)", keywords: ["alitame", "aclame"], eNumbers: ["e956"],
+    category: "sweetener", function: "High-intensity sweetener (~2000x sugar)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    adi: "0–1 mg/kg bw/day (JECFA 1996)",
+    regulatory: "Permitted in Australia/NZ, China and some other markets; not authorised in the EU or US",
+    note: "A dipeptide sweetener made from aspartic acid and alanine. JECFA set an ADI after animal studies showed liver weight increases at high doses. It is rarely used, and fewer regulators have reviewed it than aspartame or sucralose.",
+    ref: "JECFA 46th meeting (1996), alitame",
+  },
+  // ── Expansion 2026-10 batch 02: processing aids ──
+  {
+    id: "tannic-acid", name: "Tannic Acid (tannins)", keywords: ["tannic acid", "tannins", "gallotannin", "food-grade tannin", "food grade tannin"], eNumbers: ["e181"],
+    category: "flavour", function: "Clarifying agent for beer/wine/juice; astringent flavouring",
+    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "FDA GRAS (21 CFR 184.1097); EU-authorised wine/beer processing aid",
+    note: "Plant polyphenols that bind proteins, so they are used to clear haze from drinks and add astringency. At very high intake they reduce iron absorption and irritate the gut, but use levels are small and much of the tannin is removed with the haze.",
+    ref: "21 CFR 184.1097",
+  },
+  {
+    id: "antimicrobial-washes", name: "Antimicrobial Wash & Sterilant Agents (peroxide, ozone, hypochlorite, peracetic acid)",
+    keywords: ["hydrogen peroxide", "ozone", "ozonated", "sodium hypochlorite", "chlorine wash", "chlorinated water", "peracetic acid", "peroxyacetic acid", "bleach (food-grade)", "h2o2", "o3", "paa", "peroxide (processing aid)"], eNumbers: [],
+    category: "preservative", function: "Processing aid: disinfects produce, carcasses, packaging or milk",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "FDA permits specified uses (21 CFR 173.368 ozone, 184.1366 hydrogen peroxide, 173.315 wash chemicals); EU restricts pathogen-reduction treatments of meat",
+    populations: ["infants and young children (chlorate residues from chlorinated water)"],
+    note: "Oxidisers that kill microbes on food surfaces and packaging, then break down to water, oxygen, acetic acid or salt. The main residue question is chlorate and other by-products from chlorine washes, which EFSA linked to iodine-uptake inhibition at high chronic exposure, chiefly for infants.",
+    ref: "EFSA CONTAM Panel 2015, risks for public health related to the presence of chlorate in food; 21 CFR 173.368, 184.1366",
+  },
+  {
+    id: "chitosan", name: "Chitosan", keywords: ["chitosan", "deacetylated chitin"], eNumbers: [],
+    category: "thickener", function: "Fining agent for wine/juice; dietary fibre in supplements",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "EU wine processing aid (fungal chitosan); EFSA-backed claim for maintaining normal LDL cholesterol at 3 g/day",
+    populations: ["crustacean allergy (shellfish-derived chitosan)"],
+    note: "A fibre made from crustacean shells or fungal cell walls. It clears wine and juice and, in supplements at 3 g/day, helps maintain normal LDL cholesterol. It can bind fat-soluble vitamins at high intake.",
+    ref: "EFSA NDA Panel 2011 opinion on chitosan and maintenance of normal blood LDL-cholesterol",
+  },
+  // ── Expansion 2026-10 batch 03: solvents, non-EU colours, flavour principles ──
+  {
+    id: "extraction-solvents",
+    name: "Extraction Solvents (hexane, acetone, methanol, methyl acetate…)",
+    keywords: ["hexane", "n-hexane", "cyclohexane", "acetone", "methyl acetate", "methyl ethyl ketone", "ethyl methyl ketone", "butanone", "methanol", "methyl alcohol", "isopropyl alcohol", "isopropanol", "propan-2-ol", "diethyl ether", "extraction solvent", "methyl ethanoate", "2-propanol", "dimethyl ketone", "ether (solvent)", "ethyl ether", "hexahydrobenzene", "mek", "propanone", "wood alcohol"],
+    eNumbers: [],
+    category: "processing aid",
+    function: "Extracts oils, flavours, caffeine or colours; evaporated off",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "EU Directive 2009/32/EC sets permitted solvents and residue limits; FDA residue limits in 21 CFR 173 (e.g. 173.270 hexane, 173.210 acetone)",
+    note: "Solvents used to pull oil from seeds, decaffeinate coffee or make spice oleoresins. They are removed by evaporation and only trace residues within legal limits remain. Their hazards (hexane neurotoxicity, methanol toxicity) apply at occupational or poisoning doses, not food residues.",
+    ref: "Directive 2009/32/EC Annex I; 21 CFR 173 Subpart C",
+  },
+  {
+    id: "dichloromethane",
+    name: "Dichloromethane (methylene chloride)",
+    keywords: ["dichloromethane", "methylene chloride", "dcm"],
+    eNumbers: [],
+    category: "processing aid",
+    function: "Decaffeination and spice-oleoresin extraction solvent",
+    dominant: "MEDIUM",
+    moderate: "MEDIUM",
+    trace: "MEDIUM",
+    evidence: "MODERATE",
+    regulatory: "EU residue limits 2 mg/kg roasted coffee, 5 mg/kg tea (Dir. 2009/32/EC); FDA 10 ppm in decaffeinated coffee (21 CFR 173.255); IARC Group 2A",
+    populations: ["pregnancy (precautionary)"],
+    note: "A chlorinated solvent IARC classifies as probably carcinogenic to humans (Group 2A), mainly from occupational and animal data. Decaf residues are small and within legal limits, but because it is a carcinogen by classification and water or CO2 processes exist, it carries a residual concern. The US EPA banned most consumer and commercial uses in 2024.",
+    ref: "IARC Monographs Vol. 110 (dichloromethane, Group 2A); Directive 2009/32/EC; 21 CFR 173.255",
+  },
+  {
+    id: "fast-green-fcf",
+    name: "Fast Green FCF (FD&C Green 3, E143)",
+    keywords: ["fast green fcf", "fast green", "green 3", "fd&c green no. 3", "food green 3"],
+    eNumbers: ["e143"],
+    category: "coloring",
+    function: "Synthetic blue-green dye",
+    dominant: "MEDIUM",
+    moderate: "MEDIUM",
+    trace: "LOW",
+    evidence: "LIMITED",
+    adi: "0–25 mg/kg bw/day (JECFA)",
+    regulatory: "FDA-certified colour (21 CFR 74.203); not authorised in the EU",
+    populations: ["children (synthetic-dye hyperactivity concern, unproven for this dye)"],
+    note: "A triphenylmethane dye used in mint-green sweets and drinks in the US. It is poorly absorbed. It was not part of the Southampton hyperactivity study, but it is one of the synthetic dyes being phased out of US foods under 2025 FDA policy.",
+    ref: "21 CFR 74.203; JECFA evaluation of Fast Green FCF",
+  },
+  {
+    id: "citrus-red-2",
+    name: "Citrus Red No. 2",
+    keywords: ["citrus red 2", "citrus red no. 2", "citrus red no 2", "solvent red 80"],
+    eNumbers: [],
+    category: "coloring",
+    function: "Dye for orange peel",
+    dominant: "HIGH",
+    moderate: "HIGH",
+    trace: "MEDIUM",
+    evidence: "MODERATE",
+    regulatory: "FDA permits only on the skins of oranges not intended for processing, ≤2 ppm (21 CFR 74.302); IARC Group 2B; not permitted in the EU",
+    note: "An azo dye sprayed on some Florida orange peels. IARC classes it as possibly carcinogenic (Group 2B) from bladder tumours in animals. Flesh exposure is minimal, but zesting or candying peel delivers it directly.",
+    ref: "IARC Monographs Vol. 8 & Suppl. 7 (Citrus Red No. 2, Group 2B); 21 CFR 74.302",
+  },
+  {
+    id: "gardenia-blue",
+    name: "Gardenia Blue (genipin-glycine blue)",
+    keywords: ["gardenia blue", "genipin", "gardenia jasminoides blue", "genipin-glycine blue"],
+    eNumbers: [],
+    category: "coloring",
+    function: "Plant-derived blue colour",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "LIMITED",
+    regulatory: "FDA-listed colour additive (2023); not an authorised EU food colour",
+    note: "Blue pigment made by reacting genipin from gardenia fruit with glycine. Long used in Japan. Fewer independent toxicology studies than for established colours, though no adverse findings at use levels have been reported.",
+    ref: "FDA 2023 colour additive listing for gardenia (genipin-glycine) blue",
+  },
+  {
+    id: "butterfly-pea-extract",
+    name: "Butterfly Pea Flower Extract",
+    keywords: ["butterfly pea", "clitoria ternatea", "blue pea flower"],
+    eNumbers: [],
+    category: "coloring",
+    function: "Plant-derived blue/purple colour",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "LIMITED",
+    regulatory: "FDA-listed colour additive exempt from certification (21 CFR 73.69, 2021)",
+    note: "Anthocyanin-rich extract of the Clitoria ternatea flower, blue in neutral drinks and purple-pink when acid is added. A traditional tea ingredient in Southeast Asia; formal toxicology is limited but no concerns are reported at colouring levels.",
+    ref: "21 CFR 73.69",
+  },
+  {
+    id: "red-yeast-rice",
+    name: "Red Yeast Rice / Monascus (monacolins, angkak)",
+    keywords: ["red yeast rice", "monascus", "angkak", "red rice koji", "monacolin"],
+    eNumbers: [],
+    category: "coloring",
+    function: "Traditional red colour; cholesterol supplement (monacolin K)",
+    dominant: "HIGH",
+    moderate: "MEDIUM",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "EU limits monacolins to <3 mg per daily portion with mandatory warnings (Reg. (EU) 2022/860); not an authorised EU colour",
+    populations: ["pregnancy and breastfeeding", "people taking statins", "children", "adults over 70"],
+    note: "Rice fermented with Monascus mould. It colours Chinese foods red and is sold as a 'natural statin' because monacolin K is identical to lovastatin. EFSA could not identify a safe intake: muscle and liver side effects were reported even at 3 mg/day, and the mycotoxin citrinin can be present.",
+    ref: "EFSA ANS Panel 2018, scientific opinion on the safety of monacolins in red yeast rice; Reg. (EU) 2022/860",
+  },
+  {
+    id: "restricted-flavour-principles",
+    name: "Restricted Flavour Principles (safrole, methyleugenol, estragole, pulegone, thujone…)",
+    keywords: ["safrole", "methyleugenol", "methyl eugenol", "estragole", "pulegone", "menthofuran", "thujone", "beta-asarone", "β-asarone", "teucrin a", "1-allyl-4-methoxybenzene", "4-allyl-1,2-dimethoxybenzene", "4-allylanisole", "methyl chavicol", "shikimol"],
+    eNumbers: [],
+    category: "flavour",
+    function: "Naturally occurring flavour constituents of herbs and spices",
+    dominant: "HIGH",
+    moderate: "HIGH",
+    trace: "MEDIUM",
+    evidence: "MODERATE",
+    regulatory: "May not be added as such to food in the EU; maximum levels apply to foods containing flavourings or herbs (Reg. 1334/2008 Annex III); safrole and methyleugenol IARC Group 2B",
+    populations: ["children", "pregnancy"],
+    note: "Compounds found in basil, tarragon, fennel, nutmeg, sassafras, pennyroyal, sage and wormwood. Safrole, methyleugenol and estragole are genotoxic carcinogens in rodents; pulegone and menthofuran are liver-toxic; thujone affects the nervous system. Normal herb use gives low exposure; concentrated extracts and essential oils are the concern.",
+    ref: "Regulation (EC) 1334/2008 Annex III; IARC Vol. 101 (methyleugenol) and Vol. 10 (safrole); SCF 2001-2002 opinions on estragole, methyleugenol, safrole",
+  },
+  {
+    id: "coumarin",
+    name: "Coumarin",
+    keywords: ["coumarin", "tonka bean", "tonka", "1,2-benzopyrone"],
+    eNumbers: [],
+    category: "flavour",
+    function: "Sweet hay/vanilla-like flavour constituent (cassia cinnamon, tonka)",
+    dominant: "MEDIUM",
+    moderate: "MEDIUM",
+    trace: "LOW",
+    evidence: "STRONG",
+    adi: "TDI 0.1 mg/kg bw/day (EFSA 2008)",
+    regulatory: "May not be added as such in the EU; maximum levels in cinnamon-containing foods (e.g. 50 mg/kg traditional bakery); banned as a direct additive in the US (21 CFR 189.130)",
+    populations: ["children", "people with liver disease"],
+    note: "Naturally present in cassia cinnamon and tonka beans. In a sensitive minority it damages the liver. EFSA's TDI of 0.1 mg/kg bw can be exceeded by children eating a lot of cassia-cinnamon foods. Ceylon cinnamon has little coumarin.",
+    ref: "EFSA AFC Panel 2008, Coumarin in flavourings and other food ingredients with flavouring properties; 21 CFR 189.130",
+  },
+  {
+    id: "quinine",
+    name: "Quinine (tonic water bitterness)",
+    keywords: ["quinine", "quinine hydrochloride", "quinine sulphate", "quinine sulfate", "cinchona"],
+    eNumbers: [],
+    category: "flavour",
+    function: "Bitter flavouring in tonic water and bitter lemon",
+    dominant: "MEDIUM",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "FDA ≤83 ppm in carbonated drinks (21 CFR 172.575); EU requires 'contains quinine' labelling (Directive 2002/67/EC)",
+    populations: ["pregnancy", "G6PD deficiency", "people with heart-rhythm disorders or on QT-prolonging drugs", "quinine hypersensitivity"],
+    note: "The bitter alkaloid of cinchona bark. Tonic water contains far less than antimalarial doses, but rare hypersensitivity reactions (including blood disorders) have been reported even from tonic water, which is why its presence must be declared.",
+    ref: "21 CFR 172.575; Commission Directive 2002/67/EC",
+  },
+  {
+    id: "glycyrrhizin",
+    name: "Glycyrrhizin / Liquorice Extract (INS 958)",
+    keywords: ["glycyrrhizin", "glycyrrhizic acid", "glycyrrhizinic acid", "ammonium glycyrrhizinate", "liquorice extract", "licorice extract", "liquorice root", "licorice root", "liquorice", "licorice", "glycyrrhiza", "monoammonium glycyrrhizinate", "mulethi"],
     eNumbers: ["e958"],
-    category: "sweetener", function: "Sweetener / liquorice flavour",
-    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "STRONG",
-    adi: "Upper limit 100 mg glycyrrhizic acid/day for regular intake (SCF 2003)",
-    regulatory: "EU flavouring with mandatory 'contains liquorice' label at ≥100 mg/kg (hypertension warning at ≥4 g/kg in confectionery); FDA GRAS as a flavour",
-    populations: ["hypertension", "heart or kidney disease", "pregnancy", "people on diuretics or potassium-lowering drugs"],
-    note: "Glycyrrhizin is 50× sweeter than sugar. Regular intake above about 100 mg/day can raise blood pressure and lower potassium (pseudo-aldosteronism), which is why EU labels must say 'contains liquorice'. Harmless in the small amounts used as flavour.",
-    ref: "SCF opinion 4 Apr 2003 on glycyrrhizinic acid; Reg. (EU) 1169/2011 Annex III; BfR 2009",
+    category: "sweetener",
+    function: "Liquorice flavour; sweetener and foaming agent",
+    dominant: "MEDIUM",
+    moderate: "MEDIUM",
+    trace: "LOW",
+    evidence: "STRONG",
+    adi: "SCF: ≤100 mg glycyrrhizic acid/day for regular consumers (2003)",
+    regulatory: "EU requires 'contains liquorice' labelling, plus a warning for people with hypertension at ≥4 g/kg in confectionery or ≥50 mg/L in drinks (Reg. 1169/2011 Annex III)",
+    populations: ["hypertension", "pregnancy", "heart or kidney disease", "people on diuretics or digoxin"],
+    note: "Glycyrrhizin in liquorice root blocks an enzyme that inactivates cortisol in the kidney. Regular intakes above about 100 mg a day can raise blood pressure and lower potassium. Liquorice sweets and some herbal teas can supply this much.",
+    ref: "SCF 2003 opinion on glycyrrhizinic acid; Regulation (EU) 1169/2011 Annex III",
+  },
+  {
+    id: "pungent-extracts",
+    name: "Pungent Principles (capsaicin, capsicum oleoresin, piperine)",
+    keywords: ["capsaicin", "capsaicinoids", "capsicum oleoresin", "capsicum extract", "oleoresin capsicum", "piperine", "black pepper extract", "bioperine"],
+    eNumbers: [],
+    category: "flavour",
+    function: "Heat/pungency from chilli and pepper",
+    dominant: "MEDIUM",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "Capsaicin may not be added as such in the EU (Reg. 1334/2008 Annex III); chilli and pepper extracts used as flavourings",
+    populations: ["children (extreme-heat 'challenge' products)", "gastro-oesophageal reflux"],
+    note: "Concentrated chilli or pepper extracts. At culinary levels they are safe. Very concentrated capsaicin products have caused vomiting, chest pain and hospital visits in children, and the SCF could not set a safe upper intake. Piperine in supplements can increase absorption of some medicines.",
+    ref: "SCF 2002 opinion on capsaicin; Regulation (EC) 1334/2008 Annex III",
+  },
+  // ── Expansion 2026-10 batch 04: flavouring substances and essential oils ──
+  {
+    id: "flavour-chemicals",
+    name: "Named Flavouring Substances (menthol, cinnamaldehyde, citral, limonene…)",
+    keywords: ["isoamyl acetate", "isopentyl acetate", "banana oil", "ethyl butyrate", "ethyl butanoate", "ethyl hexanoate", "ethyl caproate", "ethyl propionate", "ethyl propanoate", "ethyl 2-methylbutyrate", "ethyl 2-methylbutanoate", "methyl butyrate", "methyl butanoate", "hexyl acetate", "n-hexyl acetate", "butyl acetate", "n-butyl acetate", "benzyl acetate", "methyl anthranilate", "ethyl methylphenylglycidate", "strawberry aldehyde", "aldehyde c-16", "gamma-decalactone", "γ-decalactone", "delta-decalactone", "δ-decalactone", "gamma-undecalactone", "γ-undecalactone", "aldehyde c-14", "peach aldehyde", "gamma-nonalactone", "γ-nonalactone", "aldehyde c-18", "coconut aldehyde", "furaneol", "strawberry furanone", "furaneol (dmhf)", "raspberry ketone", "rheosmin", "frambinone", "diacetyl", "butanedione", "2,3-butanedione", "acetoin", "3-hydroxy-2-butanone", "acetyl methyl carbinol", "2,3-pentanedione", "acetyl propionyl", "phenylethyl alcohol", "2-phenylethanol", "phenethyl alcohol", "cis-3-hexenol", "leaf alcohol", "(z)-3-hexen-1-ol", "hexanal", "hexanaldehyde", "caproaldehyde", "octanal", "aldehyde c-8", "caprylic aldehyde", "nonanal", "aldehyde c-9", "pelargonaldehyde", "decanal", "aldehyde c-10", "capraldehyde", "acetaldehyde", "ethanal", "butyric acid", "butanoic acid", "isovaleric acid", "3-methylbutanoic acid", "thymol", "thyme camphor", "carvacrol", "piperonal", "heliotropin", "heliotropine", "anisaldehyde", "p-anisaldehyde", "4-methoxybenzaldehyde", "nootkatone", "alpha-ionone", "α-ionone", "beta-ionone", "β-ionone", "beta-damascenone", "β-damascenone", "sotolon", "sotolone", "allyl isothiocyanate", "mustard oil (volatile)", "volatile oil of mustard", "allyl hexanoate", "allyl caproate", "2-acetylpyrazine", "acetylpyrazine", "2,5-dimethylpyrazine", "2,5-dimethyl pyrazine", "guaiacol", "2-methoxyphenol", "dimethyl sulfide", "dimethyl sulphide", "methyl sulfide", "methional", "3-(methylthio)propionaldehyde", "cyclotene", "methylcyclopentenolone", "maple lactone", "ethyl lactate", "ethyl 2-hydroxypropanoate", "cinnamyl alcohol", "cinnamic alcohol", "ethyl cinnamate", "methyl cinnamate", "geraniol", "citronellol", "citronellal", "geranyl acetate", "linalyl acetate", "menthone", "l-menthone", "alpha-pinene", "α-pinene", "beta-caryophyllene", "β-caryophyllene", "caryophyllene", "isoamyl alcohol", "isopentyl alcohol", "3-methyl-1-butanol", "menthol", "l-menthol", "cinnamaldehyde", "cinnamic aldehyde", "eugenol", "limonene", "d-limonene", "citral", "benzaldehyde", "anethole", "trans-anethole", "carvone", "l-carvone", "linalool", "methyl salicylate", "wintergreen oil", "oil of wintergreen", "eucalyptol", "1,8-cineole", "cineole", "4-allyl-2-methoxyphenol", "anise camphor", "artificial almond", "cinnamal", "coriandrol", "geranial", "lemonal", "linalol"],
+    eNumbers: [],
+    category: "flavour",
+    function: "Flavouring substance",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "Listed on the EU Union list of flavourings (Reg. (EU) 872/2012); evaluated by JECFA as flavouring agents; FDA permits under 21 CFR 172.515 or GRAS",
+    populations: ["salicylate-sensitive people and young children (methyl salicylate)", "skin-sensitised people (cinnamaldehyde, citral, eugenol)"],
+    note: "Single aroma chemicals, from natural sources or synthesised, used to give mint, cinnamon, clove, citrus, almond, anise or wintergreen notes. At flavouring levels JECFA and EFSA found no safety concern. Several are skin sensitisers, and methyl salicylate (oil of wintergreen) is toxic to small children in concentrated form.",
+    ref: "Commission Implementing Regulation (EU) 872/2012 (Union list of flavourings); JECFA flavouring-agent evaluations",
+  },
+  {
+    id: "essential-oils",
+    name: "Essential Oils & Natural Extracts (peppermint, citrus, clove, cinnamon, bitter almond…)",
+    keywords: ["peppermint oil", "spearmint oil", "mint oil", "orange oil", "sweet orange oil", "lemon oil", "lime oil", "bergamot oil", "grapefruit oil", "mandarin oil", "clove oil", "clove bud oil", "cinnamon oil", "cinnamon bark oil", "cinnamon leaf oil", "cassia oil", "bitter almond oil", "almond essence", "eucalyptus oil", "anise oil", "aniseed oil", "star anise oil", "cardamom oil", "essential oil", "citrus bergamia oil", "eucalyptus globulus oil", "lemon peel oil", "lime peel oil", "mentha piperita oil", "mentha spicata oil", "oil of bitter almond", "orange peel oil", "syzygium aromaticum oil"],
+    eNumbers: [],
+    category: "flavour",
+    function: "Natural flavouring from distilled or pressed plant oils",
+    dominant: "MEDIUM",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "Natural flavourings under Reg. (EC) 1334/2008; FDA GRAS (21 CFR 182.20); maximum levels apply to restricted constituents (pulegone, estragole, coumarin, HCN)",
+    populations: ["children (concentrated oils are toxic if swallowed neat)", "people with citrus or mint allergy"],
+    note: "Concentrated aroma oils used in drops. At flavouring levels they are safe. Neat oils are potent: some carry restricted constituents (pulegone in mint, coumarin in cassia, hydrogen cyanide in unrectified bitter almond), and bergamot oil contains phototoxic furocoumarins. Dominant use (e.g. oil-based sweets) is unusual and merits caution.",
+    ref: "Regulation (EC) 1334/2008 Annex III; 21 CFR 182.20",
+  },
+  // ── Expansion 2026-10 batch 07: amino acids, nucleotides, omega-3, supplement nutrients ──
+  {
+    id: "added-amino-acids",
+    name: "Added Amino Acids & Nucleotides (BCAA, creatine, theanine, formula nucleotides)",
+    keywords: ["l-leucine", "l-isoleucine", "l-valine", "l-lysine", "lysine hydrochloride", "l-lysine hydrochloride", "l-methionine", "dl-methionine", "l-threonine", "l-tryptophan", "l-phenylalanine", "l-histidine", "l-arginine", "arginine alpha-ketoglutarate", "l-glutamine", "l-alanine", "beta-alanine", "β-alanine", "l-aspartic acid", "l-cystine", "l-proline", "l-serine", "l-tyrosine", "l-citrulline", "citrulline malate", "l-ornithine", "branched-chain amino acids", "branched chain amino acids", "bcaa", "creatine monohydrate", "creatine", "gamma-aminobutyric acid", "gaba", "l-theanine", "theanine", "cytidine 5'-monophosphate", "cytidine monophosphate", "uridine 5'-monophosphate", "uridine monophosphate", "disodium uridine", "adenosine 5'-monophosphate", "adenosine monophosphate", "nucleotides", "aakg", "alanine", "amp", "arginine", "aspartate", "aspartic acid", "bcaas", "carnosyn", "citrulline", "cmp", "cystine", "gamma aminobutyric acid", "glutamine", "histidine", "isoleucine", "leucine", "lysine hcl", "methionine", "ornithine", "ornithine aspartate", "phenylalanine", "proline", "serine", "threonine", "tryptophan", "tyrosine", "ump", "valine", "branched-chain amino acid", "branched chain amino acid"],
+    eNumbers: ["e641", "e642"],
+    category: "nutrient",
+    function: "Protein building blocks / sports and infant-formula nutrients",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "Amino acids permitted in foods for specific groups and supplements; nucleotides permitted in infant formula (Reg. (EU) 2016/127); no ULs set for most amino acids (IOM 2005)",
+    populations: ["phenylketonuria (phenylalanine)", "people on MAO inhibitors or serotonergic drugs (tryptophan)"],
+    note: "Isolated amino acids and nucleotides used in sports drinks, protein products, supplements and infant formula. They are normal food constituents. No upper limits are set for most; single amino acids at very high doses can unbalance metabolism. A 1989 epidemic of eosinophilia-myalgia was traced to a contaminated batch of L-tryptophan, not to tryptophan itself.",
+    ref: "Institute of Medicine 2005, Dietary Reference Intakes for Energy, Carbohydrate, Fiber, Fat, Fatty Acids, Cholesterol, Protein, and Amino Acids",
+  },
+  {
+    id: "omega-3-oils",
+    name: "Omega-3 Oils & Fatty Acids (fish, krill, algal oil, DHA, EPA)",
+    keywords: ["fish oil", "refined fish oil", "krill oil", "algal oil", "algae oil", "schizochytrium oil", "cod liver oil", "docosahexaenoic acid", "eicosapentaenoic acid", "omega-3 fatty acids", "omega 3 fatty acids", "omega-3 concentrate", "dha-rich oil", "dha algal oil", "cod-liver oil", "dha", "epa", "euphausia superba oil"],
+    eNumbers: [],
+    category: "fat",
+    function: "Source of long-chain omega-3 fatty acids",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "STRONG",
+    regulatory: "EU-authorised claims for EPA+DHA and heart function (250 mg/day); EFSA: supplemental EPA+DHA up to 5 g/day raises no safety concern",
+    populations: ["fish or crustacean allergy (source-dependent)", "pregnancy (cod liver oil: vitamin A content)", "people on anticoagulants at high doses"],
+    note: "Oils rich in EPA and DHA, the long-chain omega-3 fats found in oily fish. They support normal heart, brain and vision function. EFSA found no safety concern up to 5 g/day of supplemental EPA+DHA. Cod liver oil also contains preformed vitamin A, which is limited in pregnancy.",
+    ref: "EFSA NDA Panel 2012, Scientific Opinion on the Tolerable Upper Intake Level of EPA, DHA and DPA",
+  },
+  {
+    id: "coenzyme-q10",
+    name: "Coenzyme Q10 (ubiquinone)",
+    keywords: ["coenzyme q10", "co-enzyme q10", "coq10", "ubiquinone", "ubidecarenone", "ubiquinol"],
+    eNumbers: [],
+    category: "nutrient",
+    function: "Supplement ingredient",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "Sold as a food supplement; EFSA did not substantiate claimed health effects (2010)",
+    populations: ["people on warfarin (may reduce its effect)"],
+    note: "A compound the body makes for energy production in mitochondria. Supplements are well tolerated; EFSA found claimed energy, heart and blood-pressure benefits not substantiated in healthy people.",
+    ref: "EFSA NDA Panel 2010, health claims related to coenzyme Q10",
+  },
+  {
+    id: "supplement-carotenoids",
+    name: "Supplement Carotenoids (astaxanthin, zeaxanthin)",
+    keywords: ["astaxanthin", "zeaxanthin", "meso-zeaxanthin", "haematococcus pluvialis"],
+    eNumbers: [],
+    category: "nutrient",
+    function: "Antioxidant pigment in supplements and fish feed",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "Authorised novel foods for supplements with maximum daily amounts (astaxanthin 8 mg/day, EFSA 2020)",
+    note: "Red and yellow carotenoid pigments. Astaxanthin gives salmon its colour (via feed) and is sold from Haematococcus algae; zeaxanthin accumulates in the retina. EFSA set safe supplement limits; claimed eye and skin benefits are not authorised.",
+    ref: "EFSA NDA Panel 2020, Safety of astaxanthin for its use as a novel food in food supplements",
+  },
+  // ── Expansion 2026-10 batch 09: prebiotics, fibres, proteins ──
+  {
+    id: "prebiotic-oligosaccharides",
+    name: "Prebiotic Oligosaccharides (HMOs, XOS)",
+    keywords: ["2'-fucosyllactose", "2'-o-fucosyllactose", "2'-fl", "3-fucosyllactose", "lacto-n-neotetraose", "lacto-n-tetraose", "6'-sialyllactose", "3'-sialyllactose", "human milk oligosaccharides", "human milk oligosaccharide", "xylo-oligosaccharides", "xylooligosaccharides", "xylo-oligosaccharide", "3'-sl", "3-fl", "6'-sl", "lnnt", "lnt", "xos"],
+    eNumbers: [],
+    category: "nutrient",
+    function: "Prebiotic carbohydrates for infant formula and supplements",
+    dominant: "LOW",
+    moderate: "LOW",
+    trace: "LOW",
+    evidence: "MODERATE",
+    regulatory: "Authorised novel foods in the EU with conditions of use (infant formula, supplements, some foods)",
+    note: "Short-chain carbohydrates that resist digestion and feed gut bacteria. Human milk oligosaccharides (HMOs) such as 2'-FL are made by fermentation to mirror breast milk; EFSA found them safe at breast-milk-like levels. XOS come from corn cobs or birch. High intakes can cause wind.",
+    ref: "EFSA NDA Panel 2015, safety of 2'-O-fucosyllactose and lacto-N-neotetraose as novel food ingredients; Commission Implementing Regulation (EU) 2017/2470",
+  },
+  // ── Expansion 2026-10 batch 29: restricted botanicals and areca nut ──
+  {
+    id: "areca-nut",
+    name: "Areca Nut (betel nut, supari)",
+    keywords: ["areca nut", "areca", "betel nut", "supari", "pan masala", "paan masala", "arecoline", "areca catechu"],
+    eNumbers: [],
+    category: "stimulant",
+    function: "Chewed stimulant; base of pan masala and mouth fresheners",
+    dominant: "CRITICAL",
+    moderate: "CRITICAL",
+    trace: "CRITICAL",
+    evidence: "STRONG",
+    regulatory: "IARC Group 1 carcinogen with or without tobacco (Vol. 85, 2004; Vol. 100E, 2012); tobacco and nicotine are prohibited as food ingredients in India (FSS Prohibition and Restrictions on Sales Regulations 2011, 2.3.4)",
+    populations: ["everyone", "children", "pregnancy"],
+    note: "The seed of the areca palm, chewed alone, in paan or in pan masala and sweetened supari mixes. IARC classes areca nut itself, even without tobacco, as causing oral and oesophageal cancer; it also causes oral submucous fibrosis, a precancerous scarring of the mouth.",
+    ref: "IARC Monographs Vol. 85 (2004) Betel-quid and areca-nut chewing; Vol. 100E (2012)",
+  },
+  {
+    id: "ephedra",
+    name: "Ephedra (ma huang)",
+    keywords: ["ephedra", "ma huang", "ephedrine", "ephedra sinica", "ephedrine alkaloids"],
+    eNumbers: [],
+    category: "stimulant",
+    function: "Herbal stimulant formerly sold in weight-loss and sports supplements",
+    dominant: "CRITICAL",
+    moderate: "CRITICAL",
+    trace: "CRITICAL",
+    evidence: "STRONG",
+    regulatory: "Prohibited in food in the EU (Reg. 1925/2006 Annex III Part A, added by Reg. (EU) 2015/403); dietary supplements containing ephedrine alkaloids banned by the FDA (2004)",
+    populations: ["everyone", "people with heart disease or high blood pressure"],
+    note: "Ephedra herb contains ephedrine, an amphetamine-like stimulant. Supplements were linked to strokes, heart attacks, arrhythmias and deaths, which led the FDA to ban them in 2004. The EU prohibits the herb and its preparations in food.",
+    ref: "FDA final rule declaring dietary supplements containing ephedrine alkaloids adulterated (69 FR 6788, 2004); Commission Regulation (EU) 2015/403",
+  },
+  {
+    id: "yohimbe",
+    name: "Yohimbe Bark (yohimbine)",
+    keywords: ["yohimbe", "yohimbine", "yohimbe bark", "pausinystalia yohimbe", "corynanthe yohimbe"],
+    eNumbers: [],
+    category: "stimulant",
+    function: "Bark extract sold in libido and fat-burner supplements",
+    dominant: "CRITICAL",
+    moderate: "CRITICAL",
+    trace: "CRITICAL",
+    evidence: "MODERATE",
+    regulatory: "Prohibited in food in the EU (Reg. 1925/2006 Annex III Part A, added by Reg. (EU) 2019/650)",
+    populations: ["everyone", "people with heart disease, anxiety or high blood pressure"],
+    note: "Yohimbine raises blood pressure and heart rate and can cause anxiety and arrhythmias. EFSA could not establish a safe intake and found supplement labels poorly reflect actual yohimbine content; the EU then banned yohimbe bark and its preparations in food.",
+    ref: "EFSA ANS Panel 2013, Scientific Opinion on the evaluation of the safety in use of Yohimbe; Commission Regulation (EU) 2019/650",
+  },
+  {
+    id: "aloe-emodin-hads",
+    name: "Aloe-emodin, Emodin, Danthron & Aloe Latex",
+    keywords: ["aloe-emodin", "aloe emodin", "emodin", "danthron", "dantron", "aloin", "aloe latex", "aloe leaf latex"],
+    eNumbers: [],
+    category: "processing aid",
+    function: "Stimulant-laxative anthranoids in aloe latex and some 'detox' products",
+    dominant: "CRITICAL",
+    moderate: "CRITICAL",
+    trace: "CRITICAL",
+    evidence: "MODERATE",
+    regulatory: "Prohibited in food in the EU (Reg. 1925/2006 Annex III Part A, added by Reg. (EU) 2021/468); danthron IARC Group 2B",
+    populations: ["everyone", "pregnancy", "children"],
+    note: "Hydroxyanthracene derivatives from the yellow latex under aloe leaf skin and some other plants. EFSA found aloe-emodin, emodin and danthron genotoxic and aloe extracts carcinogenic in rats, and could not set a safe intake. Decolourised inner-leaf aloe vera gel is a different product.",
+    ref: "EFSA ANS Panel 2018, Safety of hydroxyanthracene derivatives for use in food (EFSA Journal 16(1):5090); Commission Regulation (EU) 2021/468; IARC Vol. 50 (danthron)",
+  },
+  {
+    id: "anthranoid-laxative-herbs",
+    name: "Senna, Cascara, Frangula & Rhubarb Root",
+    keywords: ["senna", "senna leaf", "senna pods", "cassia senna", "sennosides", "cascara", "cascara sagrada", "rhamnus purshiana", "frangula", "frangula bark", "rhamnus frangula", "buckthorn bark", "alder buckthorn", "rhubarb root", "rheum palmatum", "rheum officinale"],
+    eNumbers: [],
+    category: "processing aid",
+    function: "Stimulant-laxative herbs in 'detox', 'slimming' and laxative teas",
+    dominant: "HIGH",
+    moderate: "HIGH",
+    trace: "MEDIUM",
+    evidence: "MODERATE",
+    regulatory: "Under EU scrutiny in food (Reg. 1925/2006 Annex III Part C, added by Reg. (EU) 2021/468); authorised only as short-term herbal medicines",
+    populations: ["pregnancy", "children", "people with bowel disease"],
+    note: "Herbs whose hydroxyanthracene glycosides (such as sennosides) irritate the bowel. Fine as a short medicinal course, but daily 'detox' tea use causes diarrhoea, potassium loss and dependence. EFSA could not set a safe intake because some anthranoids are genotoxic.",
+    ref: "EFSA ANS Panel 2018, Safety of hydroxyanthracene derivatives for use in food; Commission Regulation (EU) 2021/468",
   },
   {
     id: "dehydroacetic-acid", name: "Dehydroacetic Acid & Sodium Dehydroacetate (INS 265/266)",
@@ -2101,44 +2662,6 @@ export const ADDITIVES: AdditiveProfile[] = [
     note: "A fermentation-made glucose polymer (β-1,3-glucan) that forms a firm gel when heated, used in noodles, tofu and meat analogues. It is largely indigestible, behaving like fibre.",
     ref: "JECFA 57th meeting (2001); 21 CFR 172.809",
   },
-  {
-    id: "tannic-acid", name: "Tannic Acid (INS 181)", keywords: ["tannic acid", "gallotannin", "food grade tannin"], eNumbers: ["e181"],
-    category: "processing aid", function: "Clarifying agent / flavour adjunct",
-    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
-    adi: "Not specified (JECFA 1989)",
-    regulatory: "FDA GRAS with use limits (21 CFR 184.1097); JECFA ADI not specified when removed after use",
-    note: "Plant gallotannins used to clarify beer and wine and as a flavour adjunct. The same astringent polyphenols occur naturally in tea and wine; no concern at the levels used.",
-    ref: "21 CFR 184.1097; JECFA 35th meeting (1989)",
-  },
-  {
-    id: "alitame", name: "Alitame (INS 956)", keywords: ["alitame", "aclame"], eNumbers: ["e956"],
-    category: "sweetener", function: "Intense sweetener (≈2000× sugar)",
-    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
-    adi: "0–1 mg/kg bw/day (JECFA 1996, maintained 2002)",
-    regulatory: "Permitted in Australia/NZ, China, Mexico and some others; not authorised in the EU or US (FDA petition never approved)",
-    note: "A dipeptide intense sweetener (aspartic acid + alanine amide). JECFA set an ADI, but few regulators approved it and long-term human data are sparse. It does not contain phenylalanine.",
-    ref: "JECFA 46th (1996) and 59th (2002) meetings",
-  },
-  {
-    id: "sodium-lauryl-sulfate", name: "Sodium Lauryl Sulfate (INS 487)",
-    keywords: ["sodium lauryl sulfate", "sodium lauryl sulphate", "sodium dodecyl sulfate", "sodium dodecyl sulphate"], eNumbers: ["e487"],
-    category: "emulsifier", function: "Whipping aid / surfactant",
-    dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
-    regulatory: "FDA: ≤1000 ppm in dried egg whites, 125 ppm in liquid/frozen whites, 0.5% of gelatin in marshmallows (21 CFR 172.822); not authorised in the EU",
-    note: "A synthetic detergent-type surfactant added to dried egg whites and marshmallow so they whip faster. Residues are small, but it is an industrial processing marker with no EU approval.",
-    ref: "21 CFR 172.822",
-  },
-  {
-    id: "free-amino-acids", name: "Free-Form Amino Acids (BCAAs, L-lysine, L-arginine…)",
-    keywords: ["leucine", "l-leucine", "l-isoleucine", "l-valine", "bcaa", "branched-chain amino acid", "branched chain amino acid", "l-lysine", "lysine hydrochloride", "lysine hcl", "l-arginine", "l-glutamine", "l-citrulline", "l-methionine", "l-threonine", "l-tryptophan"],
-    eNumbers: ["e641", "e642"],
-    category: "nutrient", function: "Protein fortification / sports supplement",
-    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
-    regulatory: "Nutrient sources/flavourings; EFSA found no concern as flavourings; VKM could not draw conclusions on BCAA supplement doses for lack of data",
-    populations: ["kidney or liver disease (high-dose supplements)"],
-    note: "Single amino acids from fermentation, the same ones found in dietary protein. Food-level amounts are unremarkable; multi-gram supplement doses have little long-term safety data.",
-    ref: "VKM assessment of L-leucine/isoleucine/valine in supplements; Reg. (EU) 2015/649 (EFSA 2007 flavouring opinion)",
-  },
 ];
 
 // Whole-food / unprocessed markers → NOVA group 1 signal (positive).
@@ -2152,7 +2675,69 @@ export const WHOLEFOOD_KEYWORDS = [
   "turmeric", "cardamom", "cinnamon", "ginger", "cumin", "coriander", "clove", "nutmeg", "vanilla", "cocoa",
   "flaxseed", "linseed", "chia seed", "millet", "sorghum", "buckwheat", "fenugreek", "mustard seed",
   "chilli", "chili", "paprika", "asafoetida", "besan", "gram flour", "curry leaves",
+  "live cultures", "live and active cultures", "active cultures", "yoghurt cultures", "starter culture", "probiotic culture", "lactobacillus", "lacticaseibacillus", "lactiplantibacillus", "limosilactobacillus", "ligilactobacillus", "bifidobacterium", "bifidus", "streptococcus thermophilus", "lactococcus lactis", "leuconostoc", "pediococcus", "propionibacterium", "saccharomyces boulardii", "bacillus coagulans", "weizmannia coagulans", "bacillus subtilis", "penicillium roqueforti", "penicillium camemberti", "penicillium candidum", "aspergillus oryzae", "koji", "kefir grains", "kombucha culture", "scoby",
 ];
+
+// Named whole foods, matched as whole words (plural-tolerant) so short names such as
+// "sage" or "date" can't fire inside "sausage" or "updated".
+export const WHOLEFOOD_WORDS: string[] = [
+  "mace", "anise", "saunf", "laung", "jeera", "kesar", "ajowan", "ajwain", "aniseed", "nigella", "javitri", "cayenne", "jaiphal", "caraway", "saffron", "kalonji", "pippali", "pimentón", "allspice", "pimenton", "dill seed", "khus khus", "khas khas", "methi dana", "poppy seed", "methi seeds", "fennel seed", "celery seed", "carom seeds", "carum carvi", "long pepper", "badi elaichi", "white pepper", "piper longum", "chakra phool", "bishop's weed", "juniper berry", "dhania powder", "jamaica pepper", "illicium verum", "crocus sativus", "juniper berries", "amomum subulatum", "red pepper flakes", "pimpinella anisum", "white peppercorns", "green peppercorns", "juniperus communis", "crushed red pepper", "green pepper berries",
+  "lc1", "lgg", "kōji", "bb-12", "kewda", "b. breve", "l. casei", "l. lactis", "b. lactis", "gulab jal", "b. longum", "a. oryzae", "l. gasseri", "l. reuteri", "b. bifidum", "ganedenbc30", "acidophilus", "white mould", "b. infantis", "l. fermentum", "l. paracasei", "l. rhamnosus", "l. johnsonii", "l. plantarum", "s. boulardii", "p. roqueforti", "l. salivarius", "kefir culture", "p. camemberti", "kewra essence", "l. bulgaricus", "l. helveticus", "natto bacteria", "s. thermophilus", "blue cheese mould", "pandanus odorifer", "heyndrickxia coagulans",
+  "hing", "dill", "sage", "adrak", "basil", "methi", "thyme", "pudina", "chives", "wasabi", "saunth", "oregano", "chervil", "parsley", "marjoram", "cilantro", "bay leaf", "estragon", "rosemary", "tarragon", "lal mirch", "asafetida", "spearmint", "kadi patta", "fresh mint", "dried mint", "lemongrass", "curry leaf", "bay leaves", "kari patta", "hara dhania", "horseradish", "mint leaves", "lemon grass", "laurel leaf", "curry powder", "pumpkin spice", "dhania leaves", "mentha spicata", "laurus nobilis", "peppermint leaf", "thymus vulgaris", "mentha piperita", "dried peppermint", "murraya koenigii", "origanum vulgare", "citronella grass", "wasabia japonica", "eutrema japonicum", "pumpkin pie spice", "origanum majorana", "poultry seasoning", "peppermint leaves", "anethum graveolens", "salvia officinalis", "armoracia rusticana", "zingiber officinale", "cymbopogon citratus", "ferula assa-foetida", "allium schoenoprasum", "petroselinum crispum", "peppermint tea leaves", "artemisia dracunculus", "anthriscus cerefolium", "rosmarinus officinalis",
+  "plum", "pear", "lime", "grape", "prune", "peach", "lemon", "orange", "damson", "cherry", "raisin", "apricot", "sultana", "satsuma", "cherries", "mandarin", "craisins", "tangerine", "raspberry", "cranberry", "nectarine", "greengage", "blueberry", "grapefruit", "strawberry", "blackberry", "clementine", "cranberries", "blueberries", "raspberries", "blackberries", "strawberries", "dried currants", "zante currants", "bramble berries", "citrus reticulata",
+  "fig", "kiwi", "kaki", "amla", "aonla", "olive", "guava", "chiku", "jamun", "mango", "durian", "papita", "papaya", "longan", "chikoo", "anjeer", "kathal", "amrood", "loquat", "pawpaw", "lychee", "quince", "litchi", "sapota", "cumquat", "khajoor", "kamrakh", "kumquat", "coconut", "rhubarb", "avocado", "anardana", "mulberry", "plantain", "rambutan", "jambolan", "sweetsop", "sitaphal", "maracuja", "carambola", "starfruit", "naseberry", "persimmon", "jackfruit", "muskmelon", "membrillo", "sapodilla", "rockmelon", "kiwifruit", "elderberry", "breadfruit", "cantaloupe", "redcurrant", "gooseberry", "mangosteen", "granadilla", "mulberries", "star fruit", "pomegranate", "red currant", "gooseberries", "ribes nigrum", "passionfruit", "ribes rubrum", "blackcurrant", "sharon fruit", "elderberries", "black currant", "passion fruit", "japanese medlar", "annona squamosa", "ribes uva-crispa", "dragon eye fruit", "charentais melon", "garcinia mangostana", "phyllanthus emblica", "sambucus nigra berries",
+  "dates", "date paste",
+  "yam", "yuca", "okra", "pyaz", "gobi", "kale", "taro", "aloo", "arbi", "leek", "eddoe", "neeps", "palak", "swede", "suran", "mooli", "kaddu", "beets", "turnip", "fennel", "lehsun", "celery", "rocket", "bhindi", "kheera", "radish", "rucola", "kumara", "manioc", "daikon", "parsnip", "baingan", "cabbage", "cassava", "brinjal", "lettuce", "shalgam", "pumpkin", "shallot", "dasheen", "arugula", "roquette", "red beet", "cucumber", "scallion", "beetroot", "rutabaga", "jalapeño", "jalapeno", "capsicum", "zucchini", "broccoli", "dioscorea", "courgette", "chukandar", "asparagus", "colocasia", "aubergine", "calabrese", "finocchio", "artichoke", "little gem", "red pepper", "hari mirch", "shakarkandi", "cauliflower", "cavolo nero", "bell pepper", "mixed leaves", "tapioca root", "green pepper", "sweet pepper", "shimla mirch", "yellow pepper", "lady's finger", "summer squash", "winter squash", "brussels sprout", "ladies' fingers", "apium graveolens", "nasturtium officinale",
+  "peas", "tori", "lauki", "ghiya", "turai", "dodka", "chard", "luffa", "nadru", "petha", "matar", "caper", "makai", "karela", "doodhi", "kimchi", "sarson", "chocho", "padwal", "wombok", "jicama", "sahjan", "parwal", "renkon", "parval", "gherkin", "witloof", "alfalfa", "passata", "collard", "kimchee", "moringa", "chaulai", "chayote", "gai choy", "bok choi", "bok choy", "mirliton", "snow pea", "pak choi", "lal saag", "sunchoke", "pak choy", "kohlrabi", "calabash", "celeriac", "kohl rabi", "sweetcorn", "ash gourd", "mangetout", "drumstick", "thotakura", "chichinda", "wax gourd", "knol-khol", "tomatillo", "baby corn", "cornichons", "sweet corn", "silverbeet", "lotus stem", "opo squash", "sauerkraut", "lotus root", "ridge gourd", "petits pois", "white gourd", "kamal kakdi", "snake gourd", "murungakkai", "topinambour", "gawar phali", "christophene", "red amaranth", "corn kernels", "chinese leaf", "bitter gourd", "winter melon", "bamboo shoot", "bottle gourd", "bitter melon", "pointed gourd", "moong sprouts", "belgian endive", "mustard leaves", "mustard greens", "chicory leaves", "haricots verts", "corn on the cob", "lucerne sprouts", "belgian chicory", "amaranth leaves", "eleocharis dulcis", "benincasa hispida", "pachyrhizus erosus", "momordica charantia", "trichosanthes dioica", "physalis philadelphica", "trichosanthes cucumerina", "cyamopsis tetragonoloba pods",
+  "rye", "jau", "poha", "masa", "ragi", "teff", "rice", "suji", "rava", "aval", "samai", "bajri", "grits", "jowar", "cumbu", "kodra", "chena", "farik", "dalia", "kamut", "korra", "spelt", "mamra", "kuttu", "kutki", "bajra", "jonna", "kasha", "chura", "sooji", "lapsi", "sanwa", "barley", "mandua", "chawal", "bulgur", "dinkel", "varagu", "frikeh", "thinai", "nachni", "kangni", "kurmura", "burghul", "murmura", "polenta", "basmati", "freekeh", "zizania", "bulghur", "jhangora", "couscous", "cornmeal", "khorasan", "semolina", "wheatgerm", "wheat bran", "panivaragu", "wheat germ", "soba flour", "maize meal", "durum wheat", "maize flour", "echinochloa", "kuthiraivali", "broken wheat", "miller's bran", "makki ka atta", "cracked wheat", "eragrostis tef", "oriental wheat", "setaria italica", "triticum spelta", "eleusine coracana", "panicum miliaceum", "panicum sumatrense", "pumpernickel flour", "pennisetum glaucum", "paspalum scrobiculatum",
+  "urad", "tofu", "miso", "tempe", "moong", "kollu", "rajma", "okara", "nattō", "chole", "natto", "matki", "lobia", "carob", "kulthi", "tempeh", "lupini", "chawli", "edamame", "cowpeas", "tur dal", "fagioli", "ulavalu", "gandules", "toor dal", "red gram", "mukimame", "borlotti", "soy pulp", "marrowfat", "arhar dal", "pea flour", "chana dal", "tuvar dal", "soy flour", "masoor dal", "horse gram", "chana daal", "desi chana", "cannellini", "soya flour", "kala chana", "green gram", "black gram", "lupin flour", "bengal gram", "chana flour", "masoor daal", "ful medames", "turkish gram", "kabuli chana", "whole masoor", "frijoles negros", "frijoles pintos", "vigna aconitifolia", "macrotyloma uniflorum",
+  "til", "alsi", "chia", "kaju", "pecan", "badam", "pista", "sesame", "tahina", "akhrot", "tahini", "cobnuts", "brazils", "marrons", "pignoli", "pepitas", "filberts", "hazelnut", "chilgoza", "chestnuts", "groundnut", "para nuts", "pine nuts", "pistachio", "macadamia", "pinon nuts", "brazil nut", "moongphali", "lotus seed", "lotus nuts", "hemp seeds", "hemp hearts", "kamal gatta", "monkey nuts", "pine kernels", "chestnut flour", "chestnut puree", "gingelly seeds", "sunflower seed", "queensland nuts", "salvia hispanica", "sunflower kernels",
+  "lard", "suet", "tallow", "dripping", "saindoux", "duck fat", "schmaltz", "flax oil", "mustard oil", "theobroma oil", "kachi ghani oil", "rendered pork fat",
+  "mawa", "skyr", "brie", "dahi", "khoa", "feta", "quark", "khoya", "gouda", "kefir", "chaas", "chevre", "hellim", "chhena", "topfen", "chhana", "labneh", "paneer", "chèvre", "stilton", "ricotta", "cheddar", "chhachh", "majjiga", "yoghurt", "emmental", "parmesan", "halloumi", "set curd", "camembert", "roquefort", "hung curd", "mozzarella", "magerquark", "parmigiano", "emmentaler", "mascarpone", "gorgonzola", "dolcelatte", "goat cheese", "whey cheese", "danish blue", "blue cheese", "swiss cheese", "fior di latte", "creme fraiche", "crème fraiche", "crème fraîche", "goat's cheese", "cottage cheese", "fresh curd cheese", "white brine cheese", "full-fat soft cheese",
+  "mutton",
+  "goat", "veal", "whey", "duck", "lamb", "pork", "yolk", "murgh", "chevon", "turkey", "albumen", "venison", "ox liver", "deer meat", "bakra meat",
+  "buffalo milk", "bhains ka doodh",
+  "cod", "roe", "rui", "tako", "tuna", "swai", "crab", "rohu", "clam", "hake", "basa", "pulpo", "hilsa", "trout", "squid", "prawn", "tarli", "ilish", "mathi", "salmon", "shrimp", "bangda", "scampi", "mussel", "paplet", "jhinga", "moules", "oyster", "kipper", "tarama", "caviar", "tilapia", "vongole", "herring", "bacalao", "merluza", "sardine", "octopus", "anchovy", "haddock", "seabass", "pomfret", "nethili", "scallop", "pollack", "lobster", "pollock", "sea bass", "calamari", "branzino", "mackerel", "pilchard", "rollmops", "anchovies", "pangasius", "boquerones", "langoustine", "labeo rohita", "river cobbler", "tenualosa ilisha",
+  "cep", "kelp", "nori", "enoki", "laver", "kombu", "konbu", "dulse", "morels", "gucchi", "hijiki", "wakame", "hiziki", "miyeok", "cremini", "dashima", "maitake", "porcini", "eryngii", "shitake", "wood ear", "shiitake", "girolles", "sea moss", "mushroom", "porphyra", "morchella", "chlorella", "enokitake", "penny bun", "spirulina", "laminaria", "irish moss", "chanterelle", "champignons", "auricularia", "black fungus", "seaweed sheets", "boletus edulis", "roasted seaweed", "palmaria palmata", "cloud ear fungus", "chondrus crispus", "grifola frondosa", "hen of the woods", "lentinula edodes", "agaricus bisporus", "tuber melanosporum", "undaria pinnatifida", "sargassum fusiforme", "pleurotus ostreatus", "arthrospira platensis", "cantharellus cibarius", "blue-green algae powder",
+  "white truffle", "black truffle", "summer truffle", "tuber magnatum",
+  "tea", "maté", "mate", "kahwa", "oolong", "nettle", "sencha", "matcha", "coffee", "karkade", "roselle", "melissa", "rooibos", "lavender", "hibiscus", "red bush", "camomile", "kombucha", "espresso", "chimarrão", "chamomile", "cacao nibs", "chai patti", "tieguanyin", "elderflower", "nariyal pani", "elder flower", "sorrel drink", "urtica dioica", "jamaica flowers", "aspalathus linearis", "ilex paraguariensis", "matricaria recutita", "matricaria chamomilla", "sambucus nigra flowers", "lavandula angustifolia",
+  "soba", "udon", "penne", "fensi", "pasta", "santan", "komezu", "ho fun", "fusilli", "macaroni", "dangmyeon", "spaghetti", "tagliatelle", "pho noodles", "nariyal doodh", "glass noodles", "balsamic glaze", "lasagne sheets", "aceto balsamico", "cellophane noodles",
+  "gobo", "kulfa", "tinda", "kairi", "nopal", "ramps", "teora", "kundru", "mochar", "tondli", "bathua", "ambadi", "pitwaa", "rapini", "kakrol", "kantola", "gai lan", "kai lan", "tindora", "basella", "gongura", "ong choy", "poi saag", "kangkong", "lakh dal", "singhara", "singhada", "purslane", "avarekalu", "goosefoot", "nopalitos", "grass pea", "radicchio", "vazhakkai", "beet tops", "ivy gourd", "sem phali", "luni bhaji", "kalmi saag", "alu leaves", "verdolagas", "fiddleheads", "kachcha aam", "cactus pads", "khesari dal", "red chicory", "beet greens", "kachha kela", "spiny gourd", "round gourd", "trapa natans", "patra leaves", "cime di rapa", "vazhaithandu", "teasel gourd", "opuntia pads", "burdock root", "indian squash", "lambsquarters", "kele ka phool", "arctium lappa", "pigweed leaves", "ipomoea aquatica", "allium tricoccum", "coccinia grandis", "momordica dioica", "dandelion leaves", "lathyrus sativus", "fiddlehead ferns", "dandelion greens", "chenopodium album", "portulaca oleracea", "ostrich fern shoots", "morning glory greens", "opuntia ficus-indica fruit", "taraxacum officinale leaves",
+  "ber", "akee", "bael", "aliv", "farro", "bilva", "mamey", "falsa", "ackee", "emmer", "kaith", "pomelo", "feijoa", "kavath", "hominy", "jujube", "pitaya", "phalsa", "mosambi", "acerola", "karanda", "tangelo", "popcorn", "charoli", "musambi", "bai guo", "soursop", "pummelo", "karonda", "physalis", "red date", "chironji", "minneola", "rasbhari", "chakotra", "shaddock", "graviola", "pitahaya", "chak-hao", "cherimoya", "triticale", "chirimoya", "guanabana", "hylocereus", "chandrasur", "guavasteen", "boysenberry", "ginkgo nuts", "posole corn", "goldenberry", "halim seeds", "groundcherry", "chinese date", "popping corn", "ginkgo seeds", "golden berry", "dragon fruit", "boysenberries", "wheat berries", "wheat kernels", "citrus maxima", "aegle marmelos", "citrus limetta", "blighia sapida", "grewia asiatica", "ziziphus jujuba", "annona muricata", "acca sellowiana", "tarbooz ke beej", "annona cherimola", "carissa carandas", "malus sylvestris", "nixtamalized corn", "buchanania lanzan", "triticum dicoccum", "limonia acidissima", "garden cress seeds", "ginkgo biloba nuts", "malpighia emarginata", "christ's thorn fruit", "lepidium sativum seeds",
+  "eel", "paua", "carp", "sole", "edam", "quail", "goose", "sprat", "whelk", "comté", "magur", "bison", "katla", "lotte", "catla", "anago", "tripe", "comte", "bream", "unagi", "nalli", "porgy", "bombil", "plaice", "surmai", "rabbit", "mrigal", "dorade", "cockle", "dorado", "lengua", "gizzard", "gruyere", "havarti", "snapper", "burrata", "edammer", "abalone", "provola", "halibut", "gruyère", "vanjaram", "crawdads", "manchego", "pheasant", "pecorino", "brisling", "mahi mahi", "provolone", "mahi-mahi", "whitebait", "ox kidney", "ox tongue", "pig kidney", "pepper jack", "bone marrow", "jack cheese", "marrow bones", "grana padano", "buffalo meat", "queso fresco", "queso blanco", "red leicester", "monterey jack", "leicester cheese", "buccinum undatum", "harpadon nehereus", "cerastoderma edule", "fresh mexican cheese",
+  "noni", "sumac", "loomi", "timur", "cubeb", "kiwano", "sumach", "summaq", "baobab", "galanga", "rosehip", "huajiao", "salsify", "mealworm", "galangal", "rose hip", "laos root", "loganberry", "cloudberry", "scorzonera", "cowberries", "limoo amani", "zanthoxylum", "kabab chini", "lingonberry", "noomi basra", "pink pepper", "jelly melon", "baies roses", "java pepper", "sacha inchi", "cloudberries", "piper cubeba", "loganberries", "horned melon", "buffalo worm", "schinus molle", "rhus coriaria", "house cricket", "tailed pepper", "guinea grains", "lingonberries", "cricket flour", "dried locusts", "edible locust", "inca inchi oil", "cricket powder", "sichuan pepper", "dried crickets", "szechuan pepper", "pink peppercorn", "melegueta pepper", "migratory locust", "tenebrio molitor", "acheta domesticus", "rubus chamaemorus", "rosa canina fruit", "morinda citrifolia", "locusta migratoria", "rubus loganobaccus", "adansonia digitata", "grains of paradise", "sichuan peppercorns", "cucumis metuliferus", "aframomum melegueta", "szechuan peppercorns", "vaccinium vitis-idaea", "alphitobius diaperinus", "tragopogon porrifolius", "plukenetia volubilis oil", "schinus terebinthifolius",
+  "atta", "malai", "kewra", "oatmeal", "peppers", "currants", "oat flakes", "jumbo oats", "fresh cream", "porridge oats", "wholemeal flour", "wholewheat flour", "wholegrain wheat flour",
+  "wholemeal",
+  "wholewheat",
+  // 2026-10 batch 30: fruit
+  "açaí berry", "acai", "açaí", "acai berry", "acai puree", "euterpe oleracea", "goji berry", "goji", "goji berries", "wolfberry", "lycium barbarum", "gou qi zi", "sea buckthorn", "sea buckthorn berries", "seabuckthorn", "hippophae rhamnoides", "sallow thorn", "aronia berry", "aronia", "chokeberry", "black chokeberry", "aronia melanocarpa", "bilberry", "bilberries", "whortleberry", "vaccinium myrtillus", "huckleberry", "huckleberries", "vaccinium membranaceum", "haskap berry", "haskap", "lonicera caerulea", "white currant", "sloe", "sloes", "blackthorn fruit", "sloe berries", "prunus spinosa", "mirabelle", "mirabelles", "mirabelle de nancy", "medlar", "medlars", "mespilus germanica", "nashi", "pyrus pyrifolia", "muscadine", "muscadines", "scuppernong", "vitis rotundifolia", "rowan berries", "rowan", "rowanberries", "sorbus aucuparia", "mountain ash berries", "serviceberry", "serviceberries", "saskatoon berry", "saskatoons", "juneberry", "amelanchier", "barberry", "barberries", "zereshk", "berberis vulgaris", "dried barberries", "dewberry", "dewberries", "rubus caesius", "salmonberry", "salmonberries", "rubus spectabilis", "crowberry", "crowberries", "empetrum nigrum", "tayberry", "tayberries", "jostaberry", "jostaberries", "josta", "wineberry", "wineberries", "japanese wineberry", "rubus phoenicolasius", "cornus mas", "prunus cerasus", "kiwiberry", "kiwiberries", "actinidia arguta", "yuzu", "yuzu juice", "yuzu zest", "citrus junos", "calamansi", "kalamansi", "calamondin", "citrofortunella microcarpa", "citron", "citrons", "citrus medica", "etrog", "cedro", "citrus australasica", "buddha's hand", "buddhas hand", "fingered citron", "citrus medica var. sarcodactylis", "sanguinello", "citrus aurantium fruit", "bergamot fruit", "citrus bergamia", "tamarillo", "tamarillos", "solanum betaceum", "salak", "snake fruit", "salacca zalacca", "salak pondoh", "jabuticaba", "jaboticaba", "plinia cauliflora", "cupuaçu", "cupuacu", "cupuassu", "theobroma grandiflorum", "lucuma", "lucuma powder", "lúcuma", "pouteria lucuma", "camu camu", "camu camu powder", "myrciaria dubia", "maqui berry", "maqui", "maqui powder", "aristotelia chilensis", "bilimbi", "bilimbi fruit", "averrhoa bilimbi", "tree sorrel", "irumban puli", "harfarauri", "phyllanthus acidus", "tadgola", "nungu", "toddy palm fruit", "palmyra fruit", "borassus flabellifer", "caju", "anacardium occidentale fruit", "langsat", "lanzones", "duku", "langsat fruit", "lansium parasiticum", "santol", "cotton fruit", "sandoricum koetjape", "kechapi", "marang", "artocarpus odoratissimus", "johey oak", "tarap", "pulasan", "pulasan fruit", "jambu air", "bell fruit", "syzygium samarangense", "jambos", "syzygium jambos", "pitanga", "eugenia uniflora", "psidium cattleianum", "pepino melon", "pepino", "pepino dulce", "solanum muricatum", "babaco", "babaco fruit", "vasconcellea heilbornii", "champagne fruit", "marula", "marula fruit", "sclerocarya birrea", "mamoncillo", "quenepa", "genip", "melicoccus bijugatus", "black sapote", "chocolate pudding fruit", "diospyros nigra", "zapote negro", "white sapote", "casimiroa edulis", "zapote blanco", "canistel", "pouteria campechiana", "yellow sapote", "abiu", "pouteria caimito", "caimito", "atemoya", "atemoyas", "bullock's heart", "ramphal", "annona reticulata", "bullocks heart", "lakoocha", "monkey jack", "barhal", "artocarpus lacucha", "dheu", "champedak", "cempedak", "artocarpus integer", "passiflora tarminiana", "curuba", "taxo", "kokum", "kokam", "garcinia indica", "kokum rind", "amsul", "bhirand",
+  // 2026-10 batch 31: vegetables
+  "celtuce", "wosun", "lactuca sativa var. augustana", "curly endive", "frisee", "frisée", "cichorium endivia", "escarole", "broad-leaved endive", "batavian endive", "scarole", "mizuna", "spider mustard", "kyona", "tatsoi", "tat soi", "spoon mustard", "choy sum", "choi sum", "yu choy", "cai xin", "komatsuna", "tendergreen", "chrysanthemum greens", "shungiku", "garland chrysanthemum", "tong ho", "crown daisy", "sorrel", "garden sorrel", "rumex acetosa", "common sorrel", "dock leaves", "samphire", "marsh samphire", "glasswort", "salicornia", "corn salad", "mache", "mâche", "valerianella locusta", "pea shoots", "pea tendrils", "dou miao", "pea sprouts", "spring greens", "camote tops", "kamote tops", "pondu", "saka-saka", "matapa", "cucurbita leaves", "chane ka saag", "chana saag", "agathi leaves", "agathi keerai", "sesbania grandiflora leaves", "hummingbird tree leaves", "ponnaganni", "ponnanganni keerai", "alternanthera sessilis", "sessile joyweed", "black nightshade leaves", "manathakkali keerai", "manathakkali", "solanum nigrum leaves", "makoi", "jute mallow", "molokhia", "mulukhiyah", "ewedu", "corchorus olitorius", "jute leaves", "bitter leaf", "bitterleaf", "vernonia amygdalina", "ndole leaves", "onugbu", "ugu", "ugwu", "telfairia occidentalis", "chaya", "cnidoscolus aconitifolius", "chaya leaves", "broccolini", "aspabroc", "romanesco", "broccoflower", "cardoon", "cardoons", "cynara cardunculus", "cardi", "seakale", "crambe maritima", "ube", "ube halaya", "ratalu", "oca", "oxalis tuberosa", "yacon", "yacón", "smallanthus sonchifolius", "yacon root", "yacon syrup", "nagaimo", "yamaimo", "huai shan", "cocoyam", "tannia", "yautia", "malanga", "xanthosoma sagittifolium", "new cocoyam", "crosnes", "stachys affinis", "knotroot", "jiaobai", "makomo", "chakka kuru", "ramsons", "allium ursinum", "allium ampeloprasum elephant", "jiu cai", "nira", "allium tuberosum", "kabocha squash", "kabocha", "acorn squash", "acorn squashes", "hubbard squash", "hubbard", "pattypan squash", "pattypan", "custard marrow", "crookneck squash", "yellow squash", "straightneck squash", "yellow crookneck", "pimientos de padrón", "pimientos de padron", "poblano pepper", "poblano", "poblanos", "ancho chile", "serrano pepper", "serrano", "serrano chile", "habanero", "habanero pepper", "scotch bonnet", "scotch bonnet pepper", "kashmiri mirch", "bhut jolokia", "ghost pepper", "naga jolokia", "raja mircha", "squash blossoms", "fiori di zucca", "kumro phool", "vine leaves", "grapevine leaves", "dolma leaves", "kachnar buds", "kachnar", "bauhinia variegata buds", "kachnar ki kali", "ker", "kair", "capparis decidua", "ker berries", "sangri", "khejri pods", "prosopis cineraria pods", "sundakkai", "sundakai", "solanum torvum", "solanum aethiopicum", "psophocarpus tetragonolobus",
+  // 2026-10 batch 32: herbs, spices and blends
+  "horapha", "ocimum basilicum var. thyrsiflora", "tulsi", "tulasi", "kaprao", "ocimum tenuiflorum", "ocimum sanctum", "maenglak", "ocimum × africanum", "sabja leaves", "rau ram", "laksa leaf", "vietnamese mint", "persicaria odorata", "culantro", "ngo gai", "recao", "eryngium foetidum", "shiso", "perilla leaves", "perilla", "kkaennip", "perilla frutescens", "lovage", "levisticum officinale", "summer savory", "savory", "satureja hortensis", "bohnenkraut", "winter savory", "satureja montana", "mountain savory", "hyssop", "hyssopus officinalis", "borage", "borage leaves", "borage flowers", "starflower", "borago officinalis", "aloysia citrodora", "verveine", "epazote", "dysphania ambrosioides", "wormseed", "citrus hystrix leaves", "bai makrut", "pandan leaves", "pandan", "screwpine leaves", "pandanus amaryllifolius", "daun pandan", "rampe", "betel leaf", "paan leaf", "paan", "piper betle", "vettilai", "nagavalli", "tej patta", "tejpat", "cinnamomum tamala", "malabathrum", "sweet cicely", "myrrhis odorata", "garden myrrh", "backhousia citriodora", "rose petals", "dried rose petals", "rose buds", "gulkand petals", "rosa damascena petals", "cassia", "cassia bark", "cinnamomum cassia", "dalchini (cassia)", "mahlab", "mahleb", "prunus mahaleb", "mahlepi", "amchur", "amchoor", "aamchur", "stone flower", "kalpasi", "dagad phool", "black stone flower", "parmotrema perlatum", "marathi moggu", "marati moggu", "kapok buds", "ceiba pentandra buds", "radhuni", "trachyspermum roxburghianum", "randhuni", "bunium persicum", "fingerroot", "krachai", "kra chai", "temu kunci", "boesenbergia rotunda", "kencur", "cekur", "zedoary", "kachur", "amba haldi", "curcuma zedoaria", "curcuma amada", "mavinakayi shunti", "grains of selim", "xylopia aethiopica", "selim pepper", "kani pepper", "uda", "korarima", "aframomum corrorima", "gochugaru", "gochu garu", "aleppo pepper", "pul biber", "halaby pepper", "urfa biber", "isot pepper", "urfa pepper", "espelette pepper", "piment d'espelette", "chipotle", "chipotle pepper", "chipotle powder", "piri piri", "peri peri", "pili pili", "mustard powder", "ground mustard", "english mustard powder", "dry mustard", "mustard flour", "wattleseed", "acacia seed", "wattle seed", "acacia victoriae seed", "tasmanian pepperberry", "mountain pepper", "pepperberry", "tasmannia lanceolata", "garam masala", "garam masala powder", "gorom moshla", "chaat masala", "chat masala", "panch phoron", "panch phoran", "bengali five spice", "pach phoron", "sambar powder", "sambar masala", "sambhar powder", "rasam powder", "rasam podi", "saathamudhu podi", "goda masala", "kala masala", "maharashtrian goda masala", "za'atar", "zaatar", "zahtar", "za atar", "ras el hanout", "ras al hanout", "ras-el-hanout", "baharat", "bahārāt", "arabic seven spice", "seven spice", "berbere", "berbere spice", "ethiopian berbere", "dukkah", "duqqa", "dukka", "egyptian dukkah", "chinese five spice", "five spice powder", "five-spice", "wu xiang fen", "shichimi togarashi", "shichimi", "japanese seven spice", "nanami togarashi", "herbes de provence", "provencal herbs", "herbes de provence blend", "italian seasoning", "italian herbs", "italian herb seasoning", "mixed spice", "pudding spice", "british mixed spice",
+  // 2026-10 batch 33: nuts, seeds and legumes
+  "tiger nuts", "tigernuts", "chufa", "tiger nut flour", "pili nuts", "pili nut", "canarium nuts", "candlenut", "kemiri", "buah keras", "kukui nut", "baru nuts", "baru nut", "praline paste", "praliné", "marzipan", "marchpane", "acorns", "acorn", "oak nuts", "dotori", "beech nuts", "beechnuts", "beech mast", "hickory nuts", "hickory nut", "shagbark hickory nuts", "melon seeds", "magaz", "char magaz", "egusi", "melon seed kernels", "sabja", "sabja seeds", "tukmaria", "falooda seeds", "deulkkae", "egoma", "makhana", "fox nuts", "phool makhana", "gorgon nut", "euryale seeds", "plukenetia volubilis", "pine nut paste", "lian rong", "lotus paste", "flageolets", "flageolet", "vigna subterranea", "habichuelas rosadas", "mayocoba", "gigantes", "gigandes", "faba protein", "mung flour", "ulundu flour", "canavalia ensiformis", "sweet lupin", "lupine flour", "mesquite flour", "mesquite powder", "mesquite pod flour", "soya drink", "soy drink", "yuba", "fu pi", "soy nuts", "soya nuts", "doenjang", "dwenjang", "douchi", "dou chi", "soya chunks", "soya nuggets", "soy chunks", "meal maker", "soya granules", "kirazu", "kuromame", "gochujang", "gochu jang",
+  // 2026-10 batch 34: grains and noodles
+  "einkorn", "einkorn wheat", "triticum monococcum", "einkorn flour", "fonio", "fonio grain", "digitaria exilis", "acha", "amaranth grain", "amaranth flour", "rajgira", "rajgira flour", "ramdana", "popped amaranth", "sprouted wheat", "germinated wheat", "diastatic malt", "graham flour", "chapati flour", "chapatti flour", "roti flour", "puffed wheat", "wheat puffs", "pulut hitam", "sona masuri", "sona masoori", "vialone nano", "maize kernels", "maize", "field corn", "dent corn", "dried corn", "mochiko", "shiratamako", "wheat vermicelli", "vermicelli", "seviyan", "semiya", "sevaiyan", "lo mein noodles", "chow mein noodles", "ramen noodles", "ramen", "alkaline noodles", "breadcrumbs", "bread crumbs", "dried breadcrumbs", "rusk crumbs", "golden breadcrumbs", "panko", "panko breadcrumbs", "japanese breadcrumbs", "matzo meal", "matzah meal", "matzoh meal", "orzo", "risoni", "gnocchi", "gnocchi di patate", "seitan", "wheat meat", "sago", "sago pearls", "sagu", "farinha de mandioca", "garri", "gari", "durum flour", "semola rimacinata", "chakki durum",
+  // 2026-10 batch 35: label staples
+  "aqua", "seltzer", "club soda", "nimbu ras", "chocolate liquor", "cacao mass", "unsweetened chocolate", "nutritional yeast", "nooch", "inactive yeast flakes", "deactivated yeast", "savoury yeast flakes", "brewer's yeast", "brewers yeast", "debittered brewer's yeast", "sourdough starter", "sourdough", "levain", "sourdough culture", "sour dough", "natural leaven", "msnf", "dairy solids", "dairy whitener", "spray dried dairy whitener", "rabri", "rabdi", "rabadi", "shrikhand", "srikhand", "amrakhand", "chakka", "colby cheese", "colby", "colby jack", "mishri", "misri", "rock candy", "bing tang", "chancaca", "sucanat", "birch syrup", "karupatti", "manuka",
+  // 2026-10 batch 36: meat, offal, fish and seafood
+  "hogget", "sheep meat", "heart", "ox heart", "kaleji-dil", "oxtail", "ox tail", "pig trotters", "pigs trotters", "pig's feet", "paya", "phoenix claws", "sweetbreads", "thymus", "kaleji", "pigs liver", "pig liver", "foie gras", "foie gras de canard", "wild boar", "boar meat", "sanglier", "jungli suar", "kangaroo", "kangaroo meat", "roo meat", "ostrich", "ostrich meat", "ostrich fillet", "elk", "elk meat", "wapiti", "moose meat", "partridge", "grey partridge", "pigeon", "squab", "wood pigeon", "guinea fowl", "guineafowl", "pintade", "frog legs", "frogs legs", "cuisses de grenouille", "snails", "escargot", "escargots", "helix snails", "grouper", "hammour", "garoupa", "skate", "ray wings", "skate wings", "thornback ray", "shark", "shark meat", "huss", "john dory", "st pierre", "saint pierre", "dory", "turbot", "turbot fillet", "barramundi", "bhetki", "arctic char", "char", "salvelinus alpinus", "perch", "european perch", "yellow perch", "river perch", "pike", "northern pike", "zander", "pike-perch", "walleye", "anoplopoma fimbria", "yellowtail", "hamachi", "japanese amberjack", "buri", "amberjack", "mullet", "grey mullet", "red mullet", "bhangan", "rawas", "indian threadfin", "eleutheronema tetradactylum", "pearl spot", "karimeen", "green chromide", "etroplus suratensis", "karuvadu", "sukhi machli", "bonito flakes", "katsuobushi", "dried bonito", "bonito", "surimi", "seafood sticks", "kamaboko", "sepia", "sea urchin", "uni", "ricci di mare", "ormer", "bao yu", "krill", "antarctic krill", "euphausia superba", "krill meal", "hae bee", "camarão seco", "belacan", "terasi", "kapi", "bagoong", "balachong", "bone broth",
+  // 2026-10 batch 39: fungi, seaweed and oils
+  "shimeji", "buna shimeji", "lion's mane", "lions mane", "hericium erinaceus", "volvariella volvacea", "nameko", "pholiota microspora", "matsutake", "tricholoma matsutake", "tremella", "snow fungus", "white fungus", "silver ear", "tremella fuciformis", "cordyceps militaris", "cordyceps flower", "cordyceps militaris fruiting body", "sulphur shelf", "laetiporus sulphureus", "ulva", "ulva lactuca", "aonori", "arame", "eisenia bicyclis", "arame seaweed", "umibudo", "bladderwrack", "fucus vesiculosus", "rockweed", "thongweed", "himanthalia elongata", "hemp seed oil", "hemp oil", "hempseed oil", "cold-pressed hemp oil", "kürbiskernöl", "filbert oil", "argan oil", "culinary argan oil", "roasted argan oil", "camelina oil", "gold-of-pleasure oil", "camelina sativa oil", "black seed oil", "camellia seed oil", "camellia oil", "camellia oleifera oil", "niger seed oil", "ramtil oil", "guizotia abyssinica oil", "shea stearin", "shea fat", "shea olein", "butyrospermum parkii", "illipe fat", "sal fat", "sal seed fat", "shorea robusta fat", "cbe", "vegetable fats (cbe)",
+  // 2026-10 batch 42: purees, powders, plant milks and teas
+  "lahsun paste", "beet powder", "beet root powder", "beet juice", "wheatgrass", "wheatgrass powder", "wheat grass", "wheatgrass juice", "aojiru", "fruit purée", "fruit puree", "mixed fruit puree", "fruit pulp", "oat drink", "oat beverage", "cultured soya",
+  // 2026-10 batch 42 (teas)
+  "bai mu dan", "pu-erh", "chrysanthemum flowers", "ju hua", "mugicha", "boricha", "corn silk", "oksusu suyeom cha", "stigma maydis", "guayusa", "ilex guayusa", "guayusa leaf", "cyclopia", "lotus leaf", "he ye", "osmanthus", "osmanthus flowers", "gui hua", "sweet osmanthus", "masala chai", "chai",
+  // 2026-10 batch 43: regional produce
+  "kabosu", "kabosu citrus", "citrus sphaerocarpa", "sudachi", "sudachi citrus", "citrus sudachi", "ugli fruit", "uniq fruit", "kinnow", "kinoo", "galia melon", "galia", "casaba melon", "casaba", "khirni", "manilkara hexandra", "rayan", "ksheerini", "cocoplum", "chrysobalanus icaco", "icaco", "monstera fruit", "monstera deliciosa", "fruit salad plant", "ceriman", "ilama", "annona macroprophyllata", "annona diversifolia", "miracle fruit", "miracle berry", "synsepalum dulcificum", "miraculin berry", "lasoda", "gunda", "cordia myxa", "lasora", "tendu fruit", "diospyros melanoxylon", "kendu fruit", "coromandel ebony fruit", "mahua flowers", "mahua", "madhuca longifolia flowers", "mahuwa", "kachri", "kachri powder", "cucumis callosus", "sponge gourd", "gilki", "nenua", "kacchi haldi", "hara lahsun", "beni shoga", "palmito", "chickweed", "stellaria media", "common chickweed", "fat hen", "oxalis", "oxalis acetosella", "sour grass", "sea beet", "wild beet", "beta vulgaris maritima", "agretti", "salsola soda", "monk's beard", "barba di frate", "ice plant", "mesembryanthemum crystallinum", "crystalline ice plant", "byadgi mirchi", "guntur sannam", "dalle khursani", "akabare", "guajillo", "guajillo pepper", "pasilla", "chile negro", "pasilla pepper", "shishito", "shishitō", "anaheim pepper", "new mexico chile", "hatch chile", "yellow wax pepper", "hungarian wax pepper", "pepperoncini", "peperoncini", "friggitelli", "pimento pepper", "fresno pepper", "fresno",
+  // 2026-10 batch 44: cultures
+  "l. sakei", "l. brevis", "l. delbrueckii lactis", "b. adolescentis", "l. crispatus", "enterococcus faecium", "e. faecium", "enterococcus faecium sf68", "streptococcus salivarius k12", "streptococcus salivarius", "s. salivarius k12", "blis k12", "clostridium butyricum", "c. butyricum", "clostridium butyricum miyairi", "akkermansia muciniphila", "akkermansia", "pasteurised akkermansia muciniphila", "bacillus clausii", "b. clausii", "alkalihalobacillus clausii", "l. kefiri", "geotrichum candidum", "geotrichum", "galactomyces candidus", "debaryomyces hansenii", "d. hansenii", "brevibacterium linens", "b. linens", "red smear bacteria", "rhizopus oligosporus", "rhizopus microsporus var. oligosporus", "aspergillus sojae", "a. sojae", "zygosaccharomyces rouxii", "z. rouxii", "l. sanfranciscensis", "saccharomyces bayanus", "s. bayanus", "champagne yeast", "oenococcus oeni", "o. oeni", "malolactic bacteria", "acetobacter aceti", "acetobacter", "komagataeibacter xylinus", "symbiotic culture of bacteria and yeast", "p. acidilactici", "p. pentosaceus", "lactococcus cremoris", "l. cremoris", "l. curvatus", "staphylococcus carnosus", "s. carnosus", "penicillium nalgiovense", "p. nalgiovense", "b. subtilis",
+];
+
+let WORD_RE: RegExp | null = null;
+const wholeWordRe = (): RegExp =>
+  (WORD_RE ??= new RegExp(`(?:^|[^a-z])(?:${WHOLEFOOD_WORDS.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") || "(?!)"})(?:e?s)?(?![a-z])`));
 
 const NAME = (a: AdditiveProfile) => a;
 void NAME; // keep tree-shaker honest; profiles are the export
@@ -2185,23 +2770,38 @@ export function extractCodes(lower: string): string[][] {
   return codes;
 }
 
-export function lookupAdditive(rawName: string): AdditiveProfile | null {
+// Short keywords (four letters or fewer, e.g. "bha", "msg", "guar") must stand as whole
+// words, so "bha" can't fire inside "bhaji" or "bhains", nor "msg" inside a longer token.
+const SHORT_KW = new Map<string, RegExp>();
+function keywordHit(lower: string, k: string): boolean {
+  if (k.replace(/[^a-z]/g, "").length > 4) return lower.includes(k);
+  let re = SHORT_KW.get(k);
+  if (!re) SHORT_KW.set(k, (re = new RegExp(`(?:^|[^a-z0-9])${k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![a-z0-9])`)));
+  return re.test(lower);
+}
+
+// Reference implementation: scans every profile and every keyword. Kept as the oracle
+// that scripts/check-lookup.ts compares the indexed lookup against; not used at runtime.
+export function lookupAdditiveLinear(rawName: string): AdditiveProfile | null {
   const lower = rawName.toLowerCase().trim();
-  // E/INS code is the strongest signal. Codes are matched as whole tokens so that
-  // E1200 (polydextrose) can't resolve to E120 (carmine), nor E407a to E407.
+  const hit = linearScan(lower);
+  if (hit) return hit;
+  for (const v of spellingVariants(lower)) { const h = linearScan(v); if (h) return h; }
+  return null;
+}
+
+function linearScan(lower: string): AdditiveProfile | null {
   for (const candidates of extractCodes(lower)) {
     for (const code of candidates) {
       const hit = ADDITIVES.find((a) => a.eNumbers?.includes(code));
       if (hit) return hit;
     }
   }
-  // Otherwise the most specific (longest) matching keyword wins, so a generic
-  // substring like "sorbate"/"glycerol" can't shadow "polysorbate"/"polyglycerol".
   let best: AdditiveProfile | null = null;
   let bestLen = 0;
   for (const a of ADDITIVES) {
     for (const k of a.keywords) {
-      if (k.length > bestLen && lower.includes(k)) {
+      if (k.length > bestLen && keywordHit(lower, k)) {
         best = a;
         bestLen = k.length;
       }
@@ -2210,11 +2810,159 @@ export function lookupAdditive(rawName: string): AdditiveProfile | null {
   return best;
 }
 
+// US/UK spellings. A name the KB misses is retried in the other spelling, so
+// "acesulphame K" and "aluminum sulfate" find the profiles that list the other form.
+const SPELL_UK: [RegExp, string][] = [
+  [/sulf(?!o)/g, "sulph"], [/sulfo/g, "sulpho"], [/color/g, "colour"], [/flavor/g, "flavour"], [/fiber/g, "fibre"],
+  [/aluminum/g, "aluminium"], [/yzed/g, "ysed"], [/yzate/g, "ysate"], [/ized/g, "ised"], [/izer/g, "iser"], [/yogurt/g, "yoghurt"],
+];
+const SPELL_US: [RegExp, string][] = [
+  [/sulph/g, "sulf"], [/colour/g, "color"], [/flavour/g, "flavor"], [/fibre/g, "fiber"],
+  [/aluminium/g, "aluminum"], [/ysed/g, "yzed"], [/ysate/g, "yzate"], [/ised/g, "ized"], [/iser/g, "izer"], [/yoghurt/g, "yogurt"],
+];
+export function spellingVariants(lower: string): string[] {
+  const out: string[] = [];
+  for (const table of [SPELL_UK, SPELL_US]) {
+    let v = lower;
+    for (const [re, to] of table) v = v.replace(re, to);
+    if (v !== lower && !out.includes(v)) out.push(v);
+  }
+  return out;
+}
+
+// ── Indexed lookup ───────────────────────────────────────────────────────────
+// Built once on first use. Codes resolve through a hash map (O(1)); keywords through an
+// Aho–Corasick automaton that finds every keyword occurring in the name in one pass over
+// the name's characters, however many keywords the KB holds. Results are identical to
+// lookupAdditiveLinear: codes first, then the longest keyword, ties to the earlier one.
+interface KwEntry { k: string; profile: AdditiveProfile; rank: number; short: boolean }
+interface Matcher {
+  codes: Map<string, AdditiveProfile>;
+  next: Map<string, number>[];   // trie transitions per state
+  fail: number[];                // failure links
+  out: number[];                 // entry index ending at this state, or -1
+  dict: number[];                // nearest failure-ancestor state with an entry, or 0
+  entries: KwEntry[];
+}
+let MATCHER: Matcher | null = null;
+const ALNUM = /[a-z0-9]/;
+
+function buildMatcher(): Matcher {
+  const codes = new Map<string, AdditiveProfile>();
+  for (const a of ADDITIVES) for (const e of a.eNumbers ?? []) if (!codes.has(e)) codes.set(e, a);
+
+  const entries: KwEntry[] = [];
+  const next: Map<string, number>[] = [new Map()];
+  const out: number[] = [-1];
+  const seen = new Set<string>();
+  for (const a of ADDITIVES) {
+    for (const k of a.keywords) {
+      if (!k || seen.has(k)) continue;   // first owner wins, as in the linear scan
+      seen.add(k);
+      let s = 0;
+      for (const ch of k) {
+        let t = next[s].get(ch);
+        if (t === undefined) {
+          t = next.length;
+          next.push(new Map());
+          out.push(-1);
+          next[s].set(ch, t);
+        }
+        s = t;
+      }
+      out[s] = entries.length;
+      entries.push({ k, profile: a, rank: entries.length, short: k.replace(/[^a-z]/g, "").length <= 4 });
+    }
+  }
+  const fail = new Array<number>(next.length).fill(0);
+  const dict = new Array<number>(next.length).fill(0);
+  const queue: number[] = [];
+  for (const t of Array.from(next[0].values())) queue.push(t);
+  while (queue.length) {
+    const s = queue.shift()!;
+    for (const [ch, t] of Array.from(next[s])) {
+      let f = fail[s];
+      while (f && !next[f].has(ch)) f = fail[f];
+      const ft = next[f].get(ch);
+      fail[t] = ft !== undefined && ft !== t ? ft : 0;
+      dict[t] = out[fail[t]] >= 0 ? fail[t] : dict[fail[t]];
+      queue.push(t);
+    }
+  }
+  return { codes, next, fail, out, dict, entries };
+}
+
+function matcher(): Matcher {
+  return (MATCHER ??= buildMatcher());
+}
+
+function lookupUncached(lower: string): AdditiveProfile | null {
+  const m = matcher();
+  for (const candidates of extractCodes(lower)) {
+    for (const code of candidates) {
+      const hit = m.codes.get(code);
+      if (hit) return hit;
+    }
+  }
+  // Iterate code points (as `for…of` did when building the trie) so non-ASCII keywords line up.
+  const chars = Array.from(lower);
+  let best: KwEntry | null = null;
+  let s = 0;
+  for (let i = 0; i < chars.length; i++) {
+    const ch = chars[i];
+    while (s && !m.next[s].has(ch)) s = m.fail[s];
+    s = m.next[s].get(ch) ?? 0;
+    for (let o = m.out[s] >= 0 ? s : m.dict[s]; o; o = m.dict[o]) {
+      const e = m.entries[m.out[o]];
+      if (best && (e.k.length < best.k.length || (e.k.length === best.k.length && e.rank > best.rank))) continue;
+      if (e.short) {
+        const len = Array.from(e.k).length;
+        const before = i - len >= 0 ? chars[i - len] : "";
+        const after = i + 1 < chars.length ? chars[i + 1] : "";
+        if (ALNUM.test(before) || ALNUM.test(after)) continue;
+      }
+      best = e;
+    }
+  }
+  return best?.profile ?? null;
+}
+
+// Scans look the same names up several times (scoring, NOVA, the route's concern
+// column), so remember answers. Bounded so arbitrary input can't grow it forever.
+const LOOKUP_CACHE = new Map<string, AdditiveProfile | null>();
+const CACHE_MAX = 20_000;
+
+export function lookupAdditive(rawName: string): AdditiveProfile | null {
+  const lower = rawName.toLowerCase().trim();
+  const cached = LOOKUP_CACHE.get(lower);
+  if (cached !== undefined) return cached;
+  let hit = lookupUncached(lower);
+  if (!hit) for (const v of spellingVariants(lower)) if ((hit = lookupUncached(v))) break;
+  if (LOOKUP_CACHE.size >= CACHE_MAX) LOOKUP_CACHE.clear();
+  LOOKUP_CACHE.set(lower, hit);
+  return hit;
+}
+
+const WHOLE_CACHE = new Map<string, boolean>();
+
 export function isWholeFood(rawName: string): boolean {
   const lower = rawName.toLowerCase().trim();
+  const cached = WHOLE_CACHE.get(lower);
+  if (cached !== undefined) return cached;
+  const v = isWholeFoodUncached(lower);
+  if (WHOLE_CACHE.size >= CACHE_MAX) WHOLE_CACHE.clear();
+  WHOLE_CACHE.set(lower, v);
+  return v;
+}
+
+function isWholeFoodUncached(lower: string): boolean {
   // Only treat as whole food if no additive profile claims it.
-  if (lookupAdditive(rawName)) return false;
-  return WHOLEFOOD_KEYWORDS.some((k) => lower === k || lower.includes(k));
+  if (lookupAdditive(lower)) return false;
+  // "Strawberry flavour" or "garlic flavouring" is a flavouring, not the food.
+  if (/flavou?r/.test(lower)) return false;
+  // Composite products named after their main food ("tomato ketchup", "chicken stock") are not that food.
+  if (/\b(sauce|ketchup|stock|bouillon|gravy|dressing|marinade)s?\b/.test(lower)) return false;
+  return WHOLEFOOD_KEYWORDS.some((k) => lower === k || lower.includes(k)) || wholeWordRe().test(lower);
 }
 
 // ── self-check ──────────────────────────────────────────────────────────────

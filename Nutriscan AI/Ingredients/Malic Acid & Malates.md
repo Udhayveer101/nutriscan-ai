@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: acidity regulator
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Malic Acid & Malates
 
 **Category:** acidity regulator  ·  **Function:** Acidulant
 **Evidence strength:** STRONG
-**E-number(s):** e296, e350, e351, e352, e349
+**E-number(s):** e349, e296, e350, e351, e352, e349
 
 
 ## Concern by concentration

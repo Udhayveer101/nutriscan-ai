@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: vitamin & mineral
 evidence: STRONG
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Added Minerals (fortification)

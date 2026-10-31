@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: protein
 evidence: MODERATE
-last_reviewed: 2026-10-25
+last_reviewed: 2026-10-31
 ---
 
 # Protein Isolates & Textured Proteins

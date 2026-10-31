@@ -1,0 +1,73 @@
+// Expansion batch 13 — Pool 6: tropical, Mediterranean and Indian fruit.
+import type { SeedIngredient, SeedRef } from "./types";
+import { paper } from "./refs";
+import { fruit, LATEX_FRUIT } from "./batch-12";
+
+export const EU_CONTAMINANTS = (findings: string): SeedRef => ({ title: "Commission Regulation (EU) 2023/915 on maximum levels for certain contaminants in food", authors: "European Commission",
+  journal: "Official Journal of the European Union, L 119", year: 2023, url: "https://eur-lex.europa.eu/eli/reg/2023/915/oj", findings });
+const LITCHI = paper("Shrivastava A et al.", 2017, "Association of acute toxic encephalopathy with litchi consumption in an outbreak in Muzaffarpur, India, 2014: a case-control study", "Lancet Global Health 5(4):e458–e466",
+  "Outbreak illness in young children was associated with eating litchi and skipping the evening meal; hypoglycin A and MCPG from the fruit were implicated.", "10.1016/S2214-109X(17)30035-9");
+
+const LATEX = "Cross-reacts in some people with latex allergy (latex-fruit syndrome).";
+
+export const BATCH_13: SeedIngredient[] = [
+  ...fruit([
+    ["Mango", ["mangoes", "mango pulp", "mango puree", "alphonso mango", "dried mango"], "Sweet tropical stone fruit", "Eaten fresh, dried or as pulp in lassi, smoothies, ice cream and baby food.", "High in vitamin C and beta-carotene.",
+      "The peel contains urushiol-like compounds that can cause dermatitis in people sensitive to poison ivy. Dried mango is sugar-dense.", ["Mango lassi", "Smoothies", "Ice cream"], 94],
+    ["Papaya", ["papayas", "pawpaw", "papita"], "Soft orange tropical fruit", "Eaten fresh, in salads and smoothies; green papaya is cooked or shredded.", "High in vitamin C and carotenoids.", LATEX, ["Fruit salad", "Som tam", "Smoothies"], 94, { refs: [LATEX_FRUIT] }],
+    ["Pineapple", ["pineapples", "pineapple chunks", "pineapple pieces", "crushed pineapple"], "Tangy tropical fruit", "Eaten fresh or canned and used in desserts, pizzas and juices.", "Vitamin C and manganese.",
+      "Fresh pineapple's bromelain can make the mouth sore; canned pineapple in syrup adds sugar.", ["Canned fruit", "Pizza", "Smoothies"], 94],
+    ["Kiwi Fruit", ["kiwi", "kiwifruit", "kiwis", "green kiwi", "gold kiwi"], "Fuzzy green or gold berry", "Eaten fresh or in fruit salads and desserts.", "Very high in vitamin C; fibre.",
+      "A common fruit allergen, especially in children; also linked to latex-fruit syndrome.", ["Fruit salad", "Pavlova"], 90, { refs: [LATEX_FRUIT] }],
+    ["Cantaloupe", ["cantaloupe melon", "muskmelon", "rockmelon", "charentais melon"], "Orange-fleshed melon", "Eaten fresh or in fruit cups.", "Beta-carotene and vitamin C.",
+      "The netted rind can carry Listeria and Salmonella (the 2011 US cantaloupe Listeria outbreak); wash before cutting and refrigerate cut melon.", ["Fruit cups", "Salads"], 92],
+    ["Honeydew Melon", ["honeydew", "honeydew melons"], "Pale green sweet melon", "Eaten fresh or in fruit cups.", "Vitamin C and potassium.", "Refrigerate cut melon; rinds can carry pathogens.", ["Fruit cups"], 94],
+    ["Watermelon", ["watermelons", "watermelon pieces"], "Large, watery melon", "Eaten fresh or juiced.", "Lycopene, citrulline and water.", "None.", ["Fresh fruit", "Juices"], 96],
+    ["Pomegranate", ["pomegranates", "pomegranate seeds", "pomegranate arils", "anardana"], "Fruit with jewel-like seeds", "Arils eaten fresh or dried (anardana), juiced, or reduced to molasses.", "Punicalagins and other polyphenols.",
+      "None for the fruit. Pomegranate juice may interact with warfarin (case reports).", ["Salads", "Juice", "Chutneys"], 94],
+    ["Figs", ["fig", "dried figs", "fresh figs", "anjeer"], "Soft fruit eaten fresh or dried", "Eaten fresh or dried and used in baking and bars.", "Fibre, calcium and potassium (especially dried).",
+      "Dried figs are prone to aflatoxin contamination; the EU sets aflatoxin limits specifically for them. Sugar-dense when dried.", ["Fig rolls", "Cereal bars", "Cheese boards"], 88,
+      { refs: [EU_CONTAMINANTS("Sets maximum aflatoxin levels for dried figs and other dried fruit.")] }],
+    ["Dates", ["medjool dates", "pitted dates", "date paste", "khajoor"], "Sweet dried palm fruit", "Eaten as snacks and used as a whole-fruit sweetener in bars and baking.", "Fibre and potassium; whole dates are not counted as free sugar.",
+      "Very sugar-dense (about two-thirds sugar by weight). Date syrup and date sugar are different products.", ["Energy bars", "Ramadan iftar", "Sticky toffee pudding"], 88],
+    ["Avocado", ["avocados", "hass avocado", "avocado pulp"], "Creamy high-fat fruit", "Eaten fresh, mashed into guacamole or used in salads and dressings.", "Monounsaturated fat, fibre and potassium.", LATEX, ["Guacamole", "Salads", "Toast"], 94, { refs: [LATEX_FRUIT] }],
+    ["Passion Fruit", ["passionfruit", "passion fruit pulp", "maracuja", "granadilla"], "Tart pulp with edible seeds", "Pulp and seeds used in desserts, yoghurts and drinks.", "Vitamin C and fibre from the seeds.", "None.", ["Pavlova", "Yoghurt", "Drinks"], 96],
+    ["Guava", ["guavas", "guava pulp", "amrood"], "Fragrant tropical fruit", "Eaten fresh or as pulp, jelly and nectar.", "One of the richest fruit sources of vitamin C.", "None.", ["Guava nectar", "Guava jelly"], 96],
+    ["Lychee", ["lychees", "litchi", "litchis"], "Sweet white-fleshed fruit in a rough shell", "Eaten fresh or canned and used in desserts and drinks.", "Vitamin C.",
+      "Unripe lychees contain hypoglycin A and MCPG; eating many on an empty stomach has been linked to fatal hypoglycaemic encephalopathy in undernourished children.", ["Canned fruit", "Desserts", "Bubble tea"], 86, { refs: [LITCHI] }],
+    ["Jackfruit", ["young jackfruit", "green jackfruit", "kathal", "ripe jackfruit"], "Huge tropical fruit used as a meat substitute", "Young (green) jackfruit is cooked as a pulled-meat alternative; ripe jackfruit is eaten as a sweet fruit.", "Fibre and potassium; unripe jackfruit is low in calories.",
+      "Low in protein despite its use as a meat substitute. Can cross-react in people with birch-pollen allergy.", ["Vegan pulled 'pork'", "Curries"], 92],
+    ["Persimmon", ["persimmons", "sharon fruit", "kaki"], "Sweet orange autumn fruit", "Eaten fresh or dried.", "Beta-carotene and fibre.",
+      "Eating large amounts of unripe astringent persimmon can form stomach bezoars, especially after gastric surgery.", ["Fresh fruit", "Dried persimmon"], 92],
+    ["Quince", ["quinces", "membrillo", "quince paste"], "Hard aromatic fruit eaten cooked", "Too hard and astringent to eat raw; cooked into paste, jelly and preserves.", "Pectin-rich; fibre.", "Seeds are cyanogenic; the flesh is safe.", ["Membrillo", "Quince jelly"], 94],
+    ["Rhubarb", ["rhubarb stalks", "forced rhubarb"], "Tart stalk cooked like a fruit", "Stalks stewed with sugar in crumbles, pies and compotes.", "Fibre, vitamin K and calcium (largely bound by oxalate).",
+      "Leaves are toxic (oxalic acid) and never eaten. Stalks are high in oxalate, a concern for people prone to kidney stones.", ["Crumble", "Pies", "Compote"], 88],
+    ["Gooseberry", ["gooseberries", "ribes uva-crispa"], "Tart green or red berry", "Cooked into fools, jams and pies.", "Vitamin C and fibre.", "None.", ["Gooseberry fool", "Jam"], 96],
+    ["Blackcurrant", ["blackcurrants", "black currant", "ribes nigrum"], "Intensely tart dark berry", "Used in cordials, jams, yoghurts and desserts.", "Very high in vitamin C and anthocyanins.", "Blackcurrant cordials are usually high in added sugar.", ["Cordial", "Jam", "Yoghurt"], 94],
+    ["Redcurrant", ["redcurrants", "red currant", "ribes rubrum"], "Tart red berry", "Used in jellies, sauces and desserts.", "Vitamin C.", "None.", ["Redcurrant jelly", "Summer pudding"], 96],
+    ["Elderberries", ["sambucus nigra berries", "black elderberry"], "Dark berry that must be cooked", "Cooked into syrups, jams and cordials.", "Anthocyanins; marketed for colds with limited trial evidence.",
+      "Raw berries, leaves and stems contain cyanogenic glycosides and cause nausea and vomiting; berries must be cooked.", ["Elderberry syrup", "Cordials", "Jams"], 84],
+    ["Mulberry", ["mulberries", "dried mulberries", "white mulberry"], "Soft blackberry-like tree fruit", "Eaten fresh or dried as a snack.", "Vitamin C, iron and anthocyanins.", "None.", ["Trail mix", "Snacks"], 96],
+    ["Star Fruit", ["starfruit", "carambola", "kamrakh"], "Star-shaped tropical fruit", "Eaten fresh, sliced into salads and garnishes.", "Vitamin C.",
+      "Contains caramboxin and oxalate; can cause serious neurotoxicity and kidney injury in people with kidney disease. Safe for people with healthy kidneys in normal amounts.", ["Fruit salad", "Garnish"], 80],
+    ["Plantain", ["plantains", "green plantain", "ripe plantain", "plantain flour"], "Starchy cooking banana", "Fried, boiled or ground into flour in African, Caribbean and Latin American cooking.", "Resistant starch (when green), potassium and vitamin A.",
+      "Fried plantain chips absorb a lot of oil.", ["Plantain chips", "Tostones", "Fufu"], 92],
+    ["Olives", ["olive", "black olives", "green olives", "kalamata olives", "pitted olives"], "Brined or cured fruit of the olive tree", "Cured in brine, salt or lye and eaten whole, sliced on pizza or in tapenade.", "Monounsaturated fat and vitamin E.",
+      "High in salt from curing. Ripe black olives (California style) are blackened with ferrous gluconate (E579) and can contain acrylamide.", ["Pizza", "Tapenade", "Salads"], 84],
+    ["Coconut", ["desiccated coconut", "shredded coconut", "coconut flakes", "fresh coconut", "grated coconut", "coconut meat"], "Flesh of the coconut palm's nut", "Fresh, dried or desiccated coconut flesh used in curries, baking and confectionery.", "Fibre and manganese.",
+      "Very high in saturated fat. Sweetened flaked coconut contains added sugar.", ["Curries", "Macaroons", "Granola", "Chutney"], 86],
+    ["Amla", ["indian gooseberry", "amla powder", "aonla", "phyllanthus emblica"], "Sour Indian gooseberry", "Eaten raw, pickled, as murabba (sugar preserve) or dried powder.", "Very rich in vitamin C.", "Murabba and candied amla are sugar-preserved.", ["Murabba", "Chyawanprash", "Pickles"], 94, { src: "ifct" }],
+    ["Jamun", ["java plum", "black plum", "jambolan", "syzygium cumini"], "Astringent purple Indian fruit", "Eaten fresh in season; the seed is sold as a powder.", "Anthocyanins.", "None for the fruit. Jamun seed powder is marketed for diabetes without robust evidence.", ["Fresh fruit", "Jamun juice"], 94, { src: "ifct" }],
+    ["Sapodilla", ["chikoo", "chiku", "sapota", "naseberry"], "Sweet malty brown fruit", "Eaten fresh or in milkshakes and ice cream.", "Fibre and vitamin C.", "None.", ["Chikoo milkshake", "Ice cream"], 94],
+    ["Custard Apple", ["sitaphal", "sweetsop", "annona squamosa"], "Creamy segmented tropical fruit", "Pulp eaten fresh or used in milkshakes, ice cream and basundi.", "Vitamin C and fibre.",
+      "The seeds are toxic (annonacin) and should not be crushed or eaten.", ["Sitaphal basundi", "Ice cream"], 92],
+    ["Kumquat", ["kumquats", "cumquat"], "Tiny citrus eaten whole", "Eaten whole, peel and all, or candied.", "Vitamin C and fibre from the peel.", "None.", ["Marmalade", "Candied fruit"], 96],
+    ["Loquat", ["loquats", "japanese medlar"], "Small orange fruit", "Eaten fresh or in jams.", "Beta-carotene.", "Seeds are cyanogenic; the flesh is safe.", ["Fresh fruit", "Jam"], 94],
+    ["Longan", ["longans", "dragon eye fruit", "dried longan"], "Translucent lychee relative", "Eaten fresh, canned or dried in Asian desserts and drinks.", "Vitamin C.", "Dried longan is sugar-dense.", ["Canned fruit", "Asian desserts"], 94],
+    ["Rambutan", ["rambutans"], "Hairy-shelled lychee relative", "Eaten fresh or canned in syrup.", "Vitamin C.", "Canned rambutan in syrup adds sugar.", ["Canned fruit"], 94],
+    ["Mangosteen", ["mangosteens", "garcinia mangostana"], "Purple-shelled sweet tropical fruit", "Eaten fresh or canned; also sold as juice.", "Xanthones (in the rind, mostly not eaten).", "None for the fruit; mangosteen juice supplements are marketed with weak evidence.", ["Canned fruit", "Juice"], 94],
+    ["Durian", ["durians"], "Pungent spiky Southeast Asian fruit", "Eaten fresh or in sweets, cakes and ice cream.", "Fibre, potassium and B vitamins.",
+      "Traditionally advised against with alcohol; a small study found durian inhibits aldehyde dehydrogenase. Very energy-dense.", ["Durian cakes", "Ice cream"], 90],
+    ["Breadfruit", ["breadfruits"], "Starchy tropical tree fruit", "Roasted, boiled or fried as a staple starch, or ground into flour.", "Fibre, potassium and vitamin C.", "None.", ["Breadfruit chips", "Flour"], 94],
+  ]),
+];
