@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: nutrient
 evidence: MODERATE
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Added Amino Acids & Nucleotides (BCAA, creatine, theanine, formula nucleotides)

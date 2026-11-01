@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: coloring
 evidence: MODERATE
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Citrus Red No. 2
 
 **Category:** coloring  ·  **Function:** Dye for orange peel
 **Evidence strength:** MODERATE
-
+**E-number(s):** e121
 
 
 ## Concern by concentration

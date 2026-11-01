@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: humectant
 evidence: STRONG
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Unrefined Sugars & Syrups (molasses, jaggery, maple/golden/date syrup)

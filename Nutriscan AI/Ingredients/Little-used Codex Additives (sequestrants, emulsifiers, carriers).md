@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: stabilizer
 evidence: LIMITED
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Little-used Codex Additives (sequestrants, emulsifiers, carriers)

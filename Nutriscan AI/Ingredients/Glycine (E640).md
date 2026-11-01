@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: flavor enhancer
 evidence: STRONG
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Glycine (E640)

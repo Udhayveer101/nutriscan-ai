@@ -793,7 +793,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "EFSA 2018 re-evaluation of polyols",
   },
   {
-    id: "glucose-syrup", name: "Glucose Syrup", keywords: ["glucose syrup", "corn syrup", "liquid glucose"], eNumbers: [],
+    id: "glucose-syrup", name: "Glucose Syrup", keywords: ["glucose syrup", "corn syrup", "liquid glucose", "tapioca syrup", "cassava syrup", "tapioca glucose syrup"], eNumbers: [],
     category: "sweetener", function: "Bulk sugar syrup / free sugars",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",
     regulatory: "Not restricted (a food, not an additive)",
@@ -992,7 +992,7 @@ export const ADDITIVES: AdditiveProfile[] = [
 
   // ── Expansion 2026-07: Thickeners ───────────────────────────────────────────
   {
-    id: "gum-arabic", name: "Gum Arabic / Acacia Gum (E414)", keywords: ["gum arabic", "acacia gum", "gum acacia", "octenyl succinic acid modified gum arabic", "osa-modified gum arabic", "modified gum arabic"], eNumbers: ["e414", "e423"],
+    id: "gum-arabic", name: "Gum Arabic / Acacia Gum (E414)", keywords: ["gum arabic", "acacia gum", "gum acacia", "octenyl succinic acid modified gum arabic", "osa-modified gum arabic", "modified gum arabic", "acacia fibre", "acacia fiber", "acacia senegal gum"], eNumbers: ["e414", "e423"],
     category: "thickener", function: "Natural gum / stabiliser / soluble fibre",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
     adi: "not specified (JECFA — very low toxicity)",
@@ -1389,7 +1389,7 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "WHO/IPCS ADA assessment; EU ban; FDA 21 CFR 172.806",
   },
   {
-    id: "flour-bleaching-oxidisers", name: "Flour Bleaching/Oxidising Agents (E926/E928/E930)", keywords: ["chlorine gas", "chlorine", "benzoyl peroxide", "chlorine dioxide", "calcium peroxide", "flour bleach", "potassium persulphate", "potassium persulfate", "ammonium persulphate", "ammonium persulfate", "chlorinated flour"], eNumbers: ["e925", "e926", "e928", "e930", "e922", "e923", "e925"],
+    id: "flour-bleaching-oxidisers", name: "Flour Bleaching/Oxidising Agents (E926/E928/E930)", keywords: ["chlorine gas", "chlorine", "benzoyl peroxide", "chlorine dioxide", "calcium peroxide", "flour bleach", "potassium persulphate", "potassium persulfate", "ammonium persulphate", "ammonium persulfate", "chlorinated flour", "acetone peroxide", "acetone peroxides"], eNumbers: ["e929", "e925", "e926", "e928", "e930", "e922", "e923", "e925"],
     category: "flour treatment", function: "Bleaching / maturing agent",
     dominant: "MEDIUM", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
     adi: "varies; largely spent during processing",
@@ -1460,7 +1460,7 @@ export const ADDITIVES: AdditiveProfile[] = [
   // ── Expansion 2026-09: colours ──────────────────────────────────────────────
   {
     id: "plant-colours", name: "Plant-derived Colours (curcumin, paprika, lycopene, beetroot, anthocyanins)",
-    keywords: ["curcumin", "turmeric extract", "turmeric oleoresin", "paprika extract", "paprika oleoresin", "capsanthin", "capsorubin", "lycopene", "beetroot red", "beet red", "betanin", "anthocyanin", "grape skin extract", "black carrot extract", "purple carrot extract", "beet juice concentrate", "beetroot juice concentrate", "crocin"],
+    keywords: ["curcumin", "turmeric extract", "turmeric oleoresin", "paprika extract", "paprika oleoresin", "capsanthin", "capsorubin", "lycopene", "beetroot red", "beet red", "betanin", "anthocyanin", "grape skin extract", "black carrot extract", "purple carrot extract", "beet juice concentrate", "beetroot juice concentrate", "crocin", "safflower yellow", "carthamus yellow", "safflower concentrate", "carthamin"],
     eNumbers: ["e100", "e160c", "e160d", "e162", "e163", "e164"],
     category: "coloring", function: "Natural colour",
     dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
@@ -2310,8 +2310,8 @@ export const ADDITIVES: AdditiveProfile[] = [
   {
     id: "citrus-red-2",
     name: "Citrus Red No. 2",
-    keywords: ["citrus red 2", "citrus red no. 2", "citrus red no 2", "solvent red 80"],
-    eNumbers: [],
+    keywords: ["citrus red 2", "citrus red no. 2", "citrus red no 2", "solvent red 80", "citrus red"],
+    eNumbers: ["e121"],
     category: "coloring",
     function: "Dye for orange peel",
     dominant: "HIGH",
@@ -2534,9 +2534,9 @@ export const ADDITIVES: AdditiveProfile[] = [
   },
   {
     id: "supplement-carotenoids",
-    name: "Supplement Carotenoids (astaxanthin, zeaxanthin)",
-    keywords: ["astaxanthin", "zeaxanthin", "meso-zeaxanthin", "haematococcus pluvialis"],
-    eNumbers: [],
+    name: "Supplement Carotenoids (astaxanthin, zeaxanthin, cryptoxanthin)",
+    keywords: ["astaxanthin", "zeaxanthin", "meso-zeaxanthin", "haematococcus pluvialis", "beta-cryptoxanthin", "β-cryptoxanthin", "cryptoxanthin"],
+    eNumbers: ["e161c", "e161h"],
     category: "nutrient",
     function: "Antioxidant pigment in supplements and fish feed",
     dominant: "LOW",
@@ -2661,6 +2661,60 @@ export const ADDITIVES: AdditiveProfile[] = [
     regulatory: "FDA food additive (21 CFR 172.809); JECFA ADI not specified; not authorised in the EU",
     note: "A fermentation-made glucose polymer (β-1,3-glucan) that forms a firm gel when heated, used in noodles, tofu and meat analogues. It is largely indigestible, behaving like fibre.",
     ref: "JECFA 57th meeting (2001); 21 CFR 172.809",
+  },
+  // ── Expansion 2026-11 batch 45: citrus post-harvest treatments, flavour carriers, sweet proteins, infant-formula actives ──
+  {
+    id: "post-harvest-fungicides", name: "Citrus Post-harvest Fungicides (imazalil, thiabendazole, orthophenylphenol, biphenyl)",
+    keywords: ["imazalil", "enilconazole", "thiabendazole", "tiabendazole", "orthophenylphenol", "ortho-phenylphenol", "o-phenylphenol", "2-phenylphenol", "sodium orthophenylphenol", "sodium ortho-phenylphenate", "sodium o-phenylphenate", "sodium 2-biphenylolate", "biphenyl", "diphenyl"],
+    eNumbers: ["e230", "e231", "e232", "e233"],
+    category: "preservative", function: "Anti-mould treatment on the peel of citrus and bananas after harvest",
+    dominant: "MEDIUM", moderate: "MEDIUM", trace: "LOW", evidence: "LIMITED",
+    adi: "Thiabendazole 0–0.1 mg/kg bw (JMPR 2006); imazalil 0.025 mg/kg bw (EU peer review), 0–0.03 (JMPR)",
+    regulatory: "No longer EU food additives (E230–E233 deleted; Dir. 2003/114/EC) and regulated instead as pesticide residues with MRLs (Reg. (EC) 396/2005); EPA pesticide tolerances in the US; sodium o-phenylphenate IARC Group 2B",
+    populations: ["anyone using the peel (zest, marmalade, candied peel)"],
+    note: "Fungicides sprayed or waxed onto citrus peel to stop mould in storage, which is why loose lemons are labelled 'waxed, treated with imazalil'. Residues sit on the skin and stay within legal limits in the flesh. IARC classes the sodium salt of orthophenylphenol as possibly carcinogenic (Group 2B, rat bladder tumours). Buy unwaxed fruit when you plan to use the zest.",
+    ref: "JMPR 2006 thiabendazole evaluation; EFSA conclusion on imazalil (EFSA Journal 2010); IARC Monographs Vol. 73 (1999)",
+  },
+  {
+    id: "butylene-glycol", name: "1,3-Butylene Glycol (1,3-butanediol)",
+    keywords: ["1,3-butylene glycol", "1,3 butylene glycol", "butylene glycol", "1,3-butanediol", "1,3 butanediol", "butane-1,3-diol"],
+    eNumbers: [],
+    category: "humectant", function: "Solvent and carrier for flavourings",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA: flavouring solvent (21 CFR 173.220) and direct additive (21 CFR 172.712); not an authorised EU carrier additive",
+    note: "A glycol like propylene glycol that dissolves flavourings, used at the minimum amount needed. The body turns it into the ketone body beta-hydroxybutyrate, which is why it also appears in 'ketone' drinks. At those doses it can cause nausea and intoxication-like effects with alcohol.",
+    ref: "21 CFR 173.220; 21 CFR 172.712",
+  },
+  {
+    id: "mct-oil", name: "MCT Oil (medium-chain triglycerides)",
+    keywords: ["mct oil", "mct powder", "mct", "medium chain triglycerides", "medium-chain triglycerides", "medium chain triglyceride", "medium-chain triglyceride", "caprylic/capric triglyceride", "caprylic capric triglyceride", "tricaprylin", "c8 mct"],
+    eNumbers: [],
+    category: "fat", function: "Refined fat in keto, sports and medical nutrition products",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "US: GRAS (Stepan affirmation petition GRASP 4G0409; caprylic acid 21 CFR 184.1025); used in EU foods for special medical purposes; ordinary food fat elsewhere",
+    note: "Fats made from the C8 and C10 fatty acids of coconut or palm kernel oil, absorbed straight to the liver and burned quickly. They are used in medical feeds for fat malabsorption. They are still saturated fat with 9 kcal/g, weight-loss claims are weak, and large doses cause stomach cramps and diarrhoea.",
+    ref: "Federal Register 59 FR 39999 (1994), GRASP 4G0409; 21 CFR 184.1025",
+  },
+  {
+    id: "sweet-proteins", name: "Sweet Proteins (brazzein)",
+    keywords: ["brazzein", "brazzein-53", "brazzein-54", "oubli fruit protein", "pentadiplandra brazzeana protein"],
+    eNumbers: [],
+    category: "sweetener", function: "High-intensity sweetener made by precision fermentation",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "LIMITED",
+    regulatory: "FDA 'no questions' letters for brazzein-53 (GRN 1142, 2024) and brazzein-54 (2025); not authorised in the EU",
+    note: "A small protein from the West African oubli fruit that tastes about 1,000 times sweeter than sugar. It is now brewed by yeast and is digested like any other protein, so it adds no sugar. Long-term data are limited because it is new to food.",
+    ref: "FDA GRAS Notice GRN 1142 response letter (2024)",
+  },
+  {
+    id: "infant-formula-proteins", name: "Infant-formula Milk Proteins (osteopontin)",
+    keywords: ["osteopontin", "milk osteopontin", "bovine milk osteopontin", "lacprodan opn-10", "opn-10"],
+    eNumbers: [],
+    category: "nutrient", function: "Milk glycoprotein added to infant formula to match breast milk",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "MODERATE",
+    regulatory: "EFSA: safe up to 151 mg/L in infant and follow-on formula (2022), EU novel food; FDA GRAS notice GRN 716 (no questions)",
+    populations: ["milk allergy (it is a cow's-milk protein)"],
+    note: "A protein abundant in human breast milk but low in cow's milk, isolated from whey and added to some premium formulas. EFSA found it safe at the proposed levels, though claimed immune benefits are not established.",
+    ref: "EFSA NDA Panel 2022, Safety of bovine milk osteopontin as a novel food (EFSA Journal 20(5):7137)",
   },
 ];
 

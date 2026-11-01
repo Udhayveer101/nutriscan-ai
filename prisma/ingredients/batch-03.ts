@@ -101,7 +101,7 @@ export const BATCH_03: SeedIngredient[] = [
     fssaiStatus: "Permitted synthetic colour (Fast Green FCF)", whoStatus: "ADI 0–25 mg/kg bw (JECFA)", safetyScore: 55,
     commonProducts: ["Mint sweets", "Green drinks", "Ice cream"], adiValue: "0–25 mg/kg bw/day", isNatural: false, isVegan: true,
     refs: [cfr("74.203", "FD&C Green No. 3", "Lists Fast Green FCF as a certified colour for general food use.") ] },
-  { slug: "citrus-red-2", name: "Citrus Red No. 2", aliases: ["Citrus Red 2", "Solvent Red 80"], eNumber: null,
+  { slug: "citrus-red-2", name: "Citrus Red No. 2", aliases: ["Citrus Red 2", "Solvent Red 80"], eNumber: "E121",
     categorySlug: "coloring", purposeShort: "Possible carcinogen sprayed on some orange peels",
     purpose: "Azo dye used only on the skins of some oranges to even out colour.",
     benefits: "Cosmetic: uniform orange peel.",

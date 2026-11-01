@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: fat
 evidence: STRONG
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Omega-3 Oils & Fatty Acids (fish, krill, algal oil, DHA, EPA)

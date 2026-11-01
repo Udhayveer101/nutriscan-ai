@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: coloring
 evidence: MODERATE
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Chlorophylls & Copper Chlorophyllins (E140/E141)

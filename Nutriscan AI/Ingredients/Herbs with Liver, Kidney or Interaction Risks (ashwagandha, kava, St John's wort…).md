@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: nutrient
 evidence: MODERATE
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Herbs with Liver, Kidney or Interaction Risks (ashwagandha, kava, St John's wort…)

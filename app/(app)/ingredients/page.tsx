@@ -4,13 +4,20 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Ingredient Database",
-  description: "Search 500+ food ingredients including preservatives, sweeteners, colorings, emulsifiers, and more.",
+  description: "Search 2,000+ food ingredients including preservatives, sweeteners, colorings, emulsifiers, and more.",
 };
 
+// Re-render hourly so new categories appear without a redeploy. A build with no database
+// (CI, local) renders the page with no category chips instead of failing.
+export const revalidate = 3600;
+
 export default async function IngredientsPage() {
-  const categories = await prisma.ingredientCategory.findMany({
-    orderBy: { name: "asc" },
-  });
+  const categories = await prisma.ingredientCategory
+    .findMany({ orderBy: { name: "asc" } })
+    .catch((e) => {
+      console.error("ingredient categories unavailable", e);
+      return [];
+    });
 
   return (
     <div
@@ -27,7 +34,7 @@ export default async function IngredientsPage() {
             Decode any ingredient
           </h1>
           <p className="mt-4 max-w-[560px] mx-auto text-[17px] leading-relaxed" style={{ color: "var(--muted)" }}>
-            Search 500+ additives, preservatives, sweeteners and colorings — each with an evidence-based grade and a plain-language verdict.
+            Search 2,000+ additives, preservatives, sweeteners and colorings — each with an evidence-based grade and a plain-language verdict.
           </p>
         </div>
 

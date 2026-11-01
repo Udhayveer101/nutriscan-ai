@@ -103,7 +103,7 @@ export const BATCH_07: SeedIngredient[] = [
     fdaStatus: "Supplement ingredient (algal sources via GRAS/NDI)", efsaStatus: "Authorised novel food for supplements (max 8 mg/day)", fssaiStatus: "Permitted in nutraceuticals", whoStatus: "No ADI",
     safetyScore: 86, commonProducts: ["Antioxidant supplements"], adiValue: "8 mg/day in supplements (EFSA 2020)", isNatural: true, isVegan: true,
     refs: [efsa(NDA, "Safety of astaxanthin for its use as a novel food in food supplements", 2020, "Intake of 8 mg/day from supplements is safe for adults.")] },
-  { slug: "zeaxanthin", name: "Zeaxanthin", aliases: ["meso-zeaxanthin", "synthetic zeaxanthin"], eNumber: null, categorySlug: "nutrient",
+  { slug: "zeaxanthin", name: "Zeaxanthin", aliases: ["meso-zeaxanthin", "synthetic zeaxanthin"], eNumber: "E161h", categorySlug: "nutrient",
     purposeShort: "Eye carotenoid sold with lutein", purpose: "Supplement carotenoid, usually combined with lutein for eye health.",
     benefits: "Concentrates in the macula; EU eye-health claims are not authorised.", concerns: "None known at supplement doses within authorised limits.",
     sciConsensus: "Authorised as a novel food for supplements within set daily amounts.", evidenceLevel: "MODERATE",

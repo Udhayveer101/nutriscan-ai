@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: preservative
 evidence: LIMITED
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Parabens (p-hydroxybenzoates, E214–E219)

@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: flavour
 evidence: MODERATE
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Essential Oils & Natural Extracts (peppermint, citrus, clove, cinnamon, bitter almond…)

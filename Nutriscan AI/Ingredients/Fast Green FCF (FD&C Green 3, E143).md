@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: coloring
 evidence: LIMITED
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Fast Green FCF (FD&C Green 3, E143)

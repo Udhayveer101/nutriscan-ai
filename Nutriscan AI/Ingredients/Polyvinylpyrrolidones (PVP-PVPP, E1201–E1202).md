@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: stabilizer
 evidence: MODERATE
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Polyvinylpyrrolidones (PVP/PVPP, E1201–E1202)

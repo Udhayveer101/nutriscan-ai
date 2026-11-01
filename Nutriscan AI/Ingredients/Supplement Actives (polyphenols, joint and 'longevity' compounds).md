@@ -2,7 +2,7 @@
 type: ingredient-profile
 category: nutrient
 evidence: LIMITED
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Supplement Actives (polyphenols, joint and 'longevity' compounds)

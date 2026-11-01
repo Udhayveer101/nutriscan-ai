@@ -1,6 +1,6 @@
 # Ingredient Knowledge Base
 
-258 profiled additives. Generated 2026-10-31.
+263 profiled additives. Generated 2026-11-01.
 
 - [[Partially Hydrogenated Oil (trans fat)]] — fat, STRONG evidence, dominant=CRITICAL
 - [[Potassium Bromate]] — flour treatment, STRONG evidence, dominant=CRITICAL
@@ -251,7 +251,7 @@
 - [[Added Amino Acids & Nucleotides (BCAA, creatine, theanine, formula nucleotides)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Omega-3 Oils & Fatty Acids (fish, krill, algal oil, DHA, EPA)]] — fat, STRONG evidence, dominant=LOW
 - [[Coenzyme Q10 (ubiquinone)]] — nutrient, MODERATE evidence, dominant=LOW
-- [[Supplement Carotenoids (astaxanthin, zeaxanthin)]] — nutrient, MODERATE evidence, dominant=LOW
+- [[Supplement Carotenoids (astaxanthin, zeaxanthin, cryptoxanthin)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Prebiotic Oligosaccharides (HMOs, XOS)]] — nutrient, MODERATE evidence, dominant=LOW
 - [[Areca Nut (betel nut, supari)]] — stimulant, STRONG evidence, dominant=CRITICAL
 - [[Ephedra (ma huang)]] — stimulant, STRONG evidence, dominant=CRITICAL
@@ -260,3 +260,8 @@
 - [[Senna, Cascara, Frangula & Rhubarb Root]] — processing aid, MODERATE evidence, dominant=HIGH
 - [[Dehydroacetic Acid & Sodium Dehydroacetate (INS 265-266)]] — preservative, LIMITED evidence, dominant=MEDIUM
 - [[Curdlan (INS 424)]] — thickener, MODERATE evidence, dominant=LOW
+- [[Citrus Post-harvest Fungicides (imazalil, thiabendazole, orthophenylphenol, biphenyl)]] — preservative, LIMITED evidence, dominant=MEDIUM
+- [[1,3-Butylene Glycol (1,3-butanediol)]] — humectant, LIMITED evidence, dominant=LOW
+- [[MCT Oil (medium-chain triglycerides)]] — fat, MODERATE evidence, dominant=LOW
+- [[Sweet Proteins (brazzein)]] — sweetener, LIMITED evidence, dominant=LOW
+- [[Infant-formula Milk Proteins (osteopontin)]] — nutrient, MODERATE evidence, dominant=LOW

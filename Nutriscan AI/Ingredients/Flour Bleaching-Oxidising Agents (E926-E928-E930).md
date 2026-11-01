@@ -2,14 +2,14 @@
 type: ingredient-profile
 category: flour treatment
 evidence: MODERATE
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-01
 ---
 
 # Flour Bleaching/Oxidising Agents (E926/E928/E930)
 
 **Category:** flour treatment  ·  **Function:** Bleaching / maturing agent
 **Evidence strength:** MODERATE
-**E-number(s):** e925, e926, e928, e930, e922, e923, e925
+**E-number(s):** e929, e925, e926, e928, e930, e922, e923, e925
 **ADI:** varies; largely spent during processing
 
 ## Concern by concentration
