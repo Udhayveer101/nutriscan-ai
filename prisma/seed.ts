@@ -24,7 +24,7 @@ async function main() {
   // so ~2,000 rows stay quick against a remote database during Vercel builds.
   let count = 0;
   let refCount = 0;
-  const CHUNK = 20;
+  const CHUNK = 3; // match Prisma's serverless pool (connection_limit=3); 20 caused P2024 pool timeouts
   for (let i = 0; i < ALL_INGREDIENTS.length; i += CHUNK) {
     await Promise.all(ALL_INGREDIENTS.slice(i, i + CHUNK).map(async (ing) => {
       const { categorySlug, refs, ...data } = ing;
