@@ -10,6 +10,7 @@
 //                percentages and plurals stripped     "Emulsifier (Soy Lecithin)", "Almond"
 //   4. fuzzy     OCR typos, via a trigram index plus  "Potassium Sorbale" → Potassium Sorbate
 //                a bounded edit-distance check
+//   5. glyph     OCR digit/letter swaps, then 1–4     "Palm 0il", "E33O", "Aspartarne"
 //
 // Fuzzy matching only accepts a single clear winner whose numbers and chemical suffix
 // (-ate/-ite/-ide…) are unchanged, so "sodium nitrte" (equally close to nitrite and
@@ -95,6 +96,25 @@ export function editDistance(a: string, b: string, max: number): number {
     prev = cur;
   }
   return prev[b.length];
+}
+
+/**
+ * Keys with common OCR glyph swaps undone — the swaps fuzzy matching rejects on purpose
+ * because they change digits: "palm 0il"/"wheat f1our" (digit read for a letter),
+ * "e33o"/"ins 3o0" (letter read for a digit in a code), "aspartarne" ("m" read as "rn").
+ * Tried only after every other path misses.
+ */
+export function ocrGlyphVariants(key: string): string[] {
+  const fixed = key.split(" ").map((w) => {
+    const digits = (w.match(/\d/g) ?? []).length;
+    if (!digits || digits === w.length) return w;
+    const code = /^(e?)([\doil]{3,4})$/.exec(w);
+    if (code && digits >= 2) return code[1] + code[2].replace(/o/g, "0").replace(/[il]/g, "1");
+    return w.length - digits >= 2 ? w.replace(/0/g, "o").replace(/1/g, "l") : w;
+  }).join(" ");
+  const out = new Set([fixed, fixed.replace(/rn/g, "m")]);
+  out.delete(key);
+  return Array.from(out);
 }
 
 const allowedEdits = (len: number) => (len < 5 ? 0 : len < 10 ? 1 : 2);
@@ -223,7 +243,17 @@ export class IngredientIndex<R extends IndexRow = IndexRow> {
     }
 
     if (opts.fuzzy === false) return null;
-    return this.fuzzy(normalizeKey(outside) || normalizeKey(raw));
+    const base = normalizeKey(outside) || normalizeKey(raw);
+    const fz = this.fuzzy(base);
+    if (fz) return fz;
+    // An OCR glyph correction is reported as "fuzzy" so scoring reads the corrected key.
+    for (const k of ocrGlyphVariants(base)) {
+      const m = this.matchExact(k);
+      if (m) return m.via === "code" ? m : { row: m.row, via: "fuzzy", key: k };
+      const f = this.fuzzy(k);
+      if (f) return f;
+    }
+    return null;
   }
 
   /** Trigram candidates, verified by bounded edit distance; returns only a unique best. */

@@ -3,7 +3,12 @@
 Next.js + Prisma/Postgres food-label scanner. OCR (Groq/Llama vision) → ingredient
 extraction → **evidence-based scoring** → explainable results.
 
-## Token-efficient navigation (FleetCare pattern)
+## Deploy
+
+No git-integration deploys. After every push to main run `vercel deploy --prod`. If the CLI
+times out while polling, check `vercel ls` instead of redeploying.
+
+## Token-efficient navigation
 
 Answer questions in this order — cheapest first, source last:
 

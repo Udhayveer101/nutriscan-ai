@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { after } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { generateIngredientExplanation, type ExplanationMode } from "@/lib/gemini";
+import { generateIngredientExplanations, type ExplanationMode } from "@/lib/gemini";
 import { parseIngredientList, sanitizeIngredients } from "@/lib/label-parser";
 import { evaluateProduct, scoringName } from "@/lib/scoring";
 import { getIngredientIndex } from "@/lib/ingredient-lookup";
@@ -14,8 +14,9 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 // AI paragraphs only for rows worth a closer look — flagged (MEDIUM+) or not in the knowledge
-// base — riskiest first. Groq's free tier allows ~1,000 output tokens/min per model, so every
-// other row is saved with the KB's cited reason instead (the same text the score is built on).
+// base — riskiest first, all in ONE Groq request (free tier: 1,000 requests/day, ~1,000 output
+// tokens/min). Every other row is saved with the KB's cited reason instead (the same text the
+// score is built on), which is also the fallback whenever the quota is out.
 const MAX_AI_EXPLANATIONS = 8;
 const CONCERN_RANK = { LOW: 0, MEDIUM: 1, HIGH: 2, CRITICAL: 3 } as const;
 
@@ -135,24 +136,28 @@ export async function POST(req: NextRequest) {
     //    written to the ScanIngredient rows; the results page polls until they arrive.
     const explanationMode = mode as ExplanationMode;
     after(async () => {
-      await Promise.all(
-        scan.ingredients.filter((row) => explainPositions.has(row.position)).map(async (row) => {
-          const src = scanRows[row.position];
-          try {
-            const explanation = await generateIngredientExplanation({
-              ingredientName: src.normalizedName,
-              category: src.promptCategory,
-              mode: explanationMode,
-              context: src.reason.startsWith("Unrecognised") ? undefined : src.reason,
-            });
-            await prisma.scanIngredient.update({ where: { id: row.id }, data: { aiExplanation: explanation } });
-          } catch (err) {
-            // Fall back to the KB reason so the row isn't left blank and polling can finish.
-            console.error("deferred explanation failed", src.rawName, err);
-            await prisma.scanIngredient.update({ where: { id: row.id }, data: { aiExplanation: src.reason } }).catch(() => {});
-          }
-        })
-      );
+      const rows = scan.ingredients.filter((row) => explainPositions.has(row.position));
+      if (!rows.length) return;
+      const srcs = rows.map((row) => scanRows[row.position]);
+      let texts: (string | null)[] = [];
+      try {
+        texts = await generateIngredientExplanations(
+          srcs.map((src) => ({
+            ingredientName: src.normalizedName,
+            category: src.promptCategory,
+            context: src.reason.startsWith("Unrecognised") ? undefined : src.reason,
+          })),
+          explanationMode
+        );
+      } catch (err) {
+        // Quota exhausted / provider down: every row keeps the KB reason (below).
+        console.error("deferred explanations failed", err);
+      }
+      // Rows with no AI text get the KB reason so none is left blank and polling can finish.
+      await Promise.all(rows.map((row, i) =>
+        prisma.scanIngredient.update({ where: { id: row.id }, data: { aiExplanation: texts[i] || srcs[i].reason } })
+          .catch((err) => console.error("explanation save failed", srcs[i].rawName, err))
+      ));
     });
     t.total = Object.values(t).reduce((a, b) => a + b, 0);
 

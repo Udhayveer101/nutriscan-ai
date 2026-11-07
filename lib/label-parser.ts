@@ -8,13 +8,17 @@
 
 /** The ingredient declaration inside a full OCR transcript (falls back to the whole text). */
 export function findIngredientSection(rawText: string): string {
+  // A blank line right after "," ";" or "(" is a wrapped list, not the end of it (Tesseract
+  // separates widely spaced lines with blank lines).
+  rawText = rawText.replace(/([,;(])[ \t]*\n\s*\n\s*/g, "$1 ");
   const patterns = [
     /ingr[eé]dients?\s*:?\s*([\s\S]*?)(?:\n\s*\n|\bnutrition facts\b|\bsupplement facts\b|\bdirections\b|\bwarning\b|\bnet weight\b|$)/i,
     /ingr[eé]dients?\s*:?\s*([\s\S]*)/i,
   ];
   for (const pattern of patterns) {
     const match = rawText.match(pattern);
-    if (match?.[1] && match[1].trim().length > 10) {
+    // Any real content counts: "Ingredients: Peanuts" is a whole, valid list.
+    if (match?.[1] && /[a-z0-9]{2}/i.test(match[1])) {
       return match[1]
         .trim()
         // Trailing allergen statements ("CONTAINS: WHEAT, SOY.", "May contain nuts") are not ingredients.
@@ -32,6 +36,32 @@ export function findIngredientSection(rawText: string): string {
       .join(", ");
   }
   return rawText;
+}
+
+// ── OCR quality gate (shared by server AI OCR and in-browser Tesseract) ───────
+// Structural check, not text length: does this look like a real ingredient
+// declaration (comma-separated list, ingredient/E-number vocabulary)?
+const E_NUMBER = /\be\s?-?\d{3}[a-z]?\b/i;
+const ADDITIVE_WORDS = /\b(sodium|acid|extract|flavou?r|preservative|emulsifier|colou?r|starch|syrup|oil|lecithin|gum|sugar|salt)\b/i;
+
+export function assessOcrQuality(rawText: string): { acceptable: boolean; confidence: number } {
+  const section = findIngredientSection(rawText);
+  const hasIngredientLabel = /ingr[eé]dients?\s*:/i.test(rawText);
+  const itemCount = (section.match(/,/g) ?? []).length + 1;
+  const hasENumber = E_NUMBER.test(section);
+  const hasAdditiveWord = ADDITIVE_WORDS.test(section);
+
+  // An explicit "Ingredients:" header is decisive; otherwise require a comma-separated
+  // list plus at least one additive/E-number signal.
+  const acceptable = hasIngredientLabel
+    ? itemCount >= 2
+    : itemCount >= 3 && (hasENumber || hasAdditiveWord);
+
+  const confidence = acceptable
+    ? Math.min(0.95, 0.6 + itemCount * 0.03 + (hasENumber ? 0.1 : 0) + (hasIngredientLabel ? 0.1 : 0))
+    : Math.min(0.5, 0.15 + itemCount * 0.03);
+
+  return { acceptable, confidence };
 }
 
 const GARBAGE = /^(nutrition|serving|calories?|total|per\s|daily value|\d+\s*(g|mg|kcal|%)|www\.|http)/i;
@@ -93,6 +123,10 @@ const KIND_TAIL = /\b(oil|fat|starch)s?$/i;
 function expand(part: string, out: string[], kind = ""): void {
   let p = part.replace(/\s+/g, " ").trim().replace(/[.*†:]+$/, "").trim();
   p = p.replace(LEAD_IN, "").trim();
+  // "Emulsifier: Soya Lecithin" — a role prefix before a colon is dropped like a bracket head.
+  const role = /^([^:([]+):\s*(.+)$/.exec(p);
+  if (role && FUNCTION_HEAD.test(role[1].trim())) p = role[2].trim();
+  if (BARE_CODE.test(p)) p = `INS ${p}`; // "…: 322, 471" — a bare top-level number is an INS code
   if (!p || FUNCTION_HEAD.test(p)) return; // a bare "Emulsifier" names a role, not an ingredient
   // "Head (a, b, c)" — a bracket group with several items is a compound ingredient.
   const m = /^([^([{]*)[([{](.*)[)\]}]\s*(?:\d+(?:[.,]\d+)?\s*%)?$/.exec(p);
@@ -109,9 +143,17 @@ function expand(part: string, out: string[], kind = ""): void {
   out.push(kind && !new RegExp(`\\b${kind}`, "i").test(p) && !/\d/.test(p) ? `${p} ${kind}` : p);
 }
 
+const COMPOUND_PREFIX = /^(?:high|low|whole|non|semi|multi|partially|fully|sodium|potassium|calcium|glucose|fructose|corn|soy|wheat|milk|freeze|spray|sun|stone|cold|reduced|fat|sugar|gluten|lactose|caffeine)$/i;
+
 /** Label text (OCR transcript or pasted list) → sanitized ingredient names in label order. */
 export function parseIngredientList(text: string): string[] {
-  let section = findIngredientSection(text);
+  let section = findIngredientSection(text)
+    // OCR splits a word across a line break ("emul-\nsifier") → rejoin. A real compound
+    // ("high-\nfructose", "whole-\ngrain") keeps its hyphen; "mono-\nand di-" stays apart.
+    // ponytail: fixed prefix list, extend it when a label shows another compound.
+    .replace(/(\w*)([a-z])-[ \t]*\n\s*(?!(?:and|or)\b)([a-z])/gi, (_, w, c, d) =>
+      `${w}${c}${COMPOUND_PREFIX.test(w + c) ? "-" : ""}${d}`)
+    .replace(/\s*[•·]\s*/g, ", ");
   // Comma-separated lists wrap across lines; a list with no commas is one ingredient per line.
   section = /[,;]/.test(section) ? section.replace(/\s*\n\s*/g, " ") : section.replace(/\s*\n\s*/g, ", ");
   section = section.replace(/\s+&\s+/g, ", ");

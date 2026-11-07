@@ -42,7 +42,7 @@ export const BATCH_34: SeedIngredient[] = [
     ["Sushi Rice", ["japonica rice", "calrose rice", "japanese rice"], "Sticky short-grain rice", "Used for sushi and onigiri.", "", `${REFINED} ${ARSENIC}`, ["Sushi", "Onigiri"], 82],
     ["Bomba Rice", ["paella rice", "calasparra rice"], "Absorbent Spanish short-grain rice", "Used for paella.", "", `${REFINED} ${ARSENIC}`, ["Paella"], 82],
     ["Idli Rice", ["idli rava", "rice rava", "rice semolina", "rice grits"], "Parboiled rice or coarse rice semolina for idli", "Ground with urad dal for idli and dosa batter.", "", ARSENIC, ["Idli", "Dosa"], 84],
-    ["Maize Kernels", ["maize", "field corn", "dent corn", "dried corn"], "Dried mature corn grains", "Milled into meal, grits and masa, or nixtamalised.", "", "None.", ["Tortillas", "Cornbread"], 88],
+    ["Maize Kernels", ["maize", "corn", "whole grain corn", "ground corn", "field corn", "dent corn", "dried corn"], "Dried mature corn grains", "Milled into meal, grits and masa, or nixtamalised.", "", "None.", ["Tortillas", "Cornbread"], 88],
   ]),
   ...refined([
     ["Glutinous Rice Flour", ["sweet rice flour", "mochiko", "sticky rice flour", "shiratamako"], "Flour of sticky rice", "Used for mochi, tangyuan and gluten-free baking.", "", `${REFINED} ${ARSENIC}`, ["Mochi", "Tangyuan"], 78],

@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { groq, GROQ_MODEL } from "./gemini";
-import { findIngredientSection, parseIngredientList } from "./label-parser";
+import { assessOcrQuality, findIngredientSection, parseIngredientList } from "./label-parser";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
@@ -49,32 +49,6 @@ async function ocrWithGroq(imageBase64: string, mimeType: string): Promise<strin
     { timeout: OCR_TIMEOUT_MS, maxRetries: 0 },
   );
   return completion.choices[0]?.message?.content?.trim() ?? "";
-}
-
-// ── OCR quality gate ─────────────────────────────────────────────────────────
-// Structural check, not text length: does this look like a real ingredient
-// declaration (comma-separated list, ingredient/E-number vocabulary)?
-const E_NUMBER = /\be\s?-?\d{3}[a-z]?\b/i;
-const ADDITIVE_WORDS = /\b(sodium|acid|extract|flavou?r|preservative|emulsifier|colou?r|starch|syrup|oil|lecithin|gum|sugar|salt)\b/i;
-
-export function assessOcrQuality(rawText: string): { acceptable: boolean; confidence: number } {
-  const section = findIngredientSection(rawText);
-  const hasIngredientLabel = /ingr[eé]dients?\s*:/i.test(rawText);
-  const itemCount = (section.match(/,/g) ?? []).length + 1;
-  const hasENumber = E_NUMBER.test(section);
-  const hasAdditiveWord = ADDITIVE_WORDS.test(section);
-
-  // An explicit "Ingredients:" header is decisive; otherwise require a comma-separated
-  // list plus at least one additive/E-number signal.
-  const acceptable = hasIngredientLabel
-    ? itemCount >= 2
-    : itemCount >= 3 && (hasENumber || hasAdditiveWord);
-
-  const confidence = acceptable
-    ? Math.min(0.95, 0.6 + itemCount * 0.03 + (hasENumber ? 0.1 : 0) + (hasIngredientLabel ? 0.1 : 0))
-    : Math.min(0.5, 0.15 + itemCount * 0.03);
-
-  return { acceptable, confidence };
 }
 
 // The single object the upload endpoint returns. `ingredients` is canonical; `rawText`

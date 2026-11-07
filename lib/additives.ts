@@ -2744,6 +2744,8 @@ export const WHOLEFOOD_KEYWORDS = [
 // Named whole foods, matched as whole words (plural-tolerant) so short names such as
 // "sage" or "date" can't fire inside "sausage" or "updated".
 export const WHOLEFOOD_WORDS: string[] = [
+  // Bare "corn" on a label (corn chips, tortillas) is the whole grain; corn syrup/starch/oil hit the KB or bulk rules first.
+  "corn",
   "mace", "anise", "saunf", "laung", "jeera", "kesar", "ajowan", "ajwain", "aniseed", "nigella", "javitri", "cayenne", "jaiphal", "caraway", "saffron", "kalonji", "pippali", "pimentón", "allspice", "pimenton", "dill seed", "khus khus", "khas khas", "methi dana", "poppy seed", "methi seeds", "fennel seed", "celery seed", "carom seeds", "carum carvi", "long pepper", "badi elaichi", "white pepper", "piper longum", "chakra phool", "bishop's weed", "juniper berry", "dhania powder", "jamaica pepper", "illicium verum", "crocus sativus", "juniper berries", "amomum subulatum", "red pepper flakes", "pimpinella anisum", "white peppercorns", "green peppercorns", "juniperus communis", "crushed red pepper", "green pepper berries",
   "lc1", "lgg", "kōji", "bb-12", "kewda", "b. breve", "l. casei", "l. lactis", "b. lactis", "gulab jal", "b. longum", "a. oryzae", "l. gasseri", "l. reuteri", "b. bifidum", "ganedenbc30", "acidophilus", "white mould", "b. infantis", "l. fermentum", "l. paracasei", "l. rhamnosus", "l. johnsonii", "l. plantarum", "s. boulardii", "p. roqueforti", "l. salivarius", "kefir culture", "p. camemberti", "kewra essence", "l. bulgaricus", "l. helveticus", "natto bacteria", "s. thermophilus", "blue cheese mould", "pandanus odorifer", "heyndrickxia coagulans",
   "hing", "dill", "sage", "adrak", "basil", "methi", "thyme", "pudina", "chives", "wasabi", "saunth", "oregano", "chervil", "parsley", "marjoram", "cilantro", "bay leaf", "estragon", "rosemary", "tarragon", "lal mirch", "asafetida", "spearmint", "kadi patta", "fresh mint", "dried mint", "lemongrass", "curry leaf", "bay leaves", "kari patta", "hara dhania", "horseradish", "mint leaves", "lemon grass", "laurel leaf", "curry powder", "pumpkin spice", "dhania leaves", "mentha spicata", "laurus nobilis", "peppermint leaf", "thymus vulgaris", "mentha piperita", "dried peppermint", "murraya koenigii", "origanum vulgare", "citronella grass", "wasabia japonica", "eutrema japonicum", "pumpkin pie spice", "origanum majorana", "poultry seasoning", "peppermint leaves", "anethum graveolens", "salvia officinalis", "armoracia rusticana", "zingiber officinale", "cymbopogon citratus", "ferula assa-foetida", "allium schoenoprasum", "petroselinum crispum", "peppermint tea leaves", "artemisia dracunculus", "anthriscus cerefolium", "rosmarinus officinalis",
@@ -3023,8 +3025,8 @@ function isWholeFoodUncached(lower: string): boolean {
   if (lookupAdditive(lower)) return false;
   // "Strawberry flavour" or "garlic flavouring" is a flavouring, not the food.
   if (/flavou?r/.test(lower)) return false;
-  // Composite products named after their main food ("tomato ketchup", "chicken stock") are not that food.
-  if (/\b(sauce|ketchup|stock|bouillon|gravy|dressing|marinade)s?\b/.test(lower)) return false;
+  // Composite products named after their main food ("tomato ketchup", "chicken stock", "potato chips") are not that food.
+  if (/\b(sauce|ketchup|stock|bouillon|gravy|dressing|marinade|chip|crisp)s?\b/.test(lower)) return false;
   return WHOLEFOOD_KEYWORDS.some((k) => lower === k || lower.includes(k)) || wholeWordRe().test(lower);
 }
 

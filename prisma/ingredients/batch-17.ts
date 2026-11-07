@@ -59,6 +59,6 @@ export const BATCH_17: SeedIngredient[] = [
     ["Moth Beans", ["matki", "mat beans", "turkish gram", "vigna aconitifolia"], "Small drought-tolerant bean", "Sprouted for misal or used in curries and namkeen.", "Protein and fibre.", WIND, ["Misal pav", "Namkeen", "Sprouts"], 96, { src: "ifct" }],
     ["Lupin Beans", ["lupini beans", "lupini", "lupin flour", "lupine beans"], "Brined yellow legume", "Brined lupini are eaten as a snack; lupin flour is added to breads and gluten-free foods.", "Very high in protein and fibre; low in starch.",
       "Lupin is a declarable EU allergen that cross-reacts with peanut. Bitter (inadequately debittered) lupins contain toxic alkaloids.", ["Snacks", "Bread", "Gluten-free products"], 82, { refs: [LUPIN] }],
-    ["Carob", ["carob powder", "carob flour", "carob pods", "carob chips"], "Sweet pod used as a cocoa substitute", "Roasted ground pods used as a caffeine-free chocolate substitute. (Locust bean gum comes from the seeds.)", "Naturally sweet, high in fibre and polyphenols; caffeine-free.", "Naturally high in sugar; carob confectionery often adds fat and sugar.", ["Carob bars", "Baking", "Drinks"], 92],
+    ["Carob", ["carob powder", "carob flour", "carob pods"], "Sweet pod used as a cocoa substitute", "Roasted ground pods used as a caffeine-free chocolate substitute. (Locust bean gum comes from the seeds.)", "Naturally sweet, high in fibre and polyphenols; caffeine-free.", "Naturally high in sugar; carob confectionery often adds fat and sugar.", ["Carob bars", "Baking", "Drinks"], 92],
   ]),
 ];

@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect, DragEvent } from "react";
 import { Upload, X, ImageIcon, ArrowRight, RefreshCw, AlertCircle, CheckCircle } from "lucide-react";
 import Image from "next/image";
+import { readLabel, warmLocalOcr } from "@/lib/local-ocr";
 
 interface Props {
   onAnalyze: (data: { method: string; text?: string; ingredients?: string[] }) => void;
@@ -19,18 +20,24 @@ const MAX_EDGE = 1600;
 async function downscaleImage(file: File): Promise<File> {
   if (file.name.toLowerCase().match(/\.hei[cf]$/) || !file.type.startsWith("image/")) return file;
 
-  const bitmap = await createImageBitmap(file).catch(() => null);
+  // Explicit "from-image": older engines defaulted to "none", uploading phone shots sideways.
+  const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" }).catch(() => null);
   if (!bitmap) return file;
 
   const scale = Math.min(1, MAX_EDGE / Math.max(bitmap.width, bitmap.height));
-  if (scale === 1) return file;
+  if (scale === 1) { bitmap.close(); return file; }
 
   const canvas = document.createElement("canvas");
   canvas.width = Math.round(bitmap.width * scale);
   canvas.height = Math.round(bitmap.height * scale);
   const ctx = canvas.getContext("2d");
-  if (!ctx) return file;
+  if (!ctx) { bitmap.close(); return file; }
+  // JPEG has no alpha: without a fill, a transparent PNG's background turns black and
+  // dark label text vanishes into it.
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
 
   const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.88));
   if (!blob) return file;
@@ -53,6 +60,8 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
   const currentFileRef = useRef<File | null>(null);
 
   useEffect(() => {
+    // Download the OCR engine while the user picks a photo, off the scan's critical path.
+    warmLocalOcr().catch(() => {});
     return () => {
       if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
       abortRef.current?.abort();
@@ -92,19 +101,15 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
     setIsExtracting(true);
 
     try {
-      const fd = new FormData();
-      fd.append("image", f);
-      const res = await fetch("/api/scan/upload", {
-        method: "POST",
-        body: fd,
-        signal: controller.signal,
+      // In-browser Tesseract first (free, no quota); AI OCR only as a backup — lib/local-ocr.ts.
+      const read = await readLabel(f, controller.signal, (better) => {
+        // AI OCR answered after a weaker local read was shown: swap in the better list.
+        setIngredients(better.ingredients);
+        setExtractedText(better.ingredients.join(", "));
       });
-      const data = await res.json();
-      // Structured OCR contract: prefer the parsed ingredient array; fall back to
-      // the regex-extracted section text for the preview.
-      const parsed: string[] = Array.isArray(data.ingredients) ? data.ingredients : [];
+      const parsed = read?.ingredients ?? [];
       setIngredients(parsed);
-      const previewText = parsed.length ? parsed.join(", ") : (data.ingredientText ?? "");
+      const previewText = parsed.length ? parsed.join(", ") : (read?.ingredientText ?? "");
       if (previewText.trim().length > 0) {
         setExtractedText(previewText);
         setOcrFailed(false);
@@ -116,7 +121,8 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
         setOcrFailed(true);
       }
     } finally {
-      setIsExtracting(false);
+      // An aborted older run must not clear the spinner of the run that replaced it.
+      if (abortRef.current === controller) setIsExtracting(false);
     }
   }, []);
 
@@ -155,6 +161,7 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
 
   const handleSubmit = () => {
     if (submitted) return;
+    abortRef.current?.abort(); // no late OCR upgrade once the list is submitted
     // Send the structured ingredient array (skips server-side re-extraction); keep
     // the text as a fallback for when OCR structuring yielded nothing.
     const text = extractedText ?? "";

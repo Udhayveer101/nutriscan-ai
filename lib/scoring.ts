@@ -78,6 +78,21 @@ const BULK_RULES: { keywords: string[]; unless?: RegExp; dominant: ConcernLevel;
     // Bare "wheat flour"/"flour" is white flour (21 CFR 137.105; UK Bread and Flour Regulations 1998); whole-grain flours are named as such.
     unless: /whole|wholemeal|wholegrain|\batta\b|\b(?:oat|rice|corn|maize|gram|chickpea|almond|coconut|soy|soya|rye|spelt|buckwheat|millet|sorghum|teff|quinoa|amaranth|cassava|tapioca|potato|banana|lentil|pea|bean|chestnut|tiger nut|hemp|flax|ragi|jowar|bajra|besan|singhara|kuttu|rajgira|barley|semolina|durum)\b/,
     note: "Refined flour — high glycaemic index, stripped of fibre and micronutrients." },
+  // Composite foods named as one ingredient. When the label does not list their parts, they
+  // still carry them: milk chocolate ≈ 52 g sugar/100 g, dark 70–85% ≈ 24 g (USDA FoodData
+  // Central); biscuits/cookies are refined flour + sugar + fat. Without these rules they fell
+  // through to "unrecognised, no concern" even as a product's main ingredient.
+  { keywords: ["chocolate"], unless: /\b(?:dark|bittersweet|unsweetened|liquor|fruit|flavou?r\w*)\b|\d\s*%/, dominant: "HIGH", moderate: "MEDIUM", trace: "LOW",
+    note: "Chocolate (composite) — about half sugar by weight; scored like added sugar when the label does not break it down." },
+  { keywords: ["dark chocolate", "bittersweet chocolate"], unless: /unsweetened|flavou?r/, dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
+    note: "Dark chocolate (composite) — roughly a quarter sugar plus cocoa fat; moderate when it dominates a product." },
+  { keywords: ["biscuit", "cookie", "wafer", "cracker"], unless: /flavou?r/, dominant: "MEDIUM", moderate: "LOW", trace: "LOW",
+    note: "Biscuit/cookie (composite) — refined flour, sugar and fat; scored like refined flour when the label does not break it down." },
+  // Flavourings are used at ppm levels and evaluated individually (JECFA; EU Reg. 1334/2008;
+  // 21 CFR 101.22). Low concern as ingredients — artificial ones still mark ultra-processing
+  // through classifyNova. Before this rule they read as "unrecognised".
+  { keywords: ["flavour", "flavor", "flavouring", "flavoring", "flavourings", "flavorings"], dominant: "LOW", moderate: "LOW", trace: "LOW",
+    note: "Flavouring — used in trace amounts and safety-evaluated (JECFA/EFSA); signals processing rather than a direct health risk." },
 ];
 
 // Bulk keywords match at a word start and allow only simple endings (salts, salted, salty),
@@ -153,7 +168,10 @@ export function isRecognised(name: string): boolean {
  *   - a code the KB lacks scores as the row it names,
  *   - a coded additive written by name only scores by its code ("Green S" → E142), so a
  *     name the KB has no keyword for is not mistaken for "unrecognised, no concern".
- * A link without a code never changes the score (bare "yeast" stays unrecognised on purpose).
+ *   - an alias the KB has no keyword for scores as its row's name ("trans fat"/"PHO" →
+ *     Partially Hydrogenated Vegetable Oil, "NaCl" → Salt) — these used to read as
+ *     "unrecognised, no concern".
+ * A link to a row the KB cannot read either changes nothing (bare "yeast" stays unrecognised).
  */
 export function scoringName(
   rawName: string,
@@ -161,8 +179,8 @@ export function scoringName(
 ): string {
   if (!m || isRecognised(rawName)) return rawName;
   if (m.via === "fuzzy") return m.key;
-  if (m.via === "code") return m.row.name;
   if (m.row.eNumber && lookupAdditive(m.row.eNumber)) return `${rawName} (${m.row.eNumber})`;
+  if (m.via === "code" || isRecognised(m.row.name)) return m.row.name;
   return rawName;
 }
 

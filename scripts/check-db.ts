@@ -10,6 +10,7 @@
 import { ALL_INGREDIENTS } from "../prisma/ingredients";
 import { IngredientIndex, normalizeKey, codeKeys, casChecksumOk } from "../lib/ingredient-index";
 import { codeForms } from "../prisma/ingredients/codes";
+import { isRecognised, scoringName } from "../lib/scoring";
 
 const MIN_ROWS = 2000;
 const errors: string[] = [];
@@ -76,6 +77,8 @@ for (const r of ALL_INGREDIENTS) {
     probes++;
     const m = index.matchExact(p);
     if (m?.row.slug !== r.slug) err(`"${p}" (${r.slug}) links to ${m?.row.slug ?? "nothing"}`);
+    // …and what the scanner scores for it: a linked name must never read as "unrecognised".
+    else if (!isRecognised(scoringName(p, m))) err(`"${p}" (${r.slug}) links but scores as unrecognised`);
   }
 }
 

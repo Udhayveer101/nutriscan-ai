@@ -58,6 +58,15 @@ additivesDemo(); interactionsDemo();
     ["recognised raw name unchanged", scoringName("Sodium Benzoate", link("E211")) === "Sodium Benzoate"],
     ["lemon juice concentrate LOW when dominant", concern("Lemon Juice Concentrate") === "LOW"],
     ["apple juice concentrate still HIGH when dominant", concern("Apple Juice Concentrate") === "HIGH"],
+    // Composite foods named as one ingredient carry their sugar/flour, not "no concern".
+    ["milk chocolate HIGH when dominant", concern("Milk Chocolate") === "HIGH"],
+    ["dark chocolate MEDIUM when dominant", concern("Dark Chocolate") === "MEDIUM"],
+    ["chocolate flavour is not chocolate", concern("Chocolate Flavour") !== "HIGH"],
+    ["digestive biscuit MEDIUM when dominant", concern("Digestive Biscuit") === "MEDIUM"],
+    ["chocolate LOW in trace position", concern("Chocolate", 9) === "LOW"],
+    // An alias the KB lacks scores as its linked row, not "unrecognised, no concern".
+    ["'trans fat' scores as partially hydrogenated oil", scoringName("Trans Fat", { via: "exact", key: "", row: { name: "Partially Hydrogenated Vegetable Oil", eNumber: null } }) === "Partially Hydrogenated Vegetable Oil"],
+    ["natural flavour is recognised, LOW", concern("Natural Flavours") === "LOW" && !evaluateProduct([{ name: "Natural Flavours", position: 0 }]).ingredientReasons![0].reason.startsWith("Unrecognised")],
   ];
   for (const [label, ok] of checks) if (!ok) { fail++; console.log(`FAIL  ${label}`); }
   if (checks.every(([, ok]) => ok)) console.log("scoring fairness self-check OK");

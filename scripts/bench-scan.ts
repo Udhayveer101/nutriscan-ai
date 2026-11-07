@@ -44,6 +44,13 @@ function assert(cond: boolean, msg: string) { if (!cond) throw new Error("FAIL: 
     ["Potatoes", "Vegetable Oil", "Sunflower Oil", "Corn Oil", "Canola Oil", "PGPR", "Peanuts", "Disodium Inosinate", "Disodium Guanylate"]);
   // A pasted list with one ingredient per line; "Vit. C" is not a sentence break.
   eq("water\nsugar\nascorbic acid (Vit. C)", ["water", "sugar", "ascorbic acid (Vit. C)"]);
+  // OCR noise: word hyphenated over a line break, "mono- and di-" kept, bullets, role-colon prefixes, bare codes.
+  eq("Ingredients: Sugar, Emul-\nsifier: Soya Lecithin, Mono-\nand Diglycerides • Salt · Preservative: 211, 202",
+    ["Sugar", "Soya Lecithin", "Mono- and Diglycerides", "Salt", "INS 211", "INS 202"]);
+  // A single short ingredient keeps no "Ingredients:" header (used to need > 10 chars).
+  eq("INGREDIENTS: PEANUTS.", ["Peanuts"]);
+  // Blank lines inside a wrapped list (Tesseract paragraphs) continue it; one after a full stop ends it.
+  eq("Ingredients: Sugar, Salt,\n\nCocoa Powder, E202.\n\nStore in a cool place", ["Sugar", "Salt", "Cocoa Powder", "E202"]);
   console.log("label parser self-check OK");
 }
 
