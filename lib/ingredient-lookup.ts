@@ -14,6 +14,8 @@ async function load(prisma: PrismaClient): Promise<IngredientIndex> {
     select: { id: true, slug: true, name: true, aliases: true, eNumber: true },
   });
   const index = new IngredientIndex(rows);
+  // Colliding keys link to nothing; a non-zero count means duplicate rows in the DB (re-seed).
+  if (index.collisions.length) console.warn(`ingredient index: ${index.collisions.length} ambiguous keys, e.g.`, index.collisions.slice(0, 3));
   cached = { index, at: Date.now() };
   return index;
 }

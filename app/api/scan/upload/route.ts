@@ -39,15 +39,7 @@ export async function POST(req: NextRequest) {
 
     // Return the full structured OCR contract. `ingredients` is canonical; the
     // client sends it straight to /api/analysis so nothing re-parses raw OCR text.
-    return NextResponse.json({
-      ingredients: structured.ingredients,
-      rawText: structured.rawText,
-      ingredientText: structured.ingredientText,
-      confidence: structured.confidence,
-      ocrProvider: structured.ocrProvider,
-      passesUsed: structured.passesUsed,
-      enhancedUsed: structured.enhancedUsed,
-    });
+    return NextResponse.json(structured);
   } catch (error) {
     const msg = (error as Error).message;
     console.error("OCR upload error:", error);

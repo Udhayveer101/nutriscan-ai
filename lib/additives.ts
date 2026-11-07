@@ -1786,6 +1786,15 @@ export const ADDITIVES: AdditiveProfile[] = [
     ref: "WHO 2015 free-sugars guideline; FDA 2016 added-sugars rule",
   },
   {
+    // Longer keywords than "juice concentrate", so lemon/lime concentrate is not scored as a sweetening juice.
+    id: "citrus-juice-acidulant", name: "Lemon / Lime Juice Concentrate", keywords: ["lemon juice concentrate", "concentrated lemon juice", "lime juice concentrate", "concentrated lime juice"], eNumbers: [],
+    category: "acidity regulator", function: "Acidulant (natural citric acid)",
+    dominant: "LOW", moderate: "LOW", trace: "LOW", evidence: "STRONG",
+    regulatory: "Food ingredient (FDA standard of identity for lemon juice, 21 CFR 146.114)",
+    note: "Used for sourness, not sweetness: lemon juice has about 2.5 g sugar per 100 g against roughly 10 g for apple juice, so the concentrate adds citric acid rather than meaningful free sugar. Very frequent acidic foods can erode tooth enamel.",
+    ref: "USDA FoodData Central (lemon juice, raw: 2.52 g sugars/100 g; apple juice: 9.6 g); 21 CFR 146.114",
+  },
+  {
     id: "fructose", name: "Fructose (added)", keywords: ["fructose", "crystalline fructose", "fruit sugar", "fructose syrup"], eNumbers: [],
     category: "sweetener", function: "Free sugar / sweetener",
     dominant: "HIGH", moderate: "MEDIUM", trace: "LOW", evidence: "STRONG",

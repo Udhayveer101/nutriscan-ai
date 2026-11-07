@@ -2,21 +2,14 @@ import Groq from "groq-sdk";
 
 // Created on first use so builds and imports don't require GROQ_API_KEY.
 let groqClient: Groq | null = null;
-const groq = () => (groqClient ??= new Groq({ apiKey: process.env.GROQ_API_KEY }));
-const MODEL = "llama-3.3-70b-versatile";
-
-async function withRetry<T>(fn: () => Promise<T>, retries = 2, delayMs = 500): Promise<T> {
-  let lastErr: unknown;
-  for (let i = 0; i <= retries; i++) {
-    try {
-      return await fn();
-    } catch (err) {
-      lastErr = err;
-      if (i < retries) await new Promise((r) => setTimeout(r, delayMs * (i + 1)));
-    }
-  }
-  throw lastErr;
-}
+export const groq = () => (groqClient ??= new Groq({ apiKey: process.env.GROQ_API_KEY }));
+// Groq retires models without notice (llama-3.3-70b-versatile and llama-4-scout returned
+// model_not_found in Nov 2026 and took every scan down): check
+// `GET https://api.groq.com/openai/v1/models` before changing these.
+// Free-tier limits are per model (qwen3.8-27b: 1,000 output tokens/min), so explanations run on
+// a different model than the OCR fallback and can never starve it.
+export const GROQ_MODEL = "qwen/qwen3.8-27b";          // vision OCR fallback
+const EXPLAIN_MODEL = "openai/gpt-oss-20b";             // deferred ingredient explanations
 
 const HONESTY_INSTRUCTION = `Be honest and direct. Do not sugarcoat health risks. If an ingredient has well-documented health concerns backed by credible sources (WHO, FDA, peer-reviewed studies), state them clearly. Do not use vague reassuring language like "generally considered safe" for ingredients with known risks. Reference specific studies or regulatory positions where relevant.`;
 
@@ -55,128 +48,23 @@ export interface IngredientExplanationRequest {
 export async function generateIngredientExplanation(
   req: IngredientExplanationRequest
 ): Promise<string> {
-  const completion = await withRetry(() => groq().chat.completions.create({
-    model: MODEL,
-    max_tokens: 90,
+  const completion = await groq().chat.completions.create({
+    model: EXPLAIN_MODEL,
+    reasoning_effort: "low",
+    max_tokens: 200, // includes the model's reasoning tokens
     messages: [
       { role: "system", content: MODE_SYSTEM_PROMPTS[req.mode] },
       {
         role: "user",
         content: `In exactly 1-2 short sentences, explain the food ingredient "${req.ingredientName}" (category: ${req.category}) for a consumer scanning a label.
-${req.context ? `Context: ${req.context}` : ""}
+${req.context ? `Our evidence base says: ${req.context}\nStay consistent with it.` : ""}
 
 Lead with the single most important thing: the main health concern, or why it's fine, or its main benefit. Be specific (name the concern), not vague. No preamble, no lists, no "in conclusion" — just the 1-2 sentences.`,
       },
     ],
-  }));
+  });
 
-  return completion.choices[0]?.message?.content?.trim() ?? "Analysis unavailable.";
-}
-
-export async function extractIngredientsFromText(text: string): Promise<string[]> {
-  const completion = await withRetry(() => groq().chat.completions.create({
-    model: MODEL,
-    response_format: { type: "json_object" },
-    messages: [
-      {
-        role: "system",
-        content: `You are a food scientist that extracts and normalizes food label ingredient lists from OCR-scanned text.
-
-KEY RULES — follow every one:
-1. PARENTHESES = sub-ingredients of the preceding item.
-   "Vegetable Oil (safflower, soybean, sunflower)" → extract: "Vegetable Oil", "Safflower Oil", "Soybean Oil", "Sunflower Oil"
-2. "Contains less than X% of: A, B, C" → extract A, B, C as individual ingredients.
-3. "CONTAINS WHEAT, EGG, SOY" (ALL CAPS at end) = allergen declaration → do NOT include as ingredients.
-4. "May contain traces of..." → do NOT include.
-5. Normalize common abbreviations and variants:
-   - "HFCS" → "High Fructose Corn Syrup"
-   - "E211" or "E-211" → "Sodium Benzoate"
-   - "Vit. C" / "Vit C" → "Ascorbic Acid (Vitamin C)"
-   - "BHA" → "Butylated Hydroxyanisole (BHA)"
-   - "BHT" → "Butylated Hydroxytoluene (BHT)"
-   - "TBHQ" → "Tertiary Butylhydroquinone (TBHQ)"
-   - "MSG" → "Monosodium Glutamate"
-   - "ca." / "calc." → "Calcium"
-   - Common OCR errors: "S0dium" → "Sodium", "Ca1cium" → "Calcium"
-6. Fix obvious OCR garbling: "ingreclient" → "ingredient", "Sodiurn" → "Sodium", "comstarch" → "cornstarch"
-7. Strip: serving size text, nutrition facts numbers, cooking instructions, percent daily values, brand names.
-8. De-duplicate: if the same ingredient appears as both parent and sub-ingredient, include it only once.
-9. Preserve meaningful qualifiers: "Enriched Wheat Flour", "Hydrogenated Soybean Oil", "Partially Skimmed Milk".
-10. If the text is very garbled (low OCR quality), do your best to identify recognizable ingredient names.
-
-Return ONLY a JSON object. No markdown, no explanation.`,
-      },
-      {
-        role: "user",
-        content: `Extract all food ingredients from the text below. Apply all normalization rules. "CONTAINS X, Y" at end = allergen warning, not ingredients — skip it.
-
-TEXT:
-${text}
-
-Response format: {"ingredients": ["Ingredient One", "Ingredient Two", ...]}`,
-      },
-    ],
-  }));
-
-  const responseText = completion.choices[0]?.message?.content ?? "{}";
-
-  try {
-    const parsed = JSON.parse(responseText);
-    const ingredients = parsed.ingredients ?? parsed.items ?? Object.values(parsed)[0];
-    return sanitizeIngredients(Array.isArray(ingredients) ? ingredients : []);
-  } catch {
-    return [];
-  }
-}
-
-// ── Stage 5: deterministic sanitization ───────────────────────────────────────
-// The LLM already strips most non-ingredient text; this is the safety net that
-// removes garbage the model may leak through and de-duplicates. Pure + testable —
-// see scripts/bench-scan.ts for the self-check.
-const GARBAGE = /^(nutrition|serving|calories?|total|per\s|daily value|\d+\s*(g|mg|kcal|%)|www\.|http)/i;
-
-export function sanitizeIngredients(names: unknown[]): string[] {
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const raw of names) {
-    if (typeof raw !== "string") continue;
-    const name = raw.trim().replace(/\s+/g, " ");
-    // Drop empties, pure numbers/punctuation, over-long OCR fragments, nutrition rows.
-    if (name.length < 2 || name.length > 120) continue;
-    if (!/[a-z]/i.test(name)) continue;
-    if (GARBAGE.test(name)) continue;
-    const key = name.toLowerCase();
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(name);
-  }
-  return out;
-}
-
-export async function generateProductSummary(
-  productName: string,
-  ingredients: string[],
-  scoreBreakdown: Record<string, number | string>,
-  mode: ExplanationMode
-): Promise<string> {
-  const completion = await withRetry(() => groq().chat.completions.create({
-    model: MODEL,
-    max_tokens: 120,
-    messages: [
-      { role: "system", content: MODE_SYSTEM_PROMPTS[mode] },
-      {
-        role: "user",
-        content: `Provide a brief product analysis summary for "${productName}".
-
-Key ingredients found: ${ingredients.slice(0, 10).join(", ")}
-Overall health score: ${scoreBreakdown.overall}/100 (Grade: ${scoreBreakdown.gradeLabel})
-
-Give a 2-3 sentence honest summary. If the product has many unhealthy ingredients, say so clearly.
-Do not soften the verdict for unhealthy products. Consumers deserve accurate information.
-If the score is below 50, this is an unhealthy product and your summary should reflect that.`,
-      },
-    ],
-  }));
-
-  return completion.choices[0]?.message?.content ?? "";
+  const text = completion.choices[0]?.message?.content?.trim();
+  if (!text) throw new Error("empty explanation"); // caller falls back to the KB reason
+  return text;
 }

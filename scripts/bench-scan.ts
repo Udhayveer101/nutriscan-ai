@@ -7,7 +7,8 @@
 // measured, not assumed (Phase 5). Needs GROQ_API_KEY (pass via
 // `npx tsx --env-file=.env.local scripts/bench-scan.ts`); skips the live A/B if absent.
 import Groq from "groq-sdk";
-import { sanitizeIngredients } from "../lib/gemini";
+import { sanitizeIngredients, parseIngredientList } from "../lib/label-parser";
+import { GROQ_MODEL } from "../lib/gemini";
 
 // ── Stage 5 sanitizer self-check (always runs, no API needed) ─────────────────
 function assert(cond: boolean, msg: string) { if (!cond) throw new Error("FAIL: " + msg); }
@@ -26,6 +27,26 @@ function assert(cond: boolean, msg: string) { if (!cond) throw new Error("FAIL: 
   console.log("Stage 5 sanitizer self-check OK →", JSON.stringify(out));
 }
 
+// ── Label parser self-check (deterministic extraction, no API) ────────────────
+{
+  const eq = (text: string, want: string[]) => {
+    const got = parseIngredientList(text);
+    assert(JSON.stringify(got) === JSON.stringify(want), `parse ${JSON.stringify(text)}\n  got  ${JSON.stringify(got)}\n  want ${JSON.stringify(want)}`);
+  };
+  // OCR transcript: header/nutrition text, line wraps, sub-ingredients, "and/or", "less than 2%" tail, allergen statement.
+  eq("NUTRITION FACTS Serving 30g\nINGREDIENTS: SUGAR, ENRICHED FLOUR (WHEAT FLOUR, NIACIN), HIGH\nFRUCTOSE CORN SYRUP, LEAVENING (BAKING SODA AND/OR CALCIUM PHOSPHATE), CHOCOLATE. CONTAINS LESS THAN 2% OF: SODIUM BENZOATE (PRESERVATIVE), RED 40, E211.\nCONTAINS: WHEAT, SOY.",
+    ["Sugar", "Enriched Flour", "Wheat Flour", "Niacin", "High Fructose Corn Syrup", "Baking Soda", "Calcium Phosphate", "Chocolate", "Sodium Benzoate (Preservative)", "Red 40", "E211"]);
+  // Codes are kept as printed (the old LLM step rewrote "330" as sodium bicarbonate) and function headers drop.
+  eq("Ingredients: Water, Acidity Regulator (330), Emulsifiers (E322, E471), Leavening Agents [503(ii), 500(ii)]. Contains Milk.",
+    ["Water", "Acidity Regulator (330)", "E322", "E471", "INS 503(ii)", "INS 500(ii)"]);
+  // Oil sources inherit "Oil"; "&" splits; mixed case is left alone; allergens are never dropped (the LLM turned Peanuts into Pepper).
+  eq("Potatoes, Vegetable Oil (Sunflower, Corn, and/or Canola Oil), PGPR, Emulsifier, Peanuts, Disodium Inosinate & Disodium Guanylate",
+    ["Potatoes", "Vegetable Oil", "Sunflower Oil", "Corn Oil", "Canola Oil", "PGPR", "Peanuts", "Disodium Inosinate", "Disodium Guanylate"]);
+  // A pasted list with one ingredient per line; "Vit. C" is not a sentence break.
+  eq("water\nsugar\nascorbic acid (Vit. C)", ["water", "sugar", "ascorbic acid (Vit. C)"]);
+  console.log("label parser self-check OK");
+}
+
 const key = process.env.GROQ_API_KEY;
 if (!key) {
   console.log("\n(no GROQ_API_KEY — skipping live explanation A/B benchmark)");
@@ -33,7 +54,7 @@ if (!key) {
 }
 
 const groq = new Groq({ apiKey: key });
-const MODEL = "llama-3.3-70b-versatile";
+const MODEL = GROQ_MODEL;
 const SYSTEM = "You are a straightforward food expert explaining ingredients to everyday consumers. Be honest about health risks.";
 const SAMPLE = ["Sodium Benzoate", "Aspartame", "High Fructose Corn Syrup", "Citric Acid", "Red 40"];
 

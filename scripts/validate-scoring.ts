@@ -1,6 +1,6 @@
 // Large-scale sanity validation of the redesigned scoring engine against real products.
 // Run: npx tsx scripts/validate-scoring.ts
-import { evaluateProduct, detectAllergens } from "../lib/scoring";
+import { evaluateProduct, detectAllergens, scoringName } from "../lib/scoring";
 import { _demo as additivesDemo } from "../lib/additives";
 import { _demo as interactionsDemo } from "../lib/interactions";
 
@@ -44,6 +44,23 @@ additivesDemo(); interactionsDemo();
   const want = ["Gluten / Wheat", "Milk / Dairy", "Soy"].sort();
   if (JSON.stringify(names) !== JSON.stringify(want)) { fail++; console.log(`FAIL  allergen misses: got ${JSON.stringify(names)}`); }
   if (fail === 0) console.log("allergen detection self-check OK");
+}
+
+// Fairness: a coded dye written by name only must score as its code, not "unrecognised, no
+// concern"; lemon juice concentrate is an acidulant, not a sweetening juice.
+{
+  const link = (eNumber: string | null, via = "exact") => ({ via, key: "", row: { name: "", eNumber } });
+  const concern = (name: string, pos = 0) => evaluateProduct([{ name, position: pos }]).ingredientReasons![0].concern;
+  const checks: [string, boolean][] = [
+    ["Green S → E142 profile", concern(scoringName("Green S", link("E142"))) === "HIGH"],
+    ["Amaranth (colour) → E123 profile", concern(scoringName("Amaranth (colour)", link("E123"))) === "HIGH"],
+    ["no code: bare 'yeast' unchanged", scoringName("Yeast", link(null)) === "Yeast"],
+    ["recognised raw name unchanged", scoringName("Sodium Benzoate", link("E211")) === "Sodium Benzoate"],
+    ["lemon juice concentrate LOW when dominant", concern("Lemon Juice Concentrate") === "LOW"],
+    ["apple juice concentrate still HIGH when dominant", concern("Apple Juice Concentrate") === "HIGH"],
+  ];
+  for (const [label, ok] of checks) if (!ok) { fail++; console.log(`FAIL  ${label}`); }
+  if (checks.every(([, ok]) => ok)) console.log("scoring fairness self-check OK");
 }
 
 console.log(`\n${fail === 0 ? "ALL PASS" : fail + " FAILED"}\n`);

@@ -46,19 +46,22 @@ export default async function ResultsPage({ params }: Props) {
     userAvoidList = user?.avoidList ?? [];
   }
 
-  const ingredientNames = scan.ingredients.map((i) => i.normalizedName ?? i.rawName);
-  const allergens = detectAllergens(ingredientNames);
+  // Read the label text AND the linked row: linking can drop the allergen word
+  // ("Emulsifier (Soy Lecithin)" → Lecithin, "Hydrolysed Soy Protein" → HVP).
+  const namesOf = (i: { rawName: string; normalizedName: string | null }) =>
+    i.normalizedName && i.normalizedName !== i.rawName ? [i.rawName, i.normalizedName] : [i.rawName];
+  const allergens = detectAllergens(scan.ingredients.flatMap(namesOf));
 
   const ingredients = scan.ingredients.map((ing) => {
-    const name = (ing.normalizedName ?? ing.rawName).toLowerCase();
+    const names = namesOf(ing).map((n) => n.toLowerCase());
     return {
       ...ing,
       // Word-boundary match — substring matching false-flagged e.g. "oat" in "benzOATe".
-      triggersUserAllergen: userAllergens.some((a) =>
+      triggersUserAllergen: userAllergens.some((a) => names.some((name) =>
         allergenPattern(a).test(name) ||
         allergens.some((m) => m.allergen === a && m.matchedIngredient.toLowerCase() === name)
-      ),
-      triggersUserAvoid: userAvoidList.some((a) => allergenPattern(a).test(name)),
+      )),
+      triggersUserAvoid: userAvoidList.some((a) => names.some((name) => allergenPattern(a).test(name))),
     };
   });
 

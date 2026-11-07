@@ -146,16 +146,24 @@ export function isRecognised(name: string): boolean {
   return !(a.evidence === "INSUFFICIENT" && a.reason.startsWith("Unrecognised"));
 }
 
-// Back-compat: old callers used inferConcernLevel(name) with no position.
-export function inferConcernLevel(name: string): ConcernLevel {
-  return assessIngredient(name, 0).concern;
-}
-
-// Back-compat shim retained for any external caller.
-export function adjustConcernForConcentration(name: string, _base: ConcernLevel, position: number): ConcernLevel {
-  const a = assessIngredient(name, position);
-  // Never downgrade a CRITICAL from the KB.
-  return a.concern === "CRITICAL" ? "CRITICAL" : a.concern;
+/**
+ * The name to score for one label ingredient, given its ingredient-index link. The label text
+ * is scored as written; the link is used only when the KB cannot read that text:
+ *   - an OCR typo scores as the spelling it was corrected to ("Potassium Sorbale"),
+ *   - a code the KB lacks scores as the row it names,
+ *   - a coded additive written by name only scores by its code ("Green S" → E142), so a
+ *     name the KB has no keyword for is not mistaken for "unrecognised, no concern".
+ * A link without a code never changes the score (bare "yeast" stays unrecognised on purpose).
+ */
+export function scoringName(
+  rawName: string,
+  m: { via: string; key: string; row: { name: string; eNumber: string | null } } | null,
+): string {
+  if (!m || isRecognised(rawName)) return rawName;
+  if (m.via === "fuzzy") return m.key;
+  if (m.via === "code") return m.row.name;
+  if (m.row.eNumber && lookupAdditive(m.row.eNumber)) return `${rawName} (${m.row.eNumber})`;
+  return rawName;
 }
 
 // ── NOVA processing classification ───────────────────────────────────────────
@@ -345,16 +353,6 @@ export function evaluateProduct(
       name: a.name, concern: a.concern, reason: a.reason, ref: a.ref, evidence: a.evidence,
     })),
   };
-}
-
-// Back-compat wrapper: old signature routes into the new engine.
-export function calculateHealthScore(
-  ingredients: IngredientInput[],
-  sugarPercentage = 0,
-  sodiumMg = 0,
-  _isUltraProcessed = false
-): ScoreBreakdown {
-  return evaluateProduct(ingredients, { sugarPercentage, sodiumMg });
 }
 
 export function scoreToGrade(score: number): ScoreGrade {
