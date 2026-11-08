@@ -41,3 +41,7 @@ next-env.d.ts
 
 graphify-out/
 Nutriscan AI/.obsidian/
+
+# OCR benchmark: synthetic images are regenerable; results are local
+ocr-bench/data/synthetic/
+ocr-bench/results/
