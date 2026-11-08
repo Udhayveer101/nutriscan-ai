@@ -45,3 +45,6 @@ Nutriscan AI/.obsidian/
 # OCR benchmark: synthetic images are regenerable; results are local
 ocr-bench/data/synthetic/
 ocr-bench/results/
+ocr-bench/data/candidates/
+ocr-bench/data/real/
+ocr-bench/data/verify-report.json

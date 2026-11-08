@@ -1,0 +1,12 @@
+# Candidates Tesseract could not read, but a human (me, in this session) opened the photo and confirmed
+# the ingredient text in the photo matches the .gt.txt. Promoted by verify-real.ts as tier "visual".
+0034856050988_3
+5011096010717_3
+0815154021647_2
+8901233027951_2
+0021140615138_1
+0028435399681_1
+0051933204508_1
+5057172101726_3
+9310081105985_2
+7622201703561_3

@@ -7,14 +7,14 @@ import sharp from "sharp";
 import { createWorker } from "tesseract.js";
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { parseIngredientList } from "../../lib/label-parser";
+import { findIngredientSection, parseIngredientList } from "../../lib/label-parser";
 import { judgeLocalRead } from "../../lib/local-ocr";
 
 const ROOT = process.cwd();
 const arg = (k: string) => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : undefined; };
 
 type Pre = (img: sharp.Sharp) => Promise<Buffer>;
-const up = (img: sharp.Sharp) => img.rotate().grayscale().resize({ width: 1600, withoutReduction: false, kernel: "lanczos3" }); // fixed width: tiny photos are enlarged, big ones reduced
+const up = (img: sharp.Sharp) => img.rotate().grayscale().resize({ width: Number(arg("width") ?? 1600), kernel: "lanczos3" }); // fixed width: tiny photos are enlarged, big ones reduced (--width N)
 const PRE: Record<string, Pre> = {
   raw: (i) => i.png().toBuffer(),
   norm: (i) => up(i).normalise().sharpen().png().toBuffer(),
@@ -49,6 +49,22 @@ function listImages(dir: string): string[] {
   });
 }
 
+// Real photos are grouped by manifest tier/rotation (ocr-upright | ocr-rotated | visual-hard); synthetic by filename.
+const groupOf = (() => {
+  const cache = new Map<string, Map<string, { tier: string; rotation: number }>>();
+  return (file: string) => {
+    const dir = file.slice(0, file.lastIndexOf("/"));
+    if (!cache.has(dir)) {
+      const m = new Map();
+      if (existsSync(join(dir, "manifest.jsonl"))) for (const l of readFileSync(join(dir, "manifest.jsonl"), "utf8").trim().split("\n")) { const j = JSON.parse(l); m.set(j.id, j); }
+      cache.set(dir, m);
+    }
+    const e = cache.get(dir)!.get(file.slice(file.lastIndexOf("/") + 1).replace(/\.[^.]+$/, ""));
+    if (e) return e.tier === "visual" ? "visual-hard" : e.rotation ? "ocr-rotated" : "ocr-upright";
+    return file.match(/_([a-z]+)\.[^.]+$/)?.[1] ?? "other";
+  };
+})();
+
 async function main() {
   const sub = arg("dir");
   let images = listImages(join(ROOT, "ocr-bench/data", sub ?? "")).sort();
@@ -70,7 +86,8 @@ async function main() {
       const buf = await v.pre(sharp(file));
       const width = (await sharp(buf).metadata()).width ?? 0;
       const { data } = await w.recognize(buf, {}, { text: true, blocks: true });
-      const g = norm(gt), t = norm(data.text);
+      // Full-package photos contain far more than the list, so CER/WER compare the extracted ingredient section (approximate: it may run on into "Contains..." lines).
+      const g = norm(gt), t = norm(findIngredientSection(data.text) || data.text);
       const cer = lev([...g], [...t]) / g.length;
       const gw = g.split(" "), tw = t.split(" ");
       const wer = lev(gw, tw) / gw.length;
@@ -79,7 +96,7 @@ async function main() {
       const j = judgeLocalRead(data, width);
       r.n++; r.cer.push(cer); r.wer.push(wer); r.recall.push(recall);
       if (j?.trusted) { r.trusted++; if (recall < 1) r.falseTrust++; }
-      const prof = file.match(/_([a-z]+)\.[^.]+$/)?.[1] ?? "real";
+      const prof = groupOf(file);
       (r.byProfile[prof] ??= []).push(recall);
       }
     }));
