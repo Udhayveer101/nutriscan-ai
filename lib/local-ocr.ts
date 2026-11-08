@@ -1,17 +1,10 @@
-// Label reading for the upload flow, local-first.
-//
-// Tesseract (WebAssembly) runs in the user's own browser: no API key, no quota, no cost, so it
-// never "runs out". The AI OCR endpoint (/api/scan/upload, free-tier Gemini → Groq) is only a
-// backup: started when the local read is untrusted, or still running after HEDGE_MS (slow
-// phones, first visit while the model downloads). The first trusted read wins; a weak local
-// read is kept only for when AI OCR also fails (quota spent, timeout).
+// Label reading for the upload flow: AI OCR first (/api/scan/upload, Gemini → Groq), in-browser
+// Tesseract (WebAssembly) only as the last resort when AI OCR fails (quota spent, timeout, offline).
+// Why last: on real full-package photos (ocr-bench, 101 photos) Tesseract recovers only ~23% of
+// ingredients exactly and its "trusted" reads were often wrong, so it must never pre-empt the AI.
 import type { Worker } from "tesseract.js";
 import { assessOcrQuality, findIngredientSection, parseIngredientList } from "./label-parser";
 
-const HEDGE_MS = 1500;
-// Past this, an untrusted local read is shown (the user reviews the list before analysing)
-// instead of waiting on a slow AI call — free-tier Gemini has timed out at 10 s.
-const DEADLINE_MS = 3000;
 const MIN_MEAN_CONFIDENCE = 80;
 const LOW_WORD_CONFIDENCE = 60;
 
@@ -34,8 +27,21 @@ export function warmLocalOcr(): Promise<Worker> {
 
 async function readLocal(file: Blob): Promise<{ read: LabelRead; trusted: boolean } | null> {
   const worker = await warmLocalOcr();
-  const { data } = await worker.recognize(file, {}, { text: true, blocks: true });
+  const [{ data }, width] = await Promise.all([
+    worker.recognize(file, {}, { text: true, blocks: true }),
+    createImageBitmap(file).then((b) => { const w = b.width; b.close(); return w; }, () => 0),
+  ]);
+  return judgeLocalRead(data, width);
+}
+
+type TesseractPage = Awaited<ReturnType<Worker["recognize"]>>["data"];
+
+/** Tesseract page → parsed read + whether it may skip AI OCR. Pure: the OCR lab tests this directly. */
+export function judgeLocalRead(data: TesseractPage, imageWidth = 0): { read: LabelRead; trusted: boolean } | null {
   const words = (data.blocks ?? []).flatMap((b) => b.paragraphs.flatMap((p) => p.lines.flatMap((l) => l.words)));
+  // Text touching the photo's left/right edge is probably cut off ("ACESULFAME POTASSI").
+  const edge = imageWidth * 0.01;
+  const clipped = imageWidth > 0 && words.some((w) => w.bbox.x0 <= edge || w.bbox.x1 >= imageWidth - edge);
   // A low-confidence word holding a digit is a likely misread code ("£217" read for E211, and
   // E217 is a different additive): such a read is never trusted, and the word is dropped from
   // it — a missing code is safer than the wrong additive.
@@ -44,11 +50,15 @@ async function readLocal(file: Blob): Promise<{ read: LabelRead; trusted: boolea
   const text = data.text.split(/(\s+)/).map((tok) => (shaky.has(tok) ? " " : tok)).join("");
   const ingredients = parseIngredientList(text);
   const gate = assessOcrQuality(text);
+  // Any doubtful word inside the declaration ("Sait", "COC! 0A") means a 1-character misread may
+  // be hiding a different ingredient: let AI OCR read it instead.
+  const section = findIngredientSection(text);
+  const doubtful = words.some((w) => w.confidence < LOW_WORD_CONFIDENCE && w.text.length > 1 && section.includes(w.text));
   // Garbage ("asdf qwer") must not be shown as a list and scored A+: needs the gate or a header.
   if (!ingredients.length || (!gate.acceptable && !/ingred/i.test(text))) return null;
   return {
-    read: { ingredients, ingredientText: findIngredientSection(text), provider: "tesseract" },
-    trusted: gate.acceptable && data.confidence >= MIN_MEAN_CONFIDENCE && !shaky.size,
+    read: { ingredients, ingredientText: section, provider: "tesseract" },
+    trusted: gate.acceptable && data.confidence >= MIN_MEAN_CONFIDENCE && !shaky.size && !clipped && !doubtful,
   };
 }
 
@@ -62,58 +72,24 @@ async function readRemote(file: File, signal: AbortSignal): Promise<LabelRead | 
   return ingredients.length ? { ingredients, ingredientText: d.ingredientText ?? "", provider: d.ocrProvider ?? "ai" } : null;
 }
 
-/**
- * Resolves with the first trusted read, else the best weak one, else null. Rejects only on abort.
- * When a weak read was shown and AI OCR answers later, `onUpgrade` gets the better read
- * (until `signal` aborts — the caller aborts on submit or on a new photo).
- */
-export function readLabel(file: File, signal: AbortSignal, onUpgrade?: (r: LabelRead) => void): Promise<LabelRead | null> {
-  return new Promise((resolve, reject) => {
-    let pending = 1;
-    let remoteStarted = false;
-    let settled = false;
-    let late = false;
-    let shownWeak = false;
-    let weak: LabelRead | null = null;
-
-    const finish = (r: LabelRead | null) => {
-      if (settled) return;
-      settled = true;
-      shownWeak = !!r && r === weak;
-      clearTimeout(timer);
-      clearTimeout(deadline);
-      resolve(r);
-    };
-    const settle = (r: LabelRead | null, trusted: boolean) => {
-      pending--;
-      if (settled) {
-        if (r && trusted && shownWeak && !signal.aborted) onUpgrade?.(r);
-        return;
-      }
-      if (r && trusted) return finish(r);
-      if (r && !weak) weak = r;
-      if (!remoteStarted) return startRemote();
-      if ((late && weak) || pending === 0) finish(weak);
-    };
-    const startRemote = () => {
-      if (remoteStarted || settled) return;
-      remoteStarted = true;
-      pending++;
-      readRemote(file, signal).then((r) => settle(r, true), () => settle(null, false));
-    };
-
-    const timer = setTimeout(startRemote, HEDGE_MS);
-    const deadline = setTimeout(() => { late = true; if (weak) finish(weak); }, DEADLINE_MS);
-    readLocal(file).then(
-      (r) => settle(r?.read ?? null, r?.trusted ?? false),
-      (err) => { console.warn("local OCR failed", err); settle(null, false); },
-    );
-    signal.addEventListener("abort", () => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      clearTimeout(deadline);
-      reject(new DOMException("Aborted", "AbortError"));
-    });
-  });
+/** AI OCR first; Tesseract only if it fails. Resolves with a read or null; rejects only on abort. */
+export async function readLabel(file: File, signal: AbortSignal): Promise<LabelRead | null> {
+  const abort = () => { throw new DOMException("Aborted", "AbortError"); };
+  try {
+    const ai = await readRemote(file, signal);
+    if (ai) return ai;
+  } catch (err) {
+    if (signal.aborted) abort();
+    console.warn("AI OCR failed, falling back to local OCR", err);
+  }
+  if (signal.aborted) abort();
+  try {
+    const local = await readLocal(file);
+    if (signal.aborted) abort();
+    return local?.read ?? null;
+  } catch (err) {
+    if (signal.aborted) abort();
+    console.warn("local OCR failed", err);
+    return null;
+  }
 }

@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect, DragEvent } from "react";
 import { Upload, X, ImageIcon, ArrowRight, RefreshCw, AlertCircle, CheckCircle } from "lucide-react";
 import Image from "next/image";
-import { readLabel, warmLocalOcr } from "@/lib/local-ocr";
+import { readLabel } from "@/lib/local-ocr";
 
 interface Props {
   onAnalyze: (data: { method: string; text?: string; ingredients?: string[] }) => void;
@@ -60,8 +60,6 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
   const currentFileRef = useRef<File | null>(null);
 
   useEffect(() => {
-    // Download the OCR engine while the user picks a photo, off the scan's critical path.
-    warmLocalOcr().catch(() => {});
     return () => {
       if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
       abortRef.current?.abort();
@@ -101,12 +99,8 @@ export function UploadTab({ onAnalyze, isLoading }: Props) {
     setIsExtracting(true);
 
     try {
-      // In-browser Tesseract first (free, no quota); AI OCR only as a backup — lib/local-ocr.ts.
-      const read = await readLabel(f, controller.signal, (better) => {
-        // AI OCR answered after a weaker local read was shown: swap in the better list.
-        setIngredients(better.ingredients);
-        setExtractedText(better.ingredients.join(", "));
-      });
+      // AI OCR first; in-browser Tesseract only if it fails — lib/local-ocr.ts.
+      const read = await readLabel(f, controller.signal);
       const parsed = read?.ingredients ?? [];
       setIngredients(parsed);
       const previewText = parsed.length ? parsed.join(", ") : (read?.ingredientText ?? "");
