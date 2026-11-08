@@ -4,11 +4,12 @@
 // Metrics: CER/WER (lowercased, whitespace-collapsed), ingredient recall via parseIngredientList on
 // ground truth vs read, trusted rate, and false-trust (gate said "trusted" but ingredients were wrong).
 import sharp from "sharp";
-import { createWorker } from "tesseract.js";
+import { createWorker, type Worker } from "tesseract.js";
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { findIngredientSection, parseIngredientList } from "../../lib/label-parser";
 import { judgeLocalRead } from "../../lib/local-ocr";
+import { cropAndRead, orient, readPage, type Page } from "./pipeline";
 
 const ROOT = process.cwd();
 const arg = (k: string) => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : undefined; };
@@ -20,12 +21,26 @@ const PRE: Record<string, Pre> = {
   norm: (i) => up(i).normalise().sharpen().png().toBuffer(),
   clahe: async (i) => sharp(await up(i).png().toBuffer()).clahe({ width: 64, height: 64, maxSlope: 3 }).png().toBuffer(),
 };
-// name = <pre><psm>; baseline = raw3 = what the browser does today.
-const VARIANTS = (arg("variants") ?? "raw3,raw6,norm3,norm6,clahe6").split(",").map((v) => {
+// A variant reads one photo with one worker. Static ones: <pre><psm> (raw3 = what the browser does today).
+// Multi-pass ones: rot<psm> = auto-rotate then page read; crop = auto-rotate, find "INGREDIENTS", crop, re-read.
+type Read = { data: Page; width: number };
+interface Variant { name: string; run: (file: string, w: Worker) => Promise<Read> }
+const orientCache = new Map<string, Promise<number>>(), pageCache = new Map<string, Promise<Read>>();
+const orientOf = (f: string, w: Worker) => { if (!orientCache.has(f)) orientCache.set(f, orient(f, w)); return orientCache.get(f)!; };
+const pageOf = (f: string, w: Worker, mode = "6") => { const k = f + mode; if (!pageCache.has(k)) pageCache.set(k, orientOf(f, w).then((d) => readPage(f, d, w, mode))); return pageCache.get(k)!; };
+const makeVariant = (v: string): Variant => {
+  const rot = v.match(/^rot(\d+)$/);
+  if (rot) return { name: v, run: (f, w) => pageOf(f, w, rot[1]) };
+  if (v === "crop") return { name: v, run: async (f, w) => cropAndRead(f, await orientOf(f, w), await pageOf(f, w), w) };
   const m = v.match(/^([a-z]+)(\d+)$/);
   if (!m || !PRE[m[1]]) throw new Error(`bad variant ${v}`);
-  return { name: v, pre: PRE[m[1]], psm: m[2] };
-});
+  return { name: v, run: async (f, w) => {
+    await w.setParameters({ tessedit_pageseg_mode: m[2] as never });
+    const buf = await PRE[m[1]](sharp(f));
+    return { data: (await w.recognize(buf, {}, { text: true, blocks: true })).data, width: (await sharp(buf).metadata()).width ?? 0 };
+  } };
+};
+const VARIANTS = (arg("variants") ?? "raw3,raw6,norm3,norm6,clahe6").split(",").map(makeVariant);
 
 const norm = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
 function lev<T>(a: T[], b: T[]): number {
@@ -50,7 +65,7 @@ function listImages(dir: string): string[] {
 }
 
 // Real photos are grouped by manifest tier/rotation (ocr-upright | ocr-rotated | visual-hard); synthetic by filename.
-const groupOf = (() => {
+const entryOf = (() => {
   const cache = new Map<string, Map<string, { tier: string; rotation: number }>>();
   return (file: string) => {
     const dir = file.slice(0, file.lastIndexOf("/"));
@@ -59,11 +74,16 @@ const groupOf = (() => {
       if (existsSync(join(dir, "manifest.jsonl"))) for (const l of readFileSync(join(dir, "manifest.jsonl"), "utf8").trim().split("\n")) { const j = JSON.parse(l); m.set(j.id, j); }
       cache.set(dir, m);
     }
-    const e = cache.get(dir)!.get(file.slice(file.lastIndexOf("/") + 1).replace(/\.[^.]+$/, ""));
-    if (e) return e.tier === "visual" ? "visual-hard" : e.rotation ? "ocr-rotated" : "ocr-upright";
-    return file.match(/_([a-z]+)\.[^.]+$/)?.[1] ?? "other";
+    return cache.get(dir)!.get(file.slice(file.lastIndexOf("/") + 1).replace(/\.[^.]+$/, ""));
   };
 })();
+const groupOf = (file: string) => {
+  {
+    const e = entryOf(file);
+    if (e) return e.tier === "visual" ? "visual-hard" : e.rotation ? "ocr-rotated" : "ocr-upright";
+    return file.match(/_([a-z]+)\.[^.]+$/)?.[1] ?? "other";
+  }
+};
 
 async function main() {
   const sub = arg("dir");
@@ -73,19 +93,19 @@ async function main() {
   if (!images.length) { console.log("no images with .gt.txt under ocr-bench/data (run gen-synthetic.ts first)"); return; }
 
   const workers = await Promise.all(Array.from({ length: 4 }, () => createWorker("eng", 1, { langPath: ROOT, gzip: false, cacheMethod: "none" })));
+  const cropped: Record<string, number> = {};
   const rows: Record<string, { cer: number[]; wer: number[]; recall: number[]; trusted: number; falseTrust: number; n: number; byProfile: Record<string, number[]> }> = {};
   for (const v of VARIANTS) rows[v.name] = { cer: [], wer: [], recall: [], trusted: 0, falseTrust: 0, n: 0, byProfile: {} };
 
   for (const v of VARIANTS) {
     const r = rows[v.name];
-    await Promise.all(workers.map((w) => w.setParameters({ tessedit_pageseg_mode: v.psm as never })));
     const queue = [...images];
     await Promise.all(workers.map(async (w) => {
       for (let file = queue.shift(); file; file = queue.shift()) {
       const gt = readFileSync(file.replace(/\.[^.]+$/, ".gt.txt"), "utf8");
-      const buf = await v.pre(sharp(file));
-      const width = (await sharp(buf).metadata()).width ?? 0;
-      const { data } = await w.recognize(buf, {}, { text: true, blocks: true });
+      const res = await v.run(file, w);
+      const { data, width } = res;
+      if ((res as { cropped?: boolean }).cropped) cropped[v.name] = (cropped[v.name] ?? 0) + 1;
       // Full-package photos contain far more than the list, so CER/WER compare the extracted ingredient section (approximate: it may run on into "Contains..." lines).
       const g = norm(gt), t = norm(findIngredientSection(data.text) || data.text);
       const cer = lev([...g], [...t]) / g.length;
@@ -102,6 +122,12 @@ async function main() {
     }));
     process.stderr.write(`done ${v.name}\n`);
   }
+  if (orientCache.size) { // orientation accuracy against the rotation the verifier found (OCR-verified photos only)
+    let ok = 0, n = 0; const miss: string[] = [];
+    for (const [f, p] of orientCache) { const e = entryOf(f); if (e?.tier !== "ocr") continue; n++; const d = await p; if (d === e.rotation) ok++; else miss.push(`${f.split("/").pop()}(want ${e.rotation}, got ${d})`); }
+    console.log(`\norientation accuracy: ${ok}/${n}${miss.length ? "  misses: " + miss.slice(0, 8).join(", ") : ""}`);
+  }
+  for (const [k, c] of Object.entries(cropped)) console.log(`${k}: header found and cropped on ${c}/${images.length}`);
   await Promise.all(workers.map((w) => w.terminate()));
 
   const mean = (a: number[]) => a.reduce((x, y) => x + y, 0) / (a.length || 1);
